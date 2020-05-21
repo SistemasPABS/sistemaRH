@@ -1,0 +1,77 @@
+.marco2{
+    border:1px solid red;
+    width:1024px;
+    height: 800px;
+    margin: 0 auto;
+}
+.control{
+    width:1024px;
+    height: 35px;
+    background-color: black;
+    margin-top: -610px;
+    border-left: 1px solid black;
+    position:relative;
+}
+.opcionesusuario{
+    width: 14px;
+    height: 12px;
+    border: none;
+}
+.contenedor{
+    border:1px solid green;
+    padding-left: 0px;
+    margin-left: 0;
+    margin-top: 50px;
+    width:100%;
+    height:569px;
+    position:relative;
+    background-image: none;
+    border: none;
+    overflow-y:auto;
+}
+div.opcionesmenu{
+    position:relative;
+    left: 0; 
+    height:35px;
+}
+ul.nav{
+    font-size: 8pt;
+    height: 5px;
+    float: left;}
+li.nav2{
+    height: 15px;
+}
+* {padding: 0;margin: 0px;}
+.nav li a {
+    background-color: black; 
+    color: white; 
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+    border-right: 1px solid white;
+}
+.nav li a:hover {
+    background-color: green;color: white;
+}
+.nav li a:after {
+    display: none;
+}
+.nav li ul {
+    display: none;position: absolute;min-width: 140px;
+}
+.nav li:hover > ul {
+    display: block; 
+    opacity: .9;
+}
+.nav li ul li {
+    position: relative;
+}
+.nav li ul li ul {
+    right: -140px;top: 0;
+}
+.nav > li {
+    float: left;
+}
+ul, ol {
+    list-style: none;
+}
