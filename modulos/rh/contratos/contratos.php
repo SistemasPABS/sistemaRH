@@ -38,7 +38,7 @@ class contratos extends conectasql{
     
      public function interfaz() {
         echo '<form name="opbusqueda" id="opbusqueda" method="post" action="exportar.php" target="_blank" >';
-            echo '<div class="titulo"> Administracion de Contratos A ver</div>';
+            echo '<div class="titulo"> Administracion de Contratos</div>';
             echo '<div name="busqueda" id="busqueda">';
                 echo 'Buscar por: ';
                 echo '<select class="selectbuscar" name="buscaopcion" id="buscaopcion" onchange="cambiaopciones(\'parametro\');">';
