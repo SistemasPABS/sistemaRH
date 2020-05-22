@@ -457,7 +457,7 @@ class conectasql{
         $sql="insert into puestos (puesto_cve, puesto_nombre, puesto_descripcion, puesto_aprovado,us_id,puesto_fecha, puesto_hora, plaza_id, suc_id, sal_id, puesto_idjefe, emp_id) "
             . "values ('$clave', '$nombre', '$desc', $aut, $uss, '$fecha', '$hora', $plaza, $sucursal, $salario, $jefe, $grupo);";
         $result= pg_query($this->conexion,$sql) or die("Error apto: ". pg_last_error());
-        $this->inserts="1";
+        $this->inserts='1';
     }
     
     //consulta el puesto que se ha sido agregado recientemente
@@ -472,7 +472,6 @@ class conectasql{
     public function agrega_com_puesto($puesto,$comision){
         $sql="insert into puestos_comisiones (puesto_id, co_id) values ($puesto, $comision);";
         $result= pg_query($this->conexion,$sql) or die("Error altcom: ". pg_last_error());
-        $this->inserts.="1";    
     }
     
     //consulta puestos

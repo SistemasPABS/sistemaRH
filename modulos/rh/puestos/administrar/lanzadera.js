@@ -32,7 +32,7 @@ function ver_sucursales(){
             url:url,
             data:{ns:a,op:est},
             success: function(data){
-            alert(data);
+            //alert(data);
             document.getElementById("cont_se").innerHTML=data;
             }
           });

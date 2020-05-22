@@ -53,7 +53,12 @@
         }else if(isset($_POST['jefes']) || $_POST['jefes'] != '1000'){
             $jefe=$_POST['jefes'];
         }
-        $coms=$_POST['com'];
+        if(!isset($_POST['com'])){
+            $coms='0';
+        }else if(isset($_POST['com'])){
+            $coms=$_POST['com'];
+        }
+            
         // datos de puestos
 //        echo 'datos del puesto<br>';
 //        echo 'Clave: '.$clave.'<br>';
@@ -73,7 +78,6 @@
 //        foreach ($coms as $co){
 //            echo $co.'<br>';
 //        }
-       
         
         include '../../../../config/conectasql.php';
         $insert = new conectasql();
@@ -98,11 +102,17 @@
             $insert->consulta_puesto_agregado($clave);
             
             //se insertan las comisiones si es que hay
-            foreach ($coms as $co){
-                $insert->agrega_com_puesto($insert->consulta['puesto_id'], $co);
+            if($coms != '0'){
+                foreach ($coms as $co){
+                    $insert->agrega_com_puesto($insert->consulta['puesto_id'], $co);
+                }
+                $insert->inserts.='1';//se pone aqui para no repetir en el bucle
+            }else{
+                $insert->inserts.='1';//se agrega aqui tambien por si no se agregaron comisiones intencionalmente
             }
         }
         $insert->cierra_conexion("0");
+        
         if($insert->inserts == '11'){
             echo '<script type="text/javascript">window.opener.genera();</script>';
             echo '<script type="text/javascript">
@@ -110,7 +120,7 @@
                   </script>';
             echo 'Registro guardado con exito!';
         }else {
-            echo 'Error al guardar la nueva plaza';
+            echo 'Error al guardar el nuevo puesto';
             print_r($error);
         }
         
@@ -161,7 +171,11 @@
         }else if(isset($_POST['jefes']) || $_POST['jefes'] != '1000'){
             $jefe=$_POST['jefes'];
         }
-        $coms=$_POST['com'];
+        if(!isset($_POST['com'])){
+            $coms='0';
+        }else if(isset($_POST['com'])){
+            $coms=$_POST['com'];
+        }
         // datos de puestos
 //        echo 'datos del puesto<br>';
 //        echo 'Clave: '.$clave.'<br>';
@@ -199,17 +213,24 @@
             $grupo=$insert->limpia_cadena($grupo);
             //inserta datos
             $insert->edita_puesto($registro,$clave,$nombre,$plaza,$sucursal,$salario,$jefe,$desc,$grupo);
+            
             //se borran comisiones
             $insert->elimina_comision_puesto($registro);
-            //luego se insertan las comisiones que quedaron
+            
+            //si se realizo la eliminacion de las comisiones con exito luego se insertan las comisiones que quedaron
             if($insert->flag1 == '1'){
-                foreach ($coms as $co){
-                    $insert->agrega_com_puesto($registro, $co);
+                if($coms != '0'){
+                    foreach ($coms as $co){
+                        $insert->agrega_com_puesto($registro, $co);
+                    }
+                    $insert->update.='1';
+                }else{
+                    $insert->update.='1';//se agrega aqui tambien por si no se agregaron comisiones intencionalmente
                 }
-                $insert->update.='1';
             }
         }
         $insert->cierra_conexion("0");
+        
         if($insert->update == '11'){
             echo '<script type="text/javascript">window.opener.genera();</script>';
             echo '<script type="text/javascript">
@@ -217,7 +238,7 @@
                   </script>';
             echo 'Registro editado con exito!';
         }else {
-            echo 'Error al editar la plaza';
+            echo 'Error al editar el puesto';
             print_r($error);
             echo $insert->update;
         }
