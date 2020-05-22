@@ -92,6 +92,7 @@ function genera() {
                     datatype: "json",
                     datafields: [
                         { name: 'puesto_id'},
+                        { name: 'grupo'},
                         { name: 'puesto_cve'},
                         { name: 'puesto_nombre'},
                         { name: 'puesto_descripcion'},
@@ -121,6 +122,7 @@ function genera() {
                     columnsresize: true,
                     columns: [
                       { text: 'Registro', datafield: 'puesto_id',width: 60,cellsalign: 'center'},
+                      { text: 'Grupo', datafield: 'grupo',width: 60,cellsalign: 'center'},
                       { text: 'Clave', datafield: 'puesto_cve',width: 60,cellsalign: 'center'},
                       { text: 'Nombre', datafield: 'puesto_nombre',width: 100,cellsalign: 'center'},
                       { text: 'Descripcion', datafield: 'puesto_descripcion',width: 170,cellsalign: 'center'},
@@ -174,6 +176,7 @@ function enviar() {
                     datatype: "json",
                     datafields: [
                         { name: 'puesto_id'},
+                        { name: 'grupo'},
                         { name: 'puesto_cve'},
                         { name: 'puesto_nombre'},
                         { name: 'puesto_descripcion'},
@@ -202,6 +205,7 @@ function enviar() {
                     columnsresize: true,
                     columns: [
                       { text: 'Registro', datafield: 'puesto_id',width: 60,cellsalign: 'center'},
+                      { text: 'Grupo', datafield: 'grupo',width: 60,cellsalign: 'center'},
                       { text: 'Clave', datafield: 'puesto_cve',width: 60,cellsalign: 'center'},
                       { text: 'Nombre', datafield: 'puesto_nombre',width: 100,cellsalign: 'center'},
                       { text: 'Descripcion', datafield: 'puesto_descripcion',width: 170,cellsalign: 'center'},

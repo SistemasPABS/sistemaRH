@@ -453,9 +453,9 @@ class conectasql{
     }
         
     //Agrega puestos
-    public function agrega_puesto($clave, $nombre, $desc, $aut, $uss, $fecha, $hora, $plaza, $sucursal, $salario, $jefe) {
-        $sql="insert into puestos (puesto_cve, puesto_nombre, puesto_descripcion, puesto_aprovado,us_id,puesto_fecha, puesto_hora, plaza_id, suc_id, sal_id, puesto_idjefe) "
-            . "values ('$clave', '$nombre', '$desc', $aut, $uss, '$fecha', '$hora', $plaza, $sucursal, $salario, $jefe);";
+    public function agrega_puesto($clave, $nombre, $desc, $aut, $uss, $fecha, $hora, $plaza, $sucursal, $salario, $jefe,$grupo) {
+        $sql="insert into puestos (puesto_cve, puesto_nombre, puesto_descripcion, puesto_aprovado,us_id,puesto_fecha, puesto_hora, plaza_id, suc_id, sal_id, puesto_idjefe, emp_id) "
+            . "values ('$clave', '$nombre', '$desc', $aut, $uss, '$fecha', '$hora', $plaza, $sucursal, $salario, $jefe, $grupo);";
         $result= pg_query($this->conexion,$sql) or die("Error apto: ". pg_last_error());
         $this->inserts="1";
     }
@@ -495,8 +495,8 @@ class conectasql{
     }
     
     //Edita Puestos
-    public function edita_puesto($registro, $clave, $nombre, $desc, $plaza, $sucursal, $salario, $puesto) {
-        $sql="update puestos set puesto_cve='$clave', puesto_nombre ='$nombre', puesto_descripcion='$desc', plaza_id=$plaza, suc_id=$sucursal, sal_id=$salario, puesto_id=$puesto where puesto_id=$registro ";
+    public function edita_puesto($registro,$clave,$nombre,$plaza,$sucursal,$salario,$jefe,$desc,$grupo) {
+        $sql="update puestos set puesto_cve='$clave', puesto_nombre ='$nombre', puesto_descripcion='$desc', plaza_id=$plaza, suc_id=$sucursal, sal_id=$salario, puesto_idjefe=$jefe, emp_id=$grupo where puesto_id=$registro ";
         $result= pg_query($this-> conexion, $sql) or die("Error edpto: ". pg_last_error());
         $this->update='1';
     }
@@ -567,6 +567,7 @@ class conectasql{
         $result= pg_query($this-> conexion, $sql) or die("Error edtc: ". pg_last_error());
         $this->update='1';
     }
+    
     //Consulta clave de tipo de contrato
     public function valida_clave_tc($clave) {
         $sql="select * from vw_tipos_contratos where tipoc_cve= '$clave';";

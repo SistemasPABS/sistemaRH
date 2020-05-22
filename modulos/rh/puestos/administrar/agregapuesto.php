@@ -18,6 +18,11 @@
         }else if (isset($_POST['nombre']) || !empty($_POST['nombre'])) {
             $nombre = $_POST['nombre'];
         }
+        if(!isset($_POST['grupo']) || $_POST['grupo'] == '1000'){
+            $error[]='grupo';
+        }else if(isset($_POST['grupo']) || $_POST['grupo'] != '1000'){
+            $grupo=$_POST['grupo'];
+        }
         if(!isset($_POST['clave']) || empty($_POST['clave'])){
             $error[] = "clave";
         }else if (isset($_POST['clave']) || !empty($_POST['clave'])) {
@@ -28,13 +33,11 @@
         }else if (isset($_POST['descripcion']) || !empty($_POST['descripcion'])) {
             $desc = $_POST['descripcion'];
         }
-              
         if(!isset($_POST['plazas']) || $_POST['plazas'] == '1000'){
             $error[]='plaza';
         }else if(isset($_POST['plazas']) || $_POST['plazas'] != '1000'){
             $plaza=$_POST['plazas'];
         }
-        
         if(!isset($_POST['sucursales']) || $_POST['sucursales'] == '1000'){
             $error[]='sucursales';
         }else if(isset($_POST['sucursales']) || $_POST['sucursales'] != '1000'){
@@ -55,6 +58,7 @@
 //        echo 'datos del puesto<br>';
 //        echo 'Clave: '.$clave.'<br>';
 //        echo 'Nombre: '.$nombre.'<br>';
+//        echo 'Grupo: '.$grupo.'<br>';
 //        echo 'Plaza: '.$plaza.'<br>';
 //        echo 'Sucursal: '.$sucursal.'<br>';
 //        echo 'Salario: '.$salario.'<br>';
@@ -85,9 +89,10 @@
             $sucursal=$insert->limpia_cadena($sucursal);
             $salario=$insert->limpia_cadena($salario);
             $jefe=$insert->limpia_cadena($jefe);
+            $grupo=$insert->limpia_cadena($grupo);
             
             //inserta datos
-            $insert->agrega_puesto($clave,$nombre,$desc,$aut,$uss,$fecha,$hora,$plaza,$sucursal,$salario,$jefe);
+            $insert->agrega_puesto($clave,$nombre,$desc,$aut,$uss,$fecha,$hora,$plaza,$sucursal,$salario,$jefe,$grupo);
             
             //consulta puesto insertado
             $insert->consulta_puesto_agregado($clave);
@@ -120,6 +125,11 @@
             $error[] = "nombre";
         }else if (isset($_POST['nombre']) || !empty($_POST['nombre'])) {
             $nombre = $_POST['nombre'];
+        }
+         if(!isset($_POST['grupo']) || $_POST['grupo'] == '1000'){
+            $error[]='grupo';
+        }else if(isset($_POST['grupo']) || $_POST['grupo'] != '1000'){
+            $grupo=$_POST['grupo'];
         }
         if(!isset($_POST['clave']) || empty($_POST['clave'])){
             $error[] = "clave";
@@ -165,6 +175,7 @@
 //        echo 'Autorizacion: '.$aut.'<br>';
 //        echo 'Usuario: '.$uss.'<br>';
 //        echo 'Puesto Jefe: '.$jefe.'<br>';
+//        echo 'Grupo: '.$grupo.'<br>';
 //        //print_r($coms);
 //        echo '<br>';
 //        foreach ($coms as $co){
@@ -184,9 +195,10 @@
             $plaza=$insert->limpia_cadena($plaza);
             $sucursal=$insert->limpia_cadena($sucursal);
             $salario=$insert->limpia_cadena($salario);
-            $jefe=$insert->limpia_cadena($jefe);                        
+            $jefe=$insert->limpia_cadena($jefe);
+            $grupo=$insert->limpia_cadena($grupo);
             //inserta datos
-            $insert->edita_puesto($registro,$clave,$nombre,$desc,$plaza,$sucursal,$salario,$jefe);
+            $insert->edita_puesto($registro,$clave,$nombre,$plaza,$sucursal,$salario,$jefe,$desc,$grupo);
             //se borran comisiones
             $insert->elimina_comision_puesto($registro);
             //luego se insertan las comisiones que quedaron

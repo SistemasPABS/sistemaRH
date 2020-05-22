@@ -21,7 +21,7 @@ function valida_nueva_clave(clave){
 }
 
 function ver_sucursales(){
-//    alert('hola');
+    //alert('hola');
     var a = document.form_puesto.plazas.value;
     var a = btoa(a);
     var est = btoa('suc');
@@ -32,7 +32,7 @@ function ver_sucursales(){
             url:url,
             data:{ns:a,op:est},
             success: function(data){
-            //alert(data);
+            alert(data);
             document.getElementById("cont_se").innerHTML=data;
             }
           });
