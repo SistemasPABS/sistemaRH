@@ -31,7 +31,7 @@ function autoriza_p(url){
 
 function popup(url,estid,op) {
         popupWindow = window.open(
-	url+'?em='+estid+'&op='+op,'apst'+op,'height=600px,width=850px,left=200,top=200, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
+	url+'?em='+estid+'&op='+op,'apst'+op,'height=550px,width=850px,left=200,top=200, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
 }
 
 function edita(url,estid,op){
@@ -40,7 +40,7 @@ function edita(url,estid,op){
     if( psto != 0){
         if(confirm('¿Desea editar los datos dl puesto '+psto+'?')){
             popupWindow = window.open(
-            url+'?em='+estid+'&op='+op+'&psto='+btoa(psto),'apst'+btoa(psto),'height=780px,width=1024px,left=0,top=0, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
+            url+'?em='+estid+'&op='+op+'&psto='+btoa(psto),'apst'+btoa(psto),'height=550px,width=850px,left=0,top=0, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
         }
     }else{
         alert('Seleccione un puesto para editar');
