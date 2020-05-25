@@ -22,6 +22,7 @@ class creanuevoeditar extends conectasql{
     public function formulario($op,$psto) {
         
         if($op == 'editar'){
+            $titulo='Edita Puesto';
             $fvcp='onblur="valida_nueva_clave(this.value);"';
             $operacion= base64_encode($op);
             $operacion='?op='.$operacion;
@@ -52,6 +53,7 @@ class creanuevoeditar extends conectasql{
             $this->consulta_com_puesto($this->consulta['puesto_id']);
             
         }else if($op == 'nuevo'){
+            $titulo='Nuevo Puesto';
             $operacion= base64_encode($op);
             $operacion='?op='.$operacion;
             $fvcp='onblur="valida_nueva_clave(this.value);"';
@@ -81,9 +83,9 @@ class creanuevoeditar extends conectasql{
                            </select>';
         }
         
+        echo '<head><title> '.$titulo.' </title></head>';
         echo '<form method="post" id="form_puesto" name="form_puesto" action="agregapuesto.php'.$operacion.'">';
             echo '<div class="row">';
-                echo '<h4>Agregar nuevo puesto</h4>';
                 echo '<input name="registro" id="registro" value="'.$psto.'" hidden>';
             echo '</div>';
             echo '<div class="row">';

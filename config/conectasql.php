@@ -548,7 +548,7 @@ class conectasql{
     
     public function agrega_tipoc($clave, $nombre, $plantilla) {
         $sql = "insert into tipos_contratos (tipoc_cve, tipoc_nombre, tipoc_plantilla)"
-              . "values ('".$clave."','".$nombre."','".$plantilla."')";
+              . "values ('$clave','$nombre','$plantilla')";
         $result= pg_query($this->conexion,$sql) or die("Error alttc: ". pg_last_error());
         $this->inserts.="1"; 
     }
@@ -562,7 +562,7 @@ class conectasql{
     
     //Edita Puestos
     public function edita_tipoc($registro, $clave, $nombre, $plantilla) {
-        $sql="update tipos_contratos set tipoc_clave='$clave', tipoc_nombre='$nombre', tipoc_plantilla='$plantilla' where tipoc_id=$registro";
+        $sql="update tipos_contratos set tipoc_cve='$clave', tipoc_nombre='$nombre', tipoc_plantilla='$plantilla' where tipoc_id=$registro";
         $result= pg_query($this-> conexion, $sql) or die("Error edtc: ". pg_last_error());
         $this->update='1';
     }

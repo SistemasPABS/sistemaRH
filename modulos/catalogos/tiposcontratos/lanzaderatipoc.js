@@ -11,7 +11,7 @@ function input(id){
 
 function popup(url,estid,op) {
         popupWindow = window.open(
-	url+'?em='+estid+'&op='+op,'tipc'+op,'height=400px,width=740px,left=200,top=200, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
+	url+'?em='+estid+'&op='+op,'tipc'+op,'height=200px,width=800px,left=200,top=200, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
 }
 
 function edita(url,estid,op){
@@ -20,7 +20,7 @@ function edita(url,estid,op){
     if(tipc != 0){
         if(confirm('¿Desea editar los datos del registro '+tipc+'?')){
             popupWindow = window.open(
-            url+'?em='+estid+'&op='+op+'&tipc='+btoa(tipc),'atipc'+btoa(tipc),'height=400px,width=1024px,left=0,top=0, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
+            url+'?em='+estid+'&op='+op+'&tipc='+btoa(tipc),'atipc'+btoa(tipc),'height=200px,width=800px,left=0,top=0, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
         }
     }else{
         alert('Seleccione el tipo de contrato para editar');
@@ -92,7 +92,7 @@ function genera() {
                     autoheight: true,
                     columnsresize: true,
                     columns: [
-                      { text: 'Registro', datafield: 'tipoc_id',width: 100,cellsalign: 'center'},
+                      { text: 'Registro', datafield: 'tipoc_id',width: 90,cellsalign: 'center'},
                       { text: 'Clave', datafield: 'tipoc_cve',width: 200,cellsalign: 'center'},
                       { text: 'Nombre', datafield: 'tipoc_nombre',width: 500,cellsalign: 'center'},
                       { text: 'Plantilla', datafield: 'tipoc_plantilla', width: 200,cellsformat: 'center' },
@@ -159,7 +159,7 @@ function enviar() {
                     autoheight: true,
                     columnsresize: true,
                     columns: [
-                      { text: 'Registro', datafield: 'tipoc_id',width: 100,cellsalign: 'center'},
+                      { text: 'Registro', datafield: 'tipoc_id',width: 90,cellsalign: 'center'},
                       { text: 'Clave', datafield: 'tipoc_cve',width: 200,cellsalign: 'center'},
                       { text: 'Nombre', datafield: 'tipoc_nombre',width: 500,cellsalign: 'center'},
                       { text: 'Plantilla', datafield: 'tipoc_plantilla', width: 200,cellsformat: 'center' },
