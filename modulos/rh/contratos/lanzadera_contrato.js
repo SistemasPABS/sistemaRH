@@ -1,5 +1,6 @@
 window.onload=lanzadera;
 function lanzadera (){
+  //Bloquea el menu contextual del formulario
   document.oncontextmenu = function() { return false; };
   genera(); 
 }
@@ -8,12 +9,12 @@ function input(id){
     document.getElementById('id').innerHTML = '<input>';
     return false;
 }
-
+//Ventana emergente para la creacion  de contratos
 function popup(url,estid,op) {
         popupWindow = window.open(
 	url+'?em='+estid+'&op='+op,'apst'+op,'height=600px,width=850px,left=200,top=200, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
 }
-
+//Ventana emergente para la edicion de un contrato
 function edita(url,estid,op){
     var cto = document.getElementsByClassName("jqx-fill-state-pressed")[0].textContent;
     //alert(suc);
@@ -26,7 +27,7 @@ function edita(url,estid,op){
         alert('Seleccione un contrato para editar');
     }
 }
-
+//Funcion de eliminar pendiente por validaciones
 function eliminar_r(url) {
     //alert('hola');
     var cto = document.getElementsByClassName("jqx-fill-state-pressed")[0].textContent;
@@ -45,17 +46,17 @@ function eliminar_r(url) {
 //            genera();
         }
     }else{
-        alert('Seleccione el puesto que desea eliminar');
+        alert('Seleccione el contrato que desea eliminar');
     }
 }
-
+//Funcion para exportar los resultados del datagrid
 function exportar(url,chk3){
     var chk1 = document.getElementById("buscaopcion").value;
     var chk2 = document.getElementById("busca").value;
     //alert(chk1+' '+chk2);
     popupWindow = window.open(url+'?chk1='+btoa(chk1)+'&chk2='+btoa(chk2)+'&chk3='+btoa(chk3),'popup'+btoa(chk1),'height=780px,width=1024px,left=0,top=0, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
 }
-
+//Funcion para generar el contrato en doc del contrato seleccionado en el datagrid
 function contrato(url){
     //alert('hola');
     var ct = document.getElementsByClassName("jqx-fill-state-pressed")[0].textContent;
@@ -68,7 +69,7 @@ function contrato(url){
         alert('Seleccione una persona para generar el contrato');
     }
 }
-
+//Evento del Enter
 function pulsar(e) {
     tecla = (document.all) ? e.keyCode :e.which;
     return(tecla!=13);
@@ -78,7 +79,7 @@ function cambiaopciones(posicion,id){
     document.getElementById(posicion).innerHTML = ('<input type="text" id="busca" name="busca" class="campobuscar" >');
     return false;
 }
-
+//Funcion para generar la estructura del datagrid
 function genera() { 
         var source =
                 {
@@ -113,15 +114,15 @@ function genera() {
                     columnsresize: true,
                     columns: [
                         { text: 'Registro', datafield: 'con_id',width: 60,cellsalign: 'center'},
-                        { text: 'Nombre', datafield: 'nombrecompleto',width: 200,cellsalign: 'center'},
-                        { text: 'Contrato', datafield: 'tipoc_nombre',width: 90,cellsalign: 'center'},
+                        { text: 'Nombre', datafield: 'nombrecompleto',width: 230,cellsalign: 'center'},
+                        { text: 'Contrato', datafield: 'tipoc_nombre',width: 100,cellsalign: 'center'},
                         { text: 'Documento', datafield: 'tipoc_plantilla',width: 90,cellsalign: 'center'},
                         { text: 'Plaza', datafield: 'plaza_nombre',width: 60,cellsalign: 'center'},
                         { text: 'Razon Social', datafield: 'raz_nombre', width: 90,cellsformat: 'center' },
                         { text: 'Puesto', datafield: 'puesto_nombre', width: 90, cellsformat: 'centre'},
                         { text: 'Fecha inicial', datafield: 'con_fecha_inicio', width: 100, cellsformat: 'center'},
                         { text: 'Fecha final', datafield: 'con_fecha_fin',width: 100,cellsalign: 'center'},
-                        { text: 'Status', datafield: 'con_status',width: 100,cellsalign: 'center'}
+                        { text: 'Status', datafield: 'con_status',width: 70,cellsalign: 'center'}
                      ]
                 });
 
@@ -192,15 +193,15 @@ function enviar() {
                     columnsresize: true,
                     columns: [
                         { text: 'Registro', datafield: 'con_id',width: 60,cellsalign: 'center'},
-                        { text: 'Nombre', datafield: 'nombrecompleto',width: 200,cellsalign: 'center'},
-                        { text: 'Contrato', datafield: 'tipoc_nombre',width: 90,cellsalign: 'center'},
+                        { text: 'Nombre', datafield: 'nombrecompleto',width: 230,cellsalign: 'center'},
+                        { text: 'Contrato', datafield: 'tipoc_nombre',width: 100,cellsalign: 'center'},
                         { text: 'Documento', datafield: 'tipoc_plantilla',width: 90,cellsalign: 'center'},
                         { text: 'Plaza', datafield: 'plaza_nombre',width: 60,cellsalign: 'center'},
                         { text: 'Razon Social', datafield: 'raz_nombre', width: 90,cellsformat: 'center' },
                         { text: 'Puesto', datafield: 'puesto_nombre', width: 90, cellsformat: 'centre'},
                         { text: 'Fecha inicial', datafield: 'con_fecha_inicio', width: 100, cellsformat: 'center'},
                         { text: 'Fecha final', datafield: 'con_fecha_fin',width: 100,cellsalign: 'center'},
-                        { text: 'Status', datafield: 'con_status',width: 100,cellsalign: 'center'}
+                        { text: 'Status', datafield: 'con_status',width: 70,cellsalign: 'center'}
                   ]
 
                 });

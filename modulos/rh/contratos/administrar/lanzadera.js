@@ -1,16 +1,18 @@
 window.onload=lanzadera;
+//Funcion al abrir la ventana
 function lanzadera (){
   document.oncontextmenu = function() { return false; };
   autocompletable();
 }
-
+//Autocompletado y busqueda de coincidencia de resultados
 function autocompletable(){
+    //Variables de opciones para el autocompletado de los imputs
     var persona = btoa('per');
     var contrato = btoa('cont');
     var puesto = btoa('pues');
     var razon = btoa('raz');
     var salario = btoa('sal');
-
+    //Ajax de autocompletar 
     $( "#nombre" ).autocomplete({
         source: function( request, response ) {
                 
@@ -26,10 +28,10 @@ function autocompletable(){
                     response( data );
                 }
             });
-        },
+        },//Al seleccionar un valor rrellena el resto de campos con los resultados del query
         select: function (event, ui) {
-            $('#nombre').val(ui.item.label); // display the selected text
-            $('#id_persona').val(ui.item.value); // save selected id to input
+            $('#nombre').val(ui.item.label); 
+            $('#id_persona').val(ui.item.value);
             $('#direccion').val(ui.item.dir);
             $('#genero').val(ui.item.genero);
             $('#rfc').val(ui.item.rfc);
@@ -38,7 +40,7 @@ function autocompletable(){
             $('#nac').val(ui.item.nac);
             return false;
         }
-    });
+    });//Input contrato
     $( "#contrato" ).autocomplete({
         source: function( request, response ) {
                 
@@ -60,7 +62,7 @@ function autocompletable(){
             $('#id_contrato').val(ui.item.value); // save selected id to input
             return false;
         }
-    });
+    });//Input Puesto
     $( "#puesto" ).autocomplete({
         source: function( request, response ) {
                 
@@ -83,7 +85,7 @@ function autocompletable(){
             $('#plaza').val(ui.item.plaza);
             return false;
         }
-    });
+    });//Input Razon social
     $( "#razon" ).autocomplete({
         source: function( request, response ) {
                 
@@ -105,7 +107,7 @@ function autocompletable(){
             $('#id_razon').val(ui.item.value); // save selected id to input
             return false;
         }
-    });    
+    });//Input salario
     $( "#salario" ).autocomplete({
         source: function( request, response ) {
                 
@@ -130,53 +132,54 @@ function autocompletable(){
         }
     });
  }
- 
+ //Valida campos antes de mandar el formulario
 function valida_campos(op){
-       
+       //Nombre persona
     if (document.form_contrato.nombre.value.length === 0){
         alert("El nombre no puede ir en blanco");
         document.form_contrato.clave.focus();
         return 0;
-    }
+    }//id persona
     if (document.form_contrato.id_persona.value.length === 0){
         alert("Nombre no valido");
         document.form_contrato.id_persona.focus();
         return 0;
-    }
+    }//Nombre Contrato
     if (document.form_contrato.contrato.value.length === 0){
         alert("Debes seleccionar un contrato");
         document.form_contrato.contrato.focus();
         return 0;
-    }
+    }//Contrato
     if (document.form_contrato.puesto.value.length === 0){
         alert("Debes seleccionar un puesto");
         document.form_contrato.puesto.focus();
         return 0;
-    }
+    }//razon Social
     if (document.form_contrato.razon.value.length === 0){
         alert("Debes seleccionar una razon social");
         document.form_contrato.razon.focus();
         return 0;
-    }
+    }//Salario
     if (document.form_contrato.salario.value.length === 0){
         alert("Debes seleccionar un salario");
         document.form_contrato.salario.focus();
         return 0;
-    }
+    }//Horario
     if (document.form_contrato.horario.value.length === 0){
         alert("El contrato debe de tener un horario");
         document.form_contrato.horario.focus();
         return 0;
-    }
+    }//Periodo de prueba
     if (document.form_contrato.prueba.value.length === 0){
         alert("Debes seleccionar un periodo de prueba");
         document.form_contrato.prueba.focus();
         return 0;
-    }if (document.form_contrato.fecha_ini.value.length === 0){
+    }//Fecha Inicial
+    if (document.form_contrato.fecha_ini.value.length === 0){
         alert("Debes seleccionar una fecha de inicio");
         document.form_contrato.fecha_ini.focus();
         return 0;
-    }
+    }//Estatus
     if(op=='nuevo'){
         if (document.getElementById("status").checked==false){
         alert("El nuevo contrato debe estar activo");
@@ -184,10 +187,10 @@ function valida_campos(op){
         return 0;
         }
     }
-    
+    //Envia el action del formulario
    document.form_contrato.submit();    
 }
-
+//Valida que el campo contenga solo letras
 function solo_letras(e){
        
     key = e.keyCode || e.which;
@@ -207,7 +210,7 @@ function solo_letras(e){
         return false;
     }
 }
-
+//Valida que el campo tenga solo numeros y letras
 function solo_letras_numeros(e){
     key = e.keyCode || e.which;
     tecla = String.fromCharCode(key).toString();
@@ -226,7 +229,7 @@ function solo_letras_numeros(e){
         return false;
     }
 }
-
+//Valoida que el campo solo tenga numeros
 function solo_numeros(evt){
     if(window.event){
         keynum = evt.keyCode;

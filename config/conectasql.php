@@ -23,6 +23,9 @@ class conectasql{
     public $autoriza;
     public $flag1;
     public $flag2;
+    public $consulta2;
+    public $consulta3;
+    public $consulta4;
 
     public function abre_conexion($perfil) {
         include 'config.php';
@@ -603,6 +606,28 @@ class conectasql{
         $result = pg_query($this->conexion, $sql) or die ("Error ctc: ". pg_last_error());
         $row= pg_fetch_array($result);
         $this->consulta=$row;
+    }
+    
+    //Consulta persona para cto
+    public function consulta_per_cto($reg){
+        $sql="select * from personas where persona_id=$reg;";
+        $result = pg_query($this->conexion, $sql) or die ("Error ctc: ". pg_last_error());
+        $row= pg_fetch_array($result);
+        $this->consulta2=$row;
+    }
+    //Consulta puesto para cto
+    public function consulta_per_pto($reg){
+        $sql="select * from vw_puestos where puesto_id=$reg;";
+        $result = pg_query($this->conexion, $sql) or die ("Error ctc: ". pg_last_error());
+        $row= pg_fetch_array($result);
+        $this->consulta3=$row;
+    }
+    //Consulta puesto para cto
+    public function consulta_sueldo_cto($reg){
+        $sql="select * from vw_salarios where sal_id=$reg;";
+        $result = pg_query($this->conexion, $sql) or die ("Error ctc: ". pg_last_error());
+        $row= pg_fetch_array($result);
+        $this->consulta4=$row;
     }
     
      

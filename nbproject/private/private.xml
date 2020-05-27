@@ -3,11 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/controller/modulos/catalogos/tiposcontratos/lanzaderatipoc.js</file>
-            <file>file:/C:/xampp/htdocs/controller/modulos/catalogos/tiposcontratos/administrar/creanuevoeditar.php</file>
-            <file>file:/C:/xampp/htdocs/controller/modulos/catalogos/tiposcontratos/administrar/agregatipoc.php</file>
-            <file>file:/C:/xampp/htdocs/controller/config/conectasql.php</file>
-            <file>file:/C:/xampp/htdocs/controller/modulos/catalogos/tiposcontratos/administrar/nuevo_editar_tipoc.php</file>
+            <file>file:/var/www/html/controller2/modulos/rh/contratos/genera_contrato.php</file>
+            <file>file:/var/www/html/controller2/config/conectasql.php</file>
         </group>
     </open-files>
 </project-private>

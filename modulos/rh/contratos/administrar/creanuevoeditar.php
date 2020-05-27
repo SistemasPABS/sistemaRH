@@ -6,6 +6,7 @@ class creanuevoeditar extends conectasql{
     protected $estid;
     
     public function _construct($usid, $estid) {
+        //Recinbe el id de secion del usuario y el id de la estructura del menu
         $this->usid = $usid;
         $this->estid = $estid;
     }
@@ -14,6 +15,7 @@ class creanuevoeditar extends conectasql{
         echo '<link href="../../../../estilos/personasStyles.css" type="text/css" rel="stylesheet">';
         echo '<link href="../../../../librerias/jquery-ui.css" type="text/css" rel="stylesheet">';
         echo '<script type="text/javascript" src="../../../../librerias/jquery-1.10.2.min.js"></script>';
+        //Libreria para funcion autocomplete de los input
         echo '<script type="text/javascript" src="../../../../librerias/jquery-ui.js"></script>';
         echo '<script type="text/javascript" src="lanzadera.js"></script>';       
     }
@@ -21,15 +23,16 @@ class creanuevoeditar extends conectasql{
     public function formulario($op,$cto) {
         
         if($op == 'editar'){
+            //Codifica el tipo de operacion Nuevo o Editar
             $operacion= base64_encode($op);
             $operacion='?op='.$operacion;   
-            $this->consulta_cto($cto);
+            $this->consulta_cto($cto);//Asigna a la variable consulta la informacion a editar de vw_contratos
             $persona_id=$this->consulta['persona_id'];
             $persona_nom=$this->consulta['nombrecompleto'];
             $persona_gen=$this->consulta['persona_genero'];
             $persona_rfc=$this->consulta['persona_rfc'];
             $persona_curp=$this->consulta['persona_curp'];
-            $persona_nss=$this->consulta['persona_nss']; //falta en la vista
+            $persona_nss=$this->consulta['persona_nss']; 
             $persona_nac=$this->consulta['nacionalidad_nombre'];
             $persona_dir=$this->consulta['persona_dom'];
             $cintrato_id=$this->consulta['tipoc_id'];
@@ -46,11 +49,13 @@ class creanuevoeditar extends conectasql{
             $con_prueba=$this->consulta['con_periodo'];
             $con_ini=$this->consulta['con_fecha_inicio'];
             $con_fin=$this->consulta['con_fecha_fin'];
+            //convierte el valor entero en on u off del checkbox
             if($this->consulta['con_adic'] == '1'){$checkedadic='checked="yes"';}else{$checkedadic='';}
             if($this->consulta['con_status'] == '1'){$checkedstatus='checked="yes"';}else{$checkedstatus='';}
             $ffin='';
 
         }else if($op == 'nuevo'){
+            //inicializa variables para evitar alertas de errores
             $operacion= base64_encode($op);
             $operacion='?op='.$operacion;
             $cto='';
@@ -59,7 +64,7 @@ class creanuevoeditar extends conectasql{
             $persona_gen='';
             $persona_rfc='';
             $persona_curp='';
-            $persona_nss=''; //falta en la vista
+            $persona_nss=''; 
             $persona_nac='';
             $persona_dir='';
             $cintrato_id='';

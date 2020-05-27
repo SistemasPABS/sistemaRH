@@ -1,4 +1,5 @@
 <?php
+    //Cookie para validar permisos del usuario
     include ('../../../../config/cookie.php');
 ?>
 <?php
@@ -112,6 +113,7 @@
            
         }
         $insert->cierra_conexion("0");
+        //Valida si la incercion se realizo correctamente
         if($insert->inserts == '1'){
             echo '<script type="text/javascript">window.opener.genera();</script>';
             echo '<script type="text/javascript">
@@ -119,6 +121,7 @@
                   </script>';
             echo 'Registro guardado con exito!';
         }else {
+            //Si existe error imprime el array de errores
             echo 'Error al guardar el contrato';
             print_r($error);
         }
@@ -225,6 +228,7 @@
         }
 
         $insert->cierra_conexion("0");
+        //Valida que el update se realizo con exito
         if($insert->update == '1'){
             echo '<script type="text/javascript">window.opener.genera();</script>';
             echo '<script type="text/javascript">
@@ -232,6 +236,7 @@
                   </script>';
             echo 'Registro editado con exito!';
         }else {
+            //imprime el array de errores
             echo 'Error al editar el contrato';
             print_r($error);
             echo $insert->update;

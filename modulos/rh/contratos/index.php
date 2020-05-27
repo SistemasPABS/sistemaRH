@@ -1,4 +1,5 @@
 <?php
+//Armado de la vista de contratos
 include ('../../../config/cookie.php');
 session_start();
 $usid=$_SESSION['us_id'];

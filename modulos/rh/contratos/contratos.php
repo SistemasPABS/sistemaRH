@@ -43,7 +43,8 @@ class contratos extends conectasql{
                 echo 'Buscar por: ';
                 echo '<select class="selectbuscar" name="buscaopcion" id="buscaopcion" onchange="cambiaopciones(\'parametro\');">';
                     echo '<option value="nom" > Nombre </option>';
-                    echo '<option value="cve" > Clave </option>';
+                    echo '<option value="pza" > Plaza </option>';
+                    echo '<option value="cto" > Contrato </option>';
                 echo '</select>';
                 echo '</div>';
                 echo '<div name="paramentro" id="parametro"> <input type="text" id="busca" name="busca" class="campobuscar"></div>';
@@ -51,7 +52,7 @@ class contratos extends conectasql{
 
                 echo '<div name="toolbar" id="toolbar" style="">';
                 $this->permisos('papp', $this->em,$this->usid);
-                //print_r($this->p3);
+                //botones con poermisos del usuario
                 if(in_array(50, $this->p3)){echo '<input class="cierre2" type="button" name="nuevo"    id="nuevo"    value="Nuevo"          onclick="popup(\'administrar/nuevo_editar_contrato.php\',\''. base64_encode($this->em).'\',\''. base64_encode('nuevo').'\');"  style="width:40px;" > ';}
                 if(in_array(51, $this->p3)){echo '<input class="cierre2" type="button" name="editar"   id="editar"   value="Editar"         onclick="edita(\'administrar/nuevo_editar_contrato.php\',\''. base64_encode($this->em).'\',\''. base64_encode('editar').'\');" style="width:40px;" > ';}
                 if(in_array(52, $this->p3)){echo '<input class="cierre2" type="button" name="eliminar" id="eliminar" value="Eliminar"       onclick="eliminar_r(\'administrar/eliminar.php\');" style="width:50px;" > ';}
@@ -68,9 +69,7 @@ class contratos extends conectasql{
         echo '<div id="jqxWidget" style="font-size: 8pt; font-family: Verdana; float: left;">
                 <div id="jqxgrid" style="font-size: 8pt;" >
                 </div>
-        
              </div>';
-     
     echo '</div>';
    }
 }
