@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__).'/PHPWord-master/src/PhpWord/Autoloader.php';
+require_once '../PHPWord-master/src/PhpWord/Autoloader.php';
 \PhpOffice\PhpWord\Autoloader::register();
 
 use PhpOffice\PhpWord\TemplateProcessor;

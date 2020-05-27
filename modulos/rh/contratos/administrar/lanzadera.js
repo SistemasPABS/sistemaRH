@@ -1,154 +1,191 @@
 window.onload=lanzadera;
 function lanzadera (){
   document.oncontextmenu = function() { return false; };
-  
+  autocompletable();
 }
 
-function valida_nueva_clave(clave){
-    //alert(clave);
-    var url="valida_nueva_clave.php";
-        $.ajax({
-            type: "POST",
-            url:url,
-            data:{cve:btoa(clave)},
-            success: function(data){
-                if(data.length != 0 ){
-                    alert(data); 
-                    document.getElementById("clave").value ='';
+function autocompletable(){
+    var persona = btoa('per');
+    var contrato = btoa('cont');
+    var puesto = btoa('pues');
+    var razon = btoa('raz');
+    var salario = btoa('sal');
+
+    $( "#nombre" ).autocomplete({
+        source: function( request, response ) {
+                
+            $.ajax({
+                url: "fetchDatos.php",
+                type: 'post',
+                dataType: "json",
+                data: {
+                    op:persona,
+                    search: request.term
+                },
+                success: function( data ) {
+                    response( data );
                 }
-            }
-        });
-}
-
-function ver_sucursales(){
-//    alert('hola');
-    var a = document.form_puesto.plazas.value;
-    var a = btoa(a);
-    var est = btoa('suc');
-    //alert("valores "+a+" "+est);
-    var url="agrega_selects.php";
-         $.ajax({
-            type: "POST",
-            url:url,
-            data:{ns:a,op:est},
-            success: function(data){
-            //alert(data);
-            document.getElementById("cont_se").innerHTML=data;
-            }
-          });
-}
-
-function ver_sucursales2(){
-//    alert('hola');
-    var a = document.form_puesto.plazas2.value;
-    var a = btoa(a);
-    var est = btoa('suc2');
-    //alert("valores "+a+" "+est);
-    var url="agrega_selects.php";
-         $.ajax({
-            type: "POST",
-            url:url,
-            data:{ns:a,op:est},
-            success: function(data){
-            //alert(data);
-            document.getElementById("cont_se2").innerHTML=data;
-            }
-          });
-}
-
-function ver_salarios(){
-    //alert('hola');
-    var a = document.form_puesto.sucursales.value;
-    var a = btoa(a);
-    var sal = btoa('sal');
-    //alert("Navegador autorizado "+a+" "+b);
-    var url="agrega_selects.php";
-         $.ajax({
-            type: "POST",
-            url:url,
-            data:{ns:a,op:sal},
-            success: function(data){
-            //alert(data);    
-            document.getElementById("cont_sl").innerHTML=data;
-            }
-          });
-}
-
-function ver_jefes(){
-    //alert('hola');
-    var a = document.form_puesto.sucursales2.value;
-    var a = btoa(a);
-    var jefe = btoa('jefe');
-    //alert("Navegador autorizado "+a+" "+b);
-    var url="agrega_selects.php";
-         $.ajax({
-            type: "POST",
-            url:url,
-            data:{ns:a,op:jefe},
-            success: function(data){
-            //alert(data);    
-            document.getElementById("cont_jf").innerHTML=data;
-            }
-          });
-}
-
-function ver_comisiones(){
-    //alert('hola');
-    var a = document.form_puesto.sucursales.value;
-    var a = btoa(a);
-    var coms = btoa('coms');
-    //alert("Navegador autorizado "+a+" "+b);
-    var url="agrega_selects.php";
-         $.ajax({
-            type: "POST",
-            url:url,
-            data:{ns:a,op:coms},
-            success: function(data){
-            //alert(data);    
-            document.getElementById("cont_coms").innerHTML=data;
-            }
-          });
-}
-
+            });
+        },
+        select: function (event, ui) {
+            $('#nombre').val(ui.item.label); // display the selected text
+            $('#id_persona').val(ui.item.value); // save selected id to input
+            $('#direccion').val(ui.item.dir);
+            $('#genero').val(ui.item.genero);
+            $('#rfc').val(ui.item.rfc);
+            $('#curp').val(ui.item.curp);
+            $('#nss').val(ui.item.nss);
+            $('#nac').val(ui.item.nac);
+            return false;
+        }
+    });
+    $( "#contrato" ).autocomplete({
+        source: function( request, response ) {
+                
+            $.ajax({
+                url: "fetchDatos.php",
+                type: 'post',
+                dataType: "json",
+                data: {
+                    op:contrato,
+                    search: request.term
+                },
+                success: function( data ) {
+                    response( data );
+                }
+            });
+        },
+        select: function (event, ui) {
+            $('#contrato').val(ui.item.label); // display the selected text
+            $('#id_contrato').val(ui.item.value); // save selected id to input
+            return false;
+        }
+    });
+    $( "#puesto" ).autocomplete({
+        source: function( request, response ) {
+                
+            $.ajax({
+                url: "fetchDatos.php",
+                type: 'post',
+                dataType: "json",
+                data: {
+                    op:puesto,
+                    search: request.term
+                },
+                success: function( data ) {
+                    response( data );
+                }
+            });
+        },
+        select: function (event, ui) {
+            $('#puesto').val(ui.item.label); // display the selected text
+            $('#id_puesto').val(ui.item.value); // save selected id to input
+            $('#plaza').val(ui.item.plaza);
+            return false;
+        }
+    });
+    $( "#razon" ).autocomplete({
+        source: function( request, response ) {
+                
+            $.ajax({
+                url: "fetchDatos.php",
+                type: 'post',
+                dataType: "json",
+                data: {
+                    op:razon,
+                    search: request.term
+                },
+                success: function( data ) {
+                    response( data );
+                }
+            });
+        },
+        select: function (event, ui) {
+            $('#razon').val(ui.item.label); // display the selected text
+            $('#id_razon').val(ui.item.value); // save selected id to input
+            return false;
+        }
+    });    
+    $( "#salario" ).autocomplete({
+        source: function( request, response ) {
+                
+            $.ajax({
+                url: "fetchDatos.php",
+                type: 'post',
+                dataType: "json",
+                data: {
+                    op:salario,
+                    search: request.term
+                },
+                success: function( data ) {
+                    response( data );
+                }
+            });
+        },
+        select: function (event, ui) {
+            $('#salario').val(ui.item.label); // display the selected text
+            $('#id_salario').val(ui.item.value); // save selected id to input
+            $('#pago').val(ui.item.pago); // save selected id to input
+            return false;
+        }
+    });
+ }
+ 
 function valida_campos(op){
+       
+    if (document.form_contrato.nombre.value.length === 0){
+        alert("El nombre no puede ir en blanco");
+        document.form_contrato.clave.focus();
+        return 0;
+    }
+    if (document.form_contrato.id_persona.value.length === 0){
+        alert("Nombre no valido");
+        document.form_contrato.id_persona.focus();
+        return 0;
+    }
+    if (document.form_contrato.contrato.value.length === 0){
+        alert("Debes seleccionar un contrato");
+        document.form_contrato.contrato.focus();
+        return 0;
+    }
+    if (document.form_contrato.puesto.value.length === 0){
+        alert("Debes seleccionar un puesto");
+        document.form_contrato.puesto.focus();
+        return 0;
+    }
+    if (document.form_contrato.razon.value.length === 0){
+        alert("Debes seleccionar una razon social");
+        document.form_contrato.razon.focus();
+        return 0;
+    }
+    if (document.form_contrato.salario.value.length === 0){
+        alert("Debes seleccionar un salario");
+        document.form_contrato.salario.focus();
+        return 0;
+    }
+    if (document.form_contrato.horario.value.length === 0){
+        alert("El contrato debe de tener un horario");
+        document.form_contrato.horario.focus();
+        return 0;
+    }
+    if (document.form_contrato.prueba.value.length === 0){
+        alert("Debes seleccionar un periodo de prueba");
+        document.form_contrato.prueba.focus();
+        return 0;
+    }if (document.form_contrato.fecha_ini.value.length === 0){
+        alert("Debes seleccionar una fecha de inicio");
+        document.form_contrato.fecha_ini.focus();
+        return 0;
+    }
+    if(op=='nuevo'){
+        if (document.getElementById("status").checked==false){
+        alert("El nuevo contrato debe estar activo");
+        document.form_contrato.status.focus();
+        return 0;
+        }
+    }
     
-    if (document.form_puesto.clave.value.length === 0){
-        alert("La clave no puede ir en blanco");
-        document.form_puesto.clave.focus();
-        return 0;
-    }
-    if (document.form_puesto.nombre.value.length === 0){
-        alert("El puesto debe llevar un nombre");
-        document.form_puesto.nombre.focus();
-        return 0;
-    }
-    if (document.form_puesto.plazas.value=="1000"){
-        alert("Debes de seleccionar una plaza");
-        document.form_puesto.plazas.focus();
-        return 0;
-    }
-    if (document.form_puesto.sucursales.value=="1000"){
-        alert("Debes de seleccionar una sucursal");
-        document.form_puesto.sucursales.focus();
-        return 0;
-    }
-    if (document.form_puesto.salarios.value=="1000"){
-        alert("Debes de seleccionar una salario");
-        document.form_puesto.salarios.focus();
-        return 0;
-    }
-    if (document.form_puesto.jefes.value=="1000"){
-        alert("Debes de seleccionar el puesto del jefe");
-        document.form_puesto.jefes.focus();
-        return 0;
-    }
-    if (document.getElementById("descripcion").value==""){
-        alert("Debes incluir una descripcion del puesto");
-        document.form_puesto.descripcion.focus();
-        return 0;
-    }
-        
-   document.form_puesto.submit();    
+   document.form_contrato.submit();    
 }
 
 function solo_letras(e){
@@ -203,32 +240,4 @@ function solo_numeros(evt){
       //  alert("El campo solo acepta numeros");
         return false;
     }
-}
-
-function myFunction() {
-  var valor=document.form_puesto.comisiones.value;
-  var select=document.form_puesto.comisiones;
-  var texto = select.options[select.selectedIndex].text;
-  var node = document.createElement("LI");
-  var input = document.createElement("input");
-  var textnode = document.createTextNode(texto);
-  var boton = document.createElement("button");
-  input.name="com[]";
-  input.value=valor;
-  input.hidden="yes";
-  boton.innerHTML = "eliminar";
-  node.appendChild(input);
-  node.appendChild(textnode);
-  node.appendChild(boton);
-  document.getElementById("myList").appendChild(node);
-
-  boton.onclick = function() {
-    var li = this.parentNode;
-    li.parentNode.removeChild(li);
-  }
-}
-
-function eliminar(elemento){
-    var li = elemento.parentNode;
-    li.parentNode.removeChild(li);
 }

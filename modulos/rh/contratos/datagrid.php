@@ -10,17 +10,12 @@ $fecha=date("Ymd");
 if($dato != NULL){
     switch ($param) {
         case 'nom':
-            $condicion="where puesto_nombre like '%$dato%'";
+            $condicion="where nombrecompleto like '%$dato%'";
             break;
         case 'cve':
-            $condicion="where puesto_cve like '%$dato%'";
+            $condicion="where con_id like '%$dato%'";
             break;
-        case 'suc':
-            $condicion="where suc_nombre like '%$dato%'";
-            break;
-        case 'plz':
-            $condicion="where plaza_nombre like '%$dato%'";
-            break;
+       
     }
 }else{
     $condicion="";
@@ -29,7 +24,7 @@ if($dato != NULL){
     $con= new conectasql();
     $con->abre_conexion("0");
     $conexion=$con->conexion;
-    $query = "select * from vw_puestos $condicion order by puesto_id desc;";
+    $query = "select * from vw_contratos $condicion order by con_id desc;";
     $result = pg_query($conexion,$query);
 //    if ($row = odbc_fetch_row($result)){
 //        do{
@@ -44,17 +39,16 @@ if($dato != NULL){
     $i = 0;
     while($row = pg_fetch_array($result)){
          $puestos[$i] = array();
-         $puestos[$i]['puesto_id'] = $row['puesto_id'];
-         $puestos[$i]['puesto_cve'] = $row['puesto_cve'];
-         $puestos[$i]['puesto_nombre'] = $row['puesto_nombre'];
-         $puestos[$i]['puesto_descripcion'] = $row['puesto_descripcion'];
+         $puestos[$i]['con_id'] = $row['con_id'];
+         $puestos[$i]['nombrecompleto'] = $row['nombrecompleto'];
+         $puestos[$i]['tipoc_nombre'] = $row['tipoc_nombre'];
+         $puestos[$i]['tipoc_plantilla'] = $row['tipoc_plantilla'];
          $puestos[$i]['plaza_nombre'] = $row['plaza_nombre'];
-         $puestos[$i]['suc_nombre'] = $row['suc_nombre'];
-         $puestos[$i]['sal_nombre'] = $row['sal_nombre'];
-         $puestos[$i]['puesto_fecha'] = $row['puesto_fecha'];
-         $puestos[$i]['puesto_hora'] = $row['puesto_hora'];
-         $puestos[$i]['us_login'] = $row['us_login'];
-         $puestos[$i]['nombre_jefe'] = $row['nombre_jefe'];
+         $puestos[$i]['raz_nombre'] = $row['raz_nombre'];
+         $puestos[$i]['puesto_nombre'] = $row['puesto_nombre'];
+         $puestos[$i]['con_fecha_inicio'] = $row['con_fecha_inicio'];
+         $puestos[$i]['con_fecha_fin'] = $row['con_fecha_fin'];
+         $puestos[$i]['con_status'] = $row['con_status'];
          $i++ ;
     }
     $con->cierra_conexion("0");

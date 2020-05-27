@@ -38,7 +38,7 @@ class contratos extends conectasql{
     
      public function interfaz() {
         echo '<form name="opbusqueda" id="opbusqueda" method="post" action="exportar.php" target="_blank" >';
-            echo '<div class="titulo"> Administracion de Contratos</div>';
+            echo '<div class="titulo"> Administracion de Contratos y nomas</div>';
             echo '<div name="busqueda" id="busqueda">';
                 echo 'Buscar por: ';
                 echo '<select class="selectbuscar" name="buscaopcion" id="buscaopcion" onchange="cambiaopciones(\'parametro\');">';
@@ -52,10 +52,12 @@ class contratos extends conectasql{
                 echo '<div name="toolbar" id="toolbar" style="">';
                 $this->permisos('papp', $this->em,$this->usid);
                 //print_r($this->p3);
-                if(in_array(9, $this->p3)){echo '<input class="cierre2" type="button" name="nuevo"    id="nuevo"    value="Nuevo"      onclick="popup(\'administrar/nuevo_editar_contrato.php\',\''. base64_encode($this->em).'\',\''. base64_encode('nuevo').'\');"  style="width:40px;" > ';}
-                if(in_array(10, $this->p3)){echo '<input class="cierre2" type="button" name="editar"   id="editar"   value="Editar"    onclick="edita(\'administrar/nuevo_editar_contrato.php\',\''. base64_encode($this->em).'\',\''. base64_encode('editar').'\');" style="width:40px;" > ';}
-                if(in_array(11, $this->p3)){echo '<input class="cierre2" type="button" name="eliminar" id="eliminar" value="Eliminar"  onclick="eliminar_r(\'administrar/eliminar.php\');"   style="width:50px;" > ';}
-                if(in_array(12, $this->p3)){echo '<input class="cierre2" type="button" name="export"   id="expxls"   value="XLS"       onclick="exportar(\'exportar.php\',\'xls\');"               style="width:40px;" > ';}
+                if(in_array(50, $this->p3)){echo '<input class="cierre2" type="button" name="nuevo"    id="nuevo"    value="Nuevo"          onclick="popup(\'administrar/nuevo_editar_contrato.php\',\''. base64_encode($this->em).'\',\''. base64_encode('nuevo').'\');"  style="width:40px;" > ';}
+                if(in_array(51, $this->p3)){echo '<input class="cierre2" type="button" name="editar"   id="editar"   value="Editar"         onclick="edita(\'administrar/nuevo_editar_contrato.php\',\''. base64_encode($this->em).'\',\''. base64_encode('editar').'\');" style="width:40px;" > ';}
+                if(in_array(52, $this->p3)){echo '<input class="cierre2" type="button" name="eliminar" id="eliminar" value="Eliminar"       onclick="eliminar_r(\'administrar/eliminar.php\');" style="width:50px;" > ';}
+                if(in_array(53, $this->p3)){echo '<input class="cierre2" type="button" name="export"   id="expxls"   value="XLS"            onclick="exportar(\'exportar.php\',\'xls\');" style="width:40px;" > ';}
+                if(in_array(54, $this->p3)){echo '<input class="cierre2" type="button" name="genera"   id="genera"   value="Generar Cto"    onclick="contrato(\'genera_contrato.php\');" style="width:70px;" > ';}
+            
             echo '</div>';  
         $this->listado();
         echo '</form>';
