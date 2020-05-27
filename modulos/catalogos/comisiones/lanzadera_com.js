@@ -10,16 +10,16 @@ function input(id){
 
 function popup(url,estid,op) {
         popupWindow = window.open(
-	url+'?em='+estid+'&op='+op,'acom'+op,'height=400px,width=740px,left=200,top=200, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
+	url+'?em='+estid+'&op='+op,'acom'+op,'height=200px,width=740px,left=200,top=200, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
 }
 
 function edita(url,estid,op){
     var com = document.getElementsByClassName("jqx-fill-state-pressed")[0].textContent;
     //alert(suc);
     if(com != 0){
-        if(confirm('¿Desea editar los datos de la sucursal '+com+'?')){
+        if(confirm('¿Desea editar la comision '+com+'?')){
             popupWindow = window.open(
-            url+'?em='+estid+'&op='+op+'&com='+btoa(com),'acom'+btoa(com),'height=780px,width=1024px,left=0,top=0, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
+            url+'?em='+estid+'&op='+op+'&com='+btoa(com),'acom'+btoa(com),'height=200px,width=740px,left=0,top=0, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
         }
     }else{
         alert('Seleccione la comision a editar');
@@ -100,7 +100,7 @@ function genera() {
                       { text: 'Porcentaje', datafield: 'co_porcentaje', width: 150,cellsformat: 'center'},
                       { text: 'Plaza', datafield: 'plaza_nombre', width: 150,cellsformat: 'center' },
                       { text: 'Sucursal', datafield: 'suc_nombre', width: 150,cellsformat: 'center' },
-                      { text: 'Status', datafield: 'co_activo', width: 150,cellsformat: 'center' }
+                      { text: 'Status', datafield: 'co_activo', width: 90,cellsformat: 'center' }
                     ]
                 });
 
@@ -173,7 +173,7 @@ function enviar() {
                       { text: 'Porcentaje', datafield: 'co_porcentaje', width: 150,cellsformat: 'center' },
                       { text: 'Plaza', datafield: 'plaza_nombre', width: 150,cellsformat: 'center' },
                       { text: 'Sucursal', datafield: 'suc_nombre', width: 150,cellsformat: 'center' },
-                      { text: 'Status', datafield: 'co_activo', width: 150,cellsformat: 'center' }
+                      { text: 'Status', datafield: 'co_activo', width: 90,cellsformat: 'center' }
                     ]
 
                 });

@@ -21,7 +21,7 @@ function valida_nueva_clave(clave){
 }
 
 function ver_sucursales(){
-//    alert('hola');
+    //alert('hola');
     var a = document.form_puesto.plazas.value;
     var a = btoa(a);
     var est = btoa('suc');

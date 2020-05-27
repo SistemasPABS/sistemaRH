@@ -1,11 +1,11 @@
 <?php
 
-require_once dirname(__FILE__).'/PHPWord-master/src/PhpWord/Autoloader.php';
+require_once '../PHPWord-master/src/PhpWord/Autoloader.php';
 \PhpOffice\PhpWord\Autoloader::register();
 
 use PhpOffice\PhpWord\TemplateProcessor;
 
-$templateWord = new TemplateProcessor('plantilla.docx');
+$templateWord = new TemplateProcessor('plantilla.doc');
 
 
 
@@ -26,9 +26,9 @@ $templateWord->setValue('cp_empresa',$cp);
 $templateWord->setValue('telefono_empresa',$telefono);
 
 // --- Guardamos el documento
-$templateWord->saveAs('Documento02.docx');
+$templateWord->saveAs('Documento02.doc');
 
 header("Content-Disposition: attachment; filename=Documento02.docx; charset=iso-8859-1");
-echo file_get_contents('Documento02.docx');
+echo file_get_contents('Documento02.doc');
         
 ?>

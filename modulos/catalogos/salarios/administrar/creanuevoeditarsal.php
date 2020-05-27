@@ -22,7 +22,7 @@ class creanuevoeditar extends conectasql{
         
         
         if($op == 'editar'){
-          
+            $titulo='Edita Salario';
             $operacion= base64_encode($op);
             $operacion='?op='.$operacion;
             $this->consulta_sal($sal);
@@ -36,6 +36,7 @@ class creanuevoeditar extends conectasql{
             
         
         }else if($op == 'nuevo'){
+            $titulo='Nuevo Salario';
             $v1='';
             $v2='';
             $v3='';
@@ -47,6 +48,7 @@ class creanuevoeditar extends conectasql{
                            </select>';
         }
         
+        echo '<head><title> '.$titulo.' </title></head>';
         echo '<form method="post" name="form_sal" action="agregasal.php'.$operacion.'">';
                 echo '<div class="row">';
                     echo '<div class="col-2"<h1>Salarios</h1></div>';
