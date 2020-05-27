@@ -11,16 +11,16 @@ function input(id){
 
 function popup(url,estid,op) {
         popupWindow = window.open(
-	url+'?em='+estid+'&op='+op,'razon'+op,'height=200px,width=740px,left=200,top=200, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
+	url+'?em='+estid+'&op='+op,'razon'+op,'height=400px,width=740px,left=200,top=200, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
 }
 
 function edita(url,estid,op){
     var rzn = document.getElementsByClassName("jqx-fill-state-pressed")[0].textContent;
     //alert(plz);
     if(rzn != 0){
-        if(confirm('¿Desea editar la razon social '+rzn+'?')){
+        if(confirm('¿Desea editar los datos del registro '+rzn+'?')){
             popupWindow = window.open(
-            url+'?em='+estid+'&op='+op+'&rzn='+btoa(rzn),'arzn'+btoa(rzn),'height=200px,width=740px,left=0,top=0, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
+            url+'?em='+estid+'&op='+op+'&rzn='+btoa(rzn),'arzn'+btoa(rzn),'height=780px,width=1024px,left=0,top=0, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
         }
     }else{
         alert('Seleccione la razon para editar');
@@ -92,9 +92,9 @@ function genera() {
                     autoheight: true,
                     columnsresize: true,
                     columns: [
-                      { text: 'Registro', datafield: 'raz_id',width: 100,cellsalign: 'center'},
-                      { text: 'Nombre', datafield: 'raz_nombre',width: 290,cellsalign: 'center'},
-                      { text: 'Direccion', datafield: 'raz_direccion',width: 400,cellsalign: 'center'},
+                      { text: 'Registro', datafield: 'raz_id',width: 150,cellsalign: 'center'},
+                      { text: 'Nombre', datafield: 'raz_nombre',width: 275,cellsalign: 'center'},
+                      { text: 'Direccion', datafield: 'raz_direccion',width: 375,cellsalign: 'center'},
                       { text: 'Representante', datafield: 'raz_legal', width: 200,cellsformat: 'center' },
                      ]
                 });
@@ -159,9 +159,9 @@ function enviar() {
                     autoheight: true,
                     columnsresize: true,
                     columns: [
-                      { text: 'Registro', datafield: 'raz_id',width: 100,cellsalign: 'center'},
-                      { text: 'Nombre', datafield: 'raz_nombre',width: 290,cellsalign: 'center'},
-                      { text: 'Direccion', datafield: 'raz_direccion',width: 400,cellsalign: 'center'},
+                      { text: 'Registro', datafield: 'raz_id',width: 150,cellsalign: 'center'},
+                      { text: 'Nombre', datafield: 'raz_nombre',width: 275,cellsalign: 'center'},
+                      { text: 'Direccion', datafield: 'raz_direccion',width: 375,cellsalign: 'center'},
                       { text: 'Representante', datafield: 'raz_legal', width: 200,cellsformat: 'center' },
                      ]
 

@@ -19,7 +19,7 @@ class creanuevo_editar extends conectasql{
     
     public function formulario($op,$prs) {
         if($op=='editar'){
-            $titulo='Edita Persona';
+            
             $operacion= base64_encode($op);
             $operacion='?op='.$operacion;
             $fvcp='onchange="valida_nueva_clave(this.value);"';
@@ -51,7 +51,7 @@ class creanuevo_editar extends conectasql{
             if($this->documentos['doc_fonacot'] == '1'){$checkedfonacot='checked="yes"';}else{$checkedfonacot='';}
             if($this->documentos['doc_infonavit'] == '1'){$checkedinfonavit='checked="yes"';}else{$checkedinfonavit='';}
         }else if($op == 'nuevo'){
-            $titulo='Nueva Persona';
+            
             $operacion= base64_encode($op);
             $operacion='?op='.$operacion;
             $checked='checked="yes"';
@@ -78,7 +78,6 @@ class creanuevo_editar extends conectasql{
             $checkedinfonavit='';
         }
         
-        echo '<head><title> '.$titulo.' </title></head>';
         echo '<form method="post" name="form_personas" action="agrega_persona.php'.$operacion.'">';
             echo '<div class="row">';
                 echo '<div class="col-6"';

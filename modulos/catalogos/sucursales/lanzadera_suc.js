@@ -11,7 +11,7 @@ function input(id){
 
 function popup(url,estid,op) {
         popupWindow = window.open(
-	url+'?em='+estid+'&op='+op,'asuc'+op,'height=200px,width=500px,left=200,top=200, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
+	url+'?em='+estid+'&op='+op,'asuc'+op,'height=400px,width=740px,left=200,top=200, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
 }
 
 function edita(url,estid,op){
@@ -20,7 +20,7 @@ function edita(url,estid,op){
     if(suc != 0){
         if(confirm('¿Desea editar los datos de la sucursal '+suc+'?')){
             popupWindow = window.open(
-            url+'?em='+estid+'&op='+op+'&suc='+btoa(suc),'asuc'+btoa(suc),'height=200px,width=500px,left=0,top=0, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
+            url+'?em='+estid+'&op='+op+'&suc='+btoa(suc),'asuc'+btoa(suc),'height=780px,width=1024px,left=0,top=0, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
         }
     }else{
         alert('Seleccione sucursal para editar');
@@ -96,7 +96,7 @@ function genera() {
                       { text: 'Registro', datafield: 'suc_id',width: 150,cellsalign: 'center'},
                       { text: 'Plaza', datafield: 'plaza_nombre',width: 350,cellsalign: 'center'},
                       { text: 'Sucursal', datafield: 'suc_nombre',width: 350,cellsalign: 'center'},
-                      { text: 'Status', datafield: 'suc_activo', width: 140,cellsformat: 'center' }
+                      { text: 'Status', datafield: 'suc_activo', width: 150,cellsformat: 'center' }
                      ]
                 });
 
@@ -163,7 +163,7 @@ function enviar() {
                       { text: 'Registro', datafield: 'suc_id',width: 150,cellsalign: 'center'},
                       { text: 'Plaza', datafield: 'plaza_nombre',width: 400,cellsalign: 'center'},
                       { text: 'Sucursal', datafield: 'suc_nombre',width: 400,cellsalign: 'center'},
-                      { text: 'Status', datafield: 'suc_activo', width: 140,cellsformat: 'center' }
+                      { text: 'Status', datafield: 'suc_activo', width: 150,cellsformat: 'center' }
                     ]
 
                 });

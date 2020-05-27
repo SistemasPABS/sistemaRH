@@ -7,8 +7,8 @@
     $usid=$_SESSION['us_id'];
     $estid = base64_decode($_GET['em']);
     $op= base64_decode($_GET['op']);
-    if(isset($_GET['tipc'])){
-        $tipc=base64_decode($_GET['tipc']);
+    if(isset($_GET['$tipc'])){
+        $tipc=base64_decode($_GET['$tipc']);
     }else{
         $tipc=false;
     }

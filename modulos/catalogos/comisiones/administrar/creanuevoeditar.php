@@ -21,7 +21,6 @@ class creanuevoeditar extends conectasql{
     
     public function formulario($op,$com) {
         if($op == 'editar'){
-            $titulo='Edita Comision';
             $operacion= base64_encode($op);
             $operacion='?op='.$operacion;
             $this->consulta_com($com);
@@ -38,7 +37,6 @@ class creanuevoeditar extends conectasql{
                 $v3= $this->consulta['co_monto'];
             }
         }else if($op == 'nuevo'){
-            $titulo='Nueva Comision';
             $v1='';
             $v2='';
             $v3='';
@@ -50,9 +48,9 @@ class creanuevoeditar extends conectasql{
                            </select>';
         }
         
-        echo '<head><title> '.$titulo.' </title></head>';
         echo '<form method="post" name="form_com" action="agregacom.php'.$operacion.'">';
                 echo '<div class="row">';
+                    echo '<div class="col-6"<h1>Comisiones</h1></div>';
                     echo '<input name="registro" id="registro" value="'.$com.'" hidden>';
                 echo '</div>';
                 echo '<div class="row">';

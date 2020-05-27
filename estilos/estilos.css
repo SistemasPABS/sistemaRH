@@ -107,10 +107,3 @@ div.rtabla{
     height: 100%;
     margin: auto;;
 }
-#myList{
-    border:1px solid grey;
-    margin-top:-1px;
-    margin-left:-55px;
-    width: 355px;
-    height: 85px;
-}

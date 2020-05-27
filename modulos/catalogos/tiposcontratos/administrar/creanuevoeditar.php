@@ -18,29 +18,33 @@ class creanuevoeditar extends conectasql{
     
     public function formulario($op,$tipc) {
         if($op == 'editar'){
-            $titulo='Edita Tipo contrato';
             $operacion= base64_encode($op);
             $operacion='?op='.$operacion;
             $this->consulta_tipoc($tipc);
             $fvcp='onchange="valida_nueva_clave(this.value);"';
             $clave= $this->consulta['tipoc_cve'];
             $nombre= $this->consulta['tipoc_nombre'];
-            $plantilla= $this->consulta['tipoc_plantilla'];
+            $plantilla= $this->consulta['topoc_plantilla'];
             
         }else if($op == 'nuevo'){
-            $titulo='Nuevo Tipo Contrato';
             $operacion= base64_encode($op);
             $operacion='?op='.$operacion;
             $fvcp='onblur="valida_nueva_clave(this.value);"';
             $clave='';
             $nombre='';
+            $plantilla='';
         }
-        echo '<head><title> '.$titulo.' </title></head>';
+        
         echo '<form method="post" enctype="multipart/form-data" name="form_tipoc" action="agregatipoc.php'.$operacion.'">';
+            echo '<div class="row">';
+                echo '<div class="col-6"';
+                   echo '<h1>Datos personales</h1>';
+                echo '</div>';
+            echo '</div>';
             echo '<div class="row">';
                 echo '<input name="registro" id="registro" value="'.$tipc.'" hidden>';
                 echo '<div class="col-2"><label>Clave</label><br><input class="input0" type="text" name="clave" onkeypress="return solo_letras_numeros(event);" '.$fvcp.' id="clave" value="'.$clave.'" placeholder="Clave" required></div>';
-                echo '<div class="col-4"><label>Nombre</label><input class="input0" type="text" name="nombre" onkeypress="return solo_letras(event);" id="nombre" value="'.$nombre.'" placeholder="Nombre"></div>';
+                echo '<div class="col-8"><label>Nombre</label><input class="input0" type="text" name="nombre" onkeypress="return solo_letras(event);" id="nombre" value="'.$nombre.'" placeholder="Nombre"></div>';
                 echo '<div class="col-2"><label>Plantilla</label><br><input type="file" name="plantilla"></div>';
             echo '</div>';
 
