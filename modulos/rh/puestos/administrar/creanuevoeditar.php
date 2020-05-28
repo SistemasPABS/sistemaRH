@@ -35,14 +35,13 @@ class creanuevoeditar extends conectasql{
             }
             $selectdefault= $this->consulta['plaza_id'];
             $grupodefault= $this->consulta['emp_id'];
-            $sucidcom= $this->consulta['suc_id'];
             $this->selects_creator('select * from sucursales order by suc_id','sucursales','suc_id','suc_nombre','sucursales','onChange= ""',$this->consulta['suc_id']);
             $selectsuc=$this->select;
             $this->selects_creator('select * from salarios order by sal_id','salarios','sal_id','sal_nombre','salarios','onChange= ""',$this->consulta['sal_id']);
             $selectsal=$this->select; 
             $this->selects_creator('select * from puestos order by puesto_id','jefes','puesto_id','puesto_nombre','jefes','onChange= ""',$this->consulta['puesto_id']);
             $selectjefe=$this->select;
-            $this->select_multiple('select * from vw_comisiones where suc_id='.$sucidcom.' order by co_id', 'comisiones', 'co_id', 'co_nombre', 'comisiones', 'onChange=""','');
+            $this->select_multiple('select * from vw_comisiones where emp_id='.$grupodefault.' order by co_id', 'comisiones', 'co_id', 'co_nombre', 'comisiones', 'onChange=""','');
             $comisiones_selectA=$this->select;
             if(!empty($this->consulta['puesto_descripcion'])){
                 $descrip= $this->consulta['puesto_descripcion'];
@@ -76,11 +75,9 @@ class creanuevoeditar extends conectasql{
                             <option value="1000">Jefe inmediato</option>
                            </select>';
             $comisiones_selectA='<select class="input0" name="comisionesA"  id="="comisionesA" value="0" size="5" multiple>
-                            <option value="1000">Seleccione una sucursal</option>
+                            <option value="1000">Seleccione Grupo</option>
                            </select>';
-            $comisiones_selectB='<select class="input0" name="comisionesA" value="0" size="5" multiple>
-                            <option value="1000">Seleccione una sucursal</option>
-                           </select>';
+           
         }
         
         echo '<head><title> '.$titulo.' </title></head>';
@@ -92,7 +89,7 @@ class creanuevoeditar extends conectasql{
                 echo '<div class="col-3"><label>Clave</label><br><input class="input0" name="clave" onkeypress="return solo_letras_numeros(event);" id="clave" placeholder="Clave" value="'.$clve.'"'.$fvcp.'></div>';
                 echo '<div class="col-3"><label>Nombre</label><br><input class="input0" name="nombre" onkeypress="return solo_letras(event);"  id="nombre" placeholder="Nombre" value="'.$nom.'"></div>';
                 echo '<div class="col-3"><label>Grupo</label><br>';
-                    $this->selects_creator('select * from empresas', 'grupo', 'emp_id', 'emp_nombre', 'grupo', 'onChange=""', $grupodefault);
+                    $this->selects_creator('select * from empresas', 'grupos', 'emp_id', 'emp_nombre', 'grupos', 'onChange="ver_comisiones();"', $grupodefault);
                     echo $this->select;
                 echo '</div>';
             echo '</div>';

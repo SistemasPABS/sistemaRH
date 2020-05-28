@@ -18,10 +18,10 @@
         }else if (isset($_POST['nombre']) || !empty($_POST['nombre'])) {
             $nombre = $_POST['nombre'];
         }
-        if(!isset($_POST['grupo']) || $_POST['grupo'] == '1000'){
-            $error[]='grupo';
-        }else if(isset($_POST['grupo']) || $_POST['grupo'] != '1000'){
-            $grupo=$_POST['grupo'];
+        if(!isset($_POST['grupos']) || $_POST['grupos'] == '1000'){
+            $error[]='grupos';
+        }else if(isset($_POST['grupos']) || $_POST['grupos'] != '1000'){
+            $grupo=$_POST['grupos'];
         }
         if(!isset($_POST['clave']) || empty($_POST['clave'])){
             $error[] = "clave";
@@ -136,10 +136,10 @@
         }else if (isset($_POST['nombre']) || !empty($_POST['nombre'])) {
             $nombre = $_POST['nombre'];
         }
-         if(!isset($_POST['grupo']) || $_POST['grupo'] == '1000'){
-            $error[]='grupo';
-        }else if(isset($_POST['grupo']) || $_POST['grupo'] != '1000'){
-            $grupo=$_POST['grupo'];
+         if(!isset($_POST['grupos']) || $_POST['grupos'] == '1000'){
+            $error[]='grupos';
+        }else if(isset($_POST['grupos']) || $_POST['grupos'] != '1000'){
+            $grupo=$_POST['grupos'];
         }
         if(!isset($_POST['clave']) || empty($_POST['clave'])){
             $error[] = "clave";

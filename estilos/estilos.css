@@ -108,9 +108,21 @@ div.rtabla{
     margin: auto;;
 }
 #myList{
+    font-size:9pt;
     border:1px solid grey;
     margin-top:-1px;
     margin-left:-55px;
     width: 355px;
     height: 85px;
+    overflow-y: scroll;
+}
+.delrow{
+    font-size: 9pt;
+    font-weight: bold;
+    background-color: red;
+    border: none;
+    color:white;
+}
+.licom{
+    width:auto;
 }

@@ -396,16 +396,16 @@ class conectasql{
     }
     
     //Agrega Comisiones
-    public function agrega_com($nombre, $monto, $porcentaje, $plaza, $sucursal, $status) {
-        $sql="insert into comisiones (co_nombre, co_monto, co_porcentaje, plaza_id, suc_id, co_activo ) "
-            . "values ('$nombre', $monto, '$porcentaje', $plaza, $sucursal, $status)";
+    public function agrega_com($nombre, $monto, $porcentaje, $grupo, $status) {
+        $sql="insert into comisiones (co_nombre, co_monto, co_porcentaje, emp_id, co_activo ) "
+            . "values ('$nombre', $monto, '$porcentaje', $grupo, $status)";
         $results= pg_query($this->conexion,$sql) or die("Error nco: ". pg_last_error());//nueva comision
         $this->inserts='1';
     }
     
     //Actualiza Comisiones
-    public function actualiza_com($id, $nombre, $monto, $porcentaje, $plaza, $sucursal, $status) {
-        $sql="update comisiones set co_nombre='$nombre', co_monto=$monto, co_porcentaje='$porcentaje', plaza_id=$plaza, suc_id=$sucursal, co_activo=$status where co_id = $id";
+    public function actualiza_com($id, $nombre, $monto, $porcentaje, $grupo, $status) {
+        $sql="update comisiones set co_nombre='$nombre', co_monto=$monto, co_porcentaje='$porcentaje', emp_id=$grupo, co_activo=$status where co_id = $id";
         $results= pg_query($this->conexion,$sql) or die("Error uco: ". pg_last_error());//actualiza comision
         $this->update='1';
     }
@@ -490,7 +490,7 @@ class conectasql{
         $result = pg_query($this->conexion, $sql) or die ("Error ccpp: ". pg_last_error());
         if($row = pg_fetch_array($result)){
             do{
-                $this->html.='<li><input type="text" value="'.$row['co_id'].'" name="com[]" hidden> '.$row['co_nombre'].' <input type="button" onclick="eliminar(this)" value="eliminar"></li>';
+                $this->html.='<li class="licom"><input type="text" value="'.$row['co_id'].'" name="com[]" hidden> '.$row['co_nombre'].' <input type="button" class="delrow" onclick="eliminar(this)" value="eliminar"></li>';
             }
             while($row = pg_fetch_array($result));
         }

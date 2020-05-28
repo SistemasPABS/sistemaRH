@@ -12,11 +12,8 @@ if($dato != NULL){
         case 'nom':
             $condicion="where co_nombre like '%$dato%'";
             break;
-        case 'suc':
-            $condicion="where suc_nombre like '%$dato%'";
-            break;
-        case 'plz':
-            $condicion="where plaza_nombre like '%$dato%'";
+        case 'emp':
+            $condicion="where emp_nombre like '%$dato%'";
             break;
     }
 }else{
@@ -45,8 +42,7 @@ if($dato != NULL){
          $suc[$i]['co_nombre'] = $row['co_nombre'];
          $suc[$i]['co_monto'] = $row['co_monto'];
          $suc[$i]['co_porcentaje'] = $row['co_porcentaje'];
-         $suc[$i]['plaza_nombre'] = $row['plaza_nombre'];
-         $suc[$i]['suc_nombre'] = $row['suc_nombre'];
+         $suc[$i]['emp_nombre'] = $row['emp_nombre'];
          if($row['co_activo'] == 1 ){$status='<img src="../../../images/palomaicon.png" width="14" height="14">';}else{$status='<img src="../../../images/eliminaricon.png" width="14" height="14">';}
          $suc[$i]['co_activo'] = $status;
          //validacion para indicar el status con un icono

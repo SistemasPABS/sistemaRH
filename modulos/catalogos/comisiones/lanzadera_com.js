@@ -74,8 +74,7 @@ function genera() {
                         { name: 'co_nombre'},
                         { name: 'co_monto'},
                         { name: 'co_porcentaje'},
-                        { name: 'plaza_nombre'},
-                        { name: 'suc_nombre'},
+                        { name: 'emp_nombre'},
                         { name: 'co_activo'}
                         ],
                         
@@ -95,11 +94,10 @@ function genera() {
                     columnsresize: true,
                     columns: [
                       { text: 'Registro', datafield: 'co_id',width: 150,cellsalign: 'center'},
-                      { text: 'Comision', datafield: 'co_nombre',width: 150,cellsalign: 'center'},
+                      { text: 'Comision', datafield: 'co_nombre',width: 300,cellsalign: 'center'},
                       { text: 'Monto', datafield: 'co_monto',width: 150,cellsalign: 'center'},
                       { text: 'Porcentaje', datafield: 'co_porcentaje', width: 150,cellsformat: 'center'},
-                      { text: 'Plaza', datafield: 'plaza_nombre', width: 150,cellsformat: 'center' },
-                      { text: 'Sucursal', datafield: 'suc_nombre', width: 150,cellsformat: 'center' },
+                      { text: 'Grupo', datafield: 'emp_nombre', width: 150,cellsformat: 'center' },
                       { text: 'Status', datafield: 'co_activo', width: 90,cellsformat: 'center' }
                     ]
                 });
@@ -147,8 +145,7 @@ function enviar() {
                         { name: 'co_nombre'},
                         { name: 'co_monto'},
                         { name: 'co_porcentaje'},
-                        { name: 'plaza_nombre'},
-                        { name: 'suc_nombre'},
+                        { name: 'emp_nombre'},
                         { name: 'co_activo'}
                         ],
                         
@@ -168,11 +165,10 @@ function enviar() {
                     columnsresize: true,
                     columns: [
                       { text: 'Registro', datafield: 'co_id',width: 150,cellsalign: 'center'},
-                      { text: 'Comision', datafield: 'co_nombre',width: 150,cellsalign: 'center'},
+                      { text: 'Comision', datafield: 'co_nombre',width: 300,cellsalign: 'center'},
                       { text: 'Monto', datafield: 'co_monto',width: 150,cellsalign: 'center'},
                       { text: 'Porcentaje', datafield: 'co_porcentaje', width: 150,cellsformat: 'center' },
-                      { text: 'Plaza', datafield: 'plaza_nombre', width: 150,cellsformat: 'center' },
-                      { text: 'Sucursal', datafield: 'suc_nombre', width: 150,cellsformat: 'center' },
+                      { text: 'Grupo', datafield: 'emp_nombre', width: 150,cellsformat: 'center' },
                       { text: 'Status', datafield: 'co_activo', width: 90,cellsformat: 'center' }
                     ]
 

@@ -26,9 +26,7 @@ class creanuevoeditar extends conectasql{
             $operacion='?op='.$operacion;
             $this->consulta_com($com);
             if($this->consulta['co_activo'] == '1'){$checked='checked="yes"';}else{$checked='';}
-            $selectdefault= $this->consulta['plaza_id'];
-            $this->selects_creator('select * from sucursales order by suc_id','sucursales','suc_id','suc_nombre','sucursales','onChange= ""',$this->consulta['suc_id']);
-            $selectedit=$this->select; 
+            $selectdefault= $this->consulta['emp_id'];
             if($this->consulta['co_monto'] == 0){
                 $v1='selected';//valor default para porcentaje
                 $v3= $this->consulta['co_porcentaje'];
@@ -45,9 +43,7 @@ class creanuevoeditar extends conectasql{
             $operacion= base64_encode($op);
             $operacion='?op='.$operacion;
             $checked='checked="yes"';
-            $selectedit='<select class="input0" name="estados" value="0">
-                            <option value="1000">Seleccione una plaza</option>
-                           </select>';
+            $selectdefault='';
         }
         
         echo '<head><title> '.$titulo.' </title></head>';
@@ -68,14 +64,11 @@ class creanuevoeditar extends conectasql{
                            </select>';
                     echo '</div>';
                     echo '<div class="col-2"><label>Comision</label><br><input class="input0" type="text" name="comision" onkeypress="return solo_numeros(event);" id="comision" value='.$v3.'></div>';
-                    echo '<div class="col-3"><label>Plaza</label><br>';
-                        $this->selects_creator('select * from plazas order by plaza_id','plazas','plaza_id','plaza_nombre','plazas','onChange= "ver_sucursales();"',$selectdefault);
+                    echo '<div class="col-3"><label>Grupo</label><br>';
+                        $this->selects_creator('select * from empresas order by emp_id','grupos','emp_id','emp_nombre','grupos','onChange= ""',$selectdefault);
                         echo $this->select;   
                     echo '</div>';
-                    echo ' <div class="col-3"><label>Sucursales</label><br>';
-                    echo '<div id="cont_se">';
-                        echo $selectedit;
-                    echo '</div>';  
+                      
                 echo '</div>';
 
                echo '<div class="division"></div>';
