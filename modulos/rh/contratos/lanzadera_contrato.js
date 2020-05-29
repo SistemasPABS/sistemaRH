@@ -1,5 +1,6 @@
 window.onload=lanzadera;
 function lanzadera (){
+  //Bloquea el menu contextual del formulario
   document.oncontextmenu = function() { return false; };
   genera(); 
 }
@@ -8,32 +9,12 @@ function input(id){
     document.getElementById('id').innerHTML = '<input>';
     return false;
 }
-
-//function autoriza_p(url){
-//    //alert('hola');
-//    var p = document.getElementsByClassName("jqx-fill-state-pressed")[0].textContent;
-//    if(p != 0){
-//        if(confirm('¿Desea autoizar el registro '+p+'?')){
-//            $.ajax({
-//                type:"POST",
-//                url:url,
-//                data:{pue:btoa(p)},
-//                success: function(data){
-//                alert(data);    //success: function(datos){ $(\'#tabla\').html(datos); }
-//                genera();
-//                }
-//            });
-//        }
-//    }else{
-//        alert('Seleccione el salario a autorizar');
-//    }
-//}
-
+//Ventana emergente para la creacion  de contratos
 function popup(url,estid,op) {
         popupWindow = window.open(
 	url+'?em='+estid+'&op='+op,'apst'+op,'height=600px,width=850px,left=200,top=200, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
 }
-
+//Ventana emergente para la edicion de un contrato
 function edita(url,estid,op){
     var cto = document.getElementsByClassName("jqx-fill-state-pressed")[0].textContent;
     //alert(suc);
@@ -46,7 +27,7 @@ function edita(url,estid,op){
         alert('Seleccione un contrato para editar');
     }
 }
-
+//Funcion de eliminar pendiente por validaciones
 function eliminar_r(url) {
     //alert('hola');
     var cto = document.getElementsByClassName("jqx-fill-state-pressed")[0].textContent;
@@ -65,17 +46,30 @@ function eliminar_r(url) {
 //            genera();
         }
     }else{
-        alert('Seleccione el puesto que desea eliminar');
+        alert('Seleccione el contrato que desea eliminar');
     }
 }
-
+//Funcion para exportar los resultados del datagrid
 function exportar(url,chk3){
     var chk1 = document.getElementById("buscaopcion").value;
     var chk2 = document.getElementById("busca").value;
     //alert(chk1+' '+chk2);
     popupWindow = window.open(url+'?chk1='+btoa(chk1)+'&chk2='+btoa(chk2)+'&chk3='+btoa(chk3),'popup'+btoa(chk1),'height=780px,width=1024px,left=0,top=0, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
 }
-
+//Funcion para generar el contrato en doc del contrato seleccionado en el datagrid
+function contrato(url){
+    //alert('hola');
+    var ct = document.getElementsByClassName("jqx-fill-state-pressed")[0].textContent;
+    if(ct != 0){
+        if(confirm('¿Desea generar el contrato '+ct+'?')){
+            popupWindow = window.open(
+            url+'?ct='+btoa(ct),'act'+btoa(ct),'height=400px,width=600px,left=0,top=0, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
+        }
+    }else{
+        alert('Seleccione una persona para generar el contrato');
+    }
+}
+//Evento del Enter
 function pulsar(e) {
     tecla = (document.all) ? e.keyCode :e.which;
     return(tecla!=13);
@@ -85,23 +79,22 @@ function cambiaopciones(posicion,id){
     document.getElementById(posicion).innerHTML = ('<input type="text" id="busca" name="busca" class="campobuscar" >');
     return false;
 }
-
+//Funcion para generar la estructura del datagrid
 function genera() { 
         var source =
                 {
                     datatype: "json",
                     datafields: [
-                        { name: 'puesto_id'},
-                        { name: 'puesto_cve'},
-                        { name: 'puesto_nombre'},
-                        { name: 'puesto_descripcion'},
+                        { name: 'con_id'},
+                        { name: 'nombrecompleto'},
+                        { name: 'tipoc_nombre'},
+                        { name: 'tipoc_plantilla'},
                         { name: 'plaza_nombre'},
-                        { name: 'suc_nombre'},
-                        { name: 'sal_nombre'},
-                        { name: 'puesto_fecha'},
-                        { name: 'puesto_hora'},
-                        { name: 'us_login'},
-                        { name: 'nombre_jefe'}
+                        { name: 'raz_nombre'},
+                        { name: 'puesto_nombre'},
+                        { name: 'con_fecha_inicio'},
+                        { name: 'con_fecha_fin'},
+                        { name: 'con_status'}
                         ],
                         
 
@@ -120,17 +113,16 @@ function genera() {
                     autoheight: true,
                     columnsresize: true,
                     columns: [
-                      { text: 'Registro', datafield: 'puesto_id',width: 60,cellsalign: 'center'},
-                      { text: 'Clave', datafield: 'puesto_cve',width: 60,cellsalign: 'center'},
-                      { text: 'Nombre', datafield: 'puesto_nombre',width: 100,cellsalign: 'center'},
-                      { text: 'Descripcion', datafield: 'puesto_descripcion',width: 170,cellsalign: 'center'},
-                      { text: 'Plaza', datafield: 'plaza_nombre', width: 100,cellsformat: 'center' },
-                      { text: 'Sucursal', datafield: 'suc_nombre', width: 100, cellsformat: 'centre'},
-                      { text: 'Salario', datafield: 'sal_nombre', width: 100, cellsformat: 'center'},
-                      { text: 'Fecha', datafield: 'puesto_fecha',width: 100,cellsalign: 'center'},
-                      { text: 'Hora', datafield: 'puesto_hora',width: 100,cellsalign: 'center'},
-                      { text: 'Autorizado', datafield: 'us_login',width: 100,cellsalign: 'center'},
-                      { text: 'Jefe inmediato', datafield: 'nombre_jefe',width: 100,cellsalign: 'center'}
+                        { text: 'Registro', datafield: 'con_id',width: 60,cellsalign: 'center'},
+                        { text: 'Nombre', datafield: 'nombrecompleto',width: 230,cellsalign: 'center'},
+                        { text: 'Contrato', datafield: 'tipoc_nombre',width: 100,cellsalign: 'center'},
+                        { text: 'Documento', datafield: 'tipoc_plantilla',width: 90,cellsalign: 'center'},
+                        { text: 'Plaza', datafield: 'plaza_nombre',width: 60,cellsalign: 'center'},
+                        { text: 'Razon Social', datafield: 'raz_nombre', width: 90,cellsformat: 'center' },
+                        { text: 'Puesto', datafield: 'puesto_nombre', width: 90, cellsformat: 'centre'},
+                        { text: 'Fecha inicial', datafield: 'con_fecha_inicio', width: 100, cellsformat: 'center'},
+                        { text: 'Fecha final', datafield: 'con_fecha_fin',width: 100,cellsalign: 'center'},
+                        { text: 'Status', datafield: 'con_status',width: 70,cellsalign: 'center'}
                      ]
                 });
 
@@ -173,17 +165,16 @@ function enviar() {
                 {
                     datatype: "json",
                     datafields: [
-                        { name: 'puesto_id'},
-                        { name: 'puesto_cve'},
-                        { name: 'puesto_nombre'},
-                        { name: 'puesto_descripcion'},
+                        { name: 'con_id'},
+                        { name: 'nombrecompleto'},
+                        { name: 'tipoc_nombre'},
+                        { name: 'tipoc_plantilla'},
                         { name: 'plaza_nombre'},
-                        { name: 'suc_nombre'},
-                        { name: 'sal_nombre'},
-                        { name: 'puesto_fecha'},
-                        { name: 'puesto_hora'},
-                        { name: 'us_login'},
-                        { name: 'nombre_jefe'}
+                        { name: 'raz_nombre'},
+                        { name: 'puesto_nombre'},
+                        { name: 'con_fecha_inicio'},
+                        { name: 'con_fecha_fin'},
+                        { name: 'con_status'}
                         ],
                         
                     url: 'datagrid.php?oc1='+btoa(dato)+'&oc2='+btoa(dato2)
@@ -201,17 +192,16 @@ function enviar() {
                     autoheight: true,
                     columnsresize: true,
                     columns: [
-                      { text: 'Registro', datafield: 'puesto_id',width: 60,cellsalign: 'center'},
-                      { text: 'Clave', datafield: 'puesto_cve',width: 60,cellsalign: 'center'},
-                      { text: 'Nombre', datafield: 'puesto_nombre',width: 100,cellsalign: 'center'},
-                      { text: 'Descripcion', datafield: 'puesto_descripcion',width: 170,cellsalign: 'center'},
-                      { text: 'Plaza', datafield: 'plaza_nombre', width: 100,cellsformat: 'center' },
-                      { text: 'Sucursal', datafield: 'suc_nombre', width: 100, cellsformat: 'centre'},
-                      { text: 'Salario', datafield: 'sal_nombre', width: 100, cellsformat: 'center'},
-                      { text: 'Fecha', datafield: 'puesto_fecha',width: 100,cellsalign: 'center'},
-                      { text: 'Hora', datafield: 'puesto_hora',width: 100,cellsalign: 'center'},
-                      { text: 'Autorizado', datafield: 'us_login',width: 100,cellsalign: 'center'},
-                      { text: 'Jefe inmediato', datafield: 'nombre_jefe',width: 100,cellsalign: 'center'}
+                        { text: 'Registro', datafield: 'con_id',width: 60,cellsalign: 'center'},
+                        { text: 'Nombre', datafield: 'nombrecompleto',width: 230,cellsalign: 'center'},
+                        { text: 'Contrato', datafield: 'tipoc_nombre',width: 100,cellsalign: 'center'},
+                        { text: 'Documento', datafield: 'tipoc_plantilla',width: 90,cellsalign: 'center'},
+                        { text: 'Plaza', datafield: 'plaza_nombre',width: 60,cellsalign: 'center'},
+                        { text: 'Razon Social', datafield: 'raz_nombre', width: 90,cellsformat: 'center' },
+                        { text: 'Puesto', datafield: 'puesto_nombre', width: 90, cellsformat: 'centre'},
+                        { text: 'Fecha inicial', datafield: 'con_fecha_inicio', width: 100, cellsformat: 'center'},
+                        { text: 'Fecha final', datafield: 'con_fecha_fin',width: 100,cellsalign: 'center'},
+                        { text: 'Status', datafield: 'con_status',width: 70,cellsalign: 'center'}
                   ]
 
                 });

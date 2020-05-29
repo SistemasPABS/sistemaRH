@@ -14,18 +14,16 @@ $parametro= base64_decode($_GET['chk1']);
 $campo= base64_decode($_GET['chk2']);
 $extension= base64_decode($_GET['chk3']);
 if($campo != NULL){
+    //Switch para la exportacion 
     switch ($parametro){
         case 'nom':
-            $where="where puesto_nombre like '%$campo%'";
+            $where="where nombrecompleto like '%$campo%'";
             break;
-        case 'cve':
-            $where="where puesto_cve like '%$campo%'";
-            break;
-        case 'suc':
-            $where="where suc_nombre like '%$campo%'";
-            break;
-        case 'plz':
+        case 'pza':
             $where="where plaza_nombre like '%$campo%'";
+            break;
+        case 'cto':
+            $where="where con_nombre like '%$campo%'";
             break;
     }
 }else{
@@ -35,7 +33,7 @@ if($campo != NULL){
 include ('../../../config/conectasql.php');
 $exporta = new conectasql();
 $exporta->abre_conexion("0");
-$sqlxls="select * from vw_puestos $where order by puesto_id desc";
+$sqlxls="select * from vw_contratos $where order by con_id desc";
 
 if($extension == 'xls'){
     /** Include PHPExcel */
@@ -61,36 +59,34 @@ if($extension == 'xls'){
     if($rowxls=pg_fetch_array($resultxls)){
         $objPHPExcel->setActiveSheetIndex(0)
                 ->setCellValue('A1', 'Registro')
-                ->setCellValue('B1', 'Clave')
-                ->setCellValue('C1', 'Nombre')
-                ->setCellValue('D1', 'Descripcion')
+                ->setCellValue('B1', 'Nombre')
+                ->setCellValue('C1', 'Contrato')
+                ->setCellValue('D1', 'Documento')
                 ->setCellValue('E1', 'Plaza')
-                ->setCellValue('F1', 'Sucursal')
-                ->setCellValue('G1', 'Salario')
-                ->setCellValue('H1', 'Fecha')
-                ->setCellValue('I1', 'Hora')
-                ->setCellValue('J1', 'Autorizado')
-                ->setCellValue('K1', 'Jefe inmediato');
+                ->setCellValue('F1', 'Empresa')
+                ->setCellValue('G1', 'Puesto')
+                ->setCellValue('H1', 'Fecha Ini.')
+                ->setCellValue('I1', 'Fecha Fin')
+                ->setCellValue('J1', 'Status');
         do{
             $objPHPExcel->setActiveSheetIndex(0)
-                    ->setCellValue('A'.$a, $rowxls['puesto_id'])
-                    ->setCellValue('B'.$a, $rowxls['puesto_cve'])                    
-                    ->setCellValue('C'.$a, $rowxls['puesto_nombre'])
-                    ->setCellValue('D'.$a, $rowxls['puesto_descripcion'])
+                    ->setCellValue('A'.$a, $rowxls['con_id'])
+                    ->setCellValue('B'.$a, $rowxls['nombrecompleto'])                    
+                    ->setCellValue('C'.$a, $rowxls['tipoc_nombre'])
+                    ->setCellValue('D'.$a, $rowxls['tipoc_plantilla'])
                     ->setCellValue('E'.$a, $rowxls['plaza_nombre'])
-                    ->setCellValue('F'.$a, $rowxls['suc_nombre'])
-                    ->setCellValue('G'.$a, $rowxls['sal_nombre'])
-                    ->setCellValue('H'.$a, $rowxls['puesto_fecha'])
-                    ->setCellValue('I'.$a, $rowxls['puesto_hora'])
-                    ->setCellValue('J'.$a, $rowxls['us_login'])
-                    ->setCellValue('K'.$a, $rowxls['nombre_jefe']);
+                    ->setCellValue('F'.$a, $rowxls['raz_nombre'])
+                    ->setCellValue('G'.$a, $rowxls['puesto_nombre'])
+                    ->setCellValue('H'.$a, $rowxls['con_fecha_inicio'])
+                    ->setCellValue('I'.$a, $rowxls['con_fecha_fin'])
+                    ->setCellValue('J'.$a, $rowxls['con_status']);
                     $a++;
         }
         while ($rowxls=  pg_fetch_array($resultxls));
     }         
    
     // Rename worksheet*/
-    $objPHPExcel->getActiveSheet()->setTitle('Puestos');
+    $objPHPExcel->getActiveSheet()->setTitle('Contratos');
 
 
     // Set active sheet index to the first sheet, so Excel opens this as the first sheet*/

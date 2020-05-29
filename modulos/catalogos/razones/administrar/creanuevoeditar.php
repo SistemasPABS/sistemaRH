@@ -18,6 +18,7 @@ class creanuevoeditar extends conectasql{
     
       public function formulario($op,$rzn) {
         if($op == 'editar'){
+            $titulo='Edita razon Social';
             $operacion= base64_encode($op);
             $operacion='?op='.$operacion;
             $this->consulta_razon($rzn);
@@ -25,6 +26,7 @@ class creanuevoeditar extends conectasql{
             $repre= $this->consulta['raz_legal'];
             $dir= $this->consulta['raz_direccion'];
         }else if($op == 'nuevo'){
+            $titulo='Nueva Razon Social';
             $operacion= base64_encode($op);
             $operacion='?op='.$operacion;
             $nombre='';
@@ -32,12 +34,8 @@ class creanuevoeditar extends conectasql{
             $dir= '';
         }
         
+        echo '<head><title> '.$titulo.' </title></head>';
         echo '<form method="post" name="form_razones" action="agregarazon.php'.$operacion.'">';
-            echo '<div class="row">';
-                echo '<div class="col-6"';
-                   echo '<h1>Datos personales</h1>';
-                echo '</div>';
-            echo '</div>';
             echo '<div class="row">';
                 echo '<input name="registro" id="registro" value="'.$rzn.'" hidden>';
                 echo '<div class="col-6"><label>Razon Social</label><br><input class="input0" type="text" name="nombre" onkeypress="return solo_letras(event);" id="nombre" value="'.$nombre.'" placeholder="Nombre" required></div>';

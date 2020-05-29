@@ -23,6 +23,9 @@ class conectasql{
     public $autoriza;
     public $flag1;
     public $flag2;
+    public $consulta2;
+    public $consulta3;
+    public $consulta4;
 
     public function abre_conexion($perfil) {
         include 'config.php';
@@ -393,16 +396,16 @@ class conectasql{
     }
     
     //Agrega Comisiones
-    public function agrega_com($nombre, $monto, $porcentaje, $plaza, $sucursal, $status) {
-        $sql="insert into comisiones (co_nombre, co_monto, co_porcentaje, plaza_id, suc_id, co_activo ) "
-            . "values ('$nombre', $monto, '$porcentaje', $plaza, $sucursal, $status)";
+    public function agrega_com($nombre, $monto, $porcentaje, $grupo, $status) {
+        $sql="insert into comisiones (co_nombre, co_monto, co_porcentaje, emp_id, co_activo ) "
+            . "values ('$nombre', $monto, '$porcentaje', $grupo, $status)";
         $results= pg_query($this->conexion,$sql) or die("Error nco: ". pg_last_error());//nueva comision
         $this->inserts='1';
     }
     
     //Actualiza Comisiones
-    public function actualiza_com($id, $nombre, $monto, $porcentaje, $plaza, $sucursal, $status) {
-        $sql="update comisiones set co_nombre='$nombre', co_monto=$monto, co_porcentaje='$porcentaje', plaza_id=$plaza, suc_id=$sucursal, co_activo=$status where co_id = $id";
+    public function actualiza_com($id, $nombre, $monto, $porcentaje, $grupo, $status) {
+        $sql="update comisiones set co_nombre='$nombre', co_monto=$monto, co_porcentaje='$porcentaje', emp_id=$grupo, co_activo=$status where co_id = $id";
         $results= pg_query($this->conexion,$sql) or die("Error uco: ". pg_last_error());//actualiza comision
         $this->update='1';
     }
@@ -453,11 +456,11 @@ class conectasql{
     }
         
     //Agrega puestos
-    public function agrega_puesto($clave, $nombre, $desc, $aut, $uss, $fecha, $hora, $plaza, $sucursal, $salario, $jefe) {
-        $sql="insert into puestos (puesto_cve, puesto_nombre, puesto_descripcion, puesto_aprovado,us_id,puesto_fecha, puesto_hora, plaza_id, suc_id, sal_id, puesto_idjefe) "
-            . "values ('$clave', '$nombre', '$desc', $aut, $uss, '$fecha', '$hora', $plaza, $sucursal, $salario, $jefe);";
+    public function agrega_puesto($clave, $nombre, $desc, $aut, $uss, $fecha, $hora, $plaza, $sucursal, $salario, $jefe,$grupo) {
+        $sql="insert into puestos (puesto_cve, puesto_nombre, puesto_descripcion, puesto_aprovado,us_id,puesto_fecha, puesto_hora, plaza_id, suc_id, sal_id, puesto_idjefe, emp_id) "
+            . "values ('$clave', '$nombre', '$desc', $aut, $uss, '$fecha', '$hora', $plaza, $sucursal, $salario, $jefe, $grupo);";
         $result= pg_query($this->conexion,$sql) or die("Error apto: ". pg_last_error());
-        $this->inserts="1";
+        $this->inserts='1';
     }
     
     //consulta el puesto que se ha sido agregado recientemente
@@ -472,7 +475,6 @@ class conectasql{
     public function agrega_com_puesto($puesto,$comision){
         $sql="insert into puestos_comisiones (puesto_id, co_id) values ($puesto, $comision);";
         $result= pg_query($this->conexion,$sql) or die("Error altcom: ". pg_last_error());
-        $this->inserts.="1";    
     }
     
     //consulta puestos
@@ -488,15 +490,15 @@ class conectasql{
         $result = pg_query($this->conexion, $sql) or die ("Error ccpp: ". pg_last_error());
         if($row = pg_fetch_array($result)){
             do{
-                $this->html.='<li><input type="text" value="'.$row['co_id'].'" name="com[]" hidden> '.$row['co_nombre'].' <input type="button" onclick="eliminar(this)" value="eliminar"></li>';
+                $this->html.='<li class="licom"><input type="text" value="'.$row['co_id'].'" name="com[]" hidden> '.$row['co_nombre'].' <input type="button" class="delrow" onclick="eliminar(this)" value="eliminar"></li>';
             }
             while($row = pg_fetch_array($result));
         }
     }
     
     //Edita Puestos
-    public function edita_puesto($registro, $clave, $nombre, $desc, $plaza, $sucursal, $salario, $puesto) {
-        $sql="update puestos set puesto_cve='$clave', puesto_nombre ='$nombre', puesto_descripcion='$desc', plaza_id=$plaza, suc_id=$sucursal, sal_id=$salario, puesto_id=$puesto where puesto_id=$registro ";
+    public function edita_puesto($registro,$clave,$nombre,$plaza,$sucursal,$salario,$jefe,$desc,$grupo) {
+        $sql="update puestos set puesto_cve='$clave', puesto_nombre ='$nombre', puesto_descripcion='$desc', plaza_id=$plaza, suc_id=$sucursal, sal_id=$salario, puesto_idjefe=$jefe, emp_id=$grupo where puesto_id=$registro ";
         $result= pg_query($this-> conexion, $sql) or die("Error edpto: ". pg_last_error());
         $this->update='1';
     }
@@ -549,7 +551,7 @@ class conectasql{
     
     public function agrega_tipoc($clave, $nombre, $plantilla) {
         $sql = "insert into tipos_contratos (tipoc_cve, tipoc_nombre, tipoc_plantilla)"
-              . "values ('".$clave."','".$nombre."','".$plantilla."')";
+              . "values ('$clave','$nombre','$plantilla')";
         $result= pg_query($this->conexion,$sql) or die("Error alttc: ". pg_last_error());
         $this->inserts.="1"; 
     }
@@ -563,10 +565,11 @@ class conectasql{
     
     //Edita Puestos
     public function edita_tipoc($registro, $clave, $nombre, $plantilla) {
-        $sql="update tipos_contratos set tipoc_clave='$clave', tipoc_nombre='$nombre', tipoc_plantilla='$plantilla' where tipoc_id=$registro";
+        $sql="update tipos_contratos set tipoc_cve='$clave', tipoc_nombre='$nombre', tipoc_plantilla='$plantilla' where tipoc_id=$registro";
         $result= pg_query($this-> conexion, $sql) or die("Error edtc: ". pg_last_error());
         $this->update='1';
     }
+    
     //Consulta clave de tipo de contrato
     public function valida_clave_tc($clave) {
         $sql="select * from vw_tipos_contratos where tipoc_cve= '$clave';";
@@ -582,6 +585,50 @@ class conectasql{
         }
     }
     
+    //Agrega un nuevo contrato
+    public function agrega_contrato($id_persona, $id_contrato, $id_razon, $id_puesto, $id_salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status){
+        $sql = "insert into contratos (persona_id, tipoc_id, raz_id, puesto_id, sal_id, con_horario, con_periodo, con_adic, con_fecha_inicio, con_fecha_fin, con_status)
+                values ($id_persona, $id_contrato, $id_razon, $id_puesto, $id_salario, '$horario', '$prueba', $adic, '$fecha_ini','$fecha_fin', $status);";       
+                $result = pg_query($this->conexion,$sql) or die("Error inscon: ". pg_last_error());
+        $this->inserts.="1"; 
+    }
+    
+    //Edita un contrato existente
+    public function edita_contrato($registro, $id_persona, $id_contrato, $id_razon, $id_puesto, $id_salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status){
+        $sql = "update contratos set persona_id=$id_persona, tipoc_id=$id_contrato,raz_id=$id_razon, puesto_id=$id_puesto, sal_id=$id_salario, con_horario='$horario', con_periodo='$prueba', con_adic=$adic, con_fecha_inicio='$fecha_ini',con_fecha_fin='$fecha_fin', con_status=$status";
+        $result= pg_query($this->conexion, $sql) or die("Error edtcon: ". pg_last_error());
+        $this->update='1';
+    }
+    
+    //Consulta un contrato
+    public function consulta_cto($reg){
+        $sql="select * from vw_contratos where con_id=$reg;";
+        $result = pg_query($this->conexion, $sql) or die ("Error ctc: ". pg_last_error());
+        $row= pg_fetch_array($result);
+        $this->consulta=$row;
+    }
+    
+    //Consulta persona para cto
+    public function consulta_per_cto($reg){
+        $sql="select * from personas where persona_id=$reg;";
+        $result = pg_query($this->conexion, $sql) or die ("Error ctc: ". pg_last_error());
+        $row= pg_fetch_array($result);
+        $this->consulta2=$row;
+    }
+    //Consulta puesto para cto
+    public function consulta_per_pto($reg){
+        $sql="select * from vw_puestos where puesto_id=$reg;";
+        $result = pg_query($this->conexion, $sql) or die ("Error ctc: ". pg_last_error());
+        $row= pg_fetch_array($result);
+        $this->consulta3=$row;
+    }
+    //Consulta puesto para cto
+    public function consulta_sueldo_cto($reg){
+        $sql="select * from vw_salarios where sal_id=$reg;";
+        $result = pg_query($this->conexion, $sql) or die ("Error ctc: ". pg_last_error());
+        $row= pg_fetch_array($result);
+        $this->consulta4=$row;
+    }        
      
 }
 

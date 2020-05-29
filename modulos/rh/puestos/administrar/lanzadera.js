@@ -21,7 +21,7 @@ function valida_nueva_clave(clave){
 }
 
 function ver_sucursales(){
-//    alert('hola');
+    //alert('hola');
     var a = document.form_puesto.plazas.value;
     var a = btoa(a);
     var est = btoa('suc');
@@ -94,7 +94,7 @@ function ver_jefes(){
 
 function ver_comisiones(){
     //alert('hola');
-    var a = document.form_puesto.sucursales.value;
+    var a = document.form_puesto.grupos.value;
     var a = btoa(a);
     var coms = btoa('coms');
     //alert("Navegador autorizado "+a+" "+b);
@@ -216,7 +216,9 @@ function myFunction() {
   input.name="com[]";
   input.value=valor;
   input.hidden="yes";
+  boton.className="delrow";
   boton.innerHTML = "eliminar";
+  node.className="licom";
   node.appendChild(input);
   node.appendChild(textnode);
   node.appendChild(boton);

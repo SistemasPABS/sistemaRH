@@ -2,24 +2,6 @@ window.onload=lanzadera;
 function lanzadera (){
   document.oncontextmenu = function() { return false; };
 }
-function ver_sucursales(){
-//    alert('hola');
-    var a = document.form_com.plazas.value;
-    var a = btoa(a);
-    var est = btoa('est');
-    //alert("valores "+a+" "+est);
-    var url="agrega_selects.php";
-         $.ajax({
-            type: "POST",
-            url:url,
-            data:{ns:a,op:est},
-            success: function(data){
-            //alert(data);    
-            document.getElementById("cont_se").innerHTML=data;
-            }
-          });
-}
-
 
 function valida_campos(op){
     
@@ -42,20 +24,16 @@ function valida_campos(op){
     }
  
     if (document.form_com.comision.value.length === 0){
-        alert("El porcentaje no puede ir en blanco");
+        alert("La comision no puede ir en blanco");
         document.form_com.comision.focus();
         return 0;
     }
-    if (document.form_com.plazas.value=="1000"){
-        alert("Debes de seleccionar una plaza");
-        document.form_com.plazas.focus();
+    if (document.form_com.grupos.value=="1000"){
+        alert("Debes de seleccionar un grupo");
+        document.form_com.grupos.focus();
         return 0;
     }
-    if (document.form_com.sucursales.value=="1000"){
-        alert("Debes de seleccionar una sucursal");
-        document.form_com.sucursal.focus();
-        return 0;
-    }
+    
    
    document.form_com.submit();    
 }

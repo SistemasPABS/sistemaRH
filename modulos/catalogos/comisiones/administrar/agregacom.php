@@ -41,16 +41,10 @@
             }
         }
       
-        if(!isset($_POST['plazas']) || $_POST['plazas'] == '1000'){
-            $error[]='plaza';
-        }else if(isset($_POST['plazas']) || $_POST['plazas'] != '1000'){
-            $plaza=$_POST['plazas'];
-        }
-        
-        if(!isset($_POST['sucursales']) || $_POST['sucursales'] == '1000'){
-            $error[]='sucursales';
-        }else if(isset($_POST['sucursales']) || $_POST['sucursales'] != '1000'){
-            $sucursal=$_POST['sucursales'];
+        if(!isset($_POST['grupos']) || $_POST['grupos'] == '1000'){
+            $error[]='grupos';
+        }else if(isset($_POST['grupos']) || $_POST['grupos'] != '1000'){
+            $grupo=$_POST['grupos'];
         }
         
         // datos de plazas
@@ -59,8 +53,7 @@
 //        echo 'estatus: '.$chk_activo.'<br>';
 //        echo 'Monto: '.$salmonto.'<br>';
 //        echo 'Porcentaje: '.$salporcentaje.'<br>';
-//        echo 'Plaza: '.$plaza.'<br>';
-//        echo 'Sucursal: '.$sucursal.'</br>';
+//        echo 'Grupo: '.$grupo.'<br>';
         
         include '../../../../config/conectasql.php';
         $insert = new conectasql();
@@ -73,11 +66,10 @@
             $nombre=$insert->limpia_cadena($nombre);
             $salmonto=$insert->limpia_cadena($salmonto);
             $salporcentaje=$insert->limpia_cadena($salporcentaje);
-            $plaza=$insert->limpia_cadena($plaza);
-            $sucursal=$insert->limpia_cadena($sucursal);
+            $grupo=$insert->limpia_cadena($grupo);
             $tipocom=$insert->limpia_cadena($tipocom);
             //insertar datos
-            $insert->agrega_com($nombre, $salmonto, $salporcentaje, $plaza, $sucursal, $chk_activo);
+            $insert->agrega_com($nombre, $salmonto, $salporcentaje, $grupo, $chk_activo);
         }
         $insert->cierra_conexion("0");
         if($insert->inserts == '1'){
@@ -111,7 +103,6 @@
             $chk_activo = '1';
         }
         
-        
         if(!isset($_POST['tipo_com']) || $_POST['tipo_com'] == '1000'){
             $error[]='tipo com';
         }else{
@@ -131,16 +122,10 @@
             }
         }
         
-        
-        if(!isset($_POST['plazas']) || $_POST['plazas'] == '1000'){
-            $error[]='plaza';
-        }else if(isset($_POST['plazas']) || $_POST['plazas'] != '1000'){
-            $plaza=$_POST['plazas'];
-        }
-         if(!isset($_POST['sucursales']) || $_POST['sucursales'] == '1000'){
-            $error[]='sucursales';
-        }else if(isset($_POST['sucursales']) || $_POST['sucursales'] != '1000'){
-            $sucursal=$_POST['sucursales'];
+        if(!isset($_POST['grupos']) || $_POST['grupos'] == '1000'){
+            $error[]='grupos';
+        }else if(isset($_POST['grupos']) || $_POST['grupos'] != '1000'){
+            $grupo=$_POST['grupos'];
         }
        
         // datos de plazas
@@ -149,8 +134,7 @@
 //        echo 'estatus: '.$chk_activo.'<br>';
 //        echo 'Monto: '.$salmonto.'<br>';
 //        echo 'Porcentaje: '.$salporcentaje.'<br>';
-//        echo 'Plaza: '.$plaza.'<br>';
-//        echo 'Sucursal: '.$sucursal.'</br>';
+//        echo 'Grupo: '.$grupo.'<br>';
         
         include '../../../../config/conectasql.php';
         $insert = new conectasql();
@@ -164,12 +148,11 @@
             $nombre=$insert->limpia_cadena($nombre);
             $salmonto=$insert->limpia_cadena($salmonto);
             $salporcentaje=$insert->limpia_cadena($salporcentaje);
-            $plaza=$insert->limpia_cadena($plaza);
-            $sucursal=$insert->limpia_cadena($sucursal);
+            $grupo=$insert->limpia_cadena($grupo);
             $tipocom=$insert->limpia_cadena($tipocom);
             
             //insertar datos
-            $insert->actualiza_com($registro,$nombre,$salmonto,$salporcentaje,$plaza,$sucursal,$chk_activo);
+            $insert->actualiza_com($registro,$nombre,$salmonto,$salporcentaje,$grupo,$chk_activo);
         }
         
         $insert->cierra_conexion("0");

@@ -10,7 +10,7 @@ class creacomisiones extends conectasql{
         $this->em=$em;
     }
     
-     public function librerias() {
+    public function librerias() {
         echo '<link rel="stylesheet" type="text/css" href="../../../estilos/estilos.css">';
         echo '<style type="text/css">.fondotrabajo{background-color: transparent;background-image: none;}</style>';
         echo '<script type="text/javascript" src="lanzadera_com.js"></script>';
@@ -36,15 +36,14 @@ class creacomisiones extends conectasql{
         ;
     }
     
-     public function interfaz() {
+    public function interfaz() {
         echo '<form name="opbusqueda" id="opbusqueda" method="post" action="exportar.php" target="_blank" >';
             echo '<div class="titulo"> Catalogo de Comisiones </div>';
             echo '<div name="busqueda" id="busqueda">';
                 echo 'Buscar por: ';
                 echo '<select class="selectbuscar" name="buscaopcion" id="buscaopcion" onchange="cambiaopciones(\'parametro\');">';
                     echo '<option value="nom"> Comision </option>';
-                    echo '<option value="suc"> Sucursal </option>';
-                    echo '<option value="plz"> Plaza </option>';                    
+                    echo '<option value="emp"> Grupo </option>';
                 echo '</select>';
                 echo '</div>';
                 echo '<div name="paramentro" id="parametro"> <input type="text" id="busca" name="busca" class="campobuscar"></div>';

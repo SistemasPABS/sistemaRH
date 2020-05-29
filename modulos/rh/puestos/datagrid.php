@@ -45,6 +45,7 @@ if($dato != NULL){
     while($row = pg_fetch_array($result)){
          $puestos[$i] = array();
          $puestos[$i]['puesto_id'] = $row['puesto_id'];
+         $puestos[$i]['grupo'] = $row['grupo'];
          $puestos[$i]['puesto_cve'] = $row['puesto_cve'];
          $puestos[$i]['puesto_nombre'] = $row['puesto_nombre'];
          $puestos[$i]['puesto_descripcion'] = $row['puesto_descripcion'];

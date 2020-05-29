@@ -11,7 +11,7 @@ function input(id){
 
 function popup(url,estid,op) {
         popupWindow = window.open(
-	url+'?em='+estid+'&op='+op,'aplz'+op,'height=400px,width=740px,left=200,top=200, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
+	url+'?em='+estid+'&op='+op,'aplz'+op,'height=150px,width=500px,left=200,top=200, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
 }
 
 function edita(url,estid,op){
@@ -20,7 +20,7 @@ function edita(url,estid,op){
     if(plz != 0){
         if(confirm('¿Desea editar los datos del registro '+plz+'?')){
             popupWindow = window.open(
-            url+'?em='+estid+'&op='+op+'&plz='+btoa(plz),'aplz'+btoa(plz),'height=780px,width=1024px,left=0,top=0, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
+            url+'?em='+estid+'&op='+op+'&plz='+btoa(plz),'aplz'+btoa(plz),'height=150px,width=500px,left=0,top=0, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
         }
     }else{
         alert('Seleccione plaza para editar');
@@ -92,8 +92,8 @@ function genera() {
                     columnsresize: true,
                     columns: [
                       { text: 'ID', datafield: 'plaza_id',width: 150,cellsalign: 'center'},
-                      { text: 'Nombre', datafield: 'plaza_nombre',width: 600,cellsalign: 'center'},
-                      { text: 'Status', datafield: 'plaza_activo', width: 300,cellsformat: 'center' },
+                      { text: 'Nombre', datafield: 'plaza_nombre',width: 500,cellsalign: 'center'},
+                      { text: 'Status', datafield: 'plaza_activo', width: 340,cellsformat: 'center' },
                      ]
                 });
 
@@ -157,8 +157,8 @@ function enviar() {
                     columnsresize: true,
                     columns: [
                       { text: 'ID', datafield: 'plaza_id',width: 150,cellsalign: 'center'},
-                      { text: 'Nombre', datafield: 'plaza_nombre',width: 600,cellsalign: 'center'},
-                      { text: 'Status', datafield: 'plaza_activo', width: 300,cellsformat: 'center' },
+                      { text: 'Nombre', datafield: 'plaza_nombre',width: 500,cellsalign: 'center'},
+                      { text: 'Status', datafield: 'plaza_activo', width: 340,cellsformat: 'center' },
                     ]
 
                 });

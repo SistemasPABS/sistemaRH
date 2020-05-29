@@ -52,7 +52,7 @@ class creapersonas extends conectasql{
                 echo '<div name="toolbar" id="toolbar" style="">';
                 $this->permisos('papp', $this->em,$this->usid);
                 //print_r($this->p3);
-                if(in_array(9, $this->p3)){echo '<input class="cierre2" type="button" name="nuevo"    id="nuevo"    value="Nuevo"      onclick="popup(\'administrar/nuevo_editar.php\',\''. base64_encode($this->em).'\',\''. base64_encode('nuevo').'\');"  style="width:40px;" > ';}
+                if(in_array(9, $this->p3)){echo '<input class="cierre2" type="button" name="nuevo"    id="nuevo"    value="Nuevo"      onclick="popup(\'administrar/nuevo_editar.php\',\''. base64_encode($this->em).'\',\''. base64_encode('nuevo').'\');"  style="width:45px;" > ';}
                 if(in_array(10, $this->p3)){echo '<input class="cierre2" type="button" name="editar"   id="editar"   value="Editar"    onclick="edita(\'administrar/nuevo_editar.php\',\''. base64_encode($this->em).'\',\''. base64_encode('editar').'\');" style="width:40px;" > ';}
                 if(in_array(11, $this->p3)){echo '<input class="cierre2" type="button" name="eliminar" id="eliminar" value="Eliminar"  onclick="eliminar_r(\'administrar/eliminar.php\');"   style="width:50px;" > ';}
                 if(in_array(12, $this->p3)){echo '<input class="cierre2" type="button" name="export"   id="expxls"   value="XLS"       onclick="exportar(\'exportar.php\',\'xls\');"               style="width:40px;" > ';}
