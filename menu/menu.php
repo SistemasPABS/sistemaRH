@@ -11,7 +11,7 @@ require ('../config/cookie.php');
     </head>
     <body topmargin="0" oncontextmenu="return false">
         <?php
-            session_start();
+            session_start(); 
             $usid=$_SESSION['us_id'];
             //echo 'Welcome '.$usid;
             include('./creamenu.php');

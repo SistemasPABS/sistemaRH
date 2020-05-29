@@ -1,5 +1,12 @@
 <?php
 
+/*perfil para la base de datos de Julieta
+$server0 ='localhost';
+$dbname0 ='postgres';
+$port0   ='5432';
+$user0   ='postgres';   
+$passwd0 ='admin';*/
+
 /*perfil para la base de datos No. 0--POSTGRESQL*/
 $server0 ='192.168.0.173';
 $dbname0 ='controller_db';
