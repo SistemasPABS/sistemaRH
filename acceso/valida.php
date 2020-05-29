@@ -15,7 +15,7 @@ $valida->abre_conexion("0");
 //se valida si se esta usando firefox
 if(stristr($navegador, 'firefox') === FALSE) {
     //se guarda fecha, hora, nombre y navegador del intento de acceso
-    $valida->historico_af($fecha,$hora,$equipo,$navegador,'navegador no sportado');
+    $valida->historico_af($fecha,$hora,$equipo,$navegador,'navegador no soportado');
     $valida->cierra_conexion("0");
     //se avisa que la maquina cliente no esta usando el navegador soportado
     //echo 'Necesita un navegador WEB Firefox para poder usar la aplicacion';
