@@ -9,11 +9,31 @@ function input(id){
     document.getElementById('id').innerHTML = '<input>';
     return false;
 }
+
+function ver_sucursales(){
+    //alert('hola');
+    var a = document.opbusqueda.plazas.value;
+    var a = btoa(a);
+    var est = btoa('est');
+    //alert("valores "+a+" "+est);
+    var url="agrega_selects.php";
+         $.ajax({
+            type: "POST",
+            url:url,
+            data:{ns:a,op:est},
+            success: function(data){
+            //alert(data);    
+            document.getElementById("cont_se").innerHTML=data;
+            }
+          });
+}
+
 //Ventana emergente para la creacion  de contratos
 function popup(url,estid,op) {
         popupWindow = window.open(
 	url+'?em='+estid+'&op='+op,'apst'+op,'height=600px,width=850px,left=200,top=200, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
 }
+
 //Ventana emergente para la edicion de un contrato
 function edita(url,estid,op){
     var cto = document.getElementsByClassName("jqx-fill-state-pressed")[0].textContent;
@@ -50,11 +70,12 @@ function eliminar_r(url) {
     }
 }
 //Funcion para exportar los resultados del datagrid
-function exportar(url,chk3){
-    var chk1 = document.getElementById("buscaopcion").value;
-    var chk2 = document.getElementById("busca").value;
+function exportar(url,dato4){
+    var dato  = document.opbusqueda.plazas.value;       //plaza a buscar
+    var dato2 = document.opbusqueda.sucursales.value;   //sucursal a buscar
+    var dato3 = document.opbusqueda.busca.value;        //por nombre de contrato
     //alert(chk1+' '+chk2);
-    popupWindow = window.open(url+'?chk1='+btoa(chk1)+'&chk2='+btoa(chk2)+'&chk3='+btoa(chk3),'popup'+btoa(chk1),'height=780px,width=1024px,left=0,top=0, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
+    popupWindow = window.open(url+'?chk1='+btoa(dato)+'&chk2='+btoa(dato2)+'&chk3='+btoa(dato3)+'&chk4='+btoa(dato4),'popup'+btoa(dato),'height=780px,width=1024px,left=0,top=0, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
 }
 //Funcion para generar el contrato en doc del contrato seleccionado en el datagrid
 function contrato(url){
@@ -75,10 +96,6 @@ function pulsar(e) {
     return(tecla!=13);
 } 
 
-function cambiaopciones(posicion,id){
-    document.getElementById(posicion).innerHTML = ('<input type="text" id="busca" name="busca" class="campobuscar" >');
-    return false;
-}
 //Funcion para generar la estructura del datagrid
 function genera() { 
         var source =
@@ -98,7 +115,7 @@ function genera() {
                         ],
                         
 
-                    url: 'datagrid.php'
+                    url: 'datagrid.php?oc1='+btoa('1000')+'&oc2='+btoa('1000')+'&oc3='+btoa('')
 
                 };
                 var dataAdapter = new $.jqx.dataAdapter(source);
@@ -158,8 +175,9 @@ function genera() {
 }
 
 function enviar() { 
-    var dato  = document.opbusqueda.busca.value;       //el valor a buscar
-    var dato2 = document.opbusqueda.buscaopcion.value;//buscar por (nombre o clave)
+    var dato  = document.opbusqueda.plazas.value;       //plaza a buscar
+    var dato2 = document.opbusqueda.sucursales.value;   //sucursal a buscar
+    var dato3 = document.opbusqueda.busca.value;        //por nombre de contrato
     //alert(dato+' '+dato2);
         var source =
                 {
@@ -177,7 +195,7 @@ function enviar() {
                         { name: 'con_status'}
                         ],
                         
-                    url: 'datagrid.php?oc1='+btoa(dato)+'&oc2='+btoa(dato2)
+                    url: 'datagrid.php?oc1='+btoa(dato)+'&oc2='+btoa(dato2)+'&oc3='+btoa(dato3)
 
                 };
                 var dataAdapter = new $.jqx.dataAdapter(source);

@@ -205,7 +205,7 @@ class conectasql{
     //funcion para crear selects con registros leidos de la base de datos
     public function selects_creator($sql,$nombre,$valor,$texto,$apartado,$change,$default) {
         $resultcds = pg_query($this->conexion,$sql) or die("Error cds: ". pg_last_error());//creador de selects
-        $this->select = ' <select class="input0" name='.$nombre.' '.$change.'>';
+        $this->select = ' <select class="input0" id="'.$nombre.'" name='.$nombre.' '.$change.'>';
         $this->select.='<option value="1000"> --- Selecciona '.$apartado.' --- </option>';
         if($rowcds = pg_fetch_array($resultcds)){
             do{
@@ -585,11 +585,23 @@ class conectasql{
         }
     }
     
+    //consulta personalizada para el datagrid de contratos
+    public function suc_user_aprov($usid){
+        $sql="select suc_id from vw_users_plazas_sucursales where us_id = $usid";
+        $result = pg_query($this->conexion,$sql) or die("Error cspu: ". pg_last_error());//consulta sucursales por usuario
+        if($row = pg_fetch_array($result)){
+            do{
+                $this->consulta.=','.$row['suc_id'];
+            }
+            while($row = pg_fetch_array($result));
+        }
+    }
+    
     //Agrega un nuevo contrato
     public function agrega_contrato($id_persona, $id_contrato, $id_razon, $id_puesto, $id_salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status){
         $sql = "insert into contratos (persona_id, tipoc_id, raz_id, puesto_id, sal_id, con_horario, con_periodo, con_adic, con_fecha_inicio, con_fecha_fin, con_status)
                 values ($id_persona, $id_contrato, $id_razon, $id_puesto, $id_salario, '$horario', '$prueba', $adic, '$fecha_ini','$fecha_fin', $status);";       
-                $result = pg_query($this->conexion,$sql) or die("Error inscon: ". pg_last_error());
+        $result = pg_query($this->conexion,$sql) or die("Error inscon: ". pg_last_error());
         $this->inserts.="1"; 
     }
     

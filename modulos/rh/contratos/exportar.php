@@ -3,37 +3,53 @@ include ('../../../config/cookie.php');
 ?>
 <?php
 /** Error reporting */
-error_reporting(E_ALL);
-ini_set('display_errors', TRUE);
-ini_set('display_startup_errors', TRUE);
+//error_reporting(E_ALL);
+//ini_set('display_errors', TRUE);
+//ini_set('display_startup_errors', TRUE);
 date_default_timezone_set('America/Mexico_City');
 if (PHP_SAPI == 'cli')
 die('This example should only be run from a Web Browser');
 
-$parametro= base64_decode($_GET['chk1']);
-$campo= base64_decode($_GET['chk2']);
-$extension= base64_decode($_GET['chk3']);
-if($campo != NULL){
-    //Switch para la exportacion 
-    switch ($parametro){
-        case 'nom':
-            $where="where nombrecompleto like '%$campo%'";
-            break;
-        case 'pza':
-            $where="where plaza_nombre like '%$campo%'";
-            break;
-        case 'cto':
-            $where="where con_nombre like '%$campo%'";
-            break;
-    }
-}else{
-    $where=" ";
-}
+$plaza= base64_decode($_GET['chk1']);
+$suc= base64_decode($_GET['chk2']);
+$nombre= utf8_decode(base64_decode($_GET['chk3']));
+$extension= base64_decode($_GET['chk4']);
+session_start();
+$usid=$_SESSION['us_id'];
 
 include ('../../../config/conectasql.php');
 $exporta = new conectasql();
 $exporta->abre_conexion("0");
-$sqlxls="select * from vw_contratos $where order by con_id desc";
+
+//se validan los datos recogido de la forma de busqueda
+if($plaza == 1000 && $suc == 1000 && $nombre == null){
+    //si no se ha seleccionado ningun campo se configura la consulta default
+    $exporta->suc_user_aprov($usid);
+    $sucaprov= substr($exporta->consulta,1);
+    $condicion='where suc_id in('.$sucaprov.')';
+}else{
+    if( $plaza != 1000){
+        $cplaza=' and plaza_id = '.$plaza;
+    }else{
+        $cplaza='';
+    }
+    if( $suc != 1000){
+        $csuc=' and suc_id = '.$suc;
+    }else{
+        $csuc='';
+    }
+    if( $nombre != null){
+        $cnombre=' and tipoc_nombre like \'%'.$nombre.'%\'';
+    }else{
+        $cnombre='';
+    }
+    //se crea la condicion
+    $condicion=$cplaza.$csuc.$cnombre;
+    $condicion= substr($condicion,4);
+    $condicion='where'.$condicion;
+}
+
+$sqlxls="select * from vw_contratos $condicion order by con_id desc";
 
 if($extension == 'xls'){
     /** Include PHPExcel */
