@@ -3,8 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/var/www/html/controller2/modulos/rh/contratos/genera_contrato.php</file>
-            <file>file:/var/www/html/controller2/config/conectasql.php</file>
+            <file>file:/var/www/html/controller2/modulos/rh/expedientes/administrar/Expediente/creanuevo_editar.php</file>
+            <file>file:/var/www/html/controller2/modulos/rh/expedientes/administrar/Expediente/agrega_expediente.php</file>
+            <file>file:/var/www/html/controller2/modulos/rh/expedientes/administrar/Expediente/lanzadera_expediente.js</file>
         </group>
     </open-files>
 </project-private>

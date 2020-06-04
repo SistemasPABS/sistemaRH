@@ -640,7 +640,33 @@ class conectasql{
         $result = pg_query($this->conexion, $sql) or die ("Error ctc: ". pg_last_error());
         $row= pg_fetch_array($result);
         $this->consulta4=$row;
-    }        
+    }
+    
+    public function consulta_exp_per($registro) {
+        $sql="select * from vw_doc_expedientes where persona_id=$registro;";
+        $result = pg_query($this->conexion, $sql) or die ("Error ctexp: ". pg_last_error());
+        $row= pg_fetch_array($result);
+        $this->consulta=$row;
+    }
+    public function consulta_doc_exp($exp) {
+        $sql="select * from vw_doc_expedientes where exp_id= $exp;";
+        $result = pg_query($this->conexion, $sql) or die ("Error ctexp: ". pg_last_error());
+        $row= pg_fetch_array($result);
+        $this->consulta=$row;
+    }
+    
+    //Funiones de expedientes en la base de datos
+    public function agrega_expediente($persona, $desc, $doc, $fecha, $hora, $tipo_doc) {
+        $sql="insert into doc_expedientes (persona_id, exp_desc, exp_ruta, exp_fecha, exp_hora, txp_id) values ($persona,'$desc','$doc','$fecha','$hora',$tipo_doc);";
+        $result = pg_query($this->conexion,$sql) or die("Error insexp: ". pg_last_error());
+        $this->inserts.="1"; 
+    }
+    
+    public function edita_expediente($registro, $desc, $doc,$fecha, $hora, $tipo_exp) {
+        $sql="update doc_expedientes set exp_desc='$desc', exp_ruta='$doc', exp_fecha='$fecha', exp_hora='$hora', txp_id=$tipo_exp where exp_id=$registro";
+        $result = pg_query($this->conexion,$sql) or die("Error udexp: ". pg_last_error());
+        $this->update.="1"; 
+    }
      
 }
 

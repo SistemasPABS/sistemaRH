@@ -8,7 +8,7 @@ $user0   ='postgres';
 $passwd0 ='admin';*/
 
 /*perfil para la base de datos No. 0--POSTGRESQL*/
-$server0 ='192.168.0.173';
+$server0 ='127.0.0.1';
 $dbname0 ='controller_db';
 $port0   ='5432';
 $user0   ='web';
