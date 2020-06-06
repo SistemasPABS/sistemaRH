@@ -30,6 +30,7 @@ class creanuevoeditar extends conectasql{
             if($this->consulta['sal_tipo'] == 'sem'){$v1='selected';}
             if($this->consulta['sal_tipo'] == 'qui'){$v2='selected';}
             if($this->consulta['sal_tipo'] == 'men'){$v3='selected';}
+            $saltipodefault= $this->consulta['sal_tipo_id'];
             $selectdefault= $this->consulta['plaza_id'];
             $this->selects_creator('select * from sucursales order by suc_id','sucursales','suc_id','suc_nombre','sucursales','onChange= ""',$this->consulta['suc_id']);
             $selectedit=$this->select; 
@@ -65,12 +66,8 @@ class creanuevoeditar extends conectasql{
                 echo '</div>';  
                 echo '<div class="row">';
                     echo '<div class="col-3"><label>Tipo Salario</label><br>';
-                    echo '<select class="input0" name="tipo_sal">
-                            <option value="1000">--- Tipo salario ---</option>
-                            <option value="sem" '.$v1.'>Semanal</option>
-                            <option value="qui" '.$v2.'>Quincenal</option>
-                            <option value="men" '.$v3.'>Mensual</option>
-                           </select>';
+                        $this->selects_creator('select * from tipos_salarios order by sal_tipo_id','tipo_sal','sal_tipo_id','sal_tipo_nombre','tipo salario','onChange= ""',$saltipodefault);
+                        echo $this->select; 
                     echo '</div>';
                     echo '<div class="col-3"><label>Plaza</label><br>';
                         $this->selects_creator('select * from plazas order by plaza_id','plazas','plaza_id','plaza_nombre','plazas','onChange= "ver_sucursales();"',$selectdefault);

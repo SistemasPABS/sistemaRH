@@ -35,7 +35,7 @@ class creanuevoeditar extends conectasql{
             $persona_nss=$this->consulta['persona_nss']; 
             $persona_nac=$this->consulta['nacionalidad_nombre'];
             $persona_dir=$this->consulta['persona_dom'];
-            $cintrato_id=$this->consulta['tipoc_id'];
+            $contrato_id=$this->consulta['tipoc_id'];
             $Contrato_nom=$this->consulta['tipoc_nombre'];
             $puesto_id=$this->consulta['puesto_id'];
             $puesto_nom=$this->consulta['puesto_nombre'];
@@ -43,7 +43,7 @@ class creanuevoeditar extends conectasql{
             $razon_nom=$this->consulta['raz_nombre'];
             $plaza_nom=$this->consulta['plaza_nombre'];
             $sal_id=$this->consulta['sal_id'];
-            $sal_nom=$this->consulta['sal_nombre'];
+            $sal_monto=$this->consulta['sal_monto_con'];
             $sal_pago=$this->consulta['sal_tipo'];
             $con_horario=$this->consulta['con_horario'];
             $con_prueba=$this->consulta['con_periodo'];
@@ -67,7 +67,7 @@ class creanuevoeditar extends conectasql{
             $persona_nss=''; 
             $persona_nac='';
             $persona_dir='';
-            $cintrato_id='';
+            $contrato_id='';
             $Contrato_nom='';
             $puesto_id='';
             $puesto_nom='';
@@ -75,7 +75,7 @@ class creanuevoeditar extends conectasql{
             $razon_nom='';
             $plaza_nom='';
             $sal_id='';
-            $sal_nom='';
+            $sal_monto='';
             $sal_pago='';
             $con_horario='';
             $con_prueba='';
@@ -116,7 +116,7 @@ class creanuevoeditar extends conectasql{
             echo '</div>';
             echo '<div class="division"></div>';
             echo '<div class="row">';
-                echo '<input type="text" name="id_contrato" id="id_contrato"  value="'.$cintrato_id.'"hidden>';
+                echo '<input type="text" name="id_contrato" id="id_contrato"  value="'.$contrato_id.'"hidden>';
                 echo '<div class="col-3"><label>Tipo de Contrato</label><br><input class="input0" name="contrato" id="contrato"  value="'.$Contrato_nom.'"placeholder="Tipo de contrato"></div>';
                 echo '<input type="text" name="id_puesto" id="id_puesto"  value="'.$puesto_id.'"hidden>';
                 echo '<div class="col-3"><label>Puesto</label><br><input class="input0" name="puesto" id="puesto"  value="'.$puesto_nom.'"placeholder="puesto"></div>';
@@ -125,9 +125,8 @@ class creanuevoeditar extends conectasql{
                 echo '<div class="col-3"><label>Plaza</label><br><input class="input0" name="plaza" id="plaza" value="'.$plaza_nom.'"placeholder="Direccion"></div>';
             echo '<div>';
             echo '<div class="row">';
-                echo '<input type="text" name="id_salario" id="id_salario" value="'.$sal_id.'" hidden>';
-                echo '<div class="col-3"><label>Salario</label><br><input class="input0" name="salario" id="salario" value="'.$sal_nom.'"></div>';
-                echo '<div class="col-3"><label>Periodo de Pago</label><br><input class="input0" name="pago" id="pago"  value="'.$sal_pago.'"readonly></div>';
+                //echo '<input type="text" name="id_salario" id="id_salario" value="'.$sal_id.'" hidden>';
+                echo '<div class="col-3"><label>Salario</label><br><input class="input0" name="salario" id="salario" value="'.$sal_monto.'" onblur="valida_salario();"></div>';
                 echo '<div class="col-3"><label>Horario</label><br><input class="input0" name="horario" value="'.$con_horario.'"></div>';
                 echo '<div class="col-3"><label>Periodo de Prueba</label><input class="input0" name="prueba"  value="'.$con_prueba.'"placeholder="en días"></div>';
             echo '<div>';

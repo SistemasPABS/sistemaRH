@@ -426,15 +426,15 @@ class conectasql{
     
     //Agrega Salarios
     public function agrega_sal($nombre,$descripcion,$monto,$tiposal,$plaza,$sucursal,$status) {
-        $sql="insert into salarios (sal_nombre, sal_descripcion, plaza_id, suc_id, sal_monto, sal_tipo, sal_aprovado, us_id, sal_activo)"
-            ."values ('$nombre', '$descripcion', $plaza, $sucursal, '$monto', '$tiposal', 0, 0, $status)";
+        $sql="insert into salarios (sal_nombre, sal_descripcion, plaza_id, suc_id, sal_monto, sal_tipo_id, sal_aprovado, us_id, sal_activo)"
+            ."values ('$nombre', '$descripcion', $plaza, $sucursal, '$monto', $tiposal, 0, 0, $status)";
         $results= pg_query($this->conexion,$sql) or die("Error agsal: ". pg_last_error());//nuevo salario
         $this->inserts='1';
     }
     
     //Actualiza datos generales salarios
     public function actualiza_sal($id,$nombre,$descripcion,$monto,$tiposal,$plaza,$sucursal,$status) {
-        $sql="update salarios set sal_nombre='$nombre',sal_descripcion='$descripcion',sal_monto='$monto',sal_tipo='$tiposal',plaza_id=$plaza,suc_id=$sucursal,sal_activo=$status where sal_id=$id";
+        $sql="update salarios set sal_nombre='$nombre',sal_descripcion='$descripcion',sal_monto='$monto',sal_tipo_id=$tiposal,plaza_id=$plaza,suc_id=$sucursal,sal_activo=$status where sal_id=$id";
         $results= pg_query($this->conexion,$sql) or die("Error actsl: ". pg_last_error());//actualiza salario
         $this->update='1';
     }
@@ -598,16 +598,31 @@ class conectasql{
     }
     
     //Agrega un nuevo contrato
-    public function agrega_contrato($id_persona, $id_contrato, $id_razon, $id_puesto, $id_salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status){
-        $sql = "insert into contratos (persona_id, tipoc_id, raz_id, puesto_id, sal_id, con_horario, con_periodo, con_adic, con_fecha_inicio, con_fecha_fin, con_status)
-                values ($id_persona, $id_contrato, $id_razon, $id_puesto, $id_salario, '$horario', '$prueba', $adic, '$fecha_ini','$fecha_fin', $status);";       
+    public function agrega_contrato($id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status){
+        $sql = "insert into contratos (persona_id, tipoc_id, raz_id, puesto_id, sal_monto_con, con_horario, con_periodo, con_adic, con_fecha_inicio, con_fecha_fin, con_status)
+                values ($id_persona, $id_contrato, $id_razon, $id_puesto, $salario, '$horario', '$prueba', $adic, '$fecha_ini','$fecha_fin', $status);";       
         $result = pg_query($this->conexion,$sql) or die("Error inscon: ". pg_last_error());
         $this->inserts.="1"; 
     }
     
+    //Consulta si existe la clave del puesto
+    public function valida_tope_salario($pid,$sal){
+        $sql="select sal_monto from vw_puestos where puesto_id = $pid";
+        $result = pg_query($this->conexion,$sql) or die("Error vnp: ". pg_last_error());//valida nuevo puesto
+        if($row=pg_fetch_array($result)){
+            if($sal <= $row['sal_monto']){
+                $this->msj = 1;
+            }else if($sal >= $row['sal_monto']){
+                $this->msj = 0;
+            }
+        }else{
+            $this->msj = 0;
+        }
+    }
+    
     //Edita un contrato existente
-    public function edita_contrato($registro, $id_persona, $id_contrato, $id_razon, $id_puesto, $id_salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status){
-        $sql = "update contratos set persona_id=$id_persona, tipoc_id=$id_contrato,raz_id=$id_razon, puesto_id=$id_puesto, sal_id=$id_salario, con_horario='$horario', con_periodo='$prueba', con_adic=$adic, con_fecha_inicio='$fecha_ini',con_fecha_fin='$fecha_fin', con_status=$status";
+    public function edita_contrato($id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status){
+        $sql = "update contratos set persona_id=$id_persona, tipoc_id=$id_contrato,raz_id=$id_razon, puesto_id=$id_puesto, sal_monto_con=$salario, con_horario='$horario', con_periodo='$prueba', con_adic=$adic, con_fecha_inicio='$fecha_ini',con_fecha_fin='$fecha_fin', con_status=$status";
         $result= pg_query($this->conexion, $sql) or die("Error edtcon: ". pg_last_error());
         $this->update='1';
     }
