@@ -9,7 +9,7 @@ $contrato->abre_conexion("0");
 $contrato->consulta_cto($reg);//Consulta datos de vw_contratos
 $contrato->consulta_per_cto($contrato->consulta['persona_id']);//Consulta datos de personas
 $contrato->consulta_per_pto($contrato->consulta['puesto_id']);//Consulta datos de Puestos 
-$contrato->consulta_sueldo_cto($contrato->consulta['sal_id']);//Consulta datos de vw_salarios
+//$contrato->consulta_sueldo_cto($contrato->consulta['sal_id']);//Consulta datos de vw_salarios
 $contrato->cierra_conexion("0");
 
 //Asigna valores a las variables de los resultados de las busquedas
@@ -32,7 +32,7 @@ $plazacontrato = $contrato->consulta3['plaza_nombre'];
 $fechainiciocontrato = $contrato->consulta['con_fecha_inicio'];
 $periododepruebacontrato = $contrato->consulta['con_periodo'];
 $tiponominacontrato = $contrato->consulta['sal_tipo'];
-$salarionumerocontrato = $contrato->consulta4['sal_monto'];
+$salarionumerocontrato = $contrato->consulta['sal_monto_con'];
 //Funcion que convierte el salario de formato numerico a Texto
 $f = new \NumberFormatter("es", NumberFormatter::SPELLOUT);
 $salarioletracontrato = $f->format($salarionumerocontrato).' pesos';

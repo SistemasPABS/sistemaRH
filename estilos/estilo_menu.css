@@ -1,5 +1,4 @@
 .marco2{
-    border:1px solid red;
     width:1024px;
     height: 800px;
     margin: 0 auto;
@@ -7,9 +6,9 @@
 .control{
     width:1024px;
     height: 35px;
-    background-color: black;
+    background-color: #035f9f;
     margin-top: -610px;
-    border-left: 1px solid black;
+    border-left: 1px solid #035f9f;
     position:relative;
 }
 .opcionesusuario{
@@ -43,7 +42,7 @@ li.nav2{
 }
 * {padding: 0;margin: 0px;}
 .nav li a {
-    background-color: black; 
+    background-color: #035f9f; 
     color: white; 
     text-decoration: none;
     padding: 10px 15px;
@@ -51,7 +50,7 @@ li.nav2{
     border-right: 1px solid white;
 }
 .nav li a:hover {
-    background-color: green;color: white;
+    background-color: grey;color: white;
 }
 .nav li a:after {
     display: none;

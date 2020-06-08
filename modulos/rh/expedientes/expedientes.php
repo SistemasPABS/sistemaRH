@@ -52,7 +52,7 @@ class expedientes extends conectasql{
                 echo '<div name="toolbar" id="toolbar" style="">';
                 $this->permisos('papp', $this->em,$this->usid);
                 //print_r($this->p3);
-                if(in_array(55, $this->p3)){echo '<input class="cierre2" type="button" name="ver_exp"    id="ver_exp"    value="Ver Expediente"      onclick="popup(\'administrar/index.php\',\''. base64_encode(55).'\');"  style="width:70px;" > ';}
+                if(in_array(55, $this->p3)){echo '<input class="cierre2" type="button" name="ver_exp"    id="ver_exp"    value="Ver Expediente"      onclick="popup(\'administrar/index.php\',\''. base64_encode(55).'\');"  style="width:85px;" > ';}
                 echo '</div>';  
         $this->listado();
         echo '</form>';
