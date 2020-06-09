@@ -1,18 +1,18 @@
 <?php
 
-/*perfil para la base de datos de Julieta
+/*perfil para la base de datos de Julieta*/
 $server0 ='localhost';
 $dbname0 ='postgres';
 $port0   ='5432';
 $user0   ='postgres';   
-$passwd0 ='admin';*/
+$passwd0 ='admin';
 
-/*perfil para la base de datos No. 0--POSTGRESQL*/
-$server0 ='192.168.0.173';
+/*perfil para la base de datos No. 0--POSTGRESQL
+$server0 ='192.168.10.173';
 $dbname0 ='controller_db';
 $port0   ='5432';
 $user0   ='web';
-$passwd0 ='Gu3lc0m';
+$passwd0 ='Gu3lc0m';*/
 
 /*perfil para la base de datos No. 1--MSSQL*/
 $server1 ='';
