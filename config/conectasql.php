@@ -205,7 +205,7 @@ class conectasql{
     //funcion para crear selects con registros leidos de la base de datos
     public function selects_creator($sql,$nombre,$valor,$texto,$apartado,$change,$default) {
         $resultcds = pg_query($this->conexion,$sql) or die("Error cds: ". pg_last_error());//creador de selects
-        $this->select = ' <select class="input0" name='.$nombre.' '.$change.'>';
+        $this->select = ' <select class="input0" id="'.$nombre.'" name='.$nombre.' '.$change.'>';
         $this->select.='<option value="1000"> --- Selecciona '.$apartado.' --- </option>';
         if($rowcds = pg_fetch_array($resultcds)){
             do{
@@ -426,15 +426,15 @@ class conectasql{
     
     //Agrega Salarios
     public function agrega_sal($nombre,$descripcion,$monto,$tiposal,$plaza,$sucursal,$status) {
-        $sql="insert into salarios (sal_nombre, sal_descripcion, plaza_id, suc_id, sal_monto, sal_tipo, sal_aprovado, us_id, sal_activo)"
-            ."values ('$nombre', '$descripcion', $plaza, $sucursal, '$monto', '$tiposal', 0, 0, $status)";
+        $sql="insert into salarios (sal_nombre, sal_descripcion, plaza_id, suc_id, sal_monto, sal_tipo_id, sal_aprovado, us_id, sal_activo)"
+            ."values ('$nombre', '$descripcion', $plaza, $sucursal, '$monto', $tiposal, 0, 0, $status)";
         $results= pg_query($this->conexion,$sql) or die("Error agsal: ". pg_last_error());//nuevo salario
         $this->inserts='1';
     }
     
     //Actualiza datos generales salarios
     public function actualiza_sal($id,$nombre,$descripcion,$monto,$tiposal,$plaza,$sucursal,$status) {
-        $sql="update salarios set sal_nombre='$nombre',sal_descripcion='$descripcion',sal_monto='$monto',sal_tipo='$tiposal',plaza_id=$plaza,suc_id=$sucursal,sal_activo=$status where sal_id=$id";
+        $sql="update salarios set sal_nombre='$nombre',sal_descripcion='$descripcion',sal_monto='$monto',sal_tipo_id=$tiposal,plaza_id=$plaza,suc_id=$sucursal,sal_activo=$status where sal_id=$id";
         $results= pg_query($this->conexion,$sql) or die("Error actsl: ". pg_last_error());//actualiza salario
         $this->update='1';
     }
@@ -585,17 +585,44 @@ class conectasql{
         }
     }
     
+    //consulta personalizada para el datagrid de contratos
+    public function suc_user_aprov($usid){
+        $sql="select suc_id from vw_users_plazas_sucursales where us_id = $usid";
+        $result = pg_query($this->conexion,$sql) or die("Error cspu: ". pg_last_error());//consulta sucursales por usuario
+        if($row = pg_fetch_array($result)){
+            do{
+                $this->consulta.=','.$row['suc_id'];
+            }
+            while($row = pg_fetch_array($result));
+        }
+    }
+    
     //Agrega un nuevo contrato
-    public function agrega_contrato($id_persona, $id_contrato, $id_razon, $id_puesto, $id_salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status){
-        $sql = "insert into contratos (persona_id, tipoc_id, raz_id, puesto_id, sal_id, con_horario, con_periodo, con_adic, con_fecha_inicio, con_fecha_fin, con_status)
-                values ($id_persona, $id_contrato, $id_razon, $id_puesto, $id_salario, '$horario', '$prueba', $adic, '$fecha_ini','$fecha_fin', $status);";       
-                $result = pg_query($this->conexion,$sql) or die("Error inscon: ". pg_last_error());
+    public function agrega_contrato($id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status){
+        $sql = "insert into contratos (persona_id, tipoc_id, raz_id, puesto_id, sal_monto_con, con_horario, con_periodo, con_adic, con_fecha_inicio, con_fecha_fin, con_status)
+                values ($id_persona, $id_contrato, $id_razon, $id_puesto, $salario, '$horario', '$prueba', $adic, '$fecha_ini','$fecha_fin', $status);";       
+        $result = pg_query($this->conexion,$sql) or die("Error inscon: ". pg_last_error());
         $this->inserts.="1"; 
     }
     
+    //Consulta si existe la clave del puesto
+    public function valida_tope_salario($pid,$sal){
+        $sql="select sal_monto from vw_puestos where puesto_id = $pid";
+        $result = pg_query($this->conexion,$sql) or die("Error vnp: ". pg_last_error());//valida nuevo puesto
+        if($row=pg_fetch_array($result)){
+            if($sal <= $row['sal_monto']){
+                $this->msj = 1;
+            }else if($sal >= $row['sal_monto']){
+                $this->msj = 0;
+            }
+        }else{
+            $this->msj = 0;
+        }
+    }
+    
     //Edita un contrato existente
-    public function edita_contrato($registro, $id_persona, $id_contrato, $id_razon, $id_puesto, $id_salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status){
-        $sql = "update contratos set persona_id=$id_persona, tipoc_id=$id_contrato,raz_id=$id_razon, puesto_id=$id_puesto, sal_id=$id_salario, con_horario='$horario', con_periodo='$prueba', con_adic=$adic, con_fecha_inicio='$fecha_ini',con_fecha_fin='$fecha_fin', con_status=$status";
+    public function edita_contrato($id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status){
+        $sql = "update contratos set persona_id=$id_persona, tipoc_id=$id_contrato,raz_id=$id_razon, puesto_id=$id_puesto, sal_monto_con=$salario, con_horario='$horario', con_periodo='$prueba', con_adic=$adic, con_fecha_inicio='$fecha_ini',con_fecha_fin='$fecha_fin', con_status=$status";
         $result= pg_query($this->conexion, $sql) or die("Error edtcon: ". pg_last_error());
         $this->update='1';
     }
@@ -628,7 +655,33 @@ class conectasql{
         $result = pg_query($this->conexion, $sql) or die ("Error ctc: ". pg_last_error());
         $row= pg_fetch_array($result);
         $this->consulta4=$row;
-    }        
+    }
+    
+    public function consulta_exp_per($registro) {
+        $sql="select * from vw_doc_expedientes where persona_id=$registro;";
+        $result = pg_query($this->conexion, $sql) or die ("Error ctexp: ". pg_last_error());
+        $row= pg_fetch_array($result);
+        $this->consulta=$row;
+    }
+    public function consulta_doc_exp($exp) {
+        $sql="select * from vw_doc_expedientes where exp_id= $exp;";
+        $result = pg_query($this->conexion, $sql) or die ("Error ctexp: ". pg_last_error());
+        $row= pg_fetch_array($result);
+        $this->consulta=$row;
+    }
+    
+    //Funiones de expedientes en la base de datos
+    public function agrega_expediente($persona, $desc, $doc, $fecha, $hora, $tipo_doc) {
+        $sql="insert into doc_expedientes (persona_id, exp_desc, exp_ruta, exp_fecha, exp_hora, txp_id) values ($persona,'$desc','$doc','$fecha','$hora',$tipo_doc);";
+        $result = pg_query($this->conexion,$sql) or die("Error insexp: ". pg_last_error());
+        $this->inserts.="1"; 
+    }
+    
+    public function edita_expediente($registro, $desc, $doc,$fecha, $hora, $tipo_exp) {
+        $sql="update doc_expedientes set exp_desc='$desc', exp_ruta='$doc', exp_fecha='$fecha', exp_hora='$hora', txp_id=$tipo_exp where exp_id=$registro";
+        $result = pg_query($this->conexion,$sql) or die("Error udexp: ". pg_last_error());
+        $this->update.="1"; 
+    }
      
 }
 

@@ -38,19 +38,24 @@ class contratos extends conectasql{
     
      public function interfaz() {
         echo '<form name="opbusqueda" id="opbusqueda" method="post" action="exportar.php" target="_blank" >';
-            echo '<div class="titulo"> Administracion de Contratos y nomas</div>';
-            echo '<div name="busqueda" id="busqueda">';
+            echo '<div class="titulo"> Administracion de Contratos</div>';
+            echo '<div name="busqueda" id="busqueda" style="width:170px;">';
                 echo 'Buscar por: ';
-                echo '<select class="selectbuscar" name="buscaopcion" id="buscaopcion" onchange="cambiaopciones(\'parametro\');">';
-                    echo '<option value="nom" > Nombre </option>';
-                    echo '<option value="pza" > Plaza </option>';
-                    echo '<option value="cto" > Contrato </option>';
-                echo '</select>';
-                echo '</div>';
-                echo '<div name="paramentro" id="parametro"> <input type="text" id="busca" name="busca" class="campobuscar"></div>';
-                echo '<div id="divus_buscar" name="divus_buscar"><input type="button" onclick="enviar();" class="cierre2" name="us_buscar" id="us_buscar" value="Buscar"></div>';
+                $this->selects_creator('select * from vw_users_plazas_sucursales where us_id = '. $this->usid.' order by plaza_id', 'plazas', 'plaza_id', 'plaza_nombre', 'plazas', 'onChange= "ver_sucursales();"', '');
+                echo $this->select;
+            echo '</div>';
+            echo '<div id="cont_se" style="height:20px;width:110px;margin-top:11px;margin-left:175px;">';
+                echo '<select class="input0" id="sucursales" name="sucursales" value="0">
+                        <option value="1000">--- Selecciona sucursal</option>
+                      </select>';
+            echo '</div>'; 
+            //$this->selects_creator('select * from vw_users_plazas_sucursales where us_id = '. $this->usid.' order by plaza_id', 'sucursales', 'suc_id', 'suc_nombre', 'sucursales', 'onChange= "ver_sucursales();"', '');
+            //echo $this->select;
+                
+            echo '<div name="paramentro" id="parametro" style="margin-left:110px;"> <input type="text" id="busca" name="busca" class="campobuscar"></div>';
+            echo '<div id="divus_buscar" name="divus_buscar" style="margin-left:110px;"><input type="button" onclick="enviar();" class="cierre2" name="us_buscar" id="us_buscar" value="Buscar"></div>';
 
-                echo '<div name="toolbar" id="toolbar" style="">';
+            echo '<div name="toolbar" id="toolbar" style="">';
                 $this->permisos('papp', $this->em,$this->usid);
                 //botones con poermisos del usuario
                 if(in_array(50, $this->p3)){echo '<input class="cierre2" type="button" name="nuevo"    id="nuevo"    value="Nuevo"          onclick="popup(\'administrar/nuevo_editar_contrato.php\',\''. base64_encode($this->em).'\',\''. base64_encode('nuevo').'\');"  style="width:40px;" > ';}
@@ -58,7 +63,6 @@ class contratos extends conectasql{
                 if(in_array(52, $this->p3)){echo '<input class="cierre2" type="button" name="eliminar" id="eliminar" value="Eliminar"       onclick="eliminar_r(\'administrar/eliminar.php\');" style="width:50px;" > ';}
                 if(in_array(53, $this->p3)){echo '<input class="cierre2" type="button" name="export"   id="expxls"   value="XLS"            onclick="exportar(\'exportar.php\',\'xls\');" style="width:40px;" > ';}
                 if(in_array(54, $this->p3)){echo '<input class="cierre2" type="button" name="genera"   id="genera"   value="Generar Cto"    onclick="contrato(\'genera_contrato.php\');" style="width:70px;" > ';}
-            
             echo '</div>';  
         $this->listado();
         echo '</form>';

@@ -54,7 +54,14 @@
             echo '<script type="text/javascript">
                     setTimeout("self.close();",4000);
                   </script>';
-            echo 'Registro guardado con exito!';
+            echo '<link href="../../../../estilos/personasStyles.css" type="text/css" rel="stylesheet">';
+            echo '<div class="padre">
+                    <div class="hijo">
+                        <img class="icono" src="../../../../images/guardado2.png" alt="icono2" srcset="">
+                        <h2 class="texto5">Registro Guardado Conexito!!</h2>
+                        <h4 class="texto5">La ventana se cerrarra en automaico!</h4>
+                    </div>
+                 </div>';
         }else {
             echo 'Error al guardar la nueva plaza';
             print_r($error);
@@ -112,7 +119,14 @@
             echo '<script type="text/javascript">
                     setTimeout("self.close();",4000);
                   </script>';
-            echo 'Registro editado con exito!';
+            echo '<link href="../../../../estilos/personasStyles.css" type="text/css" rel="stylesheet">';
+            echo '<div class="padre">
+                    <div class="hijo">
+                        <img class="icono" src="../../../../images/editado2.png" alt="icono2" srcset="">
+                        <h2 class="texto5">Registro Editado Conexito!!</h2>
+                        <h4 class="texto5">La ventana se cerrarra en automaico!</h4>
+                    </div>
+                 </div>';
         }else {
             echo 'Error al editar la plaza';
             print_r($error);

@@ -14,7 +14,7 @@ class creanuevoeditar extends conectasql{
     
     public function librerias() {
         echo '<link href="../../../../estilos/personasStyles.css" type="text/css" rel="stylesheet">';
-        echo '<link href="../../../../estilos/estilos.css" type="text/css" rel="stylesheet">';
+        //echo '<link href="../../../../estilos/estilos.css" type="text/css" rel="stylesheet">';
         echo '<script type="text/javascript" src="../../../../librerias/jquery-1.10.2.min.js"></script>';
         echo '<script type="text/javascript" src="lanzadera.js"></script>';
     }

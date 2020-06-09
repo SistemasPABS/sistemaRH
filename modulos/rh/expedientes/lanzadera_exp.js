@@ -1,60 +1,27 @@
-window.onload=lanzadera;
+window.onload = lanzadera;
+
 function lanzadera (){
-  document.oncontextmenu = function() { return false; };
-  genera(); 
+    document.oncontextmenu = function() { return false; };//funcion para menu contextual
+    genera();//Funcion que genera el datagrid
 }
 
 function input(id){
+    //
     document.getElementById('id').innerHTML = '<input>';
     return false;
 }
 
-function popup(url,estid,op) {
-        popupWindow = window.open(
-	url+'?em='+estid+'&op='+op,'razon'+op,'height=200px,width=740px,left=200,top=200, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
-}
-
-function edita(url,estid,op){
-    var rzn = document.getElementsByClassName("jqx-fill-state-pressed")[0].textContent;
-    //alert(rzn);
-    if(rzn != 0){
-        if(confirm('¿Desea editar la razon social '+rzn+'?')){
-            //alert(rzn);
+function popup(url,estid){
+   var prs = document.getElementsByClassName("jqx-fill-state-pressed")[0].textContent;
+    //alert(prs);
+    if(prs != 0){
+        if(confirm('¿Desea ver el expediente de '+prs+'?')){
             popupWindow = window.open(
-            url+'?em='+estid+'&op='+op+'&rzn='+btoa(rzn),'arzn'+btoa(rzn),'height=200px,width=740px,left=0,top=0, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
+            url+'?em='+estid+'&prs='+btoa(prs),'aprs'+btoa(prs),'height=780px,width=1024px,left=0,top=0, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
         }
     }else{
-        alert('Seleccione la razon para editar');
+        alert('Seleccione persona para ver expedientes');
     }
-}
-
-function eliminar_r(url) {
-    //alert('hola');
-    var rzn = document.getElementsByClassName("jqx-fill-state-pressed")[0].textContent;
-    if(rzn != 0){
-        if(confirm('¿Desea eliminar la razon '+rzn+'?')){
-            alert('hola');
-        
-//            $.ajax({
-//                type:"POST",
-//                url:url,
-//                data:{prs:btoa(prs)},
-//                success: function(data){
-//                alert("Registro eliminado con exito");    //success: function(datos){ $(\'#tabla\').html(datos); }
-//                }
-//            });
-//            genera();
-        }
-    }else{
-        alert('Seleccione la razon que desea eliminar');
-    }
-}
-
-function exportar(url,chk3){
-    var chk1 = document.getElementById("buscaopcion").value;
-    var chk2 = document.getElementById("busca").value;
-    //alert(chk1+' '+chk2);
-    popupWindow = window.open(url+'?chk1='+btoa(chk1)+'&chk2='+btoa(chk2)+'&chk3='+btoa(chk3),'popup'+btoa(chk1),'height=780px,width=1024px,left=0,top=0, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
 }
 
 function pulsar(e) {
@@ -72,10 +39,12 @@ function genera() {
                 {
                     datatype: "json",
                     datafields: [
-                        { name: 'raz_id'},
-                        { name: 'raz_nombre'},
-                        { name: 'raz_direccion'},
-                        { name: 'raz_legal'}
+                        { name: 'persona_id'},
+                        { name: 'persona_cve'},
+                        { name: 'nombrecompleto'},
+                        { name: 'persona_correo'},
+                        { name: 'numtel'},
+                        { name: 'persona_status'}
                         ],
                         
                     url: 'datagrid.php'
@@ -93,11 +62,14 @@ function genera() {
                     autoheight: true,
                     columnsresize: true,
                     columns: [
-                      { text: 'Registro', datafield: 'raz_id',width: 100,cellsalign: 'center'},
-                      { text: 'Nombre', datafield: 'raz_nombre',width: 290,cellsalign: 'center'},
-                      { text: 'Direccion', datafield: 'raz_direccion',width: 400,cellsalign: 'center'},
-                      { text: 'Representante', datafield: 'raz_legal', width: 200,cellsformat: 'center' },
-                     ]
+                      { text: 'Registro', datafield: 'persona_id',width: 100,cellsalign: 'center'},
+                      { text: 'Clave', datafield: 'persona_cve',width: 100,cellsalign: 'center'},
+                      { text: 'Nombre Completo', datafield: 'nombrecompleto', width: 280,cellsformat: 'D' },
+                      { text: 'Correo', datafield: 'persona_correo', width: 190,cellsformat: 'D' },
+                      { text: 'Numero telefonico', datafield: 'numtel',width:260,cellsformat: 'D'},
+                      { text: 'Estatus', datafield: 'persona_status', width:60,cellsalign: 'center' }
+                    ]
+
                 });
 
                 $('#events').jqxPanel({ width: 100, height: 100});
@@ -139,10 +111,12 @@ function enviar() {
                 {
                     datatype: "json",
                     datafields: [
-                        { name: 'raz_id'},
-                        { name: 'raz_nombre'},
-                        { name: 'raz_direccion'},
-                        { name: 'raz_legal'}
+                        { name: 'persona_id'},
+                        { name: 'persona_cve'},
+                        { name: 'nombrecompleto'},
+                        { name: 'persona_correo'},
+                        { name: 'numtel'},
+                        { name: 'persona_status'}
                         ],
                         
                     url: 'datagrid.php?oc1='+btoa(dato)+'&oc2='+btoa(dato2)+''
@@ -160,11 +134,13 @@ function enviar() {
                     autoheight: true,
                     columnsresize: true,
                     columns: [
-                      { text: 'Registro', datafield: 'raz_id',width: 100,cellsalign: 'center'},
-                      { text: 'Nombre', datafield: 'raz_nombre',width: 290,cellsalign: 'center'},
-                      { text: 'Direccion', datafield: 'raz_direccion',width: 400,cellsalign: 'center'},
-                      { text: 'Representante', datafield: 'raz_legal', width: 200,cellsformat: 'center' },
-                     ]
+                      { text: 'Registro', datafield: 'persona_id',width: 100,cellsalign: 'center'},
+                      { text: 'Clave', datafield: 'persona_cve',width: 100,cellsalign: 'center'},
+                      { text: 'Nombre Completo', datafield: 'nombrecompleto', width: 280,cellsformat: 'D' },
+                      { text: 'Correo', datafield: 'persona_correo', width: 190,cellsformat: 'D' },
+                      { text: 'Numero telefonico', datafield: 'numtel',width:260,cellsformat: 'D'},
+                      { text: 'Estatus', datafield: 'persona_status', width:60,cellsalign: 'center' }
+                    ]
 
                 });
 

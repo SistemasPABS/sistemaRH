@@ -1,7 +1,8 @@
 .titulo{
+    padding-top: 5px;
     width:auto;
     height: 18px;
-    background-color: black;
+    background-color: #035f9f;
     text-align: center;
     border-bottom: 3px solid green;
     color: white;
@@ -18,8 +19,8 @@
 }
 .selectbuscar{
     font-size: 8pt;
-    border-radius: 4px;
-    border: 1px solid black;
+    border-radius: 0px;
+    border: 1px solid grey;
     width: 100px;
     height: 20px;
     background-color: white;
@@ -43,8 +44,8 @@
     font-size: 8pt;
     width: 152px;
     background-color: white;
-    border: 1px solid black;
-    border-radius: 4px;
+    border: 1px solid grey;
+    border-radius: 0px;
     color: black;
     text-align:center;
 }
@@ -60,11 +61,12 @@ input.cierre2{
     font-size: 8pt;
     height: 20px;
     border-bottom: 1px;
-    border: 1px solid #000000;-webkit-border: 1px 1px 1px 1px;
-    background-color: black;
+    border:none;
+    -webkit-border: 1px 1px 1px 1px;
+    background-color: #035f9f;
 }
 .cierre2::-moz-focus-inner{border:0;}
-.cierre2:hover{background-color: green;}
+.cierre2:hover{background-color: grey;}
 .cierre2:before{background-color: black;}
 #toolbar{
     left: 600px;
@@ -125,4 +127,16 @@ div.rtabla{
 }
 .licom{
     width:auto;
+}
+.input0{
+    font-size: 8pt;
+    border-radius: 4px;
+    border: 1px solid black;
+    width: 100px;
+    height: 20px;
+    background-color: white;
+    padding: 1px;
+    outline: none;
+    color:black;
+    text-align: center;
 }

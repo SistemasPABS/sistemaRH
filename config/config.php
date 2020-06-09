@@ -1,14 +1,17 @@
 <?php
 
-/*perfil para la base de datos de Julieta*/
+/*perfil para la base de datos de Julieta
 $server0 ='localhost';
 $dbname0 ='postgres';
 $port0   ='5432';
 $user0   ='postgres';   
-$passwd0 ='admin';
+$passwd0 ='admin';*/
+
+/*perfil para la base de datos No. 0--POSTGRESQL HAMACHI 
+$server0 ='192.168.10.173';*/
 
 /*perfil para la base de datos No. 0--POSTGRESQL
-$server0 ='192.168.10.173';
+$server0 ='127.0.0.1';
 $dbname0 ='controller_db';
 $port0   ='5432';
 $user0   ='web';

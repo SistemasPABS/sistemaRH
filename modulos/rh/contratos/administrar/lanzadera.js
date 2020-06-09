@@ -132,6 +132,30 @@ function autocompletable(){
         }
     });
  }
+ 
+ function valida_salario(){
+    //alert('hola');
+    if(document.getElementById("id_puesto").value.length == 0){
+        alert('Ingrese el puesto antes de capturar el salario');
+        document.getElementById("salario").value = '';
+    }else{
+        var pid = document.getElementById("id_puesto").value;
+        var sal = document.getElementById("salario").value;
+        $.ajax({
+            type: "POST",
+            url: "valida_tope.php",
+            data:{pid:btoa(pid),sal:btoa(sal)},
+            success: function(data){
+                    //alert(data);
+                    if(data == 0){
+                        alert('El salario capturado no puede ser mayor al establecido en el puesto');
+                        document.getElementById("salario").value = '';
+                    }
+            }
+        });
+    }
+ }
+ 
  //Valida campos antes de mandar el formulario
 function valida_campos(op){
        //Nombre persona

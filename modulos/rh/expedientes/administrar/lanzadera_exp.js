@@ -1,52 +1,26 @@
-window.onload=lanzadera;
+window.onload = lanzadera;
+
 function lanzadera (){
-  document.oncontextmenu = function() { return false; };
-  genera(); 
+    document.oncontextmenu = function() { return false; };//funcion para menu contextual
+    genera();//Funcion que genera el datagrid
 }
 
-function input(id){
-    document.getElementById('id').innerHTML = '<input>';
-    return false;
-}
-
-function popup(url,estid,op) {
+function popup(url, estid, op, prs) {
         popupWindow = window.open(
-	url+'?em='+estid+'&op='+op,'razon'+op,'height=200px,width=740px,left=200,top=200, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
+	url+'?em='+estid+'&op='+op+'&prs='+prs ,'aprs'+op,'height=300px,width=1024px,left=0,top=0, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
 }
 
 function edita(url,estid,op){
-    var rzn = document.getElementsByClassName("jqx-fill-state-pressed")[0].textContent;
-    //alert(rzn);
-    if(rzn != 0){
-        if(confirm('¿Desea editar la razon social '+rzn+'?')){
-            //alert(rzn);
+    var exp = document.getElementsByClassName("jqx-fill-state-pressed")[0].textContent;
+    var prs = document.getElementById("registro").value;
+    //alert('persona: '+prs+' exp: '+exp);
+    if(exp != 0){
+        if(confirm('¿Desea editar los datos del registro '+exp+'?')){
             popupWindow = window.open(
-            url+'?em='+estid+'&op='+op+'&rzn='+btoa(rzn),'arzn'+btoa(rzn),'height=200px,width=740px,left=0,top=0, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
+            url+'?em='+estid+'&op='+op+'&exp='+btoa(exp)+'&prs='+btoa(prs),'aexp'+btoa(exp),'height=780px,width=1024px,left=0,top=0, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
         }
     }else{
-        alert('Seleccione la razon para editar');
-    }
-}
-
-function eliminar_r(url) {
-    //alert('hola');
-    var rzn = document.getElementsByClassName("jqx-fill-state-pressed")[0].textContent;
-    if(rzn != 0){
-        if(confirm('¿Desea eliminar la razon '+rzn+'?')){
-            alert('hola');
-        
-//            $.ajax({
-//                type:"POST",
-//                url:url,
-//                data:{prs:btoa(prs)},
-//                success: function(data){
-//                alert("Registro eliminado con exito");    //success: function(datos){ $(\'#tabla\').html(datos); }
-//                }
-//            });
-//            genera();
-        }
-    }else{
-        alert('Seleccione la razon que desea eliminar');
+        alert('Seleccione persona para editar');
     }
 }
 
@@ -67,18 +41,22 @@ function cambiaopciones(posicion,id){
     return false;
 }
 
-function genera() { 
+function genera() {
+        var dato3 = document.opbusqueda2.registro.value;        //valor registro
+        
         var source =
                 {
                     datatype: "json",
                     datafields: [
-                        { name: 'raz_id'},
-                        { name: 'raz_nombre'},
-                        { name: 'raz_direccion'},
-                        { name: 'raz_legal'}
+                        { name: 'exp_id'},
+                        { name: 'exp_desc'},
+                        { name: 'exp_fecha'},
+                        { name: 'exp_hora'},
+                        { name: 'txp_nombre'},
+                        { name: 'exp_ruta'}
                         ],
                         
-                    url: 'datagrid.php'
+                    url: 'datagrid.php?oc3='+btoa(dato3)
 
                 };
                 var dataAdapter = new $.jqx.dataAdapter(source);
@@ -93,11 +71,14 @@ function genera() {
                     autoheight: true,
                     columnsresize: true,
                     columns: [
-                      { text: 'Registro', datafield: 'raz_id',width: 100,cellsalign: 'center'},
-                      { text: 'Nombre', datafield: 'raz_nombre',width: 290,cellsalign: 'center'},
-                      { text: 'Direccion', datafield: 'raz_direccion',width: 400,cellsalign: 'center'},
-                      { text: 'Representante', datafield: 'raz_legal', width: 200,cellsformat: 'center' },
-                     ]
+                      { text: 'Registro', datafield: 'exp_id',width: 100,cellsalign: 'center'},
+                      { text: 'Descripcion', datafield: 'exp_desc',width: 300,cellsalign: 'center'},
+                      { text: 'Fehca', datafield: 'exp_fecha', width: 180,cellsformat: 'D' },
+                      { text: 'Hora', datafield: 'exp_hora', width: 90,cellsformat: 'D' },
+                      { text: 'Tipo de Exp', datafield: 'txp_nombre',width:260,cellsformat: 'D'},
+                      { text: 'Documento', datafield: 'exp_ruta', width:60,cellsalign: 'center' }
+                    ]
+
                 });
 
                 $('#events').jqxPanel({ width: 100, height: 100});
@@ -132,20 +113,23 @@ function genera() {
 }
 
 function enviar() { 
-    var dato2 = document.opbusqueda.buscaopcion.value;//buscar por (nombre o clave)
-    var dato  = document.opbusqueda.busca.value;       //el valor a buscar
-    
+    var dato2 = document.opbusqueda2.buscaopcion.value;  //buscar por (nombre o clave)
+    var dato  = document.opbusqueda2.busca.value;        //el valor a buscar
+    var dato3 = document.opbusqueda2.registro.value;        //valor registro
+    alert(dato3);
         var source =
                 {
                     datatype: "json",
                     datafields: [
-                        { name: 'raz_id'},
-                        { name: 'raz_nombre'},
-                        { name: 'raz_direccion'},
-                        { name: 'raz_legal'}
+                        { name: 'exp_id'},
+                        { name: 'exp_desc'},
+                        { name: 'exp_fecha'},
+                        { name: 'exp_hora'},
+                        { name: 'txp_nombre'},
+                        { name: 'exp_ruta'}
                         ],
                         
-                    url: 'datagrid.php?oc1='+btoa(dato)+'&oc2='+btoa(dato2)+''
+                    url: 'datagrid.php?oc1='+btoa(dato)+'&oc2='+btoa(dato2)+'&oc3='+btoa(dato3)
 
                 };
                 var dataAdapter = new $.jqx.dataAdapter(source);
@@ -160,11 +144,13 @@ function enviar() {
                     autoheight: true,
                     columnsresize: true,
                     columns: [
-                      { text: 'Registro', datafield: 'raz_id',width: 100,cellsalign: 'center'},
-                      { text: 'Nombre', datafield: 'raz_nombre',width: 290,cellsalign: 'center'},
-                      { text: 'Direccion', datafield: 'raz_direccion',width: 400,cellsalign: 'center'},
-                      { text: 'Representante', datafield: 'raz_legal', width: 200,cellsformat: 'center' },
-                     ]
+                      { text: 'Registro', datafield: 'exp_id',width: 100,cellsalign: 'center'},
+                      { text: 'Descripcion', datafield: 'exp_desc',width: 300,cellsalign: 'center'},
+                      { text: 'Fehca', datafield: 'exp_fecha', width: 180,cellsformat: 'D' },
+                      { text: 'Hora', datafield: 'exp_hora', width: 90,cellsformat: 'D' },
+                      { text: 'Tipo de Exp', datafield: 'txp_nombre',width:260,cellsformat: 'D'},
+                      { text: 'Documento', datafield: 'exp_ruta', width:60,cellsalign: 'center' }
+                    ]
 
                 });
 

@@ -186,3 +186,52 @@ ul{
 li{
     
 }
+#myList{
+    font-size:9pt;
+    border:1px solid grey;
+    margin-top:-1px;
+    margin-left:-55px;
+    width: 355px;
+    height: 85px;
+    overflow-y: scroll;
+}
+.delrow{
+    font-size: 9pt;
+    font-weight: bold;
+    background-color: red;
+    border: none;
+    color:white;
+}
+.licom{
+    width:auto;
+}
+
+.padre {
+    position: absolute;
+    background: rgba(73,155,234,1);
+    background: -moz-linear-gradient(left, rgba(73,155,234,1) 0%, rgba(0,0,0,0.92) 100%);
+    background: -webkit-linear-gradient(left, rgba(73,155,234,1) 0%, rgba(0,0,0,0.92) 100%);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+   -moz-background-size: 100% 100%, auto;
+    background-size: 100% 100%, auto;
+    width: 100%;
+    height:100%;
+    /*IMPORTANTE*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .hijo {
+    width: auto;
+
+  }
+  .icono{
+      width: 100px;
+      height: auto;
+  }
+  .texto5{
+      color: aliceblue;
+  }
