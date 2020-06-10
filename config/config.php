@@ -7,12 +7,15 @@ $port0   ='5432';
 $user0   ='postgres';   
 $passwd0 ='admin';*/
 
-/*perfil para la base de datos No. 0--POSTGRESQL*/
+/*perfil para la base de datos No. 0--POSTGRESQL HAMACHI 
+$server0 ='192.168.10.173';*/
+
+/*perfil para la base de datos No. 0--POSTGRESQL
 $server0 ='127.0.0.1';
 $dbname0 ='controller_db';
 $port0   ='5432';
 $user0   ='web';
-$passwd0 ='Gu3lc0m';
+$passwd0 ='Gu3lc0m';*/
 
 /*perfil para la base de datos No. 1--MSSQL*/
 $server1 ='';

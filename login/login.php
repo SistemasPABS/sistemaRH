@@ -15,6 +15,7 @@ if(isset($_SESSION['plogin']) && $_SESSION['plogin'] === true){
 <html>
     <head>
         <title> Inicio </title>
+        
         <link rel="shortcut icon" type="image/x-icon" href="../images/notepadicon.ico">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
