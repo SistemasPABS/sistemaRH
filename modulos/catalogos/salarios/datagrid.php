@@ -47,7 +47,7 @@ if($dato != NULL){
          $suc[$i]['plaza_nombre'] = $row['plaza_nombre'];
          $suc[$i]['suc_nombre'] = $row['suc_nombre'];
          $suc[$i]['sal_monto'] = $row['sal_monto'];
-         $suc[$i]['sal_tipo'] = $row['sal_tipo'];
+         $suc[$i]['sal_tipo_nombre'] = $row['sal_tipo_nombre'];
          $suc[$i]['us_login'] = $row['us_login'];
          if($row['sal_activo'] == 1 ){$status='<img src="../../../images/palomaicon.png" width="14" height="14">';}else{$status='<img src="../../../images/eliminaricon.png" width="14" height="14">';}
          $suc[$i]['sal_activo'] = $status;

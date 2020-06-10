@@ -95,7 +95,7 @@ function genera() {
                         { name: 'plaza_nombre'},
                         { name: 'suc_nombre'},
                         { name: 'sal_monto'},
-                        { name: 'sal_tipo'},
+                        { name: 'sal_tipo_nombre'},
                         { name: 'us_login'},
                         { name: 'sal_activo'}
                         ],
@@ -121,7 +121,7 @@ function genera() {
                       { text: 'Plaza', datafield: 'plaza_nombre', width: 110,cellsformat: 'center'},
                       { text: 'Sucursal', datafield: 'suc_nombre', width: 110,cellsformat: 'center'},
                       { text: 'Monto', datafield: 'sal_monto',width: 110,cellsalign: 'center'},
-                      { text: 'Tipo', datafield: 'sal_tipo', width: 110,cellsformat: 'center'},
+                      { text: 'Tipo', datafield: 'sal_tipo_nombre', width: 110,cellsformat: 'center'},
                       { text: 'Autorizado', datafield: 'us_login', width: 90,cellsformat: 'center'},
                       { text: 'Status', datafield: 'sal_activo',width: 50,cellsalign: 'center'}
                     ]
@@ -172,7 +172,7 @@ function enviar() {
                         { name: 'plaza_nombre'},
                         { name: 'suc_nombre'},
                         { name: 'sal_monto'},
-                        { name: 'sal_tipo'},
+                        { name: 'sal_tipo_nombre'},
                         { name: 'us_login'},
                         { name: 'sal_activo'}
                         ],
@@ -198,7 +198,7 @@ function enviar() {
                       { text: 'Plaza', datafield: 'plaza_nombre', width: 110,cellsformat: 'center'},
                       { text: 'Sucursal', datafield: 'suc_nombre', width: 110,cellsformat: 'center'},
                       { text: 'Monto', datafield: 'sal_monto',width: 110,cellsalign: 'center'},
-                      { text: 'Tipo', datafield: 'sal_tipo', width: 110,cellsformat: 'center'},
+                      { text: 'Tipo', datafield: 'sal_tipo_nombre', width: 110,cellsformat: 'center'},
                       { text: 'Autorizado', datafield: 'us_login', width: 90,cellsformat: 'center'},
                       { text: 'Status', datafield: 'sal_activo',width: 50,cellsalign: 'center'}
                   ]

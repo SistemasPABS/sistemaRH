@@ -89,11 +89,6 @@ function valida_campos(op){
     document.form_personas.rfc.focus();
     return 0;
     }
-    if (document.form_personas.nss.value.length==0){
-    alert("El NSS no puede ir en blanco");
-    document.form_personas.nss.focus();
-    return 0;
-    }
     if (document.form_personas.curp.value.length==0){
     alert("La CURP no puede ir en blanco");
     document.form_personas.curp.focus();

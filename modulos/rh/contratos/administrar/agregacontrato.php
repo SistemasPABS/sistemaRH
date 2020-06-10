@@ -81,19 +81,19 @@
         }
  
         // datos de puestos
-        echo 'datos del Contrato<br>';
-        echo 'id_Persona: '.$id_persona.'<br>';
-        echo 'Contrato Tipo: '.$id_contrato.'<br>';
-        echo 'Puesto: '.$id_puesto.'<br>';
-        echo 'Razon: '.$id_razon.'<br>';
-        echo 'Plaza: '.$id_plaza.'<br>';
-        echo 'Salario:'.$salario.'<br>';
-        echo 'Horario: '.$horario.'<br>';
-        echo 'Periodo: '.$prueba.'<br>';
-        echo 'Fecha Inicial: '.$fecha_ini.'<br>';
-        echo 'Fecha Fin: '.$fecha_fin.'<br>';
-        echo 'Estatus: '.$status.'<br>';
-        echo 'Estatus: '.$adic.'<br>'; 
+//        echo 'datos del Contrato<br>';
+//        echo 'id_Persona: '.$id_persona.'<br>';
+//        echo 'Contrato Tipo: '.$id_contrato.'<br>';
+//        echo 'Puesto: '.$id_puesto.'<br>';
+//        echo 'Razon: '.$id_razon.'<br>';
+//        echo 'Plaza: '.$id_plaza.'<br>';
+//        echo 'Salario:'.$salario.'<br>';
+//        echo 'Horario: '.$horario.'<br>';
+//        echo 'Periodo: '.$prueba.'<br>';
+//        echo 'Fecha Inicial: '.$fecha_ini.'<br>';
+//        echo 'Fecha Fin: '.$fecha_fin.'<br>';
+//        echo 'Estatus: '.$status.'<br>';
+//        echo 'Estatus: '.$adic.'<br>'; 
         
         //Conexion a la base de datos
         include '../../../../config/conectasql.php';
