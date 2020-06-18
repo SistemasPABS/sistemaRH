@@ -10,6 +10,8 @@ class conectasql{
     public $p2;
     public $p3;
     public $p4;
+    public $pplazas;
+    public $psucursales;
     public $select;
     public $html;
     public $inserts;
@@ -201,6 +203,30 @@ class conectasql{
        
     }
     
+    //consulta plazas y sucursales a las que tiene derecho de acceder un usuario
+    //regresa valores como complemento para poder incluirlas en otras consultas
+    public function user_plazas_sucursales($usid) {
+        $sqlp="select distinct plaza_id from users_plazas_sucursales where us_id = $usid;";
+        $resultp= pg_query($this->conexion, $sqlp);
+        if($rowp = pg_fetch_array($resultp)){
+            do{
+                $this->pplazas.=','.$rowp['plaza_id'];
+            }
+            while($rowp = pg_fetch_array($resultp));
+        }
+        $this->pplazas = substr($this->pplazas,1);
+        
+        $sqlp="select distinct suc_id from users_plazas_sucursales where us_id = $usid;";
+        $resultp= pg_query($this->conexion, $sqlp);
+        if($rowp = pg_fetch_array($resultp)){
+            do{
+                $this->psucursales.=','.$rowp['suc_id'];
+            }
+            while($rowp = pg_fetch_array($resultp));
+        }
+        $this->psucursales = substr($this->psucursales,1);
+    }
+    
     // CONSULTAS ALTAS Y MODIFICACIONES DE PERSONAS
     //funcion para crear selects con registros leidos de la base de datos
     public function selects_creator($sql,$nombre,$valor,$texto,$apartado,$change,$default) {
@@ -260,6 +286,21 @@ class conectasql{
         }else{
             $this->msj = 0;
         }
+    }
+    
+    public function exito($css) {
+        echo '<script type="text/javascript">window.opener.genera();</script>';
+        echo '<script type="text/javascript">
+                setTimeout("self.close();",4000);
+              </script>'; 
+        echo '<link href="'.$css.'" type="text/css" rel="stylesheet">';
+        echo '<div class="padre">
+                <div class="hijo">
+                    <img class="icono" src="../../../../images/guardado2.png" alt="icono2" srcset="">
+                    <h2 class="texto5">Registro Guardado!!</h2>
+                    <h4 class="texto5">La ventana se cerrarra en automaico!</h4>
+                </div>
+             </div>';
     }
      
     //Funcion para insertar nuevas personas
@@ -409,6 +450,7 @@ class conectasql{
         $results= pg_query($this->conexion,$sql) or die("Error uco: ". pg_last_error());//actualiza comision
         $this->update='1';
     }
+    
     //Consulta comisiones
      public function consulta_com($id) {
         $sqlsuc="select * from vw_comisiones where co_id=$id";
@@ -642,6 +684,7 @@ class conectasql{
         $row= pg_fetch_array($result);
         $this->consulta2=$row;
     }
+    
     //Consulta puesto para cto
     public function consulta_per_pto($reg){
         $sql="select * from vw_puestos where puesto_id=$reg;";
@@ -649,6 +692,7 @@ class conectasql{
         $row= pg_fetch_array($result);
         $this->consulta3=$row;
     }
+    
     //Consulta puesto para cto
     public function consulta_sueldo_cto($reg){
         $sql="select * from vw_salarios where sal_id=$reg;";
@@ -663,6 +707,7 @@ class conectasql{
         $row= pg_fetch_array($result);
         $this->consulta=$row;
     }
+    
     public function consulta_doc_exp($exp) {
         $sql="select * from vw_doc_expedientes where exp_id= $exp;";
         $result = pg_query($this->conexion, $sql) or die ("Error ctexp: ". pg_last_error());

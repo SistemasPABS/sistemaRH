@@ -41,18 +41,7 @@
         }
         $insert->cierra_conexion("0");
         if($insert->inserts == '1'){
-            echo '<script type="text/javascript">window.opener.genera();</script>';
-            echo '<script type="text/javascript">
-                    setTimeout("self.close();",4000);
-                  </script>'; 
-            echo '<link href="../../../../estilos/personasStyles.css" type="text/css" rel="stylesheet">';
-            echo '<div class="padre">
-                    <div class="hijo">
-                        <img class="icono" src="../../../../images/guardado2.png" alt="icono2" srcset="">
-                        <h2 class="texto5">Registro Guardado!!</h2>
-                        <h4 class="texto5">La ventana se cerrarra en automaico!</h4>
-                    </div>
-                 </div>';
+            $insert->exito('../../../../estilos/personasStyles.css');
         }else {
             echo 'Error al guardar la nueva plaza';
             print_r($error);
@@ -101,18 +90,7 @@
         }
         $insert->cierra_conexion("0");
         if($insert->update== '1'){
-            echo '<script type="text/javascript">window.opener.genera();</script>';
-            echo '<script type="text/javascript">
-                    setTimeout("self.close();",4000);
-                  </script>';
-            echo '<link href="../../../../estilos/personasStyles.css" type="text/css" rel="stylesheet">';
-            echo '<div class="padre">
-                    <div class="hijo">
-                        <img class="icono" src="../../../../images/editado2.png" alt="icono2" srcset="">
-                        <h2 class="texto5">Registro Editado Conexito!!</h2>
-                        <h4 class="texto5">La ventana se cerrarra en automaico!</h4>
-                    </div>
-                 </div>';
+           $insert->exito('../../../../estilos/personasStyles.css');
         }else {
             echo 'Error al editar la plaza';
             print_r($error);

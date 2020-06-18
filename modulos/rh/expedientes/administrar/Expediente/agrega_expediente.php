@@ -32,8 +32,8 @@
             $tipo_exp = $_POST['tipo_exp'];
         }
         
-        $e=$_FILES['doc']['type'];
-        $ext= explode('/',$e);
+        $e=$_FILES['doc']['name'];
+        $ext= explode('.',$e);
         
         //se define nombre de la plantilla
         $nombredoc= $persona.$tipo_exp.$f.$h.'.'.$ext[1];
@@ -75,18 +75,7 @@
         $insert->cierra_conexion("0");
         //Mensaje de confirmacion de registro guardado 
         if($insert->inserts == '1'){
-            echo '<script type="text/javascript">window.opener.genera();</script>';
-            echo '<script type="text/javascript">
-                    setTimeout("self.close();",4000);
-                  </script>';
-            echo '<link href="../../../../../estilos/personasStyles.css" type="text/css" rel="stylesheet">';
-            echo '<div class="padre">
-                    <div class="hijo">
-                        <img class="icono" src="../../../../../images/guardado2.png" alt="icono2" srcset="">
-                        <h2 class="texto5">Registro Guardado Conexito!!</h2>
-                        <h4 class="texto5">La ventana se cerrarra en automaico!</h4>
-                    </div>
-                 </div>';
+            $insert->exito('../../../../../estilos/personasStyles.css');
         }else {
             echo 'Error al guardar';
             print_r($error);
@@ -151,8 +140,8 @@
                     //se borra el archivo anterior
                     unlink('../../../../../formatos/expedientes/'.$insert->consulta['exp_ruta']);
                     //se define nombre de la plantilla
-                    $e=$_FILES['doc']['type'];
-                    $ext= explode('/',$e);
+                    $e=$_FILES['doc']['name'];
+                    $ext= explode('.',$e);
                     $nombredoc= $persona.$tipo_exp.$f.$h.'.'.$ext[1];
                     //Asigna destino y nombre al documento a copiar
                     $destino='../../../../../formatos/expedientes/'.$nombredoc;
@@ -177,8 +166,8 @@
                     //se borra el archivo anterior
                     unlink('../../../../../formatos/expedientes/'.$insert->consulta['exp_ruta']);
                     //se define nombre de la plantilla
-                    $e=$_FILES['doc']['type'];
-                    $ext= explode('/',$e);
+                    $e=$_FILES['doc']['name'];
+                    $ext= explode('.',$e);
                     $nombredoc= $persona.$tipo_exp.$f.$h.'.'.$ext[1];
                     //Asigna destino y nombre al documento a copiar
                     $destino='../../../../../formatos/expedientes/'.$nombredoc;
@@ -198,18 +187,7 @@
         
         $insert->cierra_conexion("0");
         if($insert->update== '1'){
-            echo '<script type="text/javascript">window.opener.genera();</script>';
-            echo '<script type="text/javascript">
-                    setTimeout("self.close();",4000);
-                  </script>';
-            echo '<link href="../../../../../estilos/personasStyles.css" type="text/css" rel="stylesheet">';
-            echo '<div class="padre">
-                    <div class="hijo">
-                        <img class="icono" src="../../../../../images/guardado2.png" alt="icono2" srcset="">
-                        <h2 class="texto5">Registro Guardado Conexito!!</h2>
-                        <h4 class="texto5">La ventana se cerrarra en automaico!</h4>
-                    </div>
-                 </div>';
+            $insert->exito('../../../../../estilos/personasStyles.css');
         }else {
             echo 'Error al editar la plaza';
             print_r($error);

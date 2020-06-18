@@ -139,8 +139,8 @@ class creanuevoeditar extends conectasql{
             echo '</div>';
             echo '<div class="division"></div>';
             echo '<div class="row-centrado">';
-                echo '<button type="button" onclick="valida_campos(\''.$op.'\');" class="btnA" > Guardar </button>';   
-                echo '<button type="button" onclick="self.close();" class="btnA" style="margin-left:10px;"> Cancelar </button>';
+                echo '<button type="button" id="forward" onclick="valida_campos(\''.$op.'\');" class="btnA" > Guardar </button>';   
+                echo '<button type="button" id="cancel"  onclick="self.close();" class="btnA" style="margin-left:10px;"> Cancelar </button>';
             echo '</div>';
         echo '</form>';
     }

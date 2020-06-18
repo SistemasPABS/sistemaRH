@@ -123,18 +123,7 @@
         $insert->cierra_conexion("0");
         //Valida si la incercion se realizo correctamente
         if($insert->inserts == '1'){
-            echo '<script type="text/javascript">window.opener.genera();</script>';
-            echo '<script type="text/javascript">
-                    setTimeout("self.close();",4000);
-                  </script>';
-            echo '<link href="../../../../estilos/personasStyles.css" type="text/css" rel="stylesheet">';
-            echo '<div class="padre">
-                    <div class="hijo">
-                        <img class="icono" src="../../../../images/guardado2.png" alt="icono2" srcset="">
-                        <h2 class="texto5">Registro Guardado Conexito!!</h2>
-                        <h4 class="texto5">La ventana se cerrarra en automaico!</h4>
-                    </div>
-                 </div>';
+            $insert->exito('../../../../estilos/personasStyles.css');
         }else {
             //Si existe error imprime el array de errores
             echo 'Error al guardar el contrato';
@@ -253,18 +242,7 @@
         $insert->cierra_conexion("0");
         //Valida que el update se realizo con exito
         if($insert->update == '1'){
-            echo '<script type="text/javascript">window.opener.genera();</script>';
-            echo '<script type="text/javascript">
-                    setTimeout("self.close();",4000);
-                  </script>';
-            echo '<link href="../../../../estilos/personasStyles.css" type="text/css" rel="stylesheet">';
-            echo '<div class="padre">
-                    <div class="hijo">
-                        <img class="icono" src="../../../../images/editado2.png" alt="icono2" srcset="">
-                        <h2 class="texto5">Registro Editado Conexito!!</h2>
-                        <h4 class="texto5">La ventana se cerrarra en automaico!</h4>
-                    </div>
-                 </div>';
+            $insert->exito('../../../../estilos/personasStyles.css');
         }else {
             //imprime el array de errores
             echo 'Error al editar el contrato';

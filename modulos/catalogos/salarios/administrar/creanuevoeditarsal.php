@@ -32,7 +32,7 @@ class creanuevoeditar extends conectasql{
             if($this->consulta['sal_tipo'] == 'men'){$v3='selected';}
             $saltipodefault= $this->consulta['sal_tipo_id'];
             $selectdefault= $this->consulta['plaza_id'];
-            $this->selects_creator('select * from sucursales order by suc_id','sucursales','suc_id','suc_nombre','sucursales','onChange= ""',$this->consulta['suc_id']);
+            $this->selects_creator('select * from sucursales where suc_activo = 1 order by suc_id','sucursales','suc_id','suc_nombre','sucursales','onChange= ""',$this->consulta['suc_id']);
             $selectedit=$this->select; 
             
         
@@ -70,7 +70,7 @@ class creanuevoeditar extends conectasql{
                         echo $this->select; 
                     echo '</div>';
                     echo '<div class="col-3"><label>Plaza</label><br>';
-                        $this->selects_creator('select * from plazas order by plaza_id','plazas','plaza_id','plaza_nombre','plazas','onChange= "ver_sucursales();"',$selectdefault);
+                        $this->selects_creator('select * from plazas where plaza_activo = 1 order by plaza_id','plazas','plaza_id','plaza_nombre','plazas','onChange= "ver_sucursales();"',$selectdefault);
                         echo $this->select;   
                     echo '</div>';
                     echo '<div class="col-3"><label> Sucursal </label><br>';
@@ -82,8 +82,8 @@ class creanuevoeditar extends conectasql{
                     
                 echo '<div class="division"></div>';
                 echo '<div class="row-centrado">';
-                    echo '<button type="button" onclick="valida_campos(\''.$op.'\');" class="btnA" > Guardar </button>';   
-                    echo '<button type="button" onclick="self.close();"               class="btnA" style="margin-left:10px;"> Cancelar </button>';
+                    echo '<button type="button" id="forward" onclick="valida_campos(\''.$op.'\');" class="btnA" > Guardar </button>';   
+                    echo '<button type="button" id="cancel"  onclick="self.close();"               class="btnA" style="margin-left:10px;"> Cancelar </button>';
                 echo '</div>';
         echo '</form>';
     }

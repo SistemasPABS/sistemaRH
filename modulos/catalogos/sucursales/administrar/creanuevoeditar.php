@@ -40,7 +40,7 @@ class creanuevoeditar extends conectasql{
         echo '<form method="post" name="form_suc" action="agregasuc.php'.$operacion.'">';
                 echo '<div class="row">';
                     echo '<div class="col-3"><label>Plaza</label><br>';
-                        $this->selects_creator('select * from plazas order by plaza_id','plazas','plaza_id','plaza_nombre','plazas','onChange= ""',$selectdefault);
+                        $this->selects_creator('select * from plazas where plaza_activo = 1 order by plaza_id','plazas','plaza_id','plaza_nombre','plazas','onChange= ""',$selectdefault);
                         echo $this->select;   
                      echo '</div>';
                     echo '<div class="col-4"><label>Nombre</label><br><input class="input0" type="text" name="nombre" onkeypress="return solo_letras(event);" id="nombre" value="'.$this->consulta['suc_nombre'].'" placeholder="Nombre" required><input name="registro" id="registro" value="'.$suc.'" hidden></div>';
@@ -49,8 +49,8 @@ class creanuevoeditar extends conectasql{
 
                 echo '<div class="division"></div>';
                 echo '<div class="row-centrado">';
-                    echo '<button type="button" onclick="valida_campos(\''.$op.'\');" class="btnA" > Guardar </button>';   
-                    echo '<button type="button" onclick="self.close();"               class="btnA" style="margin-left:10px;"> Cancelar </button>';
+                    echo '<button type="button" id="forward" onclick="valida_campos(\''.$op.'\');" class="btnA" > Guardar </button>';   
+                    echo '<button type="button" id="cancel"  onclick="self.close();"               class="btnA" style="margin-left:10px;"> Cancelar </button>';
                 echo '</div>';
         echo '</form>';
     }

@@ -61,7 +61,9 @@ function valida_campos(op){
         document.form_sal.sucursal.focus();
         return 0;
     }
-       
+    
+    var btn = document.getElementById("forward");
+    btn.disabled=true; 
     document.form_sal.submit();    
 }
 function solo_letras(e){

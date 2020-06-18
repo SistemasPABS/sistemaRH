@@ -180,6 +180,9 @@ function valida_campos(op){
     document.form_personas.cuenta.value="Sin Cuenta";
     //return 0;
     }
+    
+    var btn = document.getElementById("forward");
+    btn.disabled=true;
     document.form_personas.submit();
 }
 

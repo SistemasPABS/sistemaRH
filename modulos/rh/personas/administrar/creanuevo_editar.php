@@ -121,8 +121,8 @@ class creanuevo_editar extends conectasql{
             echo '</div>';
             echo '<div class="row">';
                 echo ' <div class="col-2"><label>Fec.Nacimineto</label><br><input class="inputdate" type="date" name="fecha_nac" onkeypress="solo_letras" value="'.$this->generales['persona_fecnac'].'"></div>';
-                echo ' <div class="col-3"><label>Edo. Civil</label><br><input class="input0" type="text" name="civil" onkeypress="solo_numeros" value="'.$this->generales['persona_edo_civil'].'"></div>';
-                echo ' <div class="col-2"><label>Edad</label><br><input class="input0" type="text" name="edad" value="'.$this->generales['persona_edad'].'"></div>';
+                echo ' <div class="col-3"><label>Edo. Civil</label><br><input class="input0" type="text" name="civil" value="'.$this->generales['persona_edo_civil'].'"></div>';
+                echo ' <div class="col-2"><label>Edad</label><br><input class="input0" type="text" name="edad" onkeypress="return solo_numeros(event);" value="'.$this->generales['persona_edad'].'"></div>';
             echo '</div>';
 
             echo '<div class="row">';
@@ -225,8 +225,8 @@ class creanuevo_editar extends conectasql{
             echo '</div>';     
             echo '<div class="division"></div>';
             echo '<div class="row-centrado">';
-                echo '<button type="button" onclick="valida_campos(\''.$op.'\');" class="btnA" > Guardar </button>';   
-                echo '<button type="button" onclick="self.close();"    class="btnA" style="margin-left:10px;">Cancelar</button>';
+                echo '<button type="button" id="forward" onclick="valida_campos(\''.$op.'\');" class="btnA" > Guardar </button>';   
+                echo '<button type="button" id="cancel"  onclick="self.close();"    class="btnA" style="margin-left:10px;">Cancelar</button>';
             echo '</div>';
         echo '</form>';
        

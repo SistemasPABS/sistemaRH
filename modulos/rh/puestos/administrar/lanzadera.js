@@ -147,8 +147,10 @@ function valida_campos(op){
         document.form_puesto.descripcion.focus();
         return 0;
     }
-        
-   document.form_puesto.submit();    
+    
+    var btn = document.getElementById("forward");
+    btn.disabled=true;   
+    document.form_puesto.submit();    
 }
 
 function solo_letras(e){

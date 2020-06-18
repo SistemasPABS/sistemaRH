@@ -22,7 +22,7 @@ require '../../../../config/cookie.php';
         $nuevoselect->selects_creator('select * from sucursales where plaza_id='.$ns.' order by suc_id', 'sucursales2', 'suc_id', 'suc_nombre', 'sucursal', 'onChange="ver_jefes();"','');
         echo $nuevoselect->select;
     }else if($op == 'jefe'){
-        $nuevoselect->selects_creator('select * from puestos where plaza_id='.$ns.' order by puesto_id', 'jefes', 'puesto_id', 'puesto_nombre', 'jefes', 'onChange=""','');
+        $nuevoselect->selects_creator('select * from puestos where suc_id='.$ns.' order by puesto_id', 'jefes', 'puesto_id', 'puesto_nombre', 'jefes', 'onChange=""','');
         echo $nuevoselect->select;
     }
     $nuevoselect->cierra_conexion("0");

@@ -4,6 +4,8 @@ require '../../../../config/cookie.php';
 ?>
 <?php
 //Opcion del campo que se esta buscando
+session_start();
+$usid=$_SESSION['us_id'];
 $op=base64_decode($_POST['op']);
 //Valor del campo a buscar 
 $search=$_POST['search'];
@@ -12,7 +14,7 @@ $search=$_POST['search'];
     $campos->abre_conexion("0");
     //Consulta y llenado de array para la funcion de autocompletar.
     if($op == 'per'){
-        $sql="select * from vw_personas where nombrecompleto like '%$search%'";
+        $sql="select * from vw_personas where nombrecompleto like '%$search%' and persona_status = 1";
         $result = pg_query($campos->conexion,$sql) or die("Error cds: ". pg_last_error());//creador de selects
             while($row = pg_fetch_array($result) ){
                 //Asignacion de valores dentro del Array
@@ -42,7 +44,10 @@ $search=$_POST['search'];
         //Regresa el array en formato Json para la manupulacion de la funcion ajax    
         echo json_encode($response);
     }else if($op=='pues'){
-        $sql="select * from vw_puestos where puesto_nombre like '%$search%'";
+        //se consultan las sucursales a las que el usuario tiene permiso de ver
+        $campos->user_plazas_sucursales($usid);
+        //se realiza consulta de puestos
+        $sql="select * from vw_puestos where puesto_nombre like '%$search%' and plaza_id in($campos->pplazas);";
         $result = pg_query($campos->conexion,$sql) or die("Error cds: ". pg_last_error());//creador de selects
             while($row = pg_fetch_array($result) ){
                 //Asignacion de valores dentro del Array
