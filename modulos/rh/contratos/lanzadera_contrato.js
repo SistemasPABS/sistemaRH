@@ -10,24 +10,6 @@ function input(id){
     return false;
 }
 
-function ver_sucursales(){
-    //alert('hola');
-    var a = document.opbusqueda.plazas.value;
-    var a = btoa(a);
-    var est = btoa('est');
-    //alert("valores "+a+" "+est);
-    var url="agrega_selects.php";
-         $.ajax({
-            type: "POST",
-            url:url,
-            data:{ns:a,op:est},
-            success: function(data){
-            //alert(data);    
-            document.getElementById("cont_se").innerHTML=data;
-            }
-          });
-}
-
 //Ventana emergente para la creacion  de contratos
 function popup(url,estid,op) {
         popupWindow = window.open(
@@ -97,7 +79,9 @@ function pulsar(e) {
 } 
 
 //Funcion para generar la estructura del datagrid
-function genera() { 
+function genera() {
+        var dato  = document.opbusqueda.plazas.value;
+        var dato2 = document.opbusqueda.busca.value;
         var source =
                 {
                     datatype: "json",
@@ -115,7 +99,7 @@ function genera() {
                         ],
                         
 
-                    url: 'datagrid.php?oc1='+btoa('1000')+'&oc2='+btoa('1000')+'&oc3='+btoa('')
+                    url: 'datagrid.php?oc1='+btoa(dato)+'&oc2='+btoa(dato2)
 
                 };
                 var dataAdapter = new $.jqx.dataAdapter(source);
@@ -176,8 +160,7 @@ function genera() {
 
 function enviar() { 
     var dato  = document.opbusqueda.plazas.value;       //plaza a buscar
-    var dato2 = document.opbusqueda.sucursales.value;   //sucursal a buscar
-    var dato3 = document.opbusqueda.busca.value;        //por nombre de contrato
+    var dato2 = document.opbusqueda.busca.value;        //por nombre de contrato
     //alert(dato+' '+dato2);
         var source =
                 {
@@ -195,7 +178,7 @@ function enviar() {
                         { name: 'con_status'}
                         ],
                         
-                    url: 'datagrid.php?oc1='+btoa(dato)+'&oc2='+btoa(dato2)+'&oc3='+btoa(dato3)
+                    url: 'datagrid.php?oc1='+btoa(dato)+'&oc2='+btoa(dato2)
 
                 };
                 var dataAdapter = new $.jqx.dataAdapter(source);

@@ -664,7 +664,7 @@ class conectasql{
     
     //Edita un contrato existente
     public function edita_contrato($id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status){
-        $sql = "update contratos set persona_id=$id_persona, tipoc_id=$id_contrato,raz_id=$id_razon, puesto_id=$id_puesto, sal_monto_con=$salario, con_horario='$horario', con_periodo='$prueba', con_adic=$adic, con_fecha_inicio='$fecha_ini',con_fecha_fin='$fecha_fin', con_status=$status";
+        $sql = "update contratos set persona_id=$id_persona, tipoc_id=$id_contrato,raz_id=$id_razon, puesto_id=$id_puesto, sal_monto_con=$salario, con_horario='$horario', con_periodo='$prueba', con_adic=$adic, con_fecha_inicio='$fecha_ini',con_fecha_fin='$fecha_fin', con_status=$status where persona_id = $id_persona;";
         $result= pg_query($this->conexion, $sql) or die("Error edtcon: ". pg_last_error());
         $this->update='1';
     }
@@ -701,8 +701,8 @@ class conectasql{
         $this->consulta4=$row;
     }
     
-    public function consulta_exp_per($registro) {
-        $sql="select * from vw_doc_expedientes where persona_id=$registro;";
+    public function consulta_exp_per($registro){
+        $sql="select * from vw_personas where persona_id=$registro;";
         $result = pg_query($this->conexion, $sql) or die ("Error ctexp: ". pg_last_error());
         $row= pg_fetch_array($result);
         $this->consulta=$row;

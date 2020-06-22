@@ -39,9 +39,6 @@ class creanuevo_editar extends conectasql{
         
         echo '<head><title> '.$titulo.' </title></head>';
         echo '<form method="post" enctype="multipart/form-data" name="form_expediente" action="agrega_expediente.php'.$operacion.'">';
-            echo '<div class"row">';
-                echo '<div clas="titulo"><h2>'.$titulo.'</h2></div>';
-            echo '</div>';
             echo '<div class="row">';
                 echo '<input name="persona" id="persona" value="'.$prs.'" hidden>';
                 echo '<input name="registro" id="registro" value="'.$exp.'" hidden>';

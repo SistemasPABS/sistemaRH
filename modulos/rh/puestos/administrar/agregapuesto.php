@@ -89,6 +89,7 @@
             $clave=$insert->limpia_cadena($clave);
             $nombre=$insert->limpia_cadena($nombre);
             $desc=$insert->limpia_cadena($desc);
+            $desc= substr($desc,0,200);
             $plaza=$insert->limpia_cadena($plaza);
             $sucursal=$insert->limpia_cadena($sucursal);
             $salario=$insert->limpia_cadena($salario);
