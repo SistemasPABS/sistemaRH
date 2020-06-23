@@ -1,28 +1,22 @@
 <?php 
-include ('../../../config/conectasql.php');
 include_once ('../prenominas/index.php');
 $em=base64_decode($_GET['em']);
 $con= new conectasql();
 $con->abre_conexion("0");
 $conexion=$con->conexion;
-$query = "SELECT * from vw_nomina_periodo_saltipo";
+$query = "SELECT * from vw_prenominas";
 $result = pg_query($conexion,$query) or die("Error en la consulta SQL");
 do{
 $renglonesloquesea .='
   <tr>
-  <td> '.$mostrar['num_periodo'].'</td>
-  <td> '.$mostrar['nom_fecha'].'</td>
+  <td> '.$mostrar['nombrecompleto'].'</td>
   <td> '.$mostrar['nom_t_percepciones'].'</td>
   <td> '.$mostrar['nom_t_deducciones'].'</td>
-  <td> '.$mostrar['nom_t_incidencias'].'</td>
-  <td> '.$mostrar['nom_t_sueldo'].'</td>
-  <td> '.$mostrar['sal_tipo_nombre'].'</td>
-  <td> '.$mostrar['persona_id'].'</td>
+  <td> '.$mostrar['nom_t_sueldo'].'</td> 
+  <td><button>Abrir Sobrerecibo</button></td> 
 </tr> ';
 }while($mostrar=pg_fetch_array($result))
-
 ?>
-
 
 <!DOCTYPE html>
 <html>
@@ -50,7 +44,6 @@ tr:nth-child(even) {
 </head>
         <body>
             <div>
-                <button class="button" onClick="window.location.href='../principal/index.php'">Nueva Nómina</button>
                 <button class="button disabled">Autorizar Nómina</button>
                 <button class="button">Editar Nómina</button>
                 <button class="button">Exportar a Excel</button>
@@ -59,14 +52,11 @@ tr:nth-child(even) {
             <div id="sailorTableArea">
                 <table>
                         <tr id="titletable">
-                            <td>Num. de Periodo</td>
-                            <td>Nom. Fecha</td>
+                            <td>Nombre Completo</td>
                             <td>Percepciones</td>
                             <td>Deducciones</td>
-                            <td>Incidencias</td>
                             <td>Sueldo</td>
-                            <td>Periodo de Pago</td>
-                            <td>Id De Persona</td>
+                            <td>Sobrerecibo</td>
                         </tr>
                 <?php echo $renglonesloquesea; ?>
                 </table> 

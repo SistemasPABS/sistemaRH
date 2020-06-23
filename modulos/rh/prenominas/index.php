@@ -36,7 +36,7 @@ if(@$_POST['saveImage']){
       <div>
         <div>
           <button data-toggle="modal" data-target="#squarespaceModal">Nueva nómina</button>
-          <button data-toggle="modal" data-target="#prenomina">Prenómina</button>
+          <button data-toggle="modal" data-target="#prenomina" onclick="location.href='../gridprenominas/index.php';">Prenómina</button>
           <button data-toggle="modal" data-target="#sobrerecibo">Sobrerecibo</button>
           <button data-toggle="modal" data-target="#comparador">Comparador CONTPAQi® vs Sistema RH</button>
           <button data-toggle="modal" data-target="#reporteador">Reporteador</button>
@@ -132,9 +132,6 @@ if(@$_POST['saveImage']){
 	</div>
   </div>
 </div>
-
-
-
 </body>
 </html>
 
