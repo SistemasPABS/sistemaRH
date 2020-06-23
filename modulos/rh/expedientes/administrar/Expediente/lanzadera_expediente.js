@@ -28,7 +28,8 @@ function valida_campos(op){
         return 0;
     }
     
-           
+    var btn = document.getElementById("forward");
+    btn.disabled=true;     
     document.form_expediente.submit();    
 }
 

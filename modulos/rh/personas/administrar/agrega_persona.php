@@ -346,19 +346,7 @@ include ('../../../../config/cookie.php');
             $insert->docs_personas($insert->npid,$chk_comp,$chk_ine,$chk_licencia,$chk_acta,$chk_rfc,$chk_nss,$chk_curp,$chk_certificado,$chk_recomendacion,$chk_antecedentes,$chk_fonacot,$chk_infonavit); 
         }
         if($insert->inserts == '111'){
-            echo 'Registro guardado con exito!';
-            echo '<script type="text/javascript">window.opener.genera();</script>';
-            echo '<script type="text/javascript">
-                    setTimeout("self.close();",4000);
-                  </script>';
-            echo '<link href="../../../../estilos/personasStyles.css" type="text/css" rel="stylesheet">';
-            echo '<div class="padre">
-                    <div class="hijo">
-                        <img class="icono" src="../../../../images/guardado2.png" alt="icono2" srcset="">
-                        <h2 class="texto5">Registro Guardado!!</h2>
-                        <h4 class="texto5">La ventana se cerrarra en automaico!</h4>
-                    </div>
-                 </div>';
+            $insert->exito('../../../../estilos/personasStyles.css');
         }else{
             echo 'Error insertando nuevo registro: ';
             print_r($error);
@@ -708,19 +696,7 @@ include ('../../../../config/cookie.php');
             $updatep->update_personas_docs($registro,$chk_comp,$chk_ine,$chk_licencia,$chk_acta,$chk_rfc,$chk_nss,$chk_curp,$chk_certificado,$chk_recomendacion,$chk_antecedentes,$chk_fonacot,$chk_infonavit); 
         }
         if($updatep->update == '111'){
-            echo 'Registro editado con exito!';
-            echo '<script type="text/javascript">window.opener.genera();</script>';
-            echo '<script type="text/javascript">
-                    setTimeout("self.close();",4000);
-                  </script>';
-            echo '<link href="../../../../estilos/personasStyles.css" type="text/css" rel="stylesheet">';
-            echo '<div class="padre">
-                    <div class="hijo">
-                        <img class="icono" src="../../../../images/editado2.png" alt="icono2" srcset="">
-                        <h2 class="texto5">Registro Editado con Exito!!</h2>
-                        <h4 class="texto5">La ventana se cerrarra en automaico!</h4>
-                    </div>
-                 </div>';
+            $updatep->exito('../../../../estilos/personasStyles.css');
         }else{
             echo 'Error editando registro: ';
             print_r($error);

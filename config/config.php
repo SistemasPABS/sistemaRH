@@ -7,7 +7,6 @@ $port0   ='5432';
 $user0   ='web';
 $passwd0 ='Gu3lc0m';
 
-
 /*perfil para la base de datos No. 1--MSSQL*/
 $server1 ='';
 $dbname1 ='';

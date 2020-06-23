@@ -19,7 +19,9 @@ function valida_campos(op){
     document.form_razones.direccion.focus();
     return 0;
     }
-        
+    
+    var btn = document.getElementById("forward");
+    btn.disabled=true;
     document.form_razones.submit();    
 }
 function solo_letras(e){

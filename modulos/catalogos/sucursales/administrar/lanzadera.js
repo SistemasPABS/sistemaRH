@@ -23,8 +23,9 @@ function valida_campos(op){
         return 0;
     }
     
-        
-   document.form_suc.submit();    
+    var btn = document.getElementById("forward");
+    btn.disabled=true;
+    document.form_suc.submit();    
 }
 function solo_letras(e){
        

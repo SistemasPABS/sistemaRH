@@ -9,7 +9,6 @@ $contrato->abre_conexion("0");
 $contrato->consulta_cto($reg);//Consulta datos de vw_contratos
 $contrato->consulta_per_cto($contrato->consulta['persona_id']);//Consulta datos de personas
 $contrato->consulta_per_pto($contrato->consulta['puesto_id']);//Consulta datos de Puestos 
-//$contrato->consulta_sueldo_cto($contrato->consulta['sal_id']);//Consulta datos de vw_salarios
 $contrato->cierra_conexion("0");
 
 //Asigna valores a las variables de los resultados de las busquedas
@@ -29,7 +28,8 @@ $dommicilionumeroper = $contrato->consulta2['persona_calle_numero'];
 $coloniaper = $contrato->consulta2['persona_colonia'];
 $nombrepuestocontrato = $contrato->consulta['puesto_nombre'];
 $plazacontrato = $contrato->consulta3['plaza_nombre'];
-$fechainiciocontrato = $contrato->consulta['con_fecha_inicio'];
+$fechainiciocontrato = date_create($contrato->consulta['con_fecha_inicio']);
+$fechainiciocontrato2 = date_format($fechainiciocontrato, 'd-M-Y');
 $periododepruebacontrato = $contrato->consulta['con_periodo'];
 $tiponominacontrato = $contrato->consulta['sal_tipo'];
 $salarionumerocontrato = $contrato->consulta['sal_monto_con'];
@@ -61,7 +61,7 @@ $templateWord = new TemplateProcessor('../../../formatos/contratos/'.$contrato->
     $templateWord->setValue('coloniaper',$coloniaper );
     $templateWord->setValue('nombrepuestocontrato',$nombrepuestocontrato );
     $templateWord->setValue('plazacontrato',$plazacontrato );
-    $templateWord->setValue('fechainiciocontrato',$fechainiciocontrato );
+    $templateWord->setValue('fechainiciocontrato',$fechainiciocontrato2 );
     $templateWord->setValue('periododepruebacontrato',$periododepruebacontrato );
     $templateWord->setValue('tiponominacontrato',$tiponominacontrato );
     $templateWord->setValue('salarionumerocontrato',$salarionumerocontrato );

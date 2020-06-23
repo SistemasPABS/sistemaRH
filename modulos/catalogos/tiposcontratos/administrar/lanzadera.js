@@ -30,7 +30,9 @@ function valida_campos(op){
     document.form_tipoc.nombre.focus();
     return 0;
     }
-           
+    
+    var btn = document.getElementById("forward");
+    btn.disabled=true;
     document.form_tipoc.submit();    
 }
 function solo_letras(e){

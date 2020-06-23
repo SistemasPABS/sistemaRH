@@ -42,7 +42,7 @@ class ver_exp extends conectasql{
         $nombre= $this->consulta['nombrecompleto'];
         echo '<form name="opbusqueda2" id="opbusqueda2" method="post" action="exportar.php" target="_blank" >';
             echo '<input name="registro" id="registro" value="'.$registro.'" hidden>';
-            echo '<div class="titulo"> <h2>Expediente de:'.$nombre.'</h2></div>';
+            echo '<div class="titulo"> Expediente de:'.$nombre.'</div>';
             echo '<div name="busqueda" id="busqueda">';
                 echo 'Buscar por: ';
                 echo '<select class="selectbuscar" name="buscaopcion" id="buscaopcion" onchange="cambiaopciones(\'parametro\');">';

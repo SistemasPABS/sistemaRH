@@ -147,8 +147,10 @@ function valida_campos(op){
         document.form_puesto.descripcion.focus();
         return 0;
     }
-        
-   document.form_puesto.submit();    
+    
+    var btn = document.getElementById("forward");
+    btn.disabled=true;   
+    document.form_puesto.submit();    
 }
 
 function solo_letras(e){
@@ -206,6 +208,7 @@ function solo_numeros(evt){
 }
 
 function myFunction() {
+  var flg='myList';
   var valor=document.form_puesto.comisiones.value;
   var select=document.form_puesto.comisiones;
   var texto = select.options[select.selectedIndex].text;
@@ -222,8 +225,18 @@ function myFunction() {
   node.appendChild(input);
   node.appendChild(textnode);
   node.appendChild(boton);
-  document.getElementById("myList").appendChild(node);
-
+  //antes de agregar la comision se valida que no exista duplicada en las comisiones asignadas
+  var coms = document.getElementsByName("com[]");
+  for(var i=0; i < coms.length; i++){
+    if(valor == coms[i].value){
+        flg='ya esta';
+    }
+  }
+  if(flg == 'ya esta'){
+      alert('La comision ya se encuentra agregada a la lista');
+  }  
+  document.getElementById(flg).appendChild(node);
+  
   boton.onclick = function() {
     var li = this.parentNode;
     li.parentNode.removeChild(li);

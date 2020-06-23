@@ -42,7 +42,7 @@ class creasalarios extends conectasql{
             echo '<div name="busqueda" id="busqueda">';
                 echo 'Buscar por: ';
                 echo '<select class="selectbuscar" name="buscaopcion" id="buscaopcion" onchange="cambiaopciones(\'parametro\');">';
-                    echo '<option value="desc"> Descripcion </option>';
+                    echo '<option value="nom"> Nombre </option>';
                     echo '<option value="suc"> Sucursal </option>';
                     echo '<option value="plz"> Plaza </option>';                    
                 echo '</select>';

@@ -36,24 +36,17 @@ class contratos extends conectasql{
         ;
     }
     
-     public function interfaz() {
+    public function interfaz() {
         echo '<form name="opbusqueda" id="opbusqueda" method="post" action="exportar.php" target="_blank" >';
             echo '<div class="titulo"> Administracion de Contratos</div>';
             echo '<div name="busqueda" id="busqueda" style="width:170px;">';
                 echo 'Buscar por: ';
-                $this->selects_creator('select * from vw_users_plazas_sucursales where us_id = '. $this->usid.' order by plaza_id', 'plazas', 'plaza_id', 'plaza_nombre', 'plazas', 'onChange= "ver_sucursales();"', '');
+                $this->selects_creator('select distinct plaza_id,plaza_nombre from vw_users_plazas_sucursales where us_id = '. $this->usid.' order by plaza_id', 'plazas', 'plaza_id', 'plaza_nombre', 'plazas', 'onChange= ""', '');
                 echo $this->select;
             echo '</div>';
-            echo '<div id="cont_se" style="height:20px;width:110px;margin-top:11px;margin-left:175px;">';
-                echo '<select class="input0" id="sucursales" name="sucursales" value="0">
-                        <option value="1000">--- Selecciona sucursal</option>
-                      </select>';
-            echo '</div>'; 
-            //$this->selects_creator('select * from vw_users_plazas_sucursales where us_id = '. $this->usid.' order by plaza_id', 'sucursales', 'suc_id', 'suc_nombre', 'sucursales', 'onChange= "ver_sucursales();"', '');
-            //echo $this->select;
-                
-            echo '<div name="paramentro" id="parametro" style="margin-left:110px;"> <input type="text" id="busca" name="busca" class="campobuscar"></div>';
-            echo '<div id="divus_buscar" name="divus_buscar" style="margin-left:110px;"><input type="button" onclick="enviar();" class="cierre2" name="us_buscar" id="us_buscar" value="Buscar"></div>';
+            
+            echo '<div name="paramentro" id="parametro" style="margin-left:5px;"> <input type="text" id="busca" name="busca" class="campobuscar"></div>';
+            echo '<div id="divus_buscar" name="divus_buscar" style="margin-left:10px;"><input type="button" onclick="enviar();" class="cierre2" name="us_buscar" id="us_buscar" value="Buscar"></div>';
 
             echo '<div name="toolbar" id="toolbar" style="">';
                 $this->permisos('papp', $this->em,$this->usid);

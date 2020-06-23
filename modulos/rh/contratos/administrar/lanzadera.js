@@ -4,6 +4,54 @@ function lanzadera (){
   document.oncontextmenu = function() { return false; };
   autocompletable();
 }
+
+function valida_persona(op){
+    if(op == 'pipol'){
+        var d1 = document.getElementById("nombre").value;
+    }
+    if(op == 'tcon'){
+        var d1 = document.getElementById("contrato").value;
+    }
+    if(op == 'pst'){
+        var d1 = document.getElementById("puesto").value;
+    }
+    if(op == 'rzn'){
+        var d1 = document.getElementById("razon").value;
+    }
+    
+    if(d1.length != 0){
+    //alert(clave);
+    var url="valida_persona.php";
+        $.ajax({
+            type: "POST",
+            url:url,
+            data:{dt1:btoa(d1),dt2:btoa(op)},
+            success: function(data){
+                //alert(data);
+                if(data == 0 ){
+                    alert('El valor '+d1+' no existe en la base de datos');
+                    if(op == 'pipol'){
+                        document.getElementById("nombre").value='';
+                        document.getElementById("id_persona").value='';
+                    }
+                    if(op == 'tcon'){
+                        document.getElementById("contrato").value='';
+                        document.getElementById("id_contrato").value='';
+                    }
+                    if(op == 'pst'){
+                        document.getElementById("puesto").value='';
+                        document.getElementById("id_puesto").value='';
+                    }
+                    if(op == 'rzn'){
+                        document.getElementById("razon").value='';
+                        document.getElementById("id_razon").value='';
+                    }
+                }
+            }
+        });
+    }
+}
+
 //Autocompletado y busqueda de coincidencia de resultados
 function autocompletable(){
     //Variables de opciones para el autocompletado de los imputs
@@ -133,7 +181,7 @@ function autocompletable(){
     });
  }
  
- function valida_salario(){
+function valida_salario(){
     //alert('hola');
     if(document.getElementById("id_puesto").value.length == 0){
         alert('Ingrese el puesto antes de capturar el salario');
@@ -211,8 +259,10 @@ function valida_campos(op){
         return 0;
         }
     }
-    //Envia el action del formulario
-   document.form_contrato.submit();    
+    
+    var btn = document.getElementById("forward");
+    btn.disabled=true;
+    document.form_contrato.submit();    
 }
 //Valida que el campo contenga solo letras
 function solo_letras(e){

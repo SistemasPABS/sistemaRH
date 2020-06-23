@@ -81,19 +81,19 @@
         }
  
         // datos de puestos
-        echo 'datos del Contrato<br>';
-        echo 'id_Persona: '.$id_persona.'<br>';
-        echo 'Contrato Tipo: '.$id_contrato.'<br>';
-        echo 'Puesto: '.$id_puesto.'<br>';
-        echo 'Razon: '.$id_razon.'<br>';
-        echo 'Plaza: '.$id_plaza.'<br>';
-        echo 'Salario:'.$salario.'<br>';
-        echo 'Horario: '.$horario.'<br>';
-        echo 'Periodo: '.$prueba.'<br>';
-        echo 'Fecha Inicial: '.$fecha_ini.'<br>';
-        echo 'Fecha Fin: '.$fecha_fin.'<br>';
-        echo 'Estatus: '.$status.'<br>';
-        echo 'Estatus: '.$adic.'<br>'; 
+//        echo 'datos del Contrato<br>';
+//        echo 'id_Persona: '.$id_persona.'<br>';
+//        echo 'Contrato Tipo: '.$id_contrato.'<br>';
+//        echo 'Puesto: '.$id_puesto.'<br>';
+//        echo 'Razon: '.$id_razon.'<br>';
+//        echo 'Plaza: '.$id_plaza.'<br>';
+//        echo 'Salario:'.$salario.'<br>';
+//        echo 'Horario: '.$horario.'<br>';
+//        echo 'Periodo: '.$prueba.'<br>';
+//        echo 'Fecha Inicial: '.$fecha_ini.'<br>';
+//        echo 'Fecha Fin: '.$fecha_fin.'<br>';
+//        echo 'Estatus: '.$status.'<br>';
+//        echo 'Estatus: '.$adic.'<br>'; 
         
         //Conexion a la base de datos
         include '../../../../config/conectasql.php';
@@ -108,7 +108,6 @@
             $id_contrato=$insert->limpia_cadena($id_contrato);
             $id_puesto=$insert->limpia_cadena($id_puesto);
             $id_razon=$insert->limpia_cadena($id_razon);
-            $id_plaza=$insert->limpia_cadena($id_plaza);
             $salario=$insert->limpia_cadena($salario);
             $horario=$insert->limpia_cadena($horario);
             $prueba=$insert->limpia_cadena($prueba);
@@ -117,24 +116,13 @@
             $status=$insert->limpia_cadena($status);
             $adic=$insert->limpia_cadena($adic);
             //inserta datos
-            $insert->agrega_contrato($id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status, $id_plaza);
+            $insert->agrega_contrato($id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status);
            
         }
         $insert->cierra_conexion("0");
         //Valida si la incercion se realizo correctamente
         if($insert->inserts == '1'){
-            echo '<script type="text/javascript">window.opener.genera();</script>';
-            echo '<script type="text/javascript">
-                    setTimeout("self.close();",4000);
-                  </script>';
-            echo '<link href="../../../../estilos/personasStyles.css" type="text/css" rel="stylesheet">';
-            echo '<div class="padre">
-                    <div class="hijo">
-                        <img class="icono" src="../../../../images/guardado2.png" alt="icono2" srcset="">
-                        <h2 class="texto5">Registro Guardado Conexito!!</h2>
-                        <h4 class="texto5">La ventana se cerrarra en automaico!</h4>
-                    </div>
-                 </div>';
+            $insert->exito('../../../../estilos/personasStyles.css');
         }else {
             //Si existe error imprime el array de errores
             echo 'Error al guardar el contrato';
@@ -145,6 +133,12 @@
         
         $error = array(); //ARRAY PARA ALMACENAR ERRORES       
         //Validaciones de campos seteados y no vacios 
+        //Validaciones de campos seteados y no vacios 
+        if(!isset($_POST['registro']) || empty($_POST['registro'])){
+            $error[] = "registro";
+        }else if (isset($_POST['registro']) || !empty($_POST['registro'])) {
+            $registro = $_POST['registro'];
+        }
         if(!isset($_POST['id_persona']) || empty($_POST['id_persona'])){
             $error[] = "id_persona";
         }else if (isset($_POST['id_persona']) || !empty($_POST['id_persona'])) {
@@ -213,6 +207,7 @@
  
         // datos de puestos
 //        echo 'datos del Contrato<br>';
+//        echo 'contrato: '.$registro.'<br>';
 //        echo 'id_Persona: '.$id_persona.'<br>';
 //        echo 'Contrato Tipo: '.$id_contrato.'<br>';
 //        echo 'Puesto: '.$id_puesto.'<br>';
@@ -234,11 +229,11 @@
             echo 'El formulario tiene errores';
         }else{
             //limpia cadenas de caracteres especiales
+            $registro=$insert->limpia_cadena($registro);
             $id_persona=$insert->limpia_cadena($id_persona);
             $id_contrato=$insert->limpia_cadena($id_contrato);
             $id_puesto=$insert->limpia_cadena($id_puesto);
             $id_razon=$insert->limpia_cadena($id_razon);
-            $id_plaza=$insert->limpia_cadena($id_plaza);
             $salario=$insert->limpia_cadena($salario);
             $horario=$insert->limpia_cadena($horario);
             $prueba=$insert->limpia_cadena($prueba);
@@ -247,24 +242,13 @@
             $status=$insert->limpia_cadena($status);
             $adic=$insert->limpia_cadena($adic);       
             //inserta datos
-            $insert->edita_contrato($id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status);
+            $insert->edita_contrato($registro,$id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status);
         }
 
         $insert->cierra_conexion("0");
         //Valida que el update se realizo con exito
         if($insert->update == '1'){
-            echo '<script type="text/javascript">window.opener.genera();</script>';
-            echo '<script type="text/javascript">
-                    setTimeout("self.close();",4000);
-                  </script>';
-            echo '<link href="../../../../estilos/personasStyles.css" type="text/css" rel="stylesheet">';
-            echo '<div class="padre">
-                    <div class="hijo">
-                        <img class="icono" src="../../../../images/editado2.png" alt="icono2" srcset="">
-                        <h2 class="texto5">Registro Editado Conexito!!</h2>
-                        <h4 class="texto5">La ventana se cerrarra en automaico!</h4>
-                    </div>
-                 </div>';
+            $insert->exito('../../../../estilos/personasStyles.css');
         }else {
             //imprime el array de errores
             echo 'Error al editar el contrato';
