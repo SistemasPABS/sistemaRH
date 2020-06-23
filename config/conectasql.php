@@ -663,8 +663,8 @@ class conectasql{
     }
     
     //Edita un contrato existente
-    public function edita_contrato($id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status){
-        $sql = "update contratos set persona_id=$id_persona, tipoc_id=$id_contrato,raz_id=$id_razon, puesto_id=$id_puesto, sal_monto_con=$salario, con_horario='$horario', con_periodo='$prueba', con_adic=$adic, con_fecha_inicio='$fecha_ini',con_fecha_fin='$fecha_fin', con_status=$status where persona_id = $id_persona;";
+    public function edita_contrato($registro,$id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status){
+        $sql = "update contratos set persona_id=$id_persona,tipoc_id=$id_contrato,raz_id=$id_razon,puesto_id=$id_puesto,sal_monto_con=$salario,con_horario='$horario',con_periodo='$prueba',con_adic=$adic,con_fecha_inicio='$fecha_ini',con_fecha_fin='$fecha_fin',con_status=$status where con_id = $registro;";
         $result= pg_query($this->conexion, $sql) or die("Error edtcon: ". pg_last_error());
         $this->update='1';
     }
@@ -699,6 +699,46 @@ class conectasql{
         $result = pg_query($this->conexion, $sql) or die ("Error ctc: ". pg_last_error());
         $row= pg_fetch_array($result);
         $this->consulta4=$row;
+    }
+    
+    //validaciones extras para contratos
+    public function valida_datos_contrato($txt,$op) {
+        if($op == 'pipol'){
+            $sql="select * from vw_personas where nombrecompleto like '%$txt%';";
+            $result= pg_query($this->conexion,$sql);
+            if($row= pg_fetch_array($result)){
+                $this->msj=1;
+            }else{
+                $this->msj=0;
+            }
+        }
+        if($op == 'tcon'){
+            $sql="select * from vw_tipos_contratos where tipoc_nombre like '%$txt%'";
+            $result= pg_query($this->conexion,$sql);
+            if($row= pg_fetch_array($result)){
+                $this->msj=1;
+            }else{
+                $this->msj=0;
+            }
+        }
+        if($op == 'pst'){
+            $sql="select * from vw_puestos where puesto_nombre like '%$txt%'";
+            $result= pg_query($this->conexion,$sql);
+            if($row= pg_fetch_array($result)){
+                $this->msj=1;
+            }else{
+                $this->msj=0;
+            }
+        }
+        if($op == 'rzn'){
+            $sql="select * from vw_razones where raz_nombre like '%$txt%'";
+            $result= pg_query($this->conexion,$sql);
+            if($row= pg_fetch_array($result)){
+                $this->msj=1;
+            }else{
+                $this->msj=0;
+            }
+        }
     }
     
     public function consulta_exp_per($registro){

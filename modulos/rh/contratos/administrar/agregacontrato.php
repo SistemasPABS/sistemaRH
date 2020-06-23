@@ -108,7 +108,6 @@
             $id_contrato=$insert->limpia_cadena($id_contrato);
             $id_puesto=$insert->limpia_cadena($id_puesto);
             $id_razon=$insert->limpia_cadena($id_razon);
-            $id_plaza=$insert->limpia_cadena($id_plaza);
             $salario=$insert->limpia_cadena($salario);
             $horario=$insert->limpia_cadena($horario);
             $prueba=$insert->limpia_cadena($prueba);
@@ -117,7 +116,7 @@
             $status=$insert->limpia_cadena($status);
             $adic=$insert->limpia_cadena($adic);
             //inserta datos
-            $insert->agrega_contrato($id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status, $id_plaza);
+            $insert->agrega_contrato($id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status);
            
         }
         $insert->cierra_conexion("0");
@@ -134,6 +133,12 @@
         
         $error = array(); //ARRAY PARA ALMACENAR ERRORES       
         //Validaciones de campos seteados y no vacios 
+        //Validaciones de campos seteados y no vacios 
+        if(!isset($_POST['registro']) || empty($_POST['registro'])){
+            $error[] = "registro";
+        }else if (isset($_POST['registro']) || !empty($_POST['registro'])) {
+            $registro = $_POST['registro'];
+        }
         if(!isset($_POST['id_persona']) || empty($_POST['id_persona'])){
             $error[] = "id_persona";
         }else if (isset($_POST['id_persona']) || !empty($_POST['id_persona'])) {
@@ -202,6 +207,7 @@
  
         // datos de puestos
 //        echo 'datos del Contrato<br>';
+//        echo 'contrato: '.$registro.'<br>';
 //        echo 'id_Persona: '.$id_persona.'<br>';
 //        echo 'Contrato Tipo: '.$id_contrato.'<br>';
 //        echo 'Puesto: '.$id_puesto.'<br>';
@@ -223,11 +229,11 @@
             echo 'El formulario tiene errores';
         }else{
             //limpia cadenas de caracteres especiales
+            $registro=$insert->limpia_cadena($registro);
             $id_persona=$insert->limpia_cadena($id_persona);
             $id_contrato=$insert->limpia_cadena($id_contrato);
             $id_puesto=$insert->limpia_cadena($id_puesto);
             $id_razon=$insert->limpia_cadena($id_razon);
-            $id_plaza=$insert->limpia_cadena($id_plaza);
             $salario=$insert->limpia_cadena($salario);
             $horario=$insert->limpia_cadena($horario);
             $prueba=$insert->limpia_cadena($prueba);
@@ -236,7 +242,7 @@
             $status=$insert->limpia_cadena($status);
             $adic=$insert->limpia_cadena($adic);       
             //inserta datos
-            $insert->edita_contrato($id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status);
+            $insert->edita_contrato($registro,$id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status);
         }
 
         $insert->cierra_conexion("0");

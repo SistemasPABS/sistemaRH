@@ -9,8 +9,8 @@ $fecha=date("Ymd");
 //echo $nuevafecha;
 if($dato != NULL){
     switch ($param) {
-        case 'desc':
-            $condicion="where sal_descripcion like '%$dato%'";
+        case 'nom':
+            $condicion="where sal_nombre like '%$dato%'";
             break;
         case 'suc':
             $condicion="where suc_nombre like '%$dato%'";
