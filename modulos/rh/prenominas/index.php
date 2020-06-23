@@ -134,11 +134,6 @@ if(@$_POST['saveImage']){
 </div>
 
 
-    <?php 
-      include_once('../gridprenomina/index.php');
-    ?>
-
-
 
 </body>
 </html>
