@@ -1,5 +1,4 @@
 <?php 
-include ('../../../config/conectasql.php');
 include_once ('../prenominas/index.php');
 $em=base64_decode($_GET['em']);
 $con= new conectasql();
