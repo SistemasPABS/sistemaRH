@@ -15,6 +15,13 @@ if(@$_POST['saveImage']){
     VALUES (2,'2020/06/23','15:30:00',3,'$_POST[numservicios]','$_POST[numventas]','$_POST[cobros]','$_POST[saldo]','$_POST[cobranzaperanterior]','$_POST[observaciones]')";
 }  
 ?>
+
+<script>
+    myFunction(){
+       
+    }
+</script>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -122,11 +129,12 @@ if(@$_POST['saveImage']){
 		<div class="modal-footer">
 			<div class="btn-group btn-group-justified" role="group" aria-label="group button">
 				<div class="btn-group" role="group">
-					<button type="button" class="btn btn-default" data-dismiss="modal"  role="button">Cancelar Nómina</button>
+                                    <button type="button" class="btn btn-default" data-dismiss="modal" role="button">Cancelar Nómina</button>
 				</div>
 				<div class="btn-group" role="group">
 					<button type="button" name="saveImage" class="btn btn-default btn-hover-green" onclick="location.href='../sobrerecibo/index.php';">Comenzar Nomina</button>
 				</div>
+				
 			</div>
 		</div>
 	</div>
