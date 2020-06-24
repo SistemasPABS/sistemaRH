@@ -8,7 +8,7 @@ $query = "SELECT * from vw_prenomina-general";
 $result = pg_query($conexion,$query) or die("Error en la consulta SQL");
 do{
 $renglonesloquesea .='
-  <tr>
+  <tr>  
   <td> '.$mostrar['nombrecompleto'].'</td>
   <td> '.$mostrar['sal_monto_con'].'
   <td> '.$mostrar['nom_t_percepciones'].'</td>

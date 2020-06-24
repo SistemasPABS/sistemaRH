@@ -131,7 +131,10 @@ if(@$_POST['saveImage']){
 				<div class="btn-group" role="group">
                                     <button type="button" class="btn btn-default" data-dismiss="modal" role="button">Cancelar Nómina</button>
 				</div>
+<<<<<<< HEAD
                                
+=======
+>>>>>>> e85a423247b1e57af23e9a2924377a6a0f3473f6
 				<div class="btn-group" role="group">
 					<button type="button" name="saveImage" class="btn btn-default btn-hover-green" onclick="location.href='../sobrerecibo/index.php';">Comenzar Nomina</button>
 				</div>
