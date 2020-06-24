@@ -4,20 +4,21 @@ $em=base64_decode($_GET['em']);
 $con= new conectasql();
 $con->abre_conexion("0");
 $conexion=$con->conexion;
-$query = "SELECT * from vw_prenominas";
+$query = "SELECT * from vw_prenomina-general";
 $result = pg_query($conexion,$query) or die("Error en la consulta SQL");
 do{
 $renglonesloquesea .='
   <tr>
   <td> '.$mostrar['nombrecompleto'].'</td>
+  <td> '.$mostrar['sal_monto_con'].'
   <td> '.$mostrar['nom_t_percepciones'].'</td>
   <td> '.$mostrar['nom_t_deducciones'].'</td>
-  <td> '.$mostrar['nom_t_sueldo'].'</td> 
   <td><button>Abrir Sobrerecibo</button></td> 
 </tr> ';
 }while($mostrar=pg_fetch_array($result))
 ?>
 
+<!---
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,7 +65,7 @@ tr:nth-child(even) {
             
         </body>  
     </html>
-</table>
+</table>-->
 
 
 

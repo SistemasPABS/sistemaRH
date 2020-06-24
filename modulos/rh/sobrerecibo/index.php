@@ -1,5 +1,4 @@
 <?php 
-include ('../../../config/conectasql.php');
 include_once ('../prenominas/index.php');
 $em=base64_decode($_GET['em']);
 $con= new conectasql();
@@ -395,8 +394,6 @@ function opensobrerecibo(evt, cityName) {
             <div class="tab">
                 <button class="tablinks" onclick="opensobrerecibo(event, 'percepciones')">Percepciones</button>
                 <button class="tablinks" onclick="opensobrerecibo(event, 'deducciones')">Deducciones</button>
-                <button class="tablinks" onclick="opensobrerecibo(event, 'incidencias')">Incidencias</button>
-                <button class="tablinks" onclick="opensobrerecibo(event, 'otros')">Otros cálculos</button>
             </div>
 
 
