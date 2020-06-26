@@ -30,12 +30,52 @@ $result2 = pg_query($conexion,$sql2) or die("Error en la insercion de datos temp
 
 $sql3="select * from vw_contratos where con_status = 1 and sal_tipo_id = $tipoperiodo and emp_id  = $empid and plaza_id = $plaza";
 $result3= pg_query($conexion,$sql3);
-$row3= pg_fetch_array($result3);
-do{
-    echo $row3['nombrecompleto'];
-}while($row3= pg_fetch_array($result3));
-
-
+if($row3= pg_fetch_array($result3)){
+    do{
+        $monos.= '
+        <tbody>
+                <tr>
+                    <td colspan="20" class="page-header">
+                        <input hidden value="'.$row3['persona_id'].'" name="persona[]"></input>
+                        <button type="button" class="tbtn"><i class="fa fa-plus-circle fa-minus-circle"></i>'.$row3['nombrecompleto'].'</button>
+                        <button type="button"  onclick="traerpercepcionesdeducciones(\'percepcion\',this)">Agregar percepcion</button>   
+                        <button type="button"  onclick="traerpercepcionesdeducciones(\'deduccion\',this)">Agregar deduccion</button>
+                    </td>
+                    
+                </tr>
+                
+        ';
+        //$monos.= $row3['persona_id'].'--'.$row3['nombrecompleto'].'<br>';
+        
+        $sql4="select * from vw_puestos_comisiones where persona_id = ".$row3['persona_id']." and co_activo = 1;";
+        $result4= pg_query($conexion,$sql4);
+        if($row4= pg_fetch_array($result4)){
+            do{
+            $monos .='
+                      
+                      <tr class="toggler toggler1">
+                        
+                        <td rowspan="9999"></td>
+                            <input hidden value="'.$row4['co_id'].' name="'.$row3['persona_id'].'comision[]"></input>
+                            <td>'.$row4['co_nombre'].'</td>
+                            <td>'.$row4['co_monto'].'</td>
+                            <td>'.$row4['co_porcentaje'].'</td>
+                            <td><input type="number" name="'.$row3['persona_id'].'cantidadcom[]"></input></td>
+                            <td><input type="text" name="'.$row3['persona_id'].'observacionescom[]"></input></td>
+                        
+                      </tr>
+                    </tbody>';
+                //$monos.='*'.$row4['co_id'].'--'.$row4['co_nombre'].'<br>';
+                
+            }while ($row4 = pg_fetch_array($result4));
+         //$monos.='</tbody>';  
+        }
+        
+    }while($row3= pg_fetch_array($result3));
+    
+}else{
+    echo 'No hubo personas que cumplan con los criterios capturados';
+}
 
 
 ?>
@@ -48,6 +88,7 @@ do{
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
         <script src="../prenominas/styles/navbar2.js"></script>
         <script src="../prenominas/styles/jquery.js"></script> 
+        <script src="validador.js"></script>
     </head>
     
     
@@ -77,26 +118,27 @@ do{
             });
     </script>
     
+    <form name="todalanomina" method="POST" action="crearnomina.php">
     <body>
-        <div class="container" id="contenedor"> 
-        
-  
-        </div>
+        <div class="container" id="contenedor"></div>
+        <input hidden id="cantpersonas" name="cantpersonas" value=""></input>
         <table class="custom-table">
             <thead>
                 <tr>
                     <th>Persona</th>
-                    <th>Concepto</th>
-                    <th>Importe</th>
-                    <th>Cantidad</th>
-                    <th>Total</th>
+                    <th>Nombre</th>
+                    <th>Monto</th>
+                    <th>Porcentaje</th>
+                    <th>Cantidad</th> 
                     <th>Observaciones</th>
-                   
-                 
                 </tr>
             </thead>
-           
+            <?php echo $monos ?>
+            
         </table>
+        
+        <button id="submit" type="submit" onclick="enviarnomina()">ENVIAR NOMINA</button>
+    </form>    
 </div>
 </body>
 </html>
