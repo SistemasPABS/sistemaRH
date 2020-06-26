@@ -16,13 +16,10 @@ $extension= base64_decode($_GET['chk3']);
 if($campo != NULL){
     switch ($parametro){
         case 'desc':
-            $where = "where co_descripcion like '%$campo%'";
+            $where = "where co_nombre like '%$campo%'";
             break;
-        case 'suc':
+        case 'emp':
             $where = "where suc_nombre like '%$campo%'";
-            break;
-        case 'plz':
-            $where = "where plaza_nombre like '%$campo%'";
             break;
     }
 }else{
@@ -61,18 +58,16 @@ if($extension == 'xls'){
                 ->setCellValue('B1', 'Comision')
                 ->setCellValue('C1', 'Monto')
                 ->setCellValue('D1', 'Porcentaje')
-                ->setCellValue('E1', 'Plaza')
-                ->setCellValue('F1', 'Sucursal')
-                ->setCellValue('G1', 'Activo');
+                ->setCellValue('E1', 'Grupo')
+                ->setCellValue('F1', 'Activo');
         do{
             $objPHPExcel->setActiveSheetIndex(0)
                     ->setCellValue('A'.$a, $rowxls['co_id'])
                     ->setCellValue('B'.$a, $rowxls['co_nombre'])
                     ->setCellValue('C'.$a, $rowxls['co_monto'])
                     ->setCellValue('D'.$a, $rowxls['co_porcentaje'])
-                    ->setCellValue('E'.$a, $rowxls['plaza_nombre'])
-                    ->setCellValue('F'.$a, $rowxls['suc_nombre'])
-                    ->setCellValue('G'.$a, $rowxls['co_activo']);
+                    ->setCellValue('E'.$a, $rowxls['emp_nombre'])
+                    ->setCellValue('F'.$a, $rowxls['co_activo']);
                     $a++;
         }
         while ($rowxls=  pg_fetch_array($resultxls));

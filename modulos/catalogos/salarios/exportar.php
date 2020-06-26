@@ -74,7 +74,7 @@ if($extension == 'xls'){
                     ->setCellValue('D'.$a, $rowxls['plaza_nombre'])
                     ->setCellValue('E'.$a, $rowxls['suc_nombre'])
                     ->setCellValue('F'.$a, $rowxls['sal_monto'])
-                    ->setCellValue('G'.$a, $rowxls['sal_tipo'])
+                    ->setCellValue('G'.$a, $rowxls['sal_tipo_nombre'])
                     ->setCellValue('H'.$a, $rowxls['us_login'])
                     ->setCellValue('I'.$a, $rowxls['sal_activo']);
                     $a++;

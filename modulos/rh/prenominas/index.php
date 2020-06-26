@@ -8,19 +8,9 @@ session_start();
 $usid=$_SESSION['us_id'];
 $query="SELECT * FROM vw_users_plazas_sucursales";
 $result = pg_query($conexion,$query) or die("Error en la consulta SQL");
-?>
-<?php 
-if(@$_POST['saveImage']){
-  $query="INSERT into tmp_base_nom (us_id,fecha,hora,plaza_id,num_ventas,venta_directa,cobros,saldo,cobros_per_ant,observaciones)
-    VALUES (2,'2020/06/23','15:30:00',3,'$_POST[numservicios]','$_POST[numventas]','$_POST[cobros]','$_POST[saldo]','$_POST[cobranzaperanterior]','$_POST[observaciones]')";
-}  
+
 ?>
 
-<script>
-    myFunction(){
-       
-    }
-</script>
 
 <!DOCTYPE html>
 <html>
@@ -33,6 +23,8 @@ if(@$_POST['saveImage']){
         <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">   
+        <script src="../gridprenominas/funcionesprenomina.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     </head>
 
 
@@ -44,11 +36,11 @@ if(@$_POST['saveImage']){
         <div>
           <button data-toggle="modal" data-target="#squarespaceModal">Nueva nómina</button>
           <button data-toggle="modal" data-target="#prenomina" onclick="location.href='../gridprenominas/index.php';">Prenómina</button>
-          <button data-toggle="modal" data-target="#sobrerecibo">Sobrerecibo</button>
+          <!--<button data-toggle="modal" data-target="#sobrerecibo">Sobrerecibo</button>
           <button data-toggle="modal" data-target="#comparador">Comparador CONTPAQi® vs Sistema RH</button>
           <button data-toggle="modal" data-target="#reporteador">Reporteador</button>
           <button data-toggle="modal" data-target="#historico">Histórico</button>
-          <button data-toggle="modal" data-target="#importador">Importador</button>
+          <button data-toggle="modal" data-target="#importador">Importador</button>-->
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container -->
     </nav>
@@ -64,36 +56,47 @@ if(@$_POST['saveImage']){
 		</div>
 		<div class="modal-body">	
             <!-- content goes here -->
-			<form action="index.php" method="post">
+		<form action="index.php" method="post">
               <div class="form-group">
                 <label for="exampleInputEmail1">Selecciona una plaza</label>
-                  <select>
-                    <!---<option value="1">GUADALAJARA</option>
-                    <option value="2">CHIHUAHA</option>-->
-                    <option value="3">AGUASCALIENTES</option>
+                  <select id="plazas">
+                      <?php 
+                        $query="SELECT DISTINCT plaza_nombre, plaza_id FROM vw_users_plazas_sucursales WHERE us_id = $usid";
+                        $result = pg_query($conexion,$query);
+                        do{
+                          echo'<option value="'.$mostrar["plaza_id"].'">'.$mostrar["plaza_nombre"].'</option>';  
+                        }while($mostrar= pg_fetch_array($result));
+     
+                      ?>
                   </select>
 
-                  <select>
-                    <option value="17">PABS ADM</option>
-                    <option value="13">PABS</option>
-                    <option value="3">FABRICA DE ATAUDES</option>
-                    <option value="3">RECINTO</option>
+                  <select id="empresa">
+                    <?php 
+                        $query="SELECT emp_nombre, emp_id FROM empresas";
+                        $result = pg_query($conexion,$query);
+                        do{
+                          echo'<option value="'.$mostrar["emp_id"].'">'.$mostrar["emp_nombre"].'</option>';  
+                        }while($mostrar= pg_fetch_array($result));
+     
+                      ?>
                   </select>
                   <label>Selecciona un tipo de periodo</label>
-                  <select>
-                  <option value="1">SEMANAL</option>
-                  <option value="4">EXTRAORDINARIO O DE AJUSTE</option>
-                </select>
+                  <select id="tipoperiodo" onchange="cargarperiodos()">
+                      <?php 
+                        $query="SELECT * FROM tipos_salarios";
+                        $result = pg_query($conexion,$query);
+                        do{
+                          echo'<option value="'.$mostrar["sal_tipo_id"].'">'.$mostrar["sal_tipo_nombre"].'</option>';  
+                        }while($mostrar= pg_fetch_array($result));
+     
+                      ?>
+                  </select>
               </div>
+                    
 
               <div class="w3-row-padding">
-                <div class="w3-half">
-                  <label>Fecha Inicio</label>
-                  <input class="w3-input w3-border" type="date" placeholder="Fecha de inicio de nomina" height="20%">
-                </div>
-                <div class="w3-half">
-                  <label>Fecha Fin</label>
-                  <input class="w3-input w3-border" type="date" placeholder="Fecha de fin de nomina">
+                <div id="fechas" class="w3-half">
+              
                 </div>
               </div>
 
@@ -104,24 +107,30 @@ if(@$_POST['saveImage']){
               <div class="w3-row-padding">
                 <div class="w3-half">
                   <label>Numero de servicios</label>
-                  <input class="w3-input w3-border" name="numservicios" type="number" placeholder="Numero de servicios" width="20%">
+                  <input id="numservicios" class="w3-input w3-border" name="numservicios" type="number" placeholder="Numero de servicios" width="20%">
                 </div>
                 <div class="w3-half">
                   <label>Ventas directas</label>
-                  <input class="w3-input w3-border" name="numventas" type="number" placeholder="Ventas directas">
+                  <input id="ventasdirectas" class="w3-input w3-border" name="numventas" type="number" placeholder="Ventas directas">
                 </div>
                 <div class="w3-half">
                   <label>Cobros por ventas</label>
-                  <input class="w3-input w3-border" type="number" name="cobros" placeholder="Cobros por ventas">
+                  <input id="cobrosporventa" class="w3-input w3-border" type="number" name="cobros" placeholder="Cobros por ventas">
                 </div>
                 <div class="w3-half">
                   <label>Saldo</label>
-                  <input class="w3-input w3-border" type="number" placeholder="Saldo" name="saldo">
+                  <input id="saldo" class="w3-input w3-border" type="number" placeholder="Saldo" name="saldo">
                 </div>
                 <div class="w3-half">
                   <label>Cobranza periodos anteriores</label>
-                  <input class="w3-input w3-border" type="number" placeholder="Cobranza del periodo anterior" name="cobranzaperanterior">
+                  <input id="cobrosanteriores" class="w3-input w3-border" type="number" placeholder="Cobranza del periodo anterior" name="cobranzaperanterior">
                 </div>
+                 
+                <div class="w3-half">
+                    <label>Observaciones</label>
+                    <input type="text" placeholder="Observaciones" id="observaciones"></input> 
+                </div>
+                  
               </div>
       </form>
     </div>
@@ -131,12 +140,8 @@ if(@$_POST['saveImage']){
 				<div class="btn-group" role="group">
                                     <button type="button" class="btn btn-default" data-dismiss="modal" role="button">Cancelar Nómina</button>
 				</div>
-<<<<<<< HEAD
-                               
-=======
->>>>>>> e85a423247b1e57af23e9a2924377a6a0f3473f6
 				<div class="btn-group" role="group">
-					<button type="button" name="saveImage" class="btn btn-default btn-hover-green" onclick="location.href='../sobrerecibo/index.php';">Comenzar Nomina</button>
+                                    <input type="button" name="saveImage" class="btn btn-default btn-hover-green" onclick="comenzarnomina()" value="comenzar">
 				</div>
 				
 			</div>
