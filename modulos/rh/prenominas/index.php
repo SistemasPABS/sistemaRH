@@ -6,6 +6,7 @@ $con->abre_conexion("0");
 $conexion=$con->conexion;
 session_start();
 $usid=$_SESSION['us_id'];
+$tipoperiodo=base64_decode($_GET['oc3']);//tipoperiodo
 $query="SELECT * FROM vw_users_plazas_sucursales";
 $result = pg_query($conexion,$query) or die("Error en la consulta SQL");
 

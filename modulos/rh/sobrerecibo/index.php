@@ -16,6 +16,7 @@ $cobrosporventa=base64_decode($_GET['oc7']);//cobrosporventa
 $saldo=base64_decode($_GET['oc8']);//saldo
 $cobrosanteriores=base64_decode($_GET['oc9']);//cobrosanteriores
 $observaciones=base64_decode($_GET['oc10']);//observaciones
+$pc=gethostbyaddr($_SERVER['REMOTE_ADDR']);//computadora de donde se hace
 /*echo $oc1,$oc2,$oc3,$oc4,$oc5,$oc6,$oc7,$oc8,$oc9,$oc10;*/
 $con= new conectasql();
 $con->abre_conexion("0");
@@ -25,7 +26,7 @@ $sql1="SELECT * FROM periodos WHERE idperiodo=$fechaperiodo";
 $result1 = pg_query($conexion,$sql1) or die("Error al obtener los periodos");
 $row1 = pg_fetch_array($result1);
 
-$sql2="INSERT into tmp_base_nom (us_id,fecha,hora,plaza_id,num_ventas,venta_directa,cobros,saldo,cobros_per_ant,observaciones,emp_id,sal_tipo_id,fecha_inicio,fecha_fin) values ($us_id,'$fecha','$hora',$plaza,$numservicios,$ventasdirectas,$cobrosporventa,$saldo,$cobrosanteriores,'$observaciones',$empid,$tipoperiodo,'".$row1['fecha_inicio']."','".$row1['fecha_final']."')";
+$sql2="INSERT into tmp_base_nom (us_id,fecha,hora,plaza_id,num_ventas,venta_directa,cobros,saldo,cobros_per_ant,observaciones,emp_id,sal_tipo_id,fecha_inicio,fecha_fin,pc) values ($us_id,'$fecha','$hora',$plaza,$numservicios,$ventasdirectas,$cobrosporventa,$saldo,$cobrosanteriores,'$observaciones',$empid,$tipoperiodo,'".$row1['fecha_inicio']."','".$row1['fecha_final']."','$pc')";
 $result2 = pg_query($conexion,$sql2) or die("Error en la insercion de datos temporales de base nom");
 
 $sql3="select * from vw_contratos where con_status = 1 and sal_tipo_id = $tipoperiodo and emp_id  = $empid and plaza_id = $plaza";
@@ -124,7 +125,8 @@ if($row3= pg_fetch_array($result3)){
         <input hidden id="cantpersonas" name="cantpersonas" value=""></input>
         <table class="custom-table">
             <thead>
-                <tr>
+                <tr> <input hidden value="<?php echo $pc?>" name="pc"></input>
+                    <input hidden value="<?php echo $idperiodo?>" name="idperiodo"></input>
                     <th>Persona</th>
                     <th>Nombre</th>
                     <th>Monto</th>
