@@ -40,53 +40,65 @@ if ($cantpersonas == $cantpersonas2 ){
     //COMIENZA FOREACH PARA GUARDAR TEMPORALES COMISIONES 
     foreach($cp as $p)
     {
-        if($coid=$_POST[$p.'comision']){
-            $cantidadcom=$_POST[$p.'cantidadcom'];
-            $observacionescom=$_POST[$p.'observacionescom'];
+            $coid=$_POST[$p.'comision'];
+            if($coid != NULL){
+                
+               $cantidadcom=$_POST[$p.'cantidadcom'];
+                $observacionescom=$_POST[$p.'observacionescom'];
 
-            $largo= count($coid);
+                $largo= count($coid);
 
-            for($i=0; $i < $largo; $i++){
-                $sql="INSERT into tmp_comnom (co_id,persona_id,co_cantidad,co_observaciones,pc,fecha_inicio,fecha_fin,us_id,plaza_id) values ($coid[$i], $p, $cantidadcom[$i], '$observacionescom[$i]','$pc','$fechainicio','$fechafinal',$us_id,$plaza)";
-                //echo $sql;
-                $result= pg_query($conexion,$sql) or die("Error insertando tmp_comisiones". pg_last_error());
+                for($i=0; $i < $largo; $i++){
+                    $sql="INSERT into tmp_comnom (co_id,persona_id,co_cantidad,co_observaciones,pc,fecha_inicio,fecha_fin,us_id,plaza_id) values ($coid[$i], $p, $cantidadcom[$i], '$observacionescom[$i]','$pc','$fechainicio','$fechafinal',$us_id,$plaza)";
+                    //echo $sql;
+                    $result= pg_query($conexion,$sql) or die("Error insertando tmp_comisiones". pg_last_error());
+                } 
             }
-        }
+                
+              
+        
     }//TERMINA FOREACH PARA GUARDAR COMISIONES temporales
     
     
     //COMIENZA FOREACH PARA GUARDAR TEMPORALES PERCEPCIONES
     foreach ($cp as $p){
-        if($perid = $_POST[$p.'per']){//select id tipo percepcion
-            $monto = $_POST[$p.'cantidadper'];//cantidad con el tipo se juntan y lo unico que varia es el id de la persona
-            $observaciones = $_POST[$p.'motivoper']; //la observacion es identificada por el id de la persona 
+            $perid = $_POST[$p.'per'];//select id tipo percepcion
+            
+           if($perid != NULL){
+               $monto = $_POST[$p.'cantidadper'];//cantidad con el tipo se juntan y lo unico que varia es el id de la persona
+               $observaciones = $_POST[$p.'motivoper']; //la observacion es identificada por el id de la persona 
 
-            $largo= count($perid);
+                $largo= count($perid);
 
-            for($i=0; $i < $largo; $i++){
-                $sql="INSERT into tmp_percepciones (us_id,persona_id,tp_id,tp_monto,tmp_observaciones,pc,fecha_inicio,fecha_fin,plaza_id) values ($us_id, $p,$perid[$i],$monto[$i],'$observaciones[$i]','$pc','$fechainicio','$fechafinal',$plaza)";
-                //echo $sql;
-                $result= pg_query($conexion,$sql) or die("Error insertando tmp_percepciones". pg_last_error());
+                for($i=0; $i < $largo; $i++){
+                     $sql="INSERT into tmp_percepciones (us_id,persona_id,tp_id,tp_monto,tmp_observaciones,pc,fecha_inicio,fecha_fin,plaza_id) values ($us_id, $p,$perid[$i],$monto[$i],'$observaciones[$i]','$pc','$fechainicio','$fechafinal',$plaza)";
+                     //echo $sql;
+                     $result= pg_query($conexion,$sql) or die("Error insertando tmp_percepciones". pg_last_error());
+                }
+            
             }
-        }
+        
     }//TERMINA FOREACH PARA GUARDAR PERCEPCIONES temporales
     
     
     //comienza foreach para guardar deducciones temporales
     foreach ($cp as $p){
         
-        if($dedid = $_POST[$p.'ded']){//select id tipo percepcion
+            $dedid = $_POST[$p.'ded'];//select id tipo percepcion
+        if($deid != NULL){
             $monto = $_POST[$p.'cantidadded'];//cantidad con el tipo se juntan y lo unico que varia es el id de la persona
             $observaciones = $_POST[$p.'motivoded']; //la observacion es identificada por el id de la persona 
 
-            $largo= count($dedid);
+                $largo= count($dedid);
 
-            for($i=0; $i < $largo; $i++){
-                $sql="INSERT into tmp_deducciones (us_id,persona_id,td_id,td_monto,td_observaciones,pc,fecha_inicio,fecha_fin,plaza_id) values ($us_id, $p,$dedid[$i],$monto[$i],'$observaciones[$i]','$pc','$fechainicio','$fechafinal',$plaza)";
-                //echo $sql;
-                $result= pg_query($conexion,$sql) or die("Error insertando tmp_deducciones". pg_last_error());
-            } 
+                for($i=0; $i < $largo; $i++){
+                    $sql="INSERT into tmp_deducciones (us_id,persona_id,td_id,td_monto,td_observaciones,pc,fecha_inicio,fecha_fin,plaza_id) values ($us_id, $p,$dedid[$i],$monto[$i],'$observaciones[$i]','$pc','$fechainicio','$fechafinal',$plaza)";
+                    //echo $sql;
+                    $result= pg_query($conexion,$sql) or die("Error insertando tmp_deducciones". pg_last_error());
+                } 
         }
+            
+       
     }//TERMINA FOREACH PARA GUARDAR deducciones en las tablas temporales
     
    
@@ -153,14 +165,16 @@ $nominaid=$mostrar['nom_id'];
 $selecttmpcomnom = "SELECT * from tmp_comnom where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
 $result = pg_query($conexion,$selecttmpcomnom);
 $campostmpcomnom = pg_fetch_array($result);
+    if($campostmpcomnom != NULL){
+        do{    
 
-    do{    
-        
-        $insertcomnom = "INSERT into comnom (co_id,persona_id,co_cantidad,co_observaciones,fecha_inicio,fecha_fin,us_id,nom_id,fecha,hora,pc) values (".$campostmpcomnom['co_id'].",".$campostmpcomnom['persona_id'].",".$campostmpcomnom['co_cantidad'].",'".$campostmpcomnom['co_observaciones']."','".$campostmpcomnom['fecha_inicio']."','".$campostmpcomnom['fecha_fin']."',".$campostmpcomnom['us_id'].",$nominaid,'$fecha','$hora','$pc');";
-        $resultinsertcomnom=pg_query($conexion,$insertcomnom) or die ('ERROR AL INSERTAR EN LA TABLA CHIDA DE LAS COMISIONES');
-        //echo $insertcomnom;
-            
-    }while($campostmpcomnom = pg_fetch_array($result));
+            $insertcomnom = "INSERT into comnom (co_id,persona_id,co_cantidad,co_observaciones,fecha_inicio,fecha_fin,us_id,nom_id,fecha,hora,pc) values (".$campostmpcomnom['co_id'].",".$campostmpcomnom['persona_id'].",".$campostmpcomnom['co_cantidad'].",'".$campostmpcomnom['co_observaciones']."','".$campostmpcomnom['fecha_inicio']."','".$campostmpcomnom['fecha_fin']."',".$campostmpcomnom['us_id'].",$nominaid,'$fecha','$hora','$pc');";
+            $resultinsertcomnom=pg_query($conexion,$insertcomnom) or die ('ERROR AL INSERTAR EN LA TABLA CHIDA DE LAS COMISIONES');
+            //echo $insertcomnom;
+
+        }while($campostmpcomnom = pg_fetch_array($result));
+    }
+    
     
 //////////////*****AQUI TERMINA EL VACIADO A LA TABLA CHIDA DE LAS COMISIONES*********/////
 
@@ -169,15 +183,18 @@ $campostmpcomnom = pg_fetch_array($result);
 $selecttmp_percepciones = "SELECT * from tmp_percepciones where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
 $result = pg_query($conexion,$selecttmp_percepciones);
 $campostmppercepciones = pg_fetch_array($result);
-
-   do{    
+    if($campostmppercepciones != NULL){
+        
+        do{    
       
-      $insertpercepciones = "INSERT into percepciones (nom_id,us_id,fecha,hora,persona_id,tp_id,tp_monto,tmp_observaciones,fecha_inicio,fecha_fin,pc) values ($nominaid,$us_id,'$fecha','$hora',".$campostmppercepciones['persona_id'].",".$campostmppercepciones['tp_id'].",".$campostmppercepciones['tp_monto'].",'".$campostmppercepciones['tmp_observaciones']."','".$campostmppercepciones['fecha_inicio']."','".$campostmppercepciones['fecha_fin']."','$pc');";
-      $resultinsertpercepciones=pg_query($conexion,$insertpercepciones) or die ('ERROR AL INSERTAR EN LA TABLA CHIDA DE LAS PERCEPCIONES');
-      //echo $insertpercepciones;  
+           $insertpercepciones = "INSERT into percepciones (nom_id,us_id,fecha,hora,persona_id,tp_id,tp_monto,tmp_observaciones,fecha_inicio,fecha_fin,pc) values ($nominaid,$us_id,'$fecha','$hora',".$campostmppercepciones['persona_id'].",".$campostmppercepciones['tp_id'].",".$campostmppercepciones['tp_monto'].",'".$campostmppercepciones['tmp_observaciones']."','".$campostmppercepciones['fecha_inicio']."','".$campostmppercepciones['fecha_fin']."','$pc');";
+           $resultinsertpercepciones=pg_query($conexion,$insertpercepciones) or die ('ERROR AL INSERTAR EN LA TABLA CHIDA DE LAS PERCEPCIONES');
+           //echo $insertpercepciones;  
             
-    }while($campostmppercepciones = pg_fetch_array($result));
+        }while($campostmppercepciones = pg_fetch_array($result));
 //    
+    }
+   
 ////////////////*****AQUI TERMINA EL VACIADO A LA TABLA CHIDA DE LAS PERCEPCIONES*********/////
 
     
@@ -186,23 +203,21 @@ $campostmppercepciones = pg_fetch_array($result);
 $selecttmp_deducciones = "SELECT * from tmp_deducciones where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
 $result = pg_query($conexion,$selecttmp_deducciones);
 $campostmpdeducciones = pg_fetch_array($result);
-//
-   do{    
-    $insertdeducciones = "INSERT into deducciones (nom_id,us_id,fecha,hora,persona_id,td_id,td_monto,td_observaciones,fecha_inicio,fecha_fin,pc) values ($nominaid,$us_id,'$fecha','$hora',".$campostmpdeducciones['persona_id'].",".$campostmpdeducciones['td_id'].",".$campostmpdeducciones['td_monto'].",'".$campostmpdeducciones['td_observaciones']."','".$campostmpdeducciones['fecha_inicio']."','".$campostmpdeducciones['fecha_fin']."','$pc');";
-    $resultinsertdeducciones=pg_query($conexion,$insertdeducciones) or die ('ERROR AL INSERTAR EN LA TABLA CHIDA DE LAS DEDUCCIONES');
-   //echo $insertdeducciones;
-//    
-  }while($campostmpdeducciones = pg_fetch_array($result));
-//    
+    if($campostmpdeducciones != NULL){
+        do{    
+            $insertdeducciones = "INSERT into deducciones (nom_id,us_id,fecha,hora,persona_id,td_id,td_monto,td_observaciones,fecha_inicio,fecha_fin,pc) values ($nominaid,$us_id,'$fecha','$hora',".$campostmpdeducciones['persona_id'].",".$campostmpdeducciones['td_id'].",".$campostmpdeducciones['td_monto'].",'".$campostmpdeducciones['td_observaciones']."','".$campostmpdeducciones['fecha_inicio']."','".$campostmpdeducciones['fecha_fin']."','$pc');";
+            $resultinsertdeducciones=pg_query($conexion,$insertdeducciones) or die ('ERROR AL INSERTAR EN LA TABLA CHIDA DE LAS DEDUCCIONES');
+            //echo $insertdeducciones;
+        }while($campostmpdeducciones = pg_fetch_array($result));
+    }
+   
+
 ////////////////*****AQUI TERMINA EL VACIADO A LA TABLA CHIDA DE LAS COMISIONES*********/////   
-  
-  
-  
-  
-  
-  
-  
-  /////////*** EMPIEZA PROCESO PARA EL BORRADO DE LAS TABLAS TEMPORALES ****************///
+
+
+    
+    
+ /////////*** EMPIEZA PROCESO PARA EL BORRADO DE LAS TABLAS TEMPORALES ****************///
   
 
   
@@ -294,14 +309,19 @@ $camposdeducciones = pg_fetch_array($result);
     } 
 
 //  *********** AQUI TERMINA EL BORRADO DE LA TABLA TEMPORAL DE DEDUCCIONES *******   //
-
-
-
-    
-    
-  
    
+    
+    
 //Se termina el proceso para el vaciado de informacion a las tablas chidas
+    
+    
+    //Aqui va el letrero de que se genero la nomina con exito y el id de la nomina
+    $letreritosuccesfully.='<div>
+                                Se genero tu nomina folio: '.$nominaid.' con exito
+                            </div>';
+    echo $letreritosuccesfully;
+    //mandar el correo a los usuarios de los que tienen el permiso de autorizar la nomina sobre esa plaza
+    
 
 }//SE TERMINA EL PROCESO DE GENERACION DE NOMINA
 
