@@ -27,9 +27,9 @@ else{
 $result= pg_query($conexion,$query);
 $mostrar= pg_fetch_array($result);
 
-$select .='<select>';
+$select .='<select name="'.$perid.$equis.'[]">';
     do{
-        $select .='<option value="'.$mostrar[$vopc].'" name="'.$perid.$equis.'[]">'.$mostrar[$nombre].'</option>';
+        $select .='<option value="'.$mostrar[$vopc].'" >'.$mostrar[$nombre].'</option>';
     }while($mostrar= pg_fetch_array($result));
     
 $select .='<select>';

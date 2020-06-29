@@ -127,6 +127,7 @@ if($row3= pg_fetch_array($result3)){
             <thead>
                 <tr> <input hidden value="<?php echo $pc?>" name="pc"></input>
                     <input hidden value="<?php echo $idperiodo?>" name="idperiodo"></input>
+                    <input hidden value="<?php echo $plaza?>" name="plaza"></input>
                     <th>Persona</th>
                     <th>Nombre</th>
                     <th>Monto</th>
