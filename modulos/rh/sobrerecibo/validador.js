@@ -1,11 +1,9 @@
 function traerpercepcionesdeducciones(opc,btn){
    //Obtener ID de Persona para evaluador.php 
    var papaboton = btn.parentNode;
-   var hermano = papaboton.parentNode;
    
-   var personaid = hermano.value;
+   var personaid = papaboton.childNodes[1].value;
    
-    
    var papa = btn.parentNode;
    var hijo = papa.parentNode;
    var nieto = hijo.parentNode;
