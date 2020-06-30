@@ -29,3 +29,7 @@ function cargarperiodos(){
             }
           });
 }
+
+function gridnomina(){
+  location.href='../gridprenominas/index.php';
+}

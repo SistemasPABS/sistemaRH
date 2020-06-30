@@ -1,19 +1,22 @@
 <?php 
-include_once ('../prenominas/index.php');
-$em=base64_decode($_GET['em']);
+include ('../../../config/conectasql.php');
 $con= new conectasql();
 $con->abre_conexion("0");
 $conexion=$con->conexion;
-$query = "SELECT * from vw_prenomina_general";
-$result = pg_query($conexion,$query) or die("Error en la consulta SQL");
+$query = "SELECT * from vw_nomina_tiposalario_usuarios";
+$result = pg_query($conexion,$query) or die('Error en la consulta sql');
+$mostrar = pg_fetch_array($result);
 do{
 $renglonesloquesea .='
   <tr>  
-  <td> '.$mostrar['nombrecompleto'].'</td>
-  <td> '.$mostrar['sal_monto_con'].'
-  <td> '.$mostrar['nom_t_percepciones'].'</td>
-  <td> '.$mostrar['nom_t_deducciones'].'</td>
-  <td><button>Abrir Sobrerecibo</button></td> 
+  <td> '.$mostrar['nom_id'].'</td>
+  <td> '.$mostrar['sal_tipo_nombre'].'
+  <td> '.$mostrar['fecha_inicio'].'</td>
+  <td> '.$mostrar['fecha_fin'].'</td>
+  <td> '.$mostrar['fechageneracion'].'</td>
+  <td> '.$mostrar['us_login'].'</td>
+  <td> '.$mostrar['nom_autorizada'].'</td>
+  <td> '.$mostrar['nom_total'].'</td> 
 </tr> ';
 }while($mostrar=pg_fetch_array($result))
 ?>
@@ -71,88 +74,7 @@ $renglonesloquesea .='
         
     </style>
     
-    <script>
-        /* main function when page is opened  */
-
-    $(document).ready(function () {
-        /* function for adding a new row */
-        var r = 0;
-
-        $(".addRow").on("click", function () {
-            r++;
-
-            $("#sponsorTable").append(
-                '<tr id="row' +
-                r +
-                '" class="item"><td data-label="商品名稱"><input type="text" name="sponsor" class="form-control" /></td><td data-label="市 價"><div class="input-group"><div class="input-group-addon">$</div><input type="number" name="price" class="form-control price amount" min="0" /></div></td><td data-label="贊助份數"><input type="number" name="quantity" class="form-control qnty amount" min="1" /></td><td data-label="小 計"><input type="number" name="total" class="form-control total" id="total1" readonly /></td><td data-label=" "><button type="button" name="remove" id="' +
-                r +
-                '" class="btn btn-success btn-sm btn_remove"><i class="fa fa-trash-o"></i> 刪除</button></td></tr>'
-            );
-        });
-        /* remove row when X is clicked */
-        $(document).on("click", ".btn_remove", function () {
-            var button_id = $(this).attr("id");
-            $("#row" + button_id + "").remove();
-        });
-        /* calculate everything  */
-        $(document).on("keyup", ".amount", calcAll);
-        /* $(".amount").on("change", calcAll);  */
-    });
-
-    /* function for calculating everything  */
-    function calcAll() {
-        /* calculate total for one row  */
-
-        $(".item").each(function () {
-            var qnty = 0;
-            var price = 0;
-            var total = 0;
-
-            if (!isNaN(parseFloat($(this).find(".qnty").val()))) {
-                qnty = parseFloat(
-                    $(this).find(".qnty").val()
-                );
-            }
-            if (!isNaN(parseFloat($(this).find(".price").val()))) {
-                price = parseFloat(
-                    $(this).find(".price").val()
-                );
-            }
-
-            total = qnty * price;
-
-            $(this).find(".total").val(total.toFixed(0));
-        });
-
-        /*$(".amount").each(function () {
-
-            if (!isNaN(this.value) && this.value.length != 0) {
-                product *= parseFloat(this.value);
-            }
-            $("#total1").val(product.toFixed(2));
-            if (!isNaN($(this).find(".qnty"))) {
-
-            }
-        });  */
-
-        /*  sum all totals  */
-        var sum = 0;
-        $(".total").each(function () {
-            if (!isNaN(this.value) && this.value.length != 0) {
-                sum += parseFloat(this.value);
-            }
-        });
-        /* show values in netto, steuer, brutto fields  */
-
-        $("#CostTotal").val(sum.toFixed(0));
-
-    }>
-
-    /* change cell when edited */
-    $("input").change(function () {
-        $(this).addClass("edited");
-    });
-    </script>
+  
     
     <body>
         
@@ -167,46 +89,27 @@ $renglonesloquesea .='
                 <table id="sponsorTable" class="table table-condensed table-striped table-hover">
                     <thead>
                         <tr class="warning">
-                            <th width="35%" class="text-center" scope="col">Empleado</th>
-                            <th width="20%" class="text-center" scope="col">Monto</th>
-                            <!---<th width="15%" class="text-center" scope="col">贊助份數</th>-->
-                            <th width="20%" class="text-center" scope="col">Total</th>
-                            <th width="35%" class="text-center" scope="col">Observaciones</th>
+                            <th width="35%" class="text-center" scope="col">Folio de Nomina</th>
+                            <th width="20%" class="text-center" scope="col">Tipo de periodo</th>
+                            <th width="20%" class="text-center" scope="col">Fecha Inicio</th>
+                            <th width="20%" class="text-center" scope="col">Fecha Fin</th>
+                            <th width="35%" class="text-center" scope="col">Fecha de creacion de nomina</th>
+                            <th width="35%" class="text-center" scope="col">Quien realizo nomina</th>
+                            <th width="35%" class="text-center" scope="col">Autorizada</th>
+                            <th width="35%" class="text-center" scope="col">Total de la nomina</th>
+                            <?php echo $renglonesloquesea; ?>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="item">
-                            <td data-label="empleado">
-                                <label type="text" name="sponsor" class="form-control" />
-                            </td>
-                            <td data-label="monto">
-                                <div class="input-group">
-                                  <div class="input-group-addon">$</div>
-                                  <input type="number" name="price" class="form-control price amount" min="0" />
-                                </div>
-                            </td>
-                            <!--<td data-label="贊助份數">
-                                <input type="number" name="quantity" class="form-control qnty amount" min="1" />
-                            </td>-->
-                            <td data-label="total">
-                                <input type="number" name="total" class="form-control total" id="total1" readonly />
-                            </td>
-                            <td data-label="observaciones">
-                                 <input type="text" name="observaciones" class="form-control" id="observaciones"/>
-                            </td>
-                        </tr>
+                        
                     </tbody>
                     <tfoot>
                         <tr>
                             <td colspan="3" class="text-center">
+                                <img src=""></img>
                                 <h4 class="font-bold text-red">Programa de Apoyo de Beneficio Social</h4></b>
                             </td>  
-                            <td class="text-right">
-                                <input id="CostTotal" readonly="readonly" name="CostTotal" type="number" class="form-control" />
-                            </td>
-                            <td>
-                                 
-                            </td>
+                        
                         </tr>
                     </tfoot>
                 </table>
@@ -214,9 +117,7 @@ $renglonesloquesea .='
         </div>
     </div>
 </div>
-        
-    </body>
-    
+</body>   
 </html>
 
 <!---
