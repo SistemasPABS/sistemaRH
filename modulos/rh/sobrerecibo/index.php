@@ -57,13 +57,11 @@ if($row3= pg_fetch_array($result3)){
                       <tr class="toggler toggler1">
                         
                         <td rowspan="9999"></td>
-                            <input hidden value="'.$row4['co_id'].' name="'.$row3['persona_id'].'comision[]"></input>
-                            <td>'.$row4['co_nombre'].'</td>
+                            <td><input value="'.$row4['co_id'].'" name="'.$row3['persona_id'].'comision[]" hidden>'.$row4['co_nombre'].'</td>
                             <td>'.$row4['co_monto'].'</td>
                             <td>'.$row4['co_porcentaje'].'</td>
                             <td><input type="number" name="'.$row3['persona_id'].'cantidadcom[]"></input></td>
                             <td><input type="text" name="'.$row3['persona_id'].'observacionescom[]"></input></td>
-                        
                       </tr>
                     </tbody>';
                 //$monos.='*'.$row4['co_id'].'--'.$row4['co_nombre'].'<br>';
@@ -126,8 +124,9 @@ if($row3= pg_fetch_array($result3)){
         <table class="custom-table">
             <thead>
                 <tr> <input hidden value="<?php echo $pc?>" name="pc"></input>
-                    <input hidden value="<?php echo $idperiodo?>" name="idperiodo"></input>
+                    <input hidden value="<?php echo $fechaperiodo?>" name="idperiodo"></input>
                     <input hidden value="<?php echo $plaza?>" name="plaza"></input>
+                    <input hidden value="<?php echo $tipoperiodo?>" name="tipoperiodo"></input>
                     <th>Persona</th>
                     <th>Nombre</th>
                     <th>Monto</th>

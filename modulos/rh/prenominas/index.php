@@ -26,6 +26,8 @@ $result = pg_query($conexion,$query) or die("Error en la consulta SQL");
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">   
         <script src="../gridprenominas/funcionesprenomina.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        
+ 
     </head>
 
 
@@ -36,7 +38,7 @@ $result = pg_query($conexion,$query) or die("Error en la consulta SQL");
       <div>
         <div>
           <button data-toggle="modal" data-target="#squarespaceModal">Nueva nómina</button>
-          <button data-toggle="modal" data-target="#prenomina" onclick="location.href='../gridprenominas/index.php';">Prenómina</button>
+          <button onclick="gridnomina()">Prenómina</button>
           <!--<button data-toggle="modal" data-target="#sobrerecibo">Sobrerecibo</button>
           <button data-toggle="modal" data-target="#comparador">Comparador CONTPAQi® vs Sistema RH</button>
           <button data-toggle="modal" data-target="#reporteador">Reporteador</button>
