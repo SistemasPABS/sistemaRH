@@ -159,17 +159,14 @@ $renglonesloquesea .='
         <div class="container">
             <div class="row">
         <div class="col-xs-12 col-md-12">
-            <!---<div class="pull-right">
-                <button type="button" class="btn btn-warning btn-sm addRow"><i class="fa fa-plus-circle"></i> Agregar Percepcion</button>
-                <div class="clearfix"></div>
-            </div>-->
+           
             <div class="table-wrap">
                 <table id="sponsorTable" class="table table-condensed table-striped table-hover">
                     <thead>
                         <tr class="warning">
                             <th width="35%" class="text-center" scope="col">Empleado</th>
                             <th width="20%" class="text-center" scope="col">Monto</th>
-                            <!---<th width="15%" class="text-center" scope="col">贊助份數</th>-->
+                        
                             <th width="20%" class="text-center" scope="col">Total</th>
                             <th width="35%" class="text-center" scope="col">Observaciones</th>
                         </tr>
@@ -185,9 +182,7 @@ $renglonesloquesea .='
                                   <input type="number" name="price" class="form-control price amount" min="0" />
                                 </div>
                             </td>
-                            <!--<td data-label="贊助份數">
-                                <input type="number" name="quantity" class="form-control qnty amount" min="1" />
-                            </td>-->
+                           
                             <td data-label="total">
                                 <input type="number" name="total" class="form-control total" id="total1" readonly />
                             </td>
