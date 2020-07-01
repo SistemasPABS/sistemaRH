@@ -36,7 +36,7 @@ $select .='<select>';
 $contenidofila .='
   
         
-        <td>'.$select.'</input></td>
+        <td>'.$select.'</td>
         <td><input name="'.$perid.'cantidad'.$equis.'[]" type="number"></input></td>
         <td></td>
         <td></td>

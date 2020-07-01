@@ -28,7 +28,7 @@ else{
 $result= pg_query($conexion,$query);
 $mostrar= pg_fetch_array($result);
 echo'<div id=opcion>'
-. '<select id="fechaperiodo">';
+. '<select id="fechaperiodo" onblur="">';
 do{
     echo '<option value="'.$mostrar['idperiodo'].'">'.$mostrar['num_periodo'].'-'.$mostrar['fecha_inicio'].'--'.$mostrar['fecha_final'].'</option>';
 }while($mostrar= pg_fetch_array($result));
