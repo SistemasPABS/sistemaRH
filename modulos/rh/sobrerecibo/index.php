@@ -139,7 +139,7 @@ if($row3= pg_fetch_array($result3)){
             
         </table>
         
-        <button id="submit" type="submit" onclick="enviarnomina()">ENVIAR NOMINA</button>
+        <button id="submit" type="submit" onclick="enviarnomina()">GUARDAR NOMINA</button>
     </form>    
 </div>
 </body>
