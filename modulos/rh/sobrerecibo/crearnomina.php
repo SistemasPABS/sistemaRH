@@ -51,7 +51,7 @@ if ($cantpersonas == $cantpersonas2 ){
                 for($i=0; $i < $largo; $i++){
                     $sql="INSERT into tmp_comnom (co_id,persona_id,co_cantidad,co_observaciones,pc,fecha_inicio,fecha_fin,us_id,plaza_id) values ($coid[$i], $p, $cantidadcom[$i], '$observacionescom[$i]','$pc','$fechainicio','$fechafinal',$us_id,$plaza)";
                     //echo $sql;
-                    $result= pg_query($conexion,$sql) or die("Error insertando tmp_comisiones". pg_last_error());
+                    $result= pg_query($conexion,$sql) or die("Error insertando tmp_comisiones - ". pg_last_error());
                 } 
             }
                 
