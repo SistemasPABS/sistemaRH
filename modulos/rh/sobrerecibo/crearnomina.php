@@ -148,7 +148,7 @@ if ($cantpersonas == $cantpersonas2 ){
     $result = pg_query($conexion,$insertarnomina) or die ('Error al insertar nomina');
 
     //se consulta la nomina generada
-    $querynomina="SELECT * from nomina where us_id = $us_id and pc = '$pc' and fecha_inicio='$fechainicio'and fecha_fin = '$fechafinal' and plaza_id = $plaza and fechageneracion = '$fecha'";
+    $querynomina="SELECT * from nomina where us_id = $us_id and pc = '$pc' and fecha_inicio='$fechainicio'and fecha_fin = '$fechafinal' and plaza_id = $plaza and fechageneracion = '$fecha' ORDER BY nom_id DESC;";
     $result= pg_query($conexion,$querynomina);
     $mostrar= pg_fetch_array($result);
     $nominaid=$mostrar['nom_id'];
