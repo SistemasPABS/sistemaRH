@@ -41,9 +41,22 @@ if($row3= pg_fetch_array($result3)){
                         <button type="button" class="tbtn"><i class="fa fa-plus-circle fa-minus-circle"></i>'.$row3['nombrecompleto'].'</button>
                         <button type="button"  onclick="traerpercepcionesdeducciones(\'percepcion\',this)">Agregar percepcion</button>   
                         <button type="button"  onclick="traerpercepcionesdeducciones(\'deduccion\',this)">Agregar deduccion</button>
+                        
                     </td>
                     
                 </tr>
+                <tr class="toggler toggler1">
+                        
+                        <td rowspan="9999"></td>
+                            
+                            <td>SUELDO DE LA PERSONA</td>
+                            <td><input  class="sueldo" value="'.$row3['persona_id'].'"  name="'.$row3['persona_id'].'sueldo[]" hidden></input></td>
+                            <td></td>
+                            <td><input type="number" name="'.$row3['persona_id'].'cantidadsuelo[]" value="'.$row3['sal_monto_con'].'" readonly></input></td>
+                            <td><input type="text" name="'.$row3['persona_id'].'observacionessueldo[]"></input></td>
+                      </tr>
+                    </tbody>
+                
                 
         ';
         //$monos.= $row3['persona_id'].'--'.$row3['nombrecompleto'].'<br>';
@@ -57,6 +70,7 @@ if($row3= pg_fetch_array($result3)){
                       <tr class="toggler toggler1">
                         
                         <td rowspan="9999"></td>
+                            
                             <td><input value="'.$row4['co_id'].'" name="'.$row3['persona_id'].'comision[]" hidden>'.$row4['co_nombre'].'</td>
                             <td>'.$row4['co_monto'].'</td>
                             <td>'.$row4['co_porcentaje'].'</td>
@@ -102,7 +116,11 @@ if($row3= pg_fetch_array($result3)){
             .toggler1{display:table-row;}
             .custom-table a{color: #0033cc;}
             .custom-table a:hover{color: #f00;}
-            .page-header{background-color: #eee;}
+            .page-header{background-color: #416db0;}
+
+            .sueldo{
+                color: "#FFFFF";
+            }
     </style>
     
     <script>
