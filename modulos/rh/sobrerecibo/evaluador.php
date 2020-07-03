@@ -1,6 +1,7 @@
 <?php
 //echo 'hola';
 include_once ('../../../config/conectasql.php');
+include_once ('./validadorcampos.js')
 session_start();
 $us_id=$_SESSION['us_id'];
 $opc= base64_decode($_POST['opc']);
