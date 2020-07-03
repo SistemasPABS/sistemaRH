@@ -45,6 +45,16 @@ if($row3= pg_fetch_array($result3)){
                     
                 </tr>
                 
+                <tr class="toggler toggler1">
+                        
+                    <td rowspan="9999"></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><input type="number" name="'.$row3['persona_id'].'cantidadcom[]"></input></td>
+                        <td><input type="text" name="'.$row3['persona_id'].'observacionescom[]"></input></td>
+                  </tr>
+                </tbody>
         ';
         //$monos.= $row3['persona_id'].'--'.$row3['nombrecompleto'].'<br>';
         
