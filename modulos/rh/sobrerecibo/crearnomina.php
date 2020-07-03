@@ -148,7 +148,7 @@ if ($cantpersonas == $cantpersonas2 ){
     $result = pg_query($conexion,$insertarnomina) or die ('Error al insertar nomina');
 
     //se consulta la nomina generada
-    $querynomina="SELECT * from nomina where us_id = $us_id and pc = '$pc' and fecha_inicio='$fechainicio'and fecha_fin = '$fechafinal' and plaza_id = $plaza and fechageneracion = '$fecha'";
+    $querynomina="SELECT * from nomina where us_id = $us_id and pc = '$pc' and fecha_inicio='$fechainicio'and fecha_fin = '$fechafinal' and plaza_id = $plaza and fechageneracion = '$fecha' ORDER BY nom_id DESC;";
     $result= pg_query($conexion,$querynomina);
     $mostrar= pg_fetch_array($result);
     $nominaid=$mostrar['nom_id'];
@@ -213,62 +213,83 @@ if ($cantpersonas == $cantpersonas2 ){
 //    //////////////////////////////////////////////////////////////////////////////////
 //  
 //    
-//    //se obtiene la cantidad de comisiones en la tabla tmp para el peiodo
-//    $selecttmpcomnom = "SELECT count(*) as cuentatmpcomnom from tmp_comnom where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
-//    //echo $selecttmpcomnom;
-//    $result = pg_query($conexion,$selecttmpcomnom);
-//    $valorarreglotmpcomnom = pg_fetch_array($result);
-//    //se obtiene la cantidad de comisiones en la tabla historico para el peiodo
-//    $selectcomnom = "SELECT count (*) as cuentacomnom from comnom where us_id = $us_id and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and nom_id=$nominaid and pc = '$pc'";
-//    //echo $selectcomnom;
-//    $result = pg_query($conexion,$selectcomnom);
-//    $valorarreglocomnom = pg_fetch_array($result);
-//    //SE ESTAN COMPARANDO QUE LO QUE SE MANDO SEA IGUAL PARA QUE SE PUEDA BORRAR  
-//    if($valorarreglotmpcomnom['cuentatmpcomnom']==$valorarreglocomnom['cuentacomnom']){
-//        $borradotmpcomnom="DELETE from tmp_comnom WHERE us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
-//        //echo $borradotmpcomnom;
-//        $result = pg_query($conexion,$borradotmpcomnom) or die ("Verifica la sentencia SQL". pg_last_error());
-//    }else{
-//        echo 'No son iguales';
-//    } 
+//    //se obtiene la cantidad de datos en la tabla temporal de base de nomina
+    $selecttmpbasenom = "SELECT count(*) as cuentatmpbasenom from tmp_base_nom where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
+    $selecttmpbasenom;
+    $result = pg_query($conexion,$selecttmpbasenom);
+    $valorarreglotmpbasenom = pg_fetch_array($result);
+
+    //se obtiene la cantidad de datos en la tabla historico de base de nomina
+    $selectbasenom = "SELECT count (*) as cuentabasenom from base_nom where us_id = $us_id and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and nom_id=$nominaid and pc = '$pc'";
+    //echo $selectbasenom;
+    $result = pg_query($conexion,$selectbasenom);
+    $valorarreglobasenom = pg_fetch_array($result);
+    //SE ESTAN COMPARANDO QUE LO QUE SE MANDO SEA IGUAL PARA QUE SE PUEDA BORRAR  
+    if($valorarreglotmpbasenom['cuentatmpbasenom']==$valorarreglobasenom['cuentabasenom']){
+       $borradotmpbasenom="DELETE from tmp_base_nom WHERE us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
+        //echo $borradotmpcomnom;
+        $result = pg_query($conexion,$borradotmpbasenom) or die ("Verifica la sentencia SQL". pg_last_error());
+    }else{
+        echo 'No son iguales - TEMPORAL BASE NOMINA ';
+    } 
 //
-//    
-//    //se obtiene la cantidad de percepciones en la tabla tmp para el peiodo
-//    $selecttmp_percepciones = "SELECT count(*) as cuentatmppercepciones from tmp_percepciones where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
-//    //echo $selecttmp_percepciones;
-//    $result = pg_query($conexion,$selecttmp_percepciones);
-//    $campostmppercepciones = pg_fetch_array($result);
-//    //se obtiene la cantidad de percepciones en la tabla historico para el peiodo
-//    $selectpercepciones = "SELECT count(*) as cuentapercepciones from percepciones where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and nom_id = $nominaid";
-//    //echo $selectpercepciones;
-//    $result = pg_query($conexion,$selectpercepciones);
-//    $campospercepciones = pg_fetch_array($result);
-//    //SE ESTAN COMPARANDO QUE LO QUE SE MANDO SEA IGUAL PARA QUE SE PUEDA BORRAR  
-//    if($campostmppercepciones['cuentatmppercepciones']==$campospercepciones['cuentapercepciones']){
-//        $borradotmp_percepciones="DELETE from tmp_percepciones WHERE us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
-//        //echo $borradotmpcomnom;
-//        $result = pg_query($conexion,$borradotmp_percepciones) or die ("Verifica la sentencia SQL". pg_last_error());
-//    }else{
-//        echo 'No son iguales';
-//    } 
+
+    //se obtiene la cantidad de percepciones en la tabla tmp para el peiodo
+    $selecttmp_comnom = "SELECT count(*) as cuentatmpcomnom from tmp_comnom where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
+    //echo $selecttmp_percepciones;
+    $result = pg_query($conexion,$selecttmp_comnom);
+    $campostmp_comnom = pg_fetch_array($result);
+    //se obtiene la cantidad de percepciones en la tabla historico para el peiodo
+    $selectcomnom = "SELECT count(*) as cuentacomnom from comnom where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and nom_id = $nominaid";
+    //echo $selectpercepciones;
+    $result = pg_query($conexion,$selectcomnom);
+    $camposcomnom = pg_fetch_array($result);
+    //SE ESTAN COMPARANDO QUE LO QUE SE MANDO SEA IGUAL PARA QUE SE PUEDA BORRAR  
+    if($campostmp_comnom['cuentatmpcomnom']==$camposcomnom['cuentacomnom']){
+        $borradotmp_comnom="DELETE from tmp_comnom WHERE us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
+        //echo $borradotmpcomnom;
+        $result = pg_query($conexion,$borradotmp_comnom) or die ("Verifica la sentencia SQL". pg_last_error());
+    }else{
+        echo 'No son iguales - TEMPORAL COMISIONES';
+    } 
+//
+
+    //se obtiene la cantidad de percepciones en la tabla tmp para el peiodo
+    $selecttmp_percepciones = "SELECT count(*) as cuentatmppercepciones from tmp_percepciones where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
+    //echo $selecttmp_percepciones;
+    $result = pg_query($conexion,$selecttmp_percepciones);
+    $campostmppercepciones = pg_fetch_array($result);
+    //se obtiene la cantidad de percepciones en la tabla historico para el peiodo
+    $selectpercepciones = "SELECT count(*) as cuentapercepciones from percepciones where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and nom_id = $nominaid";
+    //echo $selectpercepciones;
+    $result = pg_query($conexion,$selectpercepciones);
+    $campospercepciones = pg_fetch_array($result);
+    //SE ESTAN COMPARANDO QUE LO QUE SE MANDO SEA IGUAL PARA QUE SE PUEDA BORRAR  
+    if($campostmppercepciones['cuentatmppercepciones']==$campospercepciones['cuentapercepciones']){
+        $borradotmp_percepciones="DELETE from tmp_percepciones WHERE us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
+        //echo $borradotmpcomnom;
+        $result = pg_query($conexion,$borradotmp_percepciones) or die ("Verifica la sentencia SQL". pg_last_error());
+    }else{
+        echo 'No son iguales - TEMPORAL PERCEPCIONES';
+    } 
 //
 //    
 //    //se obtiene la cantidad de deducciones en la tabla tmp para el peiodo
-//    $selecttmp_deducciones = "SELECT count(*) as cuentatmpdeducciones from tmp_deducciones where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
-//    $result = pg_query($conexion,$selecttmp_deducciones);
-//    $campostmpdeducciones = pg_fetch_array($result);
-//    //se obtiene la cantidad de deducciones en la tabla historico para el peiodo
-//    $selectdeducciones = "SELECT count(*) as cuentadeducciones from deducciones where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and nom_id = $nominaid";
-//    $result = pg_query($conexion,$selectdeducciones);
-//    $camposdeducciones = pg_fetch_array($result);
-//    //SE ESTAN COMPARANDO QUE LO QUE SE MANDO SEA IGUAL PARA QUE SE PUEDA BORRAR  
-//    if($campostmpdeducciones['cuentatmpdeducciones']==$camposdeducciones['cuentadeducciones']){
-//        $borradotmp_deducciones="DELETE from tmp_deducciones WHERE us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
-//        //echo $borradotmpcomnom;
-//        $result = pg_query($conexion,$borradotmp_deducciones) or die ("Verifica la sentencia SQL". pg_last_error());
-//    }else{
-//        echo 'No son iguales';
-//    } 
+    $selecttmp_deducciones = "SELECT count(*) as cuentatmpdeducciones from tmp_deducciones where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
+    $result = pg_query($conexion,$selecttmp_deducciones);
+    $campostmpdeducciones = pg_fetch_array($result);
+    //se obtiene la cantidad de deducciones en la tabla historico para el peiodo
+    $selectdeducciones = "SELECT count(*) as cuentadeducciones from deducciones where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and nom_id = $nominaid";
+    $result = pg_query($conexion,$selectdeducciones);
+    $camposdeducciones = pg_fetch_array($result);
+    //SE ESTAN COMPARANDO QUE LO QUE SE MANDO SEA IGUAL PARA QUE SE PUEDA BORRAR  
+    if($campostmpdeducciones['cuentatmpdeducciones']==$camposdeducciones['cuentadeducciones']){
+        $borradotmp_deducciones="DELETE from tmp_deducciones WHERE us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
+        //echo $borradotmpcomnom;
+        $result = pg_query($conexion,$borradotmp_deducciones) or die ("Verifica la sentencia SQL". pg_last_error());
+    }else{
+        echo 'No son iguales - TEMPORAL DEDUCCIONES';
+    } 
 
     
     //////////////////////////////////////////////////////////////////////////////////

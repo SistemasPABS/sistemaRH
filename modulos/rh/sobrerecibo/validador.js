@@ -7,6 +7,8 @@ function traerpercepcionesdeducciones(opc,btn){
    var papa = btn.parentNode;
    var hijo = papa.parentNode;
    var nieto = hijo.parentNode;
+
+
    
    //alert(abuelo);
    var tr = document.createElement("tr");
