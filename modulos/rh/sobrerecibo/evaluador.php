@@ -23,7 +23,6 @@ else{
     $equis='ded';
 }
 
-
 $result= pg_query($conexion,$query);
 $mostrar= pg_fetch_array($result);
 
@@ -33,17 +32,11 @@ $select .='<select name="'.$perid.$equis.'[]">';
     }while($mostrar= pg_fetch_array($result));
     
 $select .='<select>';
-$contenidofila .='
-  
-        
-        <td>'.$select.'</td>
-        <td><input name="'.$perid.'cantidad'.$equis.'[]" type="number"></input></td>
-        <td></td>
-        <td></td>
-        <td><input name="'.$perid.'motivo'.$equis.'[]" type="text"></input></td>
-
-        ';
+$contenidofila .='<td>'.$select.'</td>
+                  <td></td>
+                  <td></td>
+                  <td><input name="'.$perid.'cantidad'.$equis.'[]" type="number"></input></td>
+                  <td><input name="'.$perid.'motivo'.$equis.'[]" type="text"></input></td>';
 echo $contenidofila;
-
         
 ?>

@@ -27,8 +27,8 @@ function traerpercepcionesdeducciones(opc,btn){
 }
 
 function enviarnomina(){
-     if(confirm('Estas apunto de hacer explotar el sistema ')){
-         if(confirm('¿SEGURO SEGURISIMO?')){
+     if(confirm('En este momento se generará el registro de tu nomina')){
+         if(confirm('¿Deseas continuar?')){
              //pendiente a realizar las validaciones 
          var cantidadpersonas = document.getElementsByName("persona[]");
          var cantidadpersonas = cantidadpersonas.length;

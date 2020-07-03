@@ -81,10 +81,7 @@ $renglonesloquesea .='
         <div class="container">
             <div class="row">
         <div class="col-xs-12 col-md-12">
-            <!---<div class="pull-right">
-                <button type="button" class="btn btn-warning btn-sm addRow"><i class="fa fa-plus-circle"></i> Agregar Percepcion</button>
-                <div class="clearfix"></div>
-            </div>-->
+           
             <div class="table-wrap">
                 <table id="sponsorTable" class="table table-condensed table-striped table-hover">
                     <thead>

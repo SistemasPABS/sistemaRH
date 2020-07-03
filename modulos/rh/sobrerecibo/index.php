@@ -127,6 +127,7 @@ if($row3= pg_fetch_array($result3)){
                     <input hidden value="<?php echo $fechaperiodo?>" name="idperiodo"></input>
                     <input hidden value="<?php echo $plaza?>" name="plaza"></input>
                     <input hidden value="<?php echo $tipoperiodo?>" name="tipoperiodo"></input>
+                    <input hidden value="<?php echo $empid?>" name="empid"></input>
                     <th>Persona</th>
                     <th>Nombre</th>
                     <th>Monto</th>
@@ -139,7 +140,7 @@ if($row3= pg_fetch_array($result3)){
             
         </table>
         
-        <button id="submit" type="submit" onclick="enviarnomina()">ENVIAR NOMINA</button>
+        <button id="submit" type="submit" onclick="enviarnomina()">GUARDAR NOMINA</button>
     </form>    
 </div>
 </body>

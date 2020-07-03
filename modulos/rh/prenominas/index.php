@@ -59,7 +59,7 @@ $result = pg_query($conexion,$query) or die("Error en la consulta SQL");
 		</div>
 		<div class="modal-body">	
             <!-- content goes here -->
-		<form action="index.php" method="post">
+		<form action="index.php" method="post" name="modalnomina" id="modalnomina">
               <div class="form-group">
                 <label for="exampleInputEmail1">Selecciona una plaza</label>
                   <select id="plazas">
@@ -110,28 +110,28 @@ $result = pg_query($conexion,$query) or die("Error en la consulta SQL");
               <div class="w3-row-padding">
                 <div class="w3-half">
                   <label>Numero de servicios</label>
-                  <input id="numservicios" class="w3-input w3-border" name="numservicios" type="number" placeholder="Numero de servicios" width="20%">
+                  <input id="numservicios" class="w3-input w3-border" name="numservicios" type="number" placeholder="Numero de servicios" width="20%" required onkeyup="this.value=Numeros(this.value)"> 
                 </div>
                 <div class="w3-half">
                   <label>Ventas directas</label>
-                  <input id="ventasdirectas" class="w3-input w3-border" name="numventas" type="number" placeholder="Ventas directas">
+                  <input id="ventasdirectas" class="w3-input w3-border" name="numventas" type="number" placeholder="Ventas directas" required onkeyup="this.value=Numeros(this.value)">
                 </div>
                 <div class="w3-half">
                   <label>Cobros por ventas</label>
-                  <input id="cobrosporventa" class="w3-input w3-border" type="number" name="cobros" placeholder="Cobros por ventas">
+                  <input id="cobrosporventa" class="w3-input w3-border" type="number" name="cobros" placeholder="Cobros por ventas" required onkeyup="this.value=Numeros(this.value)">
                 </div>
                 <div class="w3-half">
                   <label>Saldo</label>
-                  <input id="saldo" class="w3-input w3-border" type="number" placeholder="Saldo" name="saldo">
+                  <input id="saldo" class="w3-input w3-border" type="number" placeholder="Saldo" name="saldo" required onkeyup="this.value=Numeros(this.value)">
                 </div>
                 <div class="w3-half">
                   <label>Cobranza periodos anteriores</label>
-                  <input id="cobrosanteriores" class="w3-input w3-border" type="number" placeholder="Cobranza del periodo anterior" name="cobranzaperanterior">
+                  <input id="cobrosanteriores" class="w3-input w3-border" type="number" placeholder="Cobranza del periodo anterior" name="cobranzaperanterior" required onkeyup="this.value=Numeros(this.value)">
                 </div>
                  
                 <div class="w3-half">
                     <label>Observaciones</label>
-                    <input type="text" placeholder="Observaciones" id="observaciones"></input> 
+                    <input type="text" placeholder="Observaciones" id="observaciones" maxlength="150" onkeyup="this.value=NumText(this.value)"></input> 
                 </div>
                   
               </div>
