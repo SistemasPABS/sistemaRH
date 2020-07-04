@@ -117,6 +117,13 @@ if ($cantpersonas == $cantpersonas2 ){
     
     $totalnomina=0;  
     foreach ($cp AS $p){
+
+        //Consulta para obtener el sueldo de la persona 
+        $querysueldo = "SELECT * from tmp_sueldos_nomina WHERE us_id = $us_id and pc = '$pc' and plaza_id = $plaza and persona_id = $p";
+        $resultsueldo = pg_query($conexion,$querysueldo) or die ('Error al consultar los sueldos');
+        $mostrarsueldo = pg_fetch_array($resultsueldo);
+        $montosueldo = $mostrarsueldo['sal_monto_con'];
+
         //inicia proceso para obtener el monto total de la suma de comisiones por persona
         $querycomisiones = "SELECT * from tmp_comnom WHERE us_id = $us_id and pc = '$pc' and plaza_id = $plaza and persona_id = $p ";
         $resultsuma = pg_query($conexion,$querycomisiones) or die ('Error al consultar las comisiones');
@@ -145,7 +152,7 @@ if ($cantpersonas == $cantpersonas2 ){
         }while ($mostrarsuma = pg_fetch_array($resultsuma));
 
         //se obtiene el neto de la persona
-        $neto=$montosumacomisionespersona + $montosumapercepcionespersona - $montosumadeduccionespersona;//tododesmadredesumasyrestasdelostemporales
+        $neto=$montosueldo + $montosumacomisionespersona + $montosumapercepcionespersona - $montosumadeduccionespersona;//tododesmadredesumasyrestasdelostemporales
         $totalnomina=$totalnomina+$neto;
     }
 
@@ -169,6 +176,8 @@ if ($cantpersonas == $cantpersonas2 ){
     ////COMIENZA EL VOLCADO DE LA INFORMACION DE LAS TABLAS TEMPORALES A LAS//////////
     /////////////////////HISTORICAS DEL PROCESO DE LA NOMINA//////////////////////////
 
+    
+
     //VOLCADO A LA TABLA HISTORICA DE BASE NOMINA
     $selectbn = "select * from tmp_base_nom where us_id = $us_id and fecha = '$fecha' and plaza_id  = $plaza and emp_id = $empid and sal_tipo_id = $tipoperiodo and pc = '$pc';";
     $resultbn = pg_query($conexion,$selectbn);
@@ -181,6 +190,18 @@ if ($cantpersonas == $cantpersonas2 ){
             //echo $insertcomnom;
         }while($rowbn = pg_fetch_array($resultbn));
     }
+
+    //VOLCADO A LA TABLA HISTORIA DE LOS SUELDOS
+    $selectsueldos = "SELECT * FROM tmp_sueldos_nomina WHERE us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
+    $resultselectsueldos = pg_query($conexion,$selectsueldos);
+    $mostrarresultsueldos = pg_fetch_array($resultselectsueldos);
+    if($mostrarresultsueldos != NULL){
+        do{
+            $sqlinsertsueldosnomina = "INSERT into sueldos_nomina (nom_id,us_id,persona_id,sal_monto_con,tmp_observaciones,pc,fecha_inicio,fecha_fin,plaza_id)
+                                       values ($nominaid,".$mostrarresultsueldos['us_id'].",".$mostrarresultsueldos['persona_id'].",".$mostrarresultsueldos['sal_monto_con'].",'".$mostrarresultsueldos['tmp_observaciones']."','".$mostrarresultsueldos['pc']."','".$mostrarresultsueldos['fecha_inicio']."','".$mostrarresultsueldos['fecha_fin']."',".$mostrarresultsueldos['plaza_id'].");";
+            $resultinsertsueldosnomina =pg_query($conexion,$sqlinsertsueldosnomina) or die ('Error Insertando Sueldos Nomina: '. pg_last_error());
+        }while($mostrarresultsueldos =  pg_fetch_array($resultselectsueldos));
+    } 
     
     //VOLCADO A LA TABLA HISTORICA DE LAS COMISIONES
     $selecttmpcomnom = "SELECT * from tmp_comnom where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
