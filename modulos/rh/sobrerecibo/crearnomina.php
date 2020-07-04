@@ -266,12 +266,34 @@ if ($cantpersonas == $cantpersonas2 ){
     } 
 //
 
-    //se obtiene la cantidad de percepciones en la tabla tmp para el peiodo
+    //se obtiene la cantidad de sueldos en la tabla tmp para el periodo
+    $selecttmpsueldosnomina = "SELECT count (*) as cuentatmpsueldosnomina from tmp_sueldos_nomina where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
+    //echo $selecttmpsueldosnomina;
+    $resulttmpsueldosnomina = pg_query($conexion,$selecttmpsueldosnomina);
+    $campostmpsueldosnomina = pg_fetch_array($resulttmpsueldosnomina);
+
+
+    //se obtiene la cantidad de sueldos en la tabla historico para el periodo
+    $selectsueldosnominahistorico = "SELECT count (*) as cuentasueldosnomina from sueldos_nomina where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
+    //echo $selectsueldosnominahistorico;
+    $resultsueldosnominahistorico = pg_query($conexion,$selectsueldosnominahistorico);
+    $campossueldosnominahistorico = pg_fetch_array($resultsueldosnominahistorico);
+
+    //SE ESTAN COMPARANDO LO QUE SE MANDO SEA IGUAL PARA QUE SE PUEDA BORRAR
+    if($campostmpsueldosnomina['cuentatmpsueldosnomina'] == $campossueldosnominahistorico['cuentasueldosnomina']){
+        $borrado_tmpsueldosnomina="DELETE from tmp_sueldos_nomina WHERE us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
+        //echo $borrado_tmpsueldosnomina;
+        $result = pg_query($conexion,$borrado_tmpsueldosnomina) or die ("Verifica la sentencia SQL". pg_last_error());
+    }else{
+        echo 'NO SON IGUALES - SUELDOS NOMINA';
+    }
+
+    //se obtiene la cantidad de comisiones en la tabla tmp para el periodo
     $selecttmp_comnom = "SELECT count(*) as cuentatmpcomnom from tmp_comnom where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
     //echo $selecttmp_percepciones;
     $result = pg_query($conexion,$selecttmp_comnom);
     $campostmp_comnom = pg_fetch_array($result);
-    //se obtiene la cantidad de percepciones en la tabla historico para el peiodo
+    //se obtiene la cantidad de comisiones en la tabla historico para el periodo
     $selectcomnom = "SELECT count(*) as cuentacomnom from comnom where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and nom_id = $nominaid";
     //echo $selectpercepciones;
     $result = pg_query($conexion,$selectcomnom);
