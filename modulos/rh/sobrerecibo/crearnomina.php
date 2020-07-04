@@ -43,6 +43,17 @@ if ($cantpersonas == $cantpersonas2 ){
     ////////////////////SE GENERAN LAS TABLAS TEMPORALES//////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////
     
+    //COMIENZA FOREACH PARA GUARDAR TEMPORALES SUELDO 
+    foreach($cp as $p){
+        $psueldo=$_POST[$p.'sueldo'];
+        $cantidadsueldo=$_POST[$p.'cantidadsueldo'];
+        $observacionessueldo=$_POST[$p.'observacionessueldo'];
+        $largo = count($psueldo);
+        for($i=0; $i < $largo; $i++){
+            $sql="INSERT into tmp_sueldos_nomina (us_id,persona_id,sal_monto_con,tmp_observaciones,pc,fecha_inicio,fecha_fin,plaza_id) values ($us_id, $p, $cantidadsueldo[$i],'$observacionessueldo[$i]','$pc','$fechainicio','$fechafinal',$plaza)";
+            $result= pg_query($conexion,$sql) or die("Error insertando tmp_comisiones - ". pg_last_error());
+        }
+    }
     
     //COMIENZA FOREACH PARA GUARDAR TEMPORALES COMISIONES 
     foreach($cp as $p){

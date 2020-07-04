@@ -52,7 +52,7 @@ if($row3= pg_fetch_array($result3)){
                             <td>SUELDO DE LA PERSONA</td>
                             <td><input  class="sueldo" value="'.$row3['persona_id'].'"  name="'.$row3['persona_id'].'sueldo[]" hidden></input></td>
                             <td></td>
-                            <td><input type="number" name="'.$row3['persona_id'].'cantidadsuelo[]" value="'.$row3['sal_monto_con'].'" readonly></input></td>
+                            <td><input type="number" name="'.$row3['persona_id'].'cantidadsueldo[]" value="'.$row3['sal_monto_con'].'" readonly></input></td>
                             <td><input type="text" name="'.$row3['persona_id'].'observacionessueldo[]"></input></td>
                       </tr>
                     </tbody>
