@@ -1,7 +1,7 @@
 <?php
 
 /*perfil para la base de datos No. 0--POSTGRESQL HAMACHI */
-$server0 ='192.168.0.173';
+$server0 ='25.79.183.69';
 $dbname0 ='controller_db';
 $port0   ='5432';
 $user0   ='web';
