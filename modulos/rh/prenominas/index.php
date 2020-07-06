@@ -37,25 +37,28 @@ $result = pg_query($conexion,$query) or die("Error en la consulta SQL");
     <nav>
       <div>
         <div>
-          <button data-toggle="modal" data-target="#squarespaceModal">Nueva nómina</button>
-          <button onclick="gridnomina()">Prenómina</button>
+          <button data-toggle="modal" data-target="#squarespaceModal" class="btn" style="vertical-align:middle">Crear nómina</button>
+          <button onclick="gridnomina()" class="btn" style="vertical-align:middle">Listado de nóminas</button>
           <!--<button data-toggle="modal" data-target="#sobrerecibo">Sobrerecibo</button>
           <button data-toggle="modal" data-target="#comparador">Comparador CONTPAQi® vs Sistema RH</button>
           <button data-toggle="modal" data-target="#reporteador">Reporteador</button>
           <button data-toggle="modal" data-target="#historico">Histórico</button>
           <button data-toggle="modal" data-target="#importador">Importador</button>-->
         </div><!-- /.navbar-collapse -->
+        <div class="logo">
+          <img src="../../../images/logo.png"></img>
+        </div>
       </div><!-- /.container -->
     </nav>
 
 
-<!-- line modal -->
+
 <div class="modal fade" id="squarespaceModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
   <div class="modal-dialog">
 	<div class="modal-content">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Cerrar</span></button>
-			<h3 class="modal-title" id="lineModalLabel">Carga base de incidencias para cálculo de prenómina</h3>
+      <h3 class="modal-title" id="lineModalLabel" >Carga base de incidencias para cálculo de prenómina</h3>
 		</div>
 		<div class="modal-body">	
             <!-- content goes here -->
@@ -72,7 +75,8 @@ $result = pg_query($conexion,$query) or die("Error en la consulta SQL");
      
                       ?>
                   </select>
-
+              
+                  <label for="exampleInputEmail1">Selecciona una empresa</label>
                   <select id="empresa">
                     <?php 
                         $query="SELECT emp_nombre, emp_id FROM empresas";
@@ -108,6 +112,7 @@ $result = pg_query($conexion,$query) or die("Error en la consulta SQL");
               </div>
 
               <div class="w3-row-padding">
+               
                 <div class="w3-half">
                   <label>Numero de servicios</label>
                   <input id="numservicios" class="w3-input w3-border" name="numservicios" type="number" placeholder="Numero de servicios" width="20%" required onkeyup="this.value=Numeros(this.value)"> 
@@ -154,5 +159,30 @@ $result = pg_query($conexion,$query) or die("Error en la consulta SQL");
 </div>
 </body>
 </html>
+
+<style>
+  .logo{
+    margin-left:300px;
+    margin-top: 250px;
+  }
+  .btn{
+    border-radius:12px;
+    transition-duration: 0.4s;
+    display: inline-block;
+    text-align: center;
+    padding:5px;
+    width:190px;
+    transition:all 0.5s;
+    cursor:pointer;
+    margin:5px;
+  }
+  .btn:hover{
+    background-color: grey;
+    color: white;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  }
+  
+ 
+</style>
 
 

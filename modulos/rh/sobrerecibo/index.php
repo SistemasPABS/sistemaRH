@@ -1,5 +1,5 @@
 <?php 
-include_once ('../prenominas/index.php');
+//include_once ('../prenominas/index.php');
 include_once ('../../../config/conectasql.php');
 session_start();
 date_default_timezone_set('America/Mexico_City');
@@ -45,16 +45,6 @@ if($row3= pg_fetch_array($result3)){
                     
                 </tr>
                 <tr class="toggler toggler1">
-<<<<<<< HEAD
-                    <td rowspan="9999"></td>
-                        <td>SUELDO DE LA PERSONA</td>
-                        <td><input  class="sueldo" value="'.$row3['persona_id'].'"  name="'.$row3['persona_id'].'sueldo[]" hidden></input></td>
-                        <td></td>
-                        <td><input type="number" name="'.$row3['persona_id'].'cantidadsuelo[]" value="'.$row3['sal_monto_con'].'" readonly></input></td>
-                        <td><input type="text" name="'.$row3['persona_id'].'observacionessueldo[]"></input></td>
-                  </tr>
-                </tbody>
-=======
                         
                         <td rowspan="9999"></td>
                             
@@ -66,7 +56,6 @@ if($row3= pg_fetch_array($result3)){
                       </tr>
                     </tbody>
                 
->>>>>>> cb0b8eaba47886a0c4012e570712aa042fa747c7
                 
         ';
         //$monos.= $row3['persona_id'].'--'.$row3['nombrecompleto'].'<br>';
@@ -144,6 +133,9 @@ if($row3= pg_fetch_array($result3)){
     
     <form name="todalanomina" method="POST" action="crearnomina.php">
     <body>
+        <div>
+            <img src="../../../images/logo.png" class="logo">
+        </div>
         <div class="container" id="contenedor"></div>
         <input hidden id="cantpersonas" name="cantpersonas" value=""></input>
         <table class="custom-table">
@@ -170,7 +162,14 @@ if($row3= pg_fetch_array($result3)){
 </div>
 </body>
 </html>
-    
+<style>
+  .logo{
+    margin-left:300px;
+    margin-top: 20px;
+    width:150px;
+    height:100px;
+  }
+</style>
     
     
     
