@@ -17,15 +17,23 @@ $renglonesloquesea .='
   <td> '.$mostrar['us_login'].'</td>
   <td> '.$mostrar['nom_autorizada'].'</td>
   <td> '.$mostrar['nom_total'].'</td> 
+  <td><button onclick="autorizarnomina(this)">Autorizar</button></td>
 </tr> ';
-}while($mostrar=pg_fetch_array($result))
+}while($mostrar=pg_fetch_array($result));
+
+function autorizarnomina(){
+    if(confirm ('Deseas autorizar la nomina?')){
+            $queryupdate = "UPDATE nomina SET nom_autorizada = true  WHERE nom_id = '.$mostrar['nom_id'].'";
+            $result = pg_query($conexion,$queryupdate) or die ('No se pudo autorizar tu nomina, error en la consulta SQL.');    
+    }
+}
+
 ?>
 <html>
     <head>
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-        
     </head>
     
     <style>
@@ -92,8 +100,9 @@ $renglonesloquesea .='
                             <th width="20%" class="text-center" scope="col">Fecha Fin</th>
                             <th width="35%" class="text-center" scope="col">Fecha de creacion de nomina</th>
                             <th width="35%" class="text-center" scope="col">Quien realizo nomina</th>
-                            <th width="35%" class="text-center" scope="col">Autorizada</th>
+                            <th width="35%" class="text-center" scope="col">Status</th>
                             <th width="35%" class="text-center" scope="col">Total de la nomina</th>
+                            <th width="35%" class="text-center" scope="col">Autorizar Nomina</th>
                             <?php echo $renglonesloquesea; ?>
                         </tr>
                     </thead>
@@ -116,56 +125,5 @@ $renglonesloquesea .='
 </div>
 </body>   
 </html>
-
-<!---
-<!DOCTYPE html>
-<html>
-<head>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-</style>
-</head>
-        <body>
-            <div>
-                <button class="button disabled">Autorizar Nómina</button>
-                <button class="button">Editar Nómina</button>
-                <button class="button">Exportar a Excel</button>
-            </div> 
-
-            <div id="sailorTableArea">
-                <table>
-                        <tr id="titletable">
-                            <td>Nombre Completo</td>
-                            <td>Percepciones</td>
-                            <td>Deducciones</td>
-                            <td>Sueldo</td>
-                            <td>Sobrerecibo</td>
-                        </tr>
-                <?php echo $renglonesloquesea; ?>
-                </table> 
-              </div>  
-            
-        </body>  
-    </html>
-</table>-->
-
-
 
 
