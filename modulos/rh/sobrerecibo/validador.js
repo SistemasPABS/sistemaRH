@@ -7,9 +7,7 @@ function traerpercepcionesdeducciones(opc,btn){
    var nieto = hijo.parentNode;
    
    //alert(abuelo);
-   var tr = document.createElement("tr");
-   
-   
+   var tr = document.createElement("tr"); 
    var url = "evaluador.php";
     $.ajax({
             type: "POST",

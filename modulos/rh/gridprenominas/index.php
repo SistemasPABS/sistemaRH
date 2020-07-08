@@ -16,24 +16,18 @@ $renglonesloquesea .='
   <td> '.$mostrar['fechageneracion'].'</td>
   <td> '.$mostrar['us_login'].'</td>
   <td> '.$mostrar['nom_autorizada'].'</td>
-  <td> '.$mostrar['nom_total'].'</td> 
-  <td><button onclick="autorizarnomina(this)">Autorizar</button></td>
+  <td> '.$mostrar['nom_total'].'</td>
+  <td><button id="nomid" name="Modificar" value="'.$mostrar['nom_id'].'" onclick="modificar()">Modificar</button></td>
+  <td><a onclick="autorizar('.$mostrar['nom_id'].')">Autorizar</a></td>
 </tr> ';
-}while($mostrar=pg_fetch_array($result));
-
-function autorizarnomina(){
-    if(confirm ('Deseas autorizar la nomina?')){
-            $queryupdate = "UPDATE nomina SET nom_autorizada = true  WHERE nom_id = '.$mostrar['nom_id'].'";
-            $result = pg_query($conexion,$queryupdate) or die ('No se pudo autorizar tu nomina, error en la consulta SQL.');    
-    }
-}
-
+}while($mostrar=pg_fetch_array($result))
 ?>
 <html>
     <head>
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script src="../gridprenominas/editarnomina.js"></script>
     </head>
     
     <style>
@@ -100,9 +94,9 @@ function autorizarnomina(){
                             <th width="20%" class="text-center" scope="col">Fecha Fin</th>
                             <th width="35%" class="text-center" scope="col">Fecha de creacion de nomina</th>
                             <th width="35%" class="text-center" scope="col">Quien realizo nomina</th>
-                            <th width="35%" class="text-center" scope="col">Status</th>
+                            <th width="35%" class="text-center" scope="col">Autorizada</th>
                             <th width="35%" class="text-center" scope="col">Total de la nomina</th>
-                            <th width="35%" class="text-center" scope="col">Autorizar Nomina</th>
+                            <th width="35%" class="text-center" scope="col" colspan="2">Opciones</th>
                             <?php echo $renglonesloquesea; ?>
                         </tr>
                     </thead>
@@ -112,8 +106,7 @@ function autorizarnomina(){
                     <tfoot>
                         <tr>
                             <td colspan="3" class="text-center">
-                                <img src=""></img>
-                                <h4 class="font-bold text-red">Programa de Apoyo de Beneficio Social</h4></b>
+                                <!---<img src="../../../images/logo.png"></img>--->
                             </td>  
                         
                         </tr>
