@@ -31,7 +31,7 @@
                     $salporcentaje=$_POST['comision'];
                     $salmonto='0';
                 } 
-                if($tipocom == 'comision' && !empty($_POST['comision'])){
+                if($tipocom == 'cantidad' && !empty($_POST['comision'])){
                     $salmonto=$_POST['comision'];
                     $salporcentaje='0';
                 }

@@ -45,29 +45,14 @@ if($row3= pg_fetch_array($result3)){
                     
                 </tr>
                 <tr class="toggler toggler1">
-<<<<<<< HEAD
                     <td rowspan="9999"></td>
                         <td>SUELDO DE LA PERSONA</td>
-                        <td><input  class="sueldo" value="'.$row3['persona_id'].'"  name="'.$row3['persona_id'].'sueldo[]" hidden></input></td>
                         <td></td>
-                        <td><input type="number" name="'.$row3['persona_id'].'cantidadsuelo[]" value="'.$row3['sal_monto_con'].'" readonly></input></td>
+                        <td></td>
+                        <td><input type="number" name="'.$row3['persona_id'].'cantidadsueldo[]" value="'.$row3['sal_monto_con'].'" readonly></input></td>
                         <td><input type="text" name="'.$row3['persona_id'].'observacionessueldo[]"></input></td>
                   </tr>
                 </tbody>
-=======
-                        
-                        <td rowspan="9999"></td>
-                            
-                            <td>SUELDO DE LA PERSONA</td>
-                            <td><input  class="sueldo" value="'.$row3['persona_id'].'"  name="'.$row3['persona_id'].'sueldo[]" hidden></input></td>
-                            <td></td>
-                            <td><input type="number" name="'.$row3['persona_id'].'cantidadsueldo[]" value="'.$row3['sal_monto_con'].'" readonly></input></td>
-                            <td><input type="text" name="'.$row3['persona_id'].'observacionessueldo[]"></input></td>
-                      </tr>
-                    </tbody>
-                
->>>>>>> cb0b8eaba47886a0c4012e570712aa042fa747c7
-                
         ';
         //$monos.= $row3['persona_id'].'--'.$row3['nombrecompleto'].'<br>';
         

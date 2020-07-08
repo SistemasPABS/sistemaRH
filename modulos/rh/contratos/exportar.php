@@ -11,7 +11,7 @@ if (PHP_SAPI == 'cli')
 die('This example should only be run from a Web Browser');
 
 $plaza= base64_decode($_GET['chk1']);
-$suc= base64_decode($_GET['chk2']);
+//$suc= base64_decode($_GET['chk2']);
 $nombre= utf8_decode(base64_decode($_GET['chk3']));
 $extension= base64_decode($_GET['chk4']);
 session_start();
@@ -22,31 +22,26 @@ $exporta = new conectasql();
 $exporta->abre_conexion("0");
 
 //se validan los datos recogido de la forma de busqueda
-if($plaza == 1000 && $suc == 1000 && $nombre == null){
+if($plaza == 1000 && $nombre == null){
     //si no se ha seleccionado ningun campo se configura la consulta default
     $exporta->suc_user_aprov($usid);
     $sucaprov= substr($exporta->consulta,1);
     $condicion='where suc_id in('.$sucaprov.')';
 }else{
     if( $plaza != 1000){
-        $cplaza=' and plaza_id = '.$plaza;
+        $cplaza='and plaza_id = '.$plaza;
     }else{
         $cplaza='';
     }
-    if( $suc != 1000){
-        $csuc=' and suc_id = '.$suc;
-    }else{
-        $csuc='';
-    }
     if( $nombre != null){
-        $cnombre=' and tipoc_nombre like \'%'.$nombre.'%\'';
+        $cnombre='and tipoc_nombre like \'%'.$nombre.'%\'';
     }else{
         $cnombre='';
     }
     //se crea la condicion
-    $condicion=$cplaza.$csuc.$cnombre;
-    $condicion= substr($condicion,4);
-    $condicion='where'.$condicion;
+    $condicion=$cplaza.$cnombre;
+    $condicion= substr($condicion,3);
+    $condicion='where '.$condicion;
 }
 
 $sqlxls="select * from vw_contratos $condicion order by con_id desc";
