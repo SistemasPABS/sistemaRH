@@ -49,10 +49,10 @@ if(isset($_SESSION['plogin']) && $_SESSION['plogin'] === true){
                                     <div class="centrado">
                                         <h4 class="Titulo">Inicio de Sesión </h4>
                                         <form action="login.php" method="POST" id="formLogin">
-                                            <label class="Subtitulo">Usuario</label>
+                                            <label class="Subtitulo">Usuario:</label>
                                             <input class="Input"  style="margin-left: 40px;" name="login" type="text" id="user" /><br/><br/>
 
-                                            <label class="Subtitulo">Contraseña</label>
+                                            <label class="Subtitulo">Contraseña:</label>
                                             <input class="Input" name="passwd" type="password" id="passwd" /><br/><br/>
                                             <input class="bottonAcces" type="button" onclick="clr();" value="LOGIN" /> 
                                         </form>

@@ -1,9 +1,8 @@
 #fondo {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(73,155,234,1);
-    background: -moz-linear-gradient(left, rgba(73,155,234,1) 0%, rgba(0,0,0,0.92) 100%);
+    width: 99%;
+    height: 99%;
+    background-color: #035f9f;
     background-repeat: no-repeat;
     background-position: center center;
     background-attachment: fixed;
@@ -18,37 +17,31 @@
     margin-right: auto;
 }
 .contenedor {
-  
-    width:370px;
-    height: 290px;
-    padding: 20px;
+    width:330px;
+    height: 260px;
+    padding: 15px 15px 0px 15px;
     margin: 15px;
-    border-radius: 10px;
-    background-color: rgba(0,0,0,0.5);
-    background: rgba(0,0,0,0.5);
-    -moz-box-shadow:10px 10px 5px #000000;
-    box-shadow: 10px 10px 5px #000000;
+    border-radius: 2px;
+    background-color: rgba(0,0,0,0);
  }
 
  .logo{
     margin-top: 100px;
-    margin-left:100px;
-    height:100px;
-    width: 260px;
+    margin-left:30px;
+    height:93px;
+    width: 350px;
  }
 
  .Titulo {
     text-align: center;
     font-family: "Arial Black", Gadget, sans-serif;
     font-size: 25px;
-    letter-spacing: 2px;
-    word-spacing: 2px;
     color: #FFF;
-    font-weight: 700;
     text-decoration: none;
     font-style: normal;
     font-variant: normal;
     text-transform: none;
+    border-bottom: 1px solid white;
 }
 
 .Subtitulo{
@@ -66,9 +59,21 @@ text-transform: none;
 }
 
 .bottonAcces{
-    padding: 10px 30px;
-    border-radius: 10px;
+    padding: 5px 15px;
+    border-radius: 2px;
     background: rgba(245,245,245,1);
-    background: -moz-linear-gradient(left, rgba(245,245,245,1) 0%, rgba(173,173,173,1) 100%);
-    margin-left: 130px;
+    margin-left: 138px;
+}
+
+.Input{
+    font-size: 12pt;
+    border-radius: 0px;
+    border: 1px solid grey;
+    width: 180px;
+    height: 20px;
+    background-color: white;
+    padding: 1px;
+    outline: none;
+    color:black;
+    text-align: left;
 }
