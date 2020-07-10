@@ -182,11 +182,14 @@ function autocompletable(){
  }
  
 function valida_salario(){
-    //alert('hola');
-    if(document.getElementById("id_puesto").value.length == 0){
+    
+    if(document.getElementById("id_puesto").value.length == 0 || document.getElementById("puesto").value.length == 0){
         alert('Ingrese el puesto antes de capturar el salario');
         document.getElementById("salario").value = '';
     }else{
+        if (document.form_contrato.salario.value == 0){
+            document.form_contrato.salario.value = 0.001;
+        }
         var pid = document.getElementById("id_puesto").value;
         var sal = document.getElementById("salario").value;
         $.ajax({

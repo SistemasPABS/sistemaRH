@@ -45,13 +45,14 @@ if ($cantpersonas == $cantpersonas2 ){
     
     //COMIENZA FOREACH PARA GUARDAR TEMPORALES SUELDO 
     foreach($cp as $p){
-        $psueldo=$_POST[$p.'sueldo'];
         $cantidadsueldo=$_POST[$p.'cantidadsueldo'];
-        $observacionessueldo=$_POST[$p.'observacionessueldo'];
-        $largo = count($psueldo);
-        for($i=0; $i < $largo; $i++){
-            $sql="INSERT into tmp_sueldos_nomina (us_id,persona_id,sal_monto_con,tmp_observaciones,pc,fecha_inicio,fecha_fin,plaza_id) values ($us_id, $p, $cantidadsueldo[$i],'$observacionessueldo[$i]','$pc','$fechainicio','$fechafinal',$plaza)";
-            $result= pg_query($conexion,$sql) or die("Error insertando tmp_comisiones - ". pg_last_error());
+        if($cantidadsueldo != NULL){
+            $observacionessueldo=$_POST[$p.'observacionessueldo'];
+            $largo = count($cantidadsueldo);
+            for($i=0; $i < $largo; $i++){
+                $sql="INSERT into tmp_sueldos_nomina (us_id,persona_id,sal_monto_con,tmp_observaciones,pc,fecha_inicio,fecha_fin,plaza_id) values ($us_id, $p, $cantidadsueldo[$i],'$observacionessueldo[$i]','$pc','$fechainicio','$fechafinal',$plaza)";
+                $result= pg_query($conexion,$sql) or die("Error itsn:". pg_last_error());
+            }
         }
     }
     
@@ -139,7 +140,7 @@ if ($cantpersonas == $cantpersonas2 ){
         $mostrarsuma = pg_fetch_array($resultsuma);
         $montosumapercepcionespersona= 0;
         do{
-            $montosumapercepcionespersona=$montosumacomisionespersona+$mostrarsuma['tp_monto'];    
+            $montosumapercepcionespersona=$montosumapercepcionespersona+$mostrarsuma['tp_monto'];    
         }while ($mostrarsuma = pg_fetch_array($resultsuma));
 
         //inicia proceso para obtener el monto total de la suma de deducciones por persona

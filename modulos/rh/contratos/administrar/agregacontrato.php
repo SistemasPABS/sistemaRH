@@ -86,7 +86,6 @@
 //        echo 'Contrato Tipo: '.$id_contrato.'<br>';
 //        echo 'Puesto: '.$id_puesto.'<br>';
 //        echo 'Razon: '.$id_razon.'<br>';
-//        echo 'Plaza: '.$id_plaza.'<br>';
 //        echo 'Salario:'.$salario.'<br>';
 //        echo 'Horario: '.$horario.'<br>';
 //        echo 'Periodo: '.$prueba.'<br>';

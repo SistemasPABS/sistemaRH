@@ -54,10 +54,10 @@ function eliminar_r(url) {
 //Funcion para exportar los resultados del datagrid
 function exportar(url,dato4){
     var dato  = document.opbusqueda.plazas.value;       //plaza a buscar
-    var dato2 = document.opbusqueda.sucursales.value;   //sucursal a buscar
+    //var dato2 = document.opbusqueda.sucursales.value;   //sucursal a buscar
     var dato3 = document.opbusqueda.busca.value;        //por nombre de contrato
     //alert(chk1+' '+chk2);
-    popupWindow = window.open(url+'?chk1='+btoa(dato)+'&chk2='+btoa(dato2)+'&chk3='+btoa(dato3)+'&chk4='+btoa(dato4),'popup'+btoa(dato),'height=780px,width=1024px,left=0,top=0, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
+    popupWindow = window.open(url+'?chk1='+btoa(dato)+'&chk3='+btoa(dato3)+'&chk4='+btoa(dato4),'popup'+btoa(dato),'height=780px,width=1024px,left=0,top=0, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
 }
 //Funcion para generar el contrato en doc del contrato seleccionado en el datagrid
 function contrato(url){

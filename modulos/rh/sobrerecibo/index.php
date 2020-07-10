@@ -46,6 +46,7 @@ if($row3= pg_fetch_array($result3)){
                     </td>
                     
                 </tr>
+<<<<<<< HEAD
                 <tr class="tabla">
                     <td rowspan="9999"></td> 
                     <td>SUELDO DE LA PERSONA</td>
@@ -57,6 +58,17 @@ if($row3= pg_fetch_array($result3)){
             </tbody>
                 
                 
+=======
+                <tr class="toggler toggler1">
+                    <td rowspan="9999"></td>
+                        <td>SUELDO DE LA PERSONA</td>
+                        <td></td>
+                        <td></td>
+                        <td><input type="number" name="'.$row3['persona_id'].'cantidadsueldo[]" value="'.$row3['sal_monto_con'].'" readonly></input></td>
+                        <td><input type="text" name="'.$row3['persona_id'].'observacionessueldo[]"></input></td>
+                  </tr>
+                </tbody>
+>>>>>>> aa60f1f14255c930c51dc08c63cb247869f99f27
         ';
         //$monos.= $row3['persona_id'].'--'.$row3['nombrecompleto'].'<br>';
         

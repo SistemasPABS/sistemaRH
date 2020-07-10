@@ -439,7 +439,7 @@ class conectasql{
     //Agrega Comisiones
     public function agrega_com($nombre, $monto, $porcentaje, $grupo, $status) {
         $sql="insert into comisiones (co_nombre, co_monto, co_porcentaje, emp_id, co_activo ) "
-            . "values ('$nombre', $monto, '$porcentaje', $grupo, $status)";
+            . "values ('$nombre', $monto, $porcentaje, $grupo, $status)";
         $results= pg_query($this->conexion,$sql) or die("Error nco: ". pg_last_error());//nueva comision
         $this->inserts='1';
     }
@@ -469,7 +469,7 @@ class conectasql{
     //Agrega Salarios
     public function agrega_sal($nombre,$descripcion,$monto,$tiposal,$plaza,$sucursal,$status) {
         $sql="insert into salarios (sal_nombre, sal_descripcion, plaza_id, suc_id, sal_monto, sal_tipo_id, sal_aprovado, us_id, sal_activo)"
-            ."values ('$nombre', '$descripcion', $plaza, $sucursal, '$monto', $tiposal, 0, 0, $status)";
+            ."values ('$nombre', '$descripcion', $plaza, $sucursal, $monto, $tiposal, 0, 0, $status)";
         $results= pg_query($this->conexion,$sql) or die("Error agsal: ". pg_last_error());//nuevo salario
         $this->inserts='1';
     }
