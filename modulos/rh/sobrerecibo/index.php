@@ -129,7 +129,15 @@ if($row3= pg_fetch_array($result3)){
         
         <button id="submit" type="submit" onclick="enviarnomina()">GUARDAR NOMINA</button>
     </form>    
+
+<div>
+
+
 </div>
+
+
+
+
 </body>
 </html>
 

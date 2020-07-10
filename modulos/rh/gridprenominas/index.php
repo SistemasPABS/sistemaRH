@@ -9,7 +9,6 @@ $mostrar = pg_fetch_array($result);
 do{
 $renglonesloquesea .='
   <tr>  
-  <td> '.$mostrar['nom_id'].'</td>
   <td> '.$mostrar['sal_tipo_nombre'].'
   <td> '.$mostrar['fecha_inicio'].'</td>
   <td> '.$mostrar['fecha_fin'].'</td>
@@ -17,8 +16,9 @@ $renglonesloquesea .='
   <td> '.$mostrar['us_login'].'</td>
   <td> '.$mostrar['nom_autorizada'].'</td>
   <td> '.$mostrar['nom_total'].'</td>
-  <td><button id="nomid" name="Modificar" value="'.$mostrar['nom_id'].'" onclick="modificar()">Modificar</button></td>
+  <td><a href="./editarnomina.php?idnom='.$mostrar['nom_id'].'"><input type="button" value="Editar Nomina"></input>
   <td><a onclick="autorizar('.$mostrar['nom_id'].')">Autorizar</a></td>
+  
 </tr> ';
 }while($mostrar=pg_fetch_array($result))
 ?>
@@ -88,7 +88,7 @@ $renglonesloquesea .='
                 <table id="sponsorTable" class="table table-condensed table-striped table-hover">
                     <thead>
                         <tr class="warning">
-                            <th width="35%" class="text-center" scope="col">Folio de Nomina</th>
+                            
                             <th width="20%" class="text-center" scope="col">Tipo de periodo</th>
                             <th width="20%" class="text-center" scope="col">Fecha Inicio</th>
                             <th width="20%" class="text-center" scope="col">Fecha Fin</th>
@@ -96,8 +96,10 @@ $renglonesloquesea .='
                             <th width="35%" class="text-center" scope="col">Quien realizo nomina</th>
                             <th width="35%" class="text-center" scope="col">Autorizada</th>
                             <th width="35%" class="text-center" scope="col">Total de la nomina</th>
-                            <th width="35%" class="text-center" scope="col" colspan="2">Opciones</th>
-                            <?php echo $renglonesloquesea; ?>
+                            <th width="35%" class="text-center" >Editar</th>
+                            <th width="35%" class="text-center" >Autorizar</th>
+                            
+                            <?php echo $renglonesloquesea;?>
                         </tr>
                     </thead>
                     <tbody>
