@@ -7,13 +7,14 @@ $conexion=$con->conexion;
 session_start();
 $usid=$_SESSION['us_id'];
 $oc1=$_GET["idnom"];
+
 $query="SELECT * FROM vw_nomina_basenom WHERE nom_id = $oc1";
 $result = pg_query($conexion,$query) or die("Error en la consulta SQL");
 $mostrar = pg_fetch_array($result);
 $resumen.= '
 <form action="updatebasenom.php" method="post" name="modalnomina" id="modalnomina">
 <label>  Folio de nomina:  </label>
-<input type="number" readonly value="'.$mostrar['nom_id'].'"> '.$mostrar['nom_id'].' </input>
+<input id="idnom" name="idnom" type="number" readonly value="'.$mostrar['nom_id'].'"> '.$mostrar['nom_id'].' </input>
 <label>  Plaza:  </label>
 <input id="plazas" name="plazas" type="text" readonly value="'.$mostrar['plaza_id'].'"> '.$mostrar['plaza_nombre'].' </input>
 <label>  Empresa:  </label>
@@ -55,13 +56,10 @@ $resumen.= '
     <label>Observaciones</label>
       <input type="text" value="'.$mostrar['observaciones'].'" placeholder="Observaciones" id="observaciones" maxlength="150" onkeyup="this.value=NumText(this.value)"></input> 
   </div>
+</form>';
 
-  <div class="btn-group" role="group">
-    <input type="button" name="saveImage" class="btn btn-default btn-hover-green" onclick="editarnomina()" value="comenzar">
-	</div>
 
-</form>
-';
+
 ?>
 
 <html>
@@ -73,6 +71,9 @@ $resumen.= '
       <?php 
         echo $resumen;
       ?>
+      <div class="btn-group" role="group">
+        <input type="button" name="saveImage" class="btn btn-default btn-hover-green" onclick="editarnomina()" value="comenzar">
+	    </div>
     </body>
 
 </html>
