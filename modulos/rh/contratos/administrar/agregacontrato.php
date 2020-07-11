@@ -38,7 +38,7 @@
             $id_razon = $_POST['id_razon'];
         }
         //Variable de id del salario
-        if(!isset($_POST['salario']) || empty($_POST['salario'])){
+        if(!isset($_POST['salario'])){
             $error[] = "salario";
         }else if (isset($_POST['salario']) || !empty($_POST['salario'])) {
             $salario = $_POST['salario'];
@@ -162,7 +162,7 @@
             $id_razon = $_POST['id_razon'];
         }
         //Variable de id del salario
-        if(!isset($_POST['salario']) || empty($_POST['salario'])){
+        if(!isset($_POST['salario'])){
             $error[] = "salario";
         }else if (isset($_POST['salario']) || !empty($_POST['salario'])) {
             $salario = $_POST['salario'];
