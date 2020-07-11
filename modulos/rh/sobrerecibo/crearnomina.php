@@ -60,7 +60,11 @@ if ($cantpersonas == $cantpersonas2 ){
     foreach($cp as $p){
         $coid=$_POST[$p.'comision'];
         if($coid != NULL){
-           $cantidadcom=$_POST[$p.'cantidadcom'];
+                if(isset($_POST[$p.'cantidadcom']) && empty($_POST[$p.'cantidadcom'])){
+                    $cantidadcom = 0;
+                }else{
+                    $cantidadcom=$_POST[$p.'cantidadcom'];
+                }
             $observacionescom=$_POST[$p.'observacionescom'];
 
             $largo= count($coid);

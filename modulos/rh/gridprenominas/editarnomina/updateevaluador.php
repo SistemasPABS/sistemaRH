@@ -32,7 +32,7 @@ $select .='<select name="'.$perid.$equis.'[]">';
     }while($mostrar= pg_fetch_array($result));
     
 $select .='<select>';
-$contenidofila .='<td>'.$select.'</td>
+$contenidofila .='<td><a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-plus-circle fa-minus-circle"></i></a>'.$select.'</td>
                   <td></td>
                   <td></td>
                   <td><input name="'.$perid.'cantidad'.$equis.'[]" type="number"></input></td>

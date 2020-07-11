@@ -1,5 +1,5 @@
 <?php
-include_once ('../../../config/conectasql.php');
+include_once ('../../../../config/conectasql.php');
 session_start();
 date_default_timezone_set('America/Mexico_City');
 $fecha=date("Ymd");
@@ -13,6 +13,7 @@ $pc=$_POST['pc'];//computadora de donde se hace
 $idperiodo=$_POST['idperiodo'];//id de lo seleccionado de fecha inicio y fecha fin 
 $tipoperiodo=$_POST['tipoperiodo'];
 $empid=$_POST['empid'];
+$nominaporeditar=$_POST['nominaedit'];
 $con= new conectasql();
 $con->abre_conexion("0");
 $conexion=$con->conexion;
@@ -162,8 +163,8 @@ if ($cantpersonas == $cantpersonas2 ){
     //////////////////////////////////////////////////////////////////////////////////
 
     //Se genera ID de la nomina
-    $insertarnomina = "insert into nomina (fecha_inicio,fecha_fin,nom_total,nom_autorizada,plaza_id,sal_tipo_id,fechageneracion,horageneracion,us_id,pc) values ('$fechainicio','$fechafinal',$totalnomina,'false',$plaza,$tipoperiodo,'$fecha','$hora',$us_id,'$pc')";
-    $result = pg_query($conexion,$insertarnomina) or die ('Error al insertar nomina');
+    $insertarnomina = "UPDATE nomina SET fecha_inicio = '$fechainicio',fecha_fin = '$fechafinal',nom_total = $totalnomina,nom_autorizada = 'false',plaza_id=$plaza,sal_tipo_id=$tipoperiodo,fechageneracion='$fecha',horageneracion='$hora',us_id=$us_id,pc='$pc' WHERE nom_id = $nominaporeditar";
+    $result = pg_query($conexion,$insertarnomina) or die ('Error al actualizar la nomina');
 
     //se consulta la nomina generada
     $querynomina="SELECT * from nomina where us_id = $us_id and pc = '$pc' and fecha_inicio='$fechainicio'and fecha_fin = '$fechafinal' and plaza_id = $plaza and fechageneracion = '$fecha' ORDER BY nom_id DESC;";
@@ -178,7 +179,7 @@ if ($cantpersonas == $cantpersonas2 ){
 
     
 
-    //VOLCADO A LA TABLA HISTORICA DE BASE NOMINA
+    /*VOLCADO A LA TABLA HISTORICA DE BASE NOMINA
     $selectbn = "select * from tmp_base_nom where us_id = $us_id and fecha = '$fecha' and plaza_id  = $plaza and emp_id = $empid and sal_tipo_id = $tipoperiodo and pc = '$pc';";
     $resultbn = pg_query($conexion,$selectbn);
     $rowbn = pg_fetch_array($resultbn);
@@ -189,7 +190,7 @@ if ($cantpersonas == $cantpersonas2 ){
             $resultibn=pg_query($conexion,$sqlibn) or die ('ERROR ibn:'. pg_last_error());
             //echo $insertcomnom;
         }while($rowbn = pg_fetch_array($resultbn));
-    }
+    }*/
 
     //VOLCADO A LA TABLA HISTORIA DE LOS SUELDOS
     $selectsueldos = "SELECT * FROM tmp_sueldos_nomina WHERE us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
@@ -197,6 +198,8 @@ if ($cantpersonas == $cantpersonas2 ){
     $mostrarresultsueldos = pg_fetch_array($resultselectsueldos);
     if($mostrarresultsueldos != NULL){
         do{
+            $sqldeletesueldosnomina= "DELETE FROM sueldos_nomina WHERE nom_id = $nominaid";
+            $resultdeletesueldosnomina = pg_query($conexion,$sqldeletesueldosnomina) or die ('Error al eliminar el registro anterior de los sueldos de la nomina');
             $sqlinsertsueldosnomina = "INSERT into sueldos_nomina (nom_id,us_id,persona_id,sal_monto_con,tmp_observaciones,pc,fecha_inicio,fecha_fin,plaza_id)
                                        values ($nominaid,".$mostrarresultsueldos['us_id'].",".$mostrarresultsueldos['persona_id'].",".$mostrarresultsueldos['sal_monto_con'].",'".$mostrarresultsueldos['tmp_observaciones']."','".$mostrarresultsueldos['pc']."','".$mostrarresultsueldos['fecha_inicio']."','".$mostrarresultsueldos['fecha_fin']."',".$mostrarresultsueldos['plaza_id'].");";
             $resultinsertsueldosnomina =pg_query($conexion,$sqlinsertsueldosnomina) or die ('Error Insertando Sueldos Nomina: '. pg_last_error());
@@ -208,7 +211,9 @@ if ($cantpersonas == $cantpersonas2 ){
     $result = pg_query($conexion,$selecttmpcomnom);
     $campostmpcomnom = pg_fetch_array($result);
     if($campostmpcomnom != NULL){
-        do{    
+        do{  
+            $sqldeletecomisionesnomina= "DELETE FROM comnom WHERE nom_id = $nominaid";
+            $resultdeletecomisionesnomina = pg_query($conexion,$sqldeletecomisionesnomina) or die ('Error al eliminar el registro anterior de las comisiones');  
             $insertcomnom = "INSERT into comnom (co_id,persona_id,co_cantidad,co_observaciones,fecha_inicio,fecha_fin,us_id,nom_id,fecha,hora,pc) values (".$campostmpcomnom['co_id'].",".$campostmpcomnom['persona_id'].",".$campostmpcomnom['co_cantidad'].",'".$campostmpcomnom['co_observaciones']."','".$campostmpcomnom['fecha_inicio']."','".$campostmpcomnom['fecha_fin']."',".$campostmpcomnom['us_id'].",$nominaid,'$fecha','$hora','$pc');";
             $resultinsertcomnom=pg_query($conexion,$insertcomnom) or die ('ERROR AL INSERTAR EN LA TABLA CHIDA DE LAS COMISIONES');
             //echo $insertcomnom;
@@ -220,7 +225,9 @@ if ($cantpersonas == $cantpersonas2 ){
     $result = pg_query($conexion,$selecttmp_percepciones);
     $campostmppercepciones = pg_fetch_array($result);
     if($campostmppercepciones != NULL){
-        do{    
+        do{
+           $sqldeletepercepciones= "DELETE FROM percepciones WHERE nom_id = $nominaid";
+           $resultdeletepercepciones = pg_query($conexion,$sqldeletepercepciones) or die ('Error al eliminar el registro anterior de las percepciones');    
            $insertpercepciones = "INSERT into percepciones (nom_id,us_id,fecha,hora,persona_id,tp_id,tp_monto,tmp_observaciones,fecha_inicio,fecha_fin,pc) values ($nominaid,$us_id,'$fecha','$hora',".$campostmppercepciones['persona_id'].",".$campostmppercepciones['tp_id'].",".$campostmppercepciones['tp_monto'].",'".$campostmppercepciones['tmp_observaciones']."','".$campostmppercepciones['fecha_inicio']."','".$campostmppercepciones['fecha_fin']."','$pc');";
            $resultinsertpercepciones=pg_query($conexion,$insertpercepciones) or die ('ERROR AL INSERTAR EN LA TABLA CHIDA DE LAS PERCEPCIONES');
            //echo $insertpercepciones;  
@@ -228,11 +235,14 @@ if ($cantpersonas == $cantpersonas2 ){
     }
    
     //VOLCADO A LA TABLA HISTORICA DE LAS DEDUCCIONES
+    
     $selecttmp_deducciones = "SELECT * from tmp_deducciones where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
     $result = pg_query($conexion,$selecttmp_deducciones);
     $campostmpdeducciones = pg_fetch_array($result);
     if($campostmpdeducciones != NULL){
-        do{    
+        do{ 
+            $sqldeletededucciones= "DELETE FROM deducciones WHERE nom_id = $nominaid";
+            $resultdeletededucciones = pg_query($conexion,$sqldeletededucciones) or die ('Error al eliminar el registro anterior de las deducciones');   
             $insertdeducciones = "INSERT into deducciones (nom_id,us_id,fecha,hora,persona_id,td_id,td_monto,td_observaciones,fecha_inicio,fecha_fin,pc) values ($nominaid,$us_id,'$fecha','$hora',".$campostmpdeducciones['persona_id'].",".$campostmpdeducciones['td_id'].",".$campostmpdeducciones['td_monto'].",'".$campostmpdeducciones['td_observaciones']."','".$campostmpdeducciones['fecha_inicio']."','".$campostmpdeducciones['fecha_fin']."','$pc');";
             $resultinsertdeducciones=pg_query($conexion,$insertdeducciones) or die ('ERROR AL INSERTAR EN LA TABLA CHIDA DE LAS DEDUCCIONES');
             //echo $insertdeducciones;
@@ -352,7 +362,7 @@ if ($cantpersonas == $cantpersonas2 ){
     
     
     $letreritosuccesfully.='<div>
-                                Nomina generada con exito, ID: '.$nominaid.'
+                                Nomina actualizada con exito, ID: '.$nominaid.'
                             </div>';
     echo $letreritosuccesfully;
     

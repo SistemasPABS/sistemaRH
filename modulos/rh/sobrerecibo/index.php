@@ -1,5 +1,5 @@
 <?php 
-//include_once ('../prenominas/index.php');
+include_once ('../prenominas/index.php');
 include_once ('../../../config/conectasql.php');
 session_start();
 date_default_timezone_set('America/Mexico_City');
@@ -29,36 +29,21 @@ $row1 = pg_fetch_array($result1);
 $sql2="INSERT into tmp_base_nom (us_id,fecha,hora,plaza_id,num_ventas,venta_directa,cobros,saldo,cobros_per_ant,observaciones,emp_id,sal_tipo_id,fecha_inicio,fecha_fin,pc) values ($us_id,'$fecha','$hora',$plaza,$numservicios,$ventasdirectas,$cobrosporventa,$saldo,$cobrosanteriores,'$observaciones',$empid,$tipoperiodo,'".$row1['fecha_inicio']."','".$row1['fecha_final']."','$pc')";
 $result2 = pg_query($conexion,$sql2) or die("Error en la insercion de datos temporales de base nom");
 
-$sql3="select * from vw_contratos where con_status = 1 and sal_tipo_id = $tipoperiodo and emp_id  = $empid and plaza_id = $plaza ORDER BY nombrecompleto ASC";
+$sql3="select * from vw_contratos where con_status = 1 and sal_tipo_id = $tipoperiodo and emp_id  = $empid and plaza_id = $plaza";
 $result3= pg_query($conexion,$sql3);
 if($row3= pg_fetch_array($result3)){
     do{
         $monos.= '
         <tbody>
                 <tr>
-                    <td>
+                    <td colspan="20" class="page-header">
                         <input hidden value="'.$row3['persona_id'].'" name="persona[]"></input>
-                        <label>'.$row3['nombrecompleto'].'</label>
-                        <div>
-                            <button type="button" class="botonesadd" onclick="traerpercepcionesdeducciones(\'percepcion\',this)">Agregar percepcion</button>
-                            <button type="button"  class="botonesadd" onclick="traerpercepcionesdeducciones(\'deduccion\',this)">Agregar deduccion</button>
-                        </div>
+                        <button type="button" class="tbtn"><i class="fa fa-plus-circle fa-minus-circle"></i>'.$row3['nombrecompleto'].'</button>
+                        <button type="button"  onclick="traerpercepcionesdeducciones(\'percepcion\',this)">Agregar percepcion</button>   
+                        <button type="button"  onclick="traerpercepcionesdeducciones(\'deduccion\',this)">Agregar deduccion</button>
                     </td>
                     
                 </tr>
-<<<<<<< HEAD
-                <tr class="tabla">
-                    <td rowspan="9999"></td> 
-                    <td>SUELDO DE LA PERSONA</td>
-                    <td><input  class="sueldo" value="'.$row3['persona_id'].'"  name="'.$row3['persona_id'].'sueldo[]" hidden></input></td>
-                    <td></td>
-                    <td><input type="number" name="'.$row3['persona_id'].'cantidadsueldo[]" value="'.$row3['sal_monto_con'].'" readonly></input></td>
-                    <td><input type="text" name="'.$row3['persona_id'].'observacionessueldo[]"></input></td>
-                </tr>
-            </tbody>
-                
-                
-=======
                 <tr class="toggler toggler1">
                     <td rowspan="9999"></td>
                         <td>SUELDO DE LA PERSONA</td>
@@ -68,7 +53,6 @@ if($row3= pg_fetch_array($result3)){
                         <td><input type="text" name="'.$row3['persona_id'].'observacionessueldo[]"></input></td>
                   </tr>
                 </tbody>
->>>>>>> aa60f1f14255c930c51dc08c63cb247869f99f27
         ';
         //$monos.= $row3['persona_id'].'--'.$row3['nombrecompleto'].'<br>';
         
@@ -77,7 +61,7 @@ if($row3= pg_fetch_array($result3)){
         if($row4= pg_fetch_array($result4)){
             do{
             $monos .='
-                      <tr>
+                      <tr class="toggler toggler1">
                         <td rowspan="9999"></td>
                             <td><input value="'.$row4['co_id'].'" name="'.$row3['persona_id'].'comision[]" hidden>'.$row4['co_nombre'].'</td>
                             <td>'.$row4['co_monto'].'</td>
@@ -101,28 +85,63 @@ if($row3= pg_fetch_array($result3)){
 
 ?>
 
-
-
-
 <html>
     <head>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>  
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
         <script src="../prenominas/styles/navbar2.js"></script>
         <script src="../prenominas/styles/jquery.js"></script> 
         <script src="validador.js"></script>
     </head>
     
+    
+    <style>
+        .custom-table{border-collapse:collapse;width:100%;border:solid 1px #c0c0c0;font-family:open sans;font-size:11px}
+            .custom-table th,.custom-table td{text-align:left;padding:8px;border:solid 1px #c0c0c0}
+            .custom-table th{color:#000080}
+            .custom-table tr:nth-child(odd){background-color:#f7f7ff}
+            .custom-table>thead>tr{background-color:#dde8f7!important}
+            .tbtn{border:0;outline:0;background-color:transparent;font-size:13px;cursor:pointer}
+            .toggler{display:none}
+            .toggler1{display:table-row;}
+            .custom-table a{color: #0033cc;}
+            .custom-table a:hover{color: #f00;}
+            .page-header{background-color: #416db0;}
+
+            .sueldo{
+                color: "#FFFFF";
+            }
+            .logo{
+                
+                    margin-left:300px;
+                    margin-top: 20px;
+                    margin-bottom: 20px;
+        
+            }
+    </style>
+    
+    <script>
+            $(document).ready(function () {
+                $(".tbtn").click(function () {
+                    $(this).parents(".custom-table").find(".toggler1").removeClass("toggler1");
+                    $(this).parents("tbody").find(".toggler").addClass("toggler1");
+                    $(this).parents(".custom-table").find(".fa-minus-circle").removeClass("fa-minus-circle");
+                    $(this).parents("tbody").find(".fa-plus-circle").addClass("fa-minus-circle");
+                    
+                });
+            });
+    </script>
+    
     <form name="todalanomina" method="POST" action="crearnomina.php">
+
     <body>
-        <div>
-            <img src="../../../images/logo.png" class="logo">
-        </div>
-        <div id="contenedor"></div>
+        <div class="container" id="contenedor"></div>
         <input hidden id="cantpersonas" name="cantpersonas" value=""></input>
-        <table class="tabla">
+        <table class="custom-table">
             <thead>
-                <tr class="encabezados">
-                    <input hidden value="<?php echo $pc?>" name="pc"></input>
+                <tr> <input hidden value="<?php echo $pc?>" name="pc"></input>
                     <input hidden value="<?php echo $fechaperiodo?>" name="idperiodo"></input>
                     <input hidden value="<?php echo $plaza?>" name="plaza"></input>
                     <input hidden value="<?php echo $tipoperiodo?>" name="tipoperiodo"></input>
@@ -141,84 +160,6 @@ if($row3= pg_fetch_array($result3)){
         
         <button id="submit" type="submit" onclick="enviarnomina()">GUARDAR NOMINA</button>
     </form>    
-
-<div>
-
-
 </div>
-
-
-
-
 </body>
 </html>
-
-
-<style>
-  .logo{
-    margin-left:300px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-  .encabezados{
-    background-image: linear-gradient(#02528A,#0000);
-    color:#3D3F41;
-    font-family:"Proxima nova";
-    font-size:20px;
-    width:10px;
-    height:45px;
-    border:solid 1px;
-  }
-  .botonesadd{
-    position:right;
-    margin-left:15px;
-    font-size:15px;
-    border-radius:4px;
-    transition-duration: 0.4s;
-    
-  }
-  .botonesadd:hover{
-    background-color: white;
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-  }
-  .tabla{
-      border:solid 1px;
-  }
-  
-  
-</style>
-
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
