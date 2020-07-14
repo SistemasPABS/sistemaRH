@@ -10,33 +10,39 @@ $idnom=base64_decode($_GET['oc0']);//idnom
 $plaza=base64_decode($_GET['oc1']);//plaza
 $empid=base64_decode($_GET['oc2']); //empid
 $tipoperiodo=base64_decode($_GET['oc3']);//tipoperiodo
-$fechaperiodoinicio=base64_decode($_GET['oc4']); //fechaperiodoinicio
-$fechaperiodofin=base64_decode($_GET['oc5']); //fechaperiodofin
-$numservicios=base64_decode($_GET['oc6']);//numservicios
-$ventasdirectas=base64_decode($_GET['oc7']);//ventasdirectas
-$cobrosporventa=base64_decode($_GET['oc8']);//cobrosporventa
-$saldo=base64_decode($_GET['oc9']);//saldo
-$cobrosanteriores=base64_decode($_GET['oc10']);//cobrosanteriores
-$observaciones=base64_decode($_GET['oc11']);//observaciones
+$fechaperiodo=base64_decode($_GET['oc4']); //el id del periodo y a forma de consulta se muestran las fechas
+$numservicios=base64_decode($_GET['oc5']);//numservicios
+$ventasdirectas=base64_decode($_GET['oc6']);//ventasdirectas
+$cobrosporventa=base64_decode($_GET['oc7']);//cobrosporventa
+$saldo=base64_decode($_GET['oc8']);//saldo
+$cobrosanteriores=base64_decode($_GET['oc9']);//cobrosanteriores
+$observaciones=base64_decode($_GET['oc10']);//observaciones
 $pc=gethostbyaddr($_SERVER['REMOTE_ADDR']);//computadora de donde se hace
 /*echo $oc1,$oc2,$oc3,$oc4,$oc5,$oc6,$oc7,$oc8,$oc9,$oc10;*/
 $con= new conectasql();
 $con->abre_conexion("0");
 $conexion=$con->conexion;
 
-$sql2="UPDATE base_nom SET nom_id=$idnom, us_id=$us_id,fecha='$fecha',hora='$hora',plaza_id=$plaza,num_ventas=$numservicios,venta_directa=$ventasdirectas,cobros=$cobrosporventa,saldo=$saldo,cobros_per_ant=$cobrosanteriores,observaciones='$observaciones',emp_id=$empid,sal_tipo_id=$tipoperiodo,fecha_inicio='$fechaperiodoinicio',fecha_fin='$fechaperiodofin',pc='$pc' WHERE nom_id = $idnom;";
+$sqlfechas="SELECT * from periodos where idperiodo = $fechaperiodo";
+$resultsqlfechas=pg_query($conexion,$sqlfechas);
+$fechas=pg_fetch_array($resultsqlfechas);
+$fechainicio=$fechas['fecha_inicio'];
+$fechafinal=$fechas['fecha_final'];
+
+$sql2="UPDATE base_nom SET nom_id=$idnom, us_id=$us_id,fecha='$fecha',hora='$hora',plaza_id=$plaza,num_ventas=$numservicios,venta_directa=$ventasdirectas,cobros=$cobrosporventa,saldo=$saldo,cobros_per_ant=$cobrosanteriores,observaciones='$observaciones',emp_id=$empid,sal_tipo_id=$tipoperiodo,fecha_inicio='$fechainicio',fecha_fin='$fechafinal',pc='$pc' WHERE nom_id = $idnom";
 $result2 = pg_query($conexion,$sql2) or die("Error en la insercion de datos temporales de base nom");
 
 $sql3="select * from vw_sueldos_nomina where nom_id = $idnom";
+echo $sql3;
 $result3= pg_query($conexion,$sql3);
 if($row3= pg_fetch_array($result3)){
     do{
+        
         $monos.= '
         <tbody>
                 <tr>
                     <td colspan="20" class="page-header">
                         <input hidden value="'.$row3['persona_id'].'" name="persona[]"></input>
-                        <input hidden value="'.$row3['nom_id'].'" name="nominaedit" id="nominaedit"></input>
                         <button type="button" class="tbtn"><i class="fa fa-plus-circle fa-minus-circle"></i>'.$row3['nombrecompleto'].'</button>
                         <button type="button"  onclick="traerpercepcionesdeducciones(\'percepcion\',this)">Agregar percepcion</button>   
                         <button type="button"  onclick="traerpercepcionesdeducciones(\'deduccion\',this)">Agregar deduccion</button>
@@ -75,23 +81,42 @@ if($row3= pg_fetch_array($result3)){
          //$monos.='</tbody>';  
         }
 
+        
+
         $sql5="select * from vw_percepciones where persona_id = ".$row3['persona_id']." and nom_id = $idnom";
         $result5= pg_query($conexion,$sql5);
         if($row5= pg_fetch_array($result5)){
             do{
+
+            $tipospercepcionesquery="SELECT * FROM tipos_percepciones";
+            $resulttipospercepcionesquery=pg_query($conexion,$tipospercepcionesquery);
+            $rowquerytipospercepciones=pg_fetch_array($resulttipospercepcionesquery);
+
+            $select ='<select name="'.$row3['persona_id'].'per[]">';
+                do{
+                    if($rowquerytipospercepciones['tp_id'] == $row5['tp_id']){
+                        $default='selected';
+                    }else{
+                        $default='';
+                    }
+                $select .='<option value="'.$rowquerytipospercepciones['tp_id'].'"  '.$default.'>'.$rowquerytipospercepciones['tp_nombre'].'</option>';
+            }while($rowquerytipospercepciones=pg_fetch_array($resulttipospercepcionesquery));
+            $select .='<select>';
+
+
             $monos .='
                       <tr class="toggler toggler1">
                         <td rowspan="9999"></td>
-                            <td><a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-plus-circle fa-minus-circle"></i></a><input value="'.$row5['tp_id'].'" name="'.$row3['persona_id'].'per[]" hidden>'.$row5['tp_nombre'].'</td>
+                            <td><a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-plus-circle fa-minus-circle"></i></a>'.$select.'</td>
                             <td></td>
                             <td></td>
-                            <td><input type="number" name="'.$row5['tp_id'].'cantidad'.'per'.'[]" value="'.$row5['tp_monto'].'"></input></td>
-                            <td><input type="text" name="'.$row5['tp_id'].'motivo'.'per'.'[]" value= "'.$row5['tmp_observaciones'].'"></input></td>
+                            <td><input type="number" name="'.$row3['persona_id'].'cantidadper[]" value="'.$row5['tp_monto'].'"></input></td>
+                            <td><input type="text" name="'.$row3['persona_id'].'motivoper[]" value="'.$row5['tmp_observaciones'].'"></input></td>
                       </tr>
                     </tbody>';
                 //$monos.='*'.$row4['co_id'].'--'.$row4['co_nombre'].'<br>';
                 
-            }while ($row4 = pg_fetch_array($result4));
+            }while ($row5= pg_fetch_array($result5));
          //$monos.='</tbody>';  
         }
 
@@ -99,21 +124,38 @@ if($row3= pg_fetch_array($result3)){
         $result6= pg_query($conexion,$sql6);
         if($row6= pg_fetch_array($result6)){
             do{
+            $tiposdeduccionesquery="SELECT * FROM tipos_deducciones";
+            $resulttiposdeduccionesquery=pg_query($conexion,$tiposdeduccionesquery);
+            $rowquerytiposdeducciones=pg_fetch_array($resulttiposdeduccionesquery);
+
+            $select ='<select name="'.$row3['persona_id'].'ded[]">';
+                do{
+                    if($rowquerytiposdeducciones['td_id'] == $row6['td_id']){
+                        $default='selected';
+                    }else{
+                        $default='';
+                    }
+                $select .='<option value="'.$rowquerytiposdeducciones['td_id'].'"  '.$default.'>'.$rowquerytiposdeducciones['td_nombre'].'</option>';
+            }while($rowquerytiposdeducciones=pg_fetch_array($resulttiposdeduccionesquery));
+            $select .='<select>';
+
+
             $monos .='
                       <tr class="toggler toggler1">
                         <td rowspan="9999"></td>
-                            <td><a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-plus-circle fa-minus-circle"></i></a><input value="'.$row6['td_id'].'" name="'.$row3['persona_id'].'per[]" hidden>'.$row6['td_nombre'].'</td>
+                            <td><a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-plus-circle fa-minus-circle"></i></a>'.$select.'</td>
                             <td></td>
                             <td></td>
-                            <td><input type="number" name="'.$row6['td_id'].'cantidad'.'per'.'[]" value="'.$row6['td_monto'].'"></input></td>
-                            <td><input type="text" name="'.$row6['td_id'].'motivo'.'per'.'[]" value= "'.$row6['td_observaciones'].'"></input></td>
+                            <td><input type="number" name="'.$row3['persona_id'].'cantidadded[]" value="'.$row6['td_monto'].'"></input></td>
+                            <td><input type="text" name="'.$row3['persona_id'].'motivoded[]" value="'.$row6['td_observaciones'].'"></input></td>
                       </tr>
                     </tbody>';
                 //$monos.='*'.$row4['co_id'].'--'.$row4['co_nombre'].'<br>';
                 
-            }while ($row4 = pg_fetch_array($result4));
+            }while ($row6=pg_fetch_array($result6));
          //$monos.='</tbody>';  
         }
+
         
     }while($row3= pg_fetch_array($result3));
     
@@ -178,10 +220,11 @@ if($row3= pg_fetch_array($result3)){
         <table class="custom-table">
             <thead>
                 <tr> <input hidden value="<?php echo $pc?>" name="pc"></input>
-                    <input hidden value="<?php echo $fechaperiodo?>" name="idperiodo"></input>
+                    <input hidden value="<?php echo $fechaperiodo?>" name="fechaperiodo"></input>
                     <input hidden value="<?php echo $plaza?>" name="plaza"></input>
                     <input hidden value="<?php echo $tipoperiodo?>" name="tipoperiodo"></input>
                     <input hidden value="<?php echo $empid?>" name="empid"></input>
+                    <input hidden value="<?php echo $idnom ?>" name="nominaedit" id="nominaedit"></input>
                     <th>Persona</th>
                     <th>Nombre</th>
                     <th>Monto</th>

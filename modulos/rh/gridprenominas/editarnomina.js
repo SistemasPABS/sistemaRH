@@ -3,8 +3,7 @@ function editarnomina(){
     var plazas = document.getElementById("plazas").value;
     var empresa = document.getElementById("empresa").value;
     var tipoperiodo = document.getElementById("tipoperiodo").value;
-    var fechaperiodoinicio = document.getElementById("fechaperiodoinicio").value;
-    var fechaperiodofin = document.getElementById("fechaperiodofin").value;
+    var fechaperiodo=document.getElementById("fechaperiodo").value;
     var numservicios = document.getElementById("numservicios").value;
     var ventasdirectas = document.getElementById("ventasdirectas").value;
     var cobrosporventa = document.getElementById("cobrosporventa").value;
@@ -13,7 +12,7 @@ function editarnomina(){
     var observaciones = document.getElementById("observaciones").value;
     var idnom = document.getElementById("idnom").value;
 
-    location.href='./editarnomina/updatebasenom.php?oc0='+btoa(idnom)+'&oc1='+btoa(plazas)+'&oc2='+btoa(empresa)+'&oc3='+btoa(tipoperiodo)+'&oc4='+btoa(fechaperiodoinicio)+'&oc5='+btoa(fechaperiodofin)+'&oc6='+btoa(numservicios)+'&oc7='+btoa(ventasdirectas)+'&oc8='+btoa(cobrosporventa)+'&oc9='+btoa(saldo)+'&oc10='+btoa(cobrosanteriores)+'&oc11='+btoa(observaciones);
+    location.href='./editarnomina/updatebasenom.php?oc0='+btoa(idnom)+'&oc1='+btoa(plazas)+'&oc2='+btoa(empresa)+'&oc3='+btoa(tipoperiodo)+'&oc4='+btoa(fechaperiodo)+'&oc5='+btoa(numservicios)+'&oc6='+btoa(ventasdirectas)+'&oc7='+btoa(cobrosporventa)+'&oc8='+btoa(saldo)+'&oc9='+btoa(cobrosanteriores)+'&oc10='+btoa(observaciones);
 
 }
 

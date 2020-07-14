@@ -35,8 +35,8 @@ $select .='<select>';
 $contenidofila .='<td>'.$select.'</td>
                   <td></td>
                   <td></td>
-                  <td><input name="'.$perid.'cantidad'.$equis.'[]" type="number"></input></td>
-                  <td><input name="'.$perid.'motivo'.$equis.'[]" type="text"></input></td>';
+                  <td><input name="'.$perid.'cantidad'.$equis.'[]" type="number" value="0"></input></td>
+                  <td><input name="'.$perid.'motivo'.$equis.'[]" type="text" value="--"></input></td>';
 echo $contenidofila;
         
 ?>

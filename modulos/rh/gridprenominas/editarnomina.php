@@ -7,7 +7,6 @@ $conexion=$con->conexion;
 session_start();
 $usid=$_SESSION['us_id'];
 $oc1=$_GET["idnom"];
-
 $query="SELECT * FROM vw_nomina_basenom WHERE nom_id = $oc1";
 $result = pg_query($conexion,$query) or die("Error en la consulta SQL");
 $mostrar = pg_fetch_array($result);
@@ -51,16 +50,12 @@ $resumen.= '
               </div>
 
               <div>
-                <label>  Fecha Periodo Inicio  </label>
-                <input hidden id="fechaperiodoinicio" name="fechaperiodoinicio" type="text" readonly value="'.$mostrar['fecha_inicio'].'"></input>
-                <input class="w3-input" readonly value=" '.$mostrar['fecha_inicio'].' "></input>
+                <label> Fechas del periodo </label>
+                <input hidden name="fechaperiodo" id="fechaperiodo" value="'.$mostrar['idperiodo'].'"></input>
+                <input class="w3-input" readonly value="'.$mostrar['fecha_inicio'].' -- '.$mostrar['fecha_fin'].'"></input>  
               </div>
 
-              <div>
-                <label>  Fecha Periodo Fin  </label>
-                <input hidden id="fechaperiodofin" name="fechaperiodofin" type="text" readonly value="'.$mostrar['fecha_fin'].'"></input>
-                <input class="w3-input" readonly value="'.$mostrar['fecha_fin'].'"></input>
-              </div>
+
               <div><label>--------------------------------------------------------------------------------------------------------------------------------------</label></div>
                 <div class="w3-row-padding">
                     <div class="w3-third"> 
@@ -114,6 +109,7 @@ $resumen.= '
         echo $resumen;
       ?>
       <div class="btn-group" role="group">
+        <input hidden value="<?php echo $oc1?>"></input>
         <input type="button" name="saveImage" class="btn btn-default btn-hover-green" onclick="editarnomina()" value="comenzar">
 	    </div>
     </body>
@@ -123,7 +119,7 @@ $resumen.= '
 <style>
   .logo{
     margin-left:250px;
-    margin-top:15px;
+    margin-top:5px;
     width: 20px;
     height: 30px;
   }

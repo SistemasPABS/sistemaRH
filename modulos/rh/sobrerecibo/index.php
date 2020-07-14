@@ -50,7 +50,7 @@ if($row3= pg_fetch_array($result3)){
                         <td></td>
                         <td></td>
                         <td><input type="number" name="'.$row3['persona_id'].'cantidadsueldo[]" value="'.$row3['sal_monto_con'].'" readonly></input></td>
-                        <td><input type="text" name="'.$row3['persona_id'].'observacionessueldo[]"></input></td>
+                        <td><input type="text" name="'.$row3['persona_id'].'observacionessueldo[]" value="---"></input></td>
                   </tr>
                 </tbody>
         ';
@@ -66,8 +66,8 @@ if($row3= pg_fetch_array($result3)){
                             <td><input value="'.$row4['co_id'].'" name="'.$row3['persona_id'].'comision[]" hidden>'.$row4['co_nombre'].'</td>
                             <td>'.$row4['co_monto'].'</td>
                             <td>'.$row4['co_porcentaje'].'</td>
-                            <td><input type="number" name="'.$row3['persona_id'].'cantidadcom[]"></input></td>
-                            <td><input type="text" name="'.$row3['persona_id'].'observacionescom[]"></input></td>
+                            <td><input type="number" name="'.$row3['persona_id'].'cantidadcom[]" value="0"></input></td>
+                            <td><input type="text" name="'.$row3['persona_id'].'observacionescom[]" value="---"></input></td>
                       </tr>
                     </tbody>';
                 //$monos.='*'.$row4['co_id'].'--'.$row4['co_nombre'].'<br>';

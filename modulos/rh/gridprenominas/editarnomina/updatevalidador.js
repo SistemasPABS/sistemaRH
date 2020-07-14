@@ -23,13 +23,13 @@ function traerpercepcionesdeducciones(opc,btn){
  }
  
  function editnomina(){
-      if(confirm('En este momento actualizarás tu nomina')){
+        //alert ("Hello");
+      if(confirm('En este momento actualizaras tu nomina')){
           if(confirm('¿Deseas continuar?')){
               //pendiente a realizar las validaciones 
           var cantidadpersonas = document.getElementsByName("persona[]");
           var cantidadpersonas = cantidadpersonas.length;
           document.getElementById("cantpersonas").value=cantidadpersonas;
-          document.getElementById("nominaedit").value;
           document.todalanomina.submit();
           }
         else{

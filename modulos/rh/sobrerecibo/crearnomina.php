@@ -82,6 +82,11 @@ if ($cantpersonas == $cantpersonas2 ){
     foreach ($cp as $p){
         $perid = $_POST[$p.'per'];//select id tipo percepcion
         if($perid != NULL){
+            if(isset($_POST[$p.'cantidadcom']) && empty($_POST[$p.'cantidadcom'])){
+                $cantidadcom = 0;
+            }else{
+                $cantidadcom=$_POST[$p.'cantidadcom'];
+            }
            $monto = $_POST[$p.'cantidadper'];//cantidad con el tipo se juntan y lo unico que varia es el id de la persona
            $observaciones = $_POST[$p.'motivoper']; //la observacion es identificada por el id de la persona 
 
@@ -167,7 +172,7 @@ if ($cantpersonas == $cantpersonas2 ){
     //////////////////////////////////////////////////////////////////////////////////
 
     //Se genera ID de la nomina
-    $insertarnomina = "insert into nomina (fecha_inicio,fecha_fin,nom_total,nom_autorizada,plaza_id,sal_tipo_id,fechageneracion,horageneracion,us_id,pc) values ('$fechainicio','$fechafinal',$totalnomina,'false',$plaza,$tipoperiodo,'$fecha','$hora',$us_id,'$pc')";
+    $insertarnomina = "insert into nomina (fecha_inicio,fecha_fin,nom_total,nom_autorizada,plaza_id,sal_tipo_id,fechageneracion,horageneracion,us_id,pc,idperiodo) values ('$fechainicio','$fechafinal',$totalnomina,'false',$plaza,$tipoperiodo,'$fecha','$hora',$us_id,'$pc',$idperiodo)";
     $result = pg_query($conexion,$insertarnomina) or die ('Error al insertar nomina');
 
     //se consulta la nomina generada
