@@ -21,8 +21,8 @@ $resumen.= '
       <div>	
         <!-- content goes here -->
           <form action="updatebasenom.php" method="post" name="modalnomina" id="modalnomina" class="w3-container w3-card-4 w3-light-grey w3-text-blue w3-margin">
-          <div class="logo">
-            <img src="../../../images/logo.png"></img>
+          <div>
+            <img class="logo" src="../../../images/logo.png"></img>
           </div>
             <div>
               <div>
@@ -118,10 +118,10 @@ $resumen.= '
 
 <style>
   .logo{
-    margin-left:250px;
+    margin-left:400px;
     margin-top:5px;
-    width: 20px;
-    height: 30px;
+    width: 200px;
+    height: 50px;
   }
 </style>
 

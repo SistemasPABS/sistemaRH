@@ -33,7 +33,7 @@ $sql2="UPDATE base_nom SET nom_id=$idnom, us_id=$us_id,fecha='$fecha',hora='$hor
 $result2 = pg_query($conexion,$sql2) or die("Error en la insercion de datos temporales de base nom");
 
 $sql3="select * from vw_sueldos_nomina where nom_id = $idnom";
-echo $sql3;
+//echo $sql3;
 $result3= pg_query($conexion,$sql3);
 if($row3= pg_fetch_array($result3)){
     do{

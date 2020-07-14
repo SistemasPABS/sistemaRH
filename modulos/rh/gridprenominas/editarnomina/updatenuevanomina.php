@@ -261,7 +261,7 @@ if ($cantpersonas == $cantpersonas2 ){
 //  
 //    
 //    //se obtiene la cantidad de datos en la tabla temporal de base de nomina
-    $selecttmpbasenom = "SELECT count(*) as cuentatmpbasenom from tmp_base_nom where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
+    /*$selecttmpbasenom = "SELECT count(*) as cuentatmpbasenom from tmp_base_nom where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
     $selecttmpbasenom;
     $result = pg_query($conexion,$selecttmpbasenom);
     $valorarreglotmpbasenom = pg_fetch_array($result);
@@ -278,7 +278,7 @@ if ($cantpersonas == $cantpersonas2 ){
         $result = pg_query($conexion,$borradotmpbasenom) or die ("Verifica la sentencia SQL". pg_last_error());
     }else{
         echo 'No son iguales - TEMPORAL BASE NOMINA ';
-    } 
+    }*/ 
 //
 
     //se obtiene la cantidad de sueldos en la tabla tmp para el periodo
