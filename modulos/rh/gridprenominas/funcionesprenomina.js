@@ -10,6 +10,7 @@ function comenzarnomina(){
     var saldo = document.getElementById("saldo").value;
     var cobrosanteriores = document.getElementById("cobrosanteriores").value;
     var observaciones = document.getElementById("observaciones").value;
+    var em=document.getElementById("em").value;
 
 
     if (document.modalnomina.plazas.value.length==0){
@@ -58,7 +59,7 @@ function comenzarnomina(){
       return 0;
     }else
     {
-      location.href='../sobrerecibo/index.php?oc1='+btoa(plazas)+'&oc2='+btoa(empresa)+'&oc3='+btoa(tipoperiodo)+'&oc4='+btoa(fechaperiodo)+'&oc5='+btoa(numservicios)+'&oc6='+btoa(ventasdirectas)+'&oc7='+btoa(cobrosporventa)+'&oc8='+btoa(saldo)+'&oc9='+btoa(cobrosanteriores)+'&oc10='+btoa(observaciones);
+      location.href='../sobrerecibo/index.php?oc1='+btoa(plazas)+'&oc2='+btoa(empresa)+'&oc3='+btoa(tipoperiodo)+'&oc4='+btoa(fechaperiodo)+'&oc5='+btoa(numservicios)+'&oc6='+btoa(ventasdirectas)+'&oc7='+btoa(cobrosporventa)+'&oc8='+btoa(saldo)+'&oc9='+btoa(cobrosanteriores)+'&oc10='+btoa(observaciones)+'&oc11='+btoa(em);
     }
     
     //alert(plazas+' '+empresa+' '+tipoperiodo+' '+fechaperiodo+' '+numservicios+' '+ventasdirectas+' '+cobrosporventa+' '+saldo+' '+cobrosanteriores+' '+observaciones);
@@ -95,7 +96,7 @@ function NumText(string){//solo letras y numeros
 
 function Numeros(string){//Solo numeros
   var out = '';
-  var filtro = '1234567890';//Caracteres validos
+  var filtro = '12345678900.0';//Caracteres validos
 
   //Recorrer el texto y verificar si el caracter se encuentra en la lista de validos 
   for (var i=0; i<string.length; i++)

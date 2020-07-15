@@ -172,7 +172,7 @@ if ($cantpersonas == $cantpersonas2 ){
     //////////////////////////////////////////////////////////////////////////////////
 
     //Se genera ID de la nomina
-    $insertarnomina = "insert into nomina (fecha_inicio,fecha_fin,nom_total,nom_autorizada,plaza_id,sal_tipo_id,fechageneracion,horageneracion,us_id,pc,idperiodo) values ('$fechainicio','$fechafinal',$totalnomina,'false',$plaza,$tipoperiodo,'$fecha','$hora',$us_id,'$pc',$idperiodo)";
+    $insertarnomina = "insert into nomina (fecha_inicio,fecha_fin,nom_total,nom_autorizada,plaza_id,sal_tipo_id,fechageneracion,horageneracion,us_id,pc,idperiodo,nom_autorizo) values ('$fechainicio','$fechafinal',$totalnomina,'false',$plaza,$tipoperiodo,'$fecha','$hora',$us_id,'$pc',$idperiodo,0)";
     $result = pg_query($conexion,$insertarnomina) or die ('Error al insertar nomina');
 
     //se consulta la nomina generada
@@ -366,7 +366,11 @@ if ($cantpersonas == $cantpersonas2 ){
                             </div>';
     echo $letreritosuccesfully;
     
-
+    $to="jnv1802@gmail.com";
+    $from="julieta.victoria.vargas@gmail.com";
+    $subject="ASUNTO DE ESTE CORREO";
+    $message="Este es el primero correo que te mando Jaime ;) saludos!";
+    mail($to,$subject,$message);
 }
 
 ?>

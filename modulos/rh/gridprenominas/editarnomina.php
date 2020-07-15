@@ -27,7 +27,7 @@ $resumen.= '
             <div>
               <div>
                 <label>  Folio de nomina:  </label>
-                <input class="w3-input" id="idnom" name="idnom" readonly value="'.$mostrar['nom_id'].'"></input>
+                <input class="w3-input" id="idnom" name="idnom" readonly value="'.$mostrar['nom_id'].'" ></input>
               </div>
               
               <div>
@@ -60,27 +60,27 @@ $resumen.= '
                 <div class="w3-row-padding">
                     <div class="w3-third"> 
                       <label>Numero de servicios</label>
-                      <input class="w3-input w3-animate-input" id="numservicios" value="'.$mostrar['num_ventas'].'" name="numservicios" type="number" placeholder="Numero de servicios" width="20%" required onkeyup="this.value=Numeros(this.value)"> 
+                      <input class="w3-input w3-animate-input" id="numservicios" onkeyup="this.value=Numeros(this.value)" step="0.01" value="'.$mostrar['num_ventas'].'" name="numservicios" type="number" placeholder="Numero de servicios" width="20%" required> 
                     </div>
 
                     <div class="w3-third">
                       <label>Ventas directas</label>
-                      <input class="w3-input w3-animate-input" id="ventasdirectas" value="'.$mostrar['venta_directa'].'" name="numventas" type="number" placeholder="Ventas directas" required onkeyup="this.value=Numeros(this.value)">
+                      <input class="w3-input w3-animate-input" id="ventasdirectas" value="'.$mostrar['venta_directa'].'" name="numventas" type="number" step="0.01" placeholder="Ventas directas" required onkeyup="this.value=Numeros(this.value)">
                     </div>
                     
                     <div class="w3-third">
                       <label>Cobros por ventas</label>
-                      <input class="w3-input w3-animate-input" id="cobrosporventa" value="'.$mostrar['cobros'].'" type="number" name="cobros" placeholder="Cobros por ventas" required onkeyup="this.value=Numeros(this.value)">
+                      <input class="w3-input w3-animate-input" id="cobrosporventa" value="'.$mostrar['cobros'].'" type="number" step="0.01" name="cobros" placeholder="Cobros por ventas" required onkeyup="this.value=Numeros(this.value)">
                     </div>
 
                     <div class="w3-third">
                       <label>Saldo</label>
-                      <input class="w3-input w3-animate-input" id="saldo" value="'.$mostrar['saldo'].'" type="number" placeholder="Saldo" name="saldo" required onkeyup="this.value=Numeros(this.value)">
+                      <input class="w3-input w3-animate-input" id="saldo" value="'.$mostrar['saldo'].'" type="number" step="0.01" placeholder="Saldo" name="saldo" required onkeyup="this.value=Numeros(this.value)">
                     </div>
 
                     <div class="w3-third">
                       <label>Cobranza periodos anteriores</label>
-                      <input class="w3-input w3-animate-input" id="cobrosanteriores" value="'.$mostrar['cobros_per_ant'].'" type="number" placeholder="Cobranza del periodo anterior" name="cobranzaperanterior" required onkeyup="this.value=Numeros(this.value)">
+                      <input class="w3-input w3-animate-input" id="cobrosanteriores" value="'.$mostrar['cobros_per_ant'].'" type="number"  step="0.01" placeholder="Cobranza del periodo anterior" name="cobranzaperanterior" required onkeyup="this.value=Numeros(this.value)">
                     </div>
 
                     <div class="w3-third">

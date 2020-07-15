@@ -35,8 +35,8 @@ $select .='<select>';
 $contenidofila .='<td><a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-plus-circle fa-minus-circle"></i></a>'.$select.'</td>
                   <td></td>
                   <td></td>
-                  <td><input name="'.$perid.'cantidad'.$equis.'[]" type="number"></input></td>
-                  <td><input name="'.$perid.'motivo'.$equis.'[]" type="text"></input></td>';
+                  <td><input name="'.$perid.'cantidad'.$equis.'[]" type="number" onkeyup="this.value=Numeros(this.value)" step="0.01"></input></td>
+                  <td><input name="'.$perid.'motivo'.$equis.'[]" type="text" onkeyup="this.value=NumText(this.value)"></input></td>';
 echo $contenidofila;
         
 ?>

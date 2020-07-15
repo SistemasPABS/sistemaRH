@@ -186,7 +186,7 @@ if ($cantpersonas == $cantpersonas2 ){
 
     /*VOLCADO A LA TABLA HISTORICA DE BASE NOMINA*/
     
-    $selectbn = "select * from tmp_base_nom where us_id = $us_id and fecha = '$fecha' and plaza_id  = $plaza and emp_id = $empid and sal_tipo_id = $tipoperiodo and pc = '$pc'";
+    $selectbn = "select * from tmp_base_nom where us_id = $us_id and fecha = '$fecha' and plaza_id  = $plaza and emp_id = $empid and sal_tipo_id = $tipoperiodo and pc = '$pc'" ;
     $resultbn = pg_query($conexion,$selectbn);
     $rowbn = pg_fetch_array($resultbn);
     if($rowbn != NULL){

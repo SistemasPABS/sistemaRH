@@ -32,7 +32,7 @@ function editarnomina(){
       
       function Numeros(string){//Solo numeros
         var out = '';
-        var filtro = '1234567890';//Caracteres validos
+        var filtro = '12345678900.0';//Caracteres validos
       
         //Recorrer el texto y verificar si el caracter se encuentra en la lista de validos 
         for (var i=0; i<string.length; i++)
@@ -43,3 +43,15 @@ function editarnomina(){
         //Retornar valor filtrado
         return out;
       } 
+
+      function filtrarporfechas(){
+        /*alert('HOLA');*/
+
+        var fechacreacioninicio = document.getElementById("fechacreacioninicio").value;
+        var fechacreacionfin = document.getElementById("fechacreacionfin").value;
+        var em = document.getElementById("em").value;
+        //alert (fechacreacioninicio+fechacreacionfin+em);
+        //alert('em='+btoa(em)+'&fechacreacioninicio='+btoa(fechacreacioninicio)+'&fechacreacionfin='+btoa(fechacreacionfin));
+        location.href='index.php?em='+btoa(em)+'&fechacreacioninicio='+btoa(fechacreacioninicio)+'&fechacreacionfin='+btoa(fechacreacionfin);
+
+      }

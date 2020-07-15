@@ -16,6 +16,7 @@ $cobrosporventa=base64_decode($_GET['oc7']);//cobrosporventa
 $saldo=base64_decode($_GET['oc8']);//saldo
 $cobrosanteriores=base64_decode($_GET['oc9']);//cobrosanteriores
 $observaciones=base64_decode($_GET['oc10']);//observaciones
+$em=base64_decode($_GET['oc11']);//estructura menu
 $pc=gethostbyaddr($_SERVER['REMOTE_ADDR']);//computadora de donde se hace
 /*echo $oc1,$oc2,$oc3,$oc4,$oc5,$oc6,$oc7,$oc8,$oc9,$oc10;*/
 $con= new conectasql();
@@ -49,8 +50,8 @@ if($row3= pg_fetch_array($result3)){
                         <td>SUELDO DE LA PERSONA</td>
                         <td></td>
                         <td></td>
-                        <td><input type="number" name="'.$row3['persona_id'].'cantidadsueldo[]" value="'.$row3['sal_monto_con'].'" readonly></input></td>
-                        <td><input type="text" name="'.$row3['persona_id'].'observacionessueldo[]" value="---"></input></td>
+                        <td><input type=number  name="'.$row3['persona_id'].'cantidadsueldo[]" value="'.$row3['sal_monto_con'].'" readonly></input></td>
+                        <td><input type="text" name="'.$row3['persona_id'].'observacionessueldo[]" value="---" onkeyup="this.value=NumText(this.value)"></input></td>
                   </tr>
                 </tbody>
         ';
@@ -66,8 +67,8 @@ if($row3= pg_fetch_array($result3)){
                             <td><input value="'.$row4['co_id'].'" name="'.$row3['persona_id'].'comision[]" hidden>'.$row4['co_nombre'].'</td>
                             <td>'.$row4['co_monto'].'</td>
                             <td>'.$row4['co_porcentaje'].'</td>
-                            <td><input type="number" name="'.$row3['persona_id'].'cantidadcom[]" value="0"></input></td>
-                            <td><input type="text" name="'.$row3['persona_id'].'observacionescom[]" value="---"></input></td>
+                            <td><input type="number" onkeyup="this.value=Numeros(this.value)" step="0.01" name="'.$row3['persona_id'].'cantidadcom[]" value="0" ></input></td>
+                            <td><input type="text" name="'.$row3['persona_id'].'observacionescom[]" value="---" onkeyup="this.value=NumText(this.value)"></input></td>
                       </tr>
                     </tbody>';
                 //$monos.='*'.$row4['co_id'].'--'.$row4['co_nombre'].'<br>';

@@ -4,6 +4,7 @@ include ('../../../config/conectasql.php');
 $con= new conectasql();
 $con->abre_conexion("0");
 $conexion=$con->conexion;
+$em=base64_decode($_GET['em']);
 session_start();
 $usid=$_SESSION['us_id'];
 $tipoperiodo=base64_decode($_GET['oc3']);//tipoperiodo
@@ -25,6 +26,7 @@ $result = pg_query($conexion,$query) or die("Error en la consulta SQL");
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">   
         <script src="../gridprenominas/funcionesprenomina.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
     </head>
 
 
@@ -35,7 +37,7 @@ $result = pg_query($conexion,$query) or die("Error en la consulta SQL");
       <div>
         <div>
           <button data-toggle="modal" data-target="#squarespaceModal" class="btn" style="vertical-align:middle">Crear nómina</button>
-          <button onclick="location.href='../gridprenominas/index.php'" class="btn" style="vertical-align:middle">Listado de nóminas</button>
+          <button onclick="location.href='../gridprenominas/index.php?em=<?php echo base64_encode($em)?>'" class="btn" style="vertical-align:middle">Listado de nóminas</button>
           <!--<button data-toggle="modal" data-target="#sobrerecibo">Sobrerecibo</button>
           <button data-toggle="modal" data-target="#comparador">Comparador CONTPAQi® vs Sistema RH</button>
           <button data-toggle="modal" data-target="#historico">Histórico</button>
@@ -48,7 +50,7 @@ $result = pg_query($conexion,$query) or die("Error en la consulta SQL");
     </nav>
 
 
-
+<input hidden id="em" name="em" value="<?php echo $em?>"></input>
 <div class="modal fade" id="squarespaceModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
   <div class="modal-dialog">
 	<div class="modal-content">
@@ -121,19 +123,19 @@ $result = pg_query($conexion,$query) or die("Error en la consulta SQL");
                 </div>
                 <div class="w3-half">
                   <label>Ventas directas</label>
-                  <input id="ventasdirectas" class="w3-input w3-border" name="numventas" type="number" placeholder="Ventas directas" required onkeyup="this.value=Numeros(this.value)">
+                  <input id="ventasdirectas" class="w3-input w3-border" name="numventas" type="number"  placeholder="Ventas directas" required onkeyup="this.value=Numeros(this.value)" step="0.01">
                 </div>
                 <div class="w3-half">
                   <label>Cobros por ventas</label>
-                  <input id="cobrosporventa" class="w3-input w3-border" type="number" name="cobros" placeholder="Cobros por ventas" required onkeyup="this.value=Numeros(this.value)">
+                  <input id="cobrosporventa" class="w3-input w3-border" type="number" name="cobros"  placeholder="Cobros por ventas" required onkeyup="this.value=Numeros(this.value)" step="0.01">
                 </div>
                 <div class="w3-half">
                   <label>Saldo</label>
-                  <input id="saldo" class="w3-input w3-border" type="number" placeholder="Saldo" name="saldo" required onkeyup="this.value=Numeros(this.value)">
+                  <input id="saldo" class="w3-input w3-border" type="number" placeholder="Saldo"  name="saldo" required onkeyup="this.value=Numeros(this.value)" step="0.01">
                 </div>
                 <div class="w3-half">
                   <label>Cobranza periodos anteriores</label>
-                  <input id="cobrosanteriores" class="w3-input w3-border" type="number" placeholder="Cobranza del periodo anterior" name="cobranzaperanterior" required onkeyup="this.value=Numeros(this.value)">
+                  <input id="cobrosanteriores" class="w3-input w3-border" type="number"  placeholder="Cobranza del periodo anterior" name="cobranzaperanterior" required onkeyup="this.value=Numeros(this.value)" step="0.01">
                 </div>
                  
                 <div class="w3-half">

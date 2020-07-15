@@ -55,7 +55,7 @@ if($row3= pg_fetch_array($result3)){
                         <td></td>
                         <td></td>
                         <td><input type="number" name="'.$row3['persona_id'].'cantidadsueldo[]" value="'.$row3['sal_monto_con'].'" readonly></input></td>
-                        <td><input type="text" name="'.$row3['persona_id'].'observacionessueldo[]" value="'.$row3['tmp_observaciones'].'"></input></td>
+                        <td><input type="text" onkeyup="this.value=NumText(this.value)" name="'.$row3['persona_id'].'observacionessueldo[]" value="'.$row3['tmp_observaciones'].'"></input></td>
                   </tr>
                 </tbody>
         ';
@@ -71,8 +71,8 @@ if($row3= pg_fetch_array($result3)){
                             <td><input value="'.$row4['co_id'].'" name="'.$row3['persona_id'].'comision[]" hidden>'.$row4['co_nombre'].'</td>
                             <td>'.$row4['co_monto'].'</td>
                             <td>'.$row4['co_porcentaje'].'</td>
-                            <td><input type="number" name="'.$row3['persona_id'].'cantidadcom[]" value="'.$row4['co_cantidad'].'"></input></td>
-                            <td><input type="text" name="'.$row3['persona_id'].'observacionescom[]" value="'.$row4['co_observaciones'].'"></input></td>
+                            <td><input type="number"onkeyup="this.value=Numeros(this.value)" step="0.01" name="'.$row3['persona_id'].'cantidadcom[]" value="'.$row4['co_cantidad'].'"></input></td>
+                            <td><input type="text" onkeyup="this.value=NumText(this.value)" name="'.$row3['persona_id'].'observacionescom[]" value="'.$row4['co_observaciones'].'"></input></td>
                       </tr>
                     </tbody>';
                 //$monos.='*'.$row4['co_id'].'--'.$row4['co_nombre'].'<br>';
@@ -110,8 +110,8 @@ if($row3= pg_fetch_array($result3)){
                             <td><a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-plus-circle fa-minus-circle"></i></a>'.$select.'</td>
                             <td></td>
                             <td></td>
-                            <td><input type="number" name="'.$row3['persona_id'].'cantidadper[]" value="'.$row5['tp_monto'].'"></input></td>
-                            <td><input type="text" name="'.$row3['persona_id'].'motivoper[]" value="'.$row5['tmp_observaciones'].'"></input></td>
+                            <td><input type="number"  onkeyup="this.value=Numeros(this.value)" step="0.01" name="'.$row3['persona_id'].'cantidadper[]" value="'.$row5['tp_monto'].'"></input></td>
+                            <td><input type="text" onkeyup="this.value=NumText(this.value)" name="'.$row3['persona_id'].'motivoper[]" value="'.$row5['tmp_observaciones'].'"></input></td>
                       </tr>
                     </tbody>';
                 //$monos.='*'.$row4['co_id'].'--'.$row4['co_nombre'].'<br>';
@@ -146,8 +146,8 @@ if($row3= pg_fetch_array($result3)){
                             <td><a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-plus-circle fa-minus-circle"></i></a>'.$select.'</td>
                             <td></td>
                             <td></td>
-                            <td><input type="number" name="'.$row3['persona_id'].'cantidadded[]" value="'.$row6['td_monto'].'"></input></td>
-                            <td><input type="text" name="'.$row3['persona_id'].'motivoded[]" value="'.$row6['td_observaciones'].'"></input></td>
+                            <td><input type="number" onkeyup="this.value=Numeros(this.value)" step="0.01" name="'.$row3['persona_id'].'cantidadded[]" value="'.$row6['td_monto'].'"></input></td>
+                            <td><input type="text" onkeyup="this.value=NumText(this.value)" name="'.$row3['persona_id'].'motivoded[]" value="'.$row6['td_observaciones'].'"></input></td>
                       </tr>
                     </tbody>';
                 //$monos.='*'.$row4['co_id'].'--'.$row4['co_nombre'].'<br>';
