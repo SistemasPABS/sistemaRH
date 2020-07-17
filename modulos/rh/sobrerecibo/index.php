@@ -23,6 +23,18 @@ $con= new conectasql();
 $con->abre_conexion("0");
 $conexion=$con->conexion;
 
+$sqlautorizadores="SELECT * FROM vw_autorizadores WHERE plaza_id = $plaza";
+$resultautorizadores=pg_query($conexion,$sqlautorizadores);
+$rowautorizadores=pg_fetch_array($resultautorizadores);
+$correoautorizador=$rowautorizadores['correo'];
+
+do{
+    $autorizadores .='
+    <input hidden value="'.$rowautorizadores['us_id'].'" name="autorizadores[]"></input>
+    <input hidden value="'.$correoautorizador.'" name="correo" id="correo"></input>
+    ';
+}while($rowautorizadores=pg_fetch_array($resultautorizadores));
+
 $sql1="SELECT * FROM periodos WHERE idperiodo=$fechaperiodo";
 $result1 = pg_query($conexion,$sql1) or die("Error al obtener los periodos");
 $row1 = pg_fetch_array($result1);
@@ -140,6 +152,7 @@ if($row3= pg_fetch_array($result3)){
     <body>
         <div class="container" id="contenedor"></div>
         <input hidden id="cantpersonas" name="cantpersonas" value=""></input>
+        <input hidden id="cantautorizadores" name="cantautorizadores" value=""></input>
         <table class="custom-table">
             <thead>
                 <tr> <input hidden value="<?php echo $pc?>" name="pc"></input>
@@ -155,11 +168,13 @@ if($row3= pg_fetch_array($result3)){
                     <th>Observaciones</th>
                 </tr>
             </thead>
-            <?php echo $monos ?>
+            <?php echo $monos?>
+            <?php echo $autorizadores?>
             
         </table>
         
         <button id="submit" type="submit" onclick="enviarnomina()">GUARDAR NOMINA</button>
+        
     </form>    
 </div>
 </body>

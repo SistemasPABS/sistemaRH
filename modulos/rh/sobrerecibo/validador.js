@@ -30,19 +30,24 @@ function traerpercepcionesdeducciones(opc,btn){
  
  function enviarnomina(){
       if(confirm('En este momento se generará el registro de tu nomina')){
-          if(confirm('¿Deseas continuar?')){
-              //pendiente a realizar las validaciones 
-          var cantidadpersonas = document.getElementsByName("persona[]");
+        if(confirm('Continuar')){
+        var cantidadpersonas = document.getElementsByName("persona[]");
           var cantidadpersonas = cantidadpersonas.length;
           document.getElementById("cantpersonas").value=cantidadpersonas;
           document.todalanomina.submit();
+          
+            /*var cantidadautorizadores = document.getElementsByName("autorizadores[]");
+            var cantidadautorizadores = cantidadautorizadores.length;
+            document.getElementById("cantautorizadores").value=cantidadautorizadores;
+            var correo = document.getElementById("correo").value;
+            location.href='correonomina.php?correo='+btoa(correo);*/
           }
       }
-      
+}
 
 
 
-      function NumText(string){//solo letras y numeros
+function NumText(string){//solo letras y numeros
         var out = '';
         //Se añaden las letras validas
         var filtro = 'abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ1234567890 ';//Caracteres validos
@@ -67,4 +72,3 @@ function traerpercepcionesdeducciones(opc,btn){
         return out;
       } 
       
- }

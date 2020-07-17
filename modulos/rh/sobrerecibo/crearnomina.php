@@ -17,7 +17,6 @@ $con= new conectasql();
 $con->abre_conexion("0");
 $conexion=$con->conexion;
 
-        
 //se cuenta la cantidad de personas recibidas        
 foreach($cp AS $p) {
     //condicion para el foreach
@@ -363,14 +362,15 @@ if ($cantpersonas == $cantpersonas2 ){
     
     $letreritosuccesfully.='<div>
                                 Nomina generada con exito, ID: '.$nominaid.'
-                            </div>';
+                            </div>
+                            ';
     echo $letreritosuccesfully;
+
+include_once('correonomina.php');
     
-    $to="jnv1802@gmail.com";
-    $from="julieta.victoria.vargas@gmail.com";
-    $subject="ASUNTO DE ESTE CORREO";
-    $message="Este es el primero correo que te mando Jaime ;) saludos!";
-    mail($to,$subject,$message);
+
+    
+   
 }
 
 ?>
