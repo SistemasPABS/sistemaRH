@@ -1,5 +1,5 @@
 <?php
-include_once ('../../../config/conectasql.php');
+include_once ('../../../../config/conectasql.php');
 session_start();
 date_default_timezone_set('America/Mexico_City');
 $fecha=date("Ymd");
@@ -10,13 +10,15 @@ $cantpersonas = $_POST['cantpersonas'];
 $cantpersonas2=0;
 $cp=$_POST['persona'];
 $pc=$_POST['pc'];//computadora de donde se hace
-$idperiodo=$_POST['idperiodo'];//id de lo seleccionado de fecha inicio y fecha fin 
+$fechaperiodo=$_POST['fechaperiodo'];//id de lo seleccionado de fecha inicio y fecha fin 
 $tipoperiodo=$_POST['tipoperiodo'];
 $empid=$_POST['empid'];
 $con= new conectasql();
 $con->abre_conexion("0");
 $conexion=$con->conexion;
+$nominaid=$_POST['nominaedit'];
 
+        
 //se cuenta la cantidad de personas recibidas        
 foreach($cp AS $p) {
     //condicion para el foreach
@@ -30,7 +32,7 @@ foreach($cp AS $p) {
 if ($cantpersonas == $cantpersonas2 ){
     
     //se consulta fecha inicio y fecha fin
-    $queryfechainiciofin = "select fecha_inicio, fecha_final from periodos where idperiodo = $idperiodo ";
+    $queryfechainiciofin = "select fecha_inicio, fecha_final from periodos where idperiodo = $fechaperiodo ";
     $result = pg_query($conexion,$queryfechainiciofin);
     //echo $queryfechainiciofin;
     $mostrar = pg_fetch_array($result);
@@ -171,14 +173,9 @@ if ($cantpersonas == $cantpersonas2 ){
     //////////////////////////////////////////////////////////////////////////////////
 
     //Se genera ID de la nomina
-    $insertarnomina = "insert into nomina (fecha_inicio,fecha_fin,nom_total,nom_autorizada,plaza_id,sal_tipo_id,fechageneracion,horageneracion,us_id,pc,idperiodo,nom_autorizo) values ('$fechainicio','$fechafinal',$totalnomina,'false',$plaza,$tipoperiodo,'$fecha','$hora',$us_id,'$pc',$idperiodo,0)";
-    $result = pg_query($conexion,$insertarnomina) or die ('Error al insertar nomina');
-
-    //se consulta la nomina generada
-    $querynomina="SELECT * from nomina where us_id = $us_id and pc = '$pc' and fecha_inicio='$fechainicio'and fecha_fin = '$fechafinal' and plaza_id = $plaza and fechageneracion = '$fecha' ORDER BY nom_id DESC;";
-    $result= pg_query($conexion,$querynomina);
-    $mostrar= pg_fetch_array($result);
-    $nominaid=$mostrar['nom_id'];
+    
+    $insertarnomina = "UPDATE nomina SET fecha_inicio = '$fechainicio', fecha_fin = '$fechafinal', nom_total = $totalnomina,nom_autorizada = 'false',plaza_id = $plaza,sal_tipo_id = $tipoperiodo,fechageneracion = '$fecha',horageneracion = '$hora', us_id = $us_id, pc='$pc' WHERE nom_id=$nominaid";
+    $result = pg_query($conexion,$insertarnomina) or die ('Error al actualizar nomina'.pg_last_error());
 
     
     //////////////////////////////////////////////////////////////////////////////////
@@ -187,8 +184,9 @@ if ($cantpersonas == $cantpersonas2 ){
 
     
 
-    //VOLCADO A LA TABLA HISTORICA DE BASE NOMINA
-    $selectbn = "select * from tmp_base_nom where us_id = $us_id and fecha = '$fecha' and plaza_id  = $plaza and emp_id = $empid and sal_tipo_id = $tipoperiodo and pc = '$pc';";
+    /*VOLCADO A LA TABLA HISTORICA DE BASE NOMINA*/
+    
+    $selectbn = "select * from tmp_base_nom where us_id = $us_id and fecha = '$fecha' and plaza_id  = $plaza and emp_id = $empid and sal_tipo_id = $tipoperiodo and pc = '$pc'" ;
     $resultbn = pg_query($conexion,$selectbn);
     $rowbn = pg_fetch_array($resultbn);
     if($rowbn != NULL){
@@ -201,6 +199,8 @@ if ($cantpersonas == $cantpersonas2 ){
     }
 
     //VOLCADO A LA TABLA HISTORIA DE LOS SUELDOS
+    $sqldeletesueldosnomina= "DELETE FROM sueldos_nomina WHERE nom_id = $nominaid";
+    $resultdeletesueldosnomina = pg_query($conexion,$sqldeletesueldosnomina) or die ('Error al eliminar el registro anterior de los sueldos de la nomina'.pg_last_error());
     $selectsueldos = "SELECT * FROM tmp_sueldos_nomina WHERE us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
     $resultselectsueldos = pg_query($conexion,$selectsueldos);
     $mostrarresultsueldos = pg_fetch_array($resultselectsueldos);
@@ -213,6 +213,8 @@ if ($cantpersonas == $cantpersonas2 ){
     } 
     
     //VOLCADO A LA TABLA HISTORICA DE LAS COMISIONES
+    $sqldeletecomisionesnomina= "DELETE FROM comnom WHERE nom_id = $nominaid";
+    $resultdeletecomisionesnomina = pg_query($conexion,$sqldeletecomisionesnomina) or die ('Error al eliminar el registro anterior de las comisiones');  
     $selecttmpcomnom = "SELECT * from tmp_comnom where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
     $result = pg_query($conexion,$selecttmpcomnom);
     $campostmpcomnom = pg_fetch_array($result);
@@ -225,6 +227,8 @@ if ($cantpersonas == $cantpersonas2 ){
     }
 
     //VOLCADO A LA TABLA HISTORICA DE LAS PERCEPCIONES
+    $sqldeletepercepciones= "DELETE FROM percepciones WHERE nom_id = $nominaid";
+    $resultdeletepercepciones = pg_query($conexion,$sqldeletepercepciones) or die ('Error al eliminar el registro anterior de las percepciones');    
     $selecttmp_percepciones = "SELECT * from tmp_percepciones where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
     $result = pg_query($conexion,$selecttmp_percepciones);
     $campostmppercepciones = pg_fetch_array($result);
@@ -237,6 +241,8 @@ if ($cantpersonas == $cantpersonas2 ){
     }
    
     //VOLCADO A LA TABLA HISTORICA DE LAS DEDUCCIONES
+    $sqldeletededucciones= "DELETE FROM deducciones WHERE nom_id = $nominaid";
+    $resultdeletededucciones = pg_query($conexion,$sqldeletededucciones) or die ('Error al eliminar el registro anterior de las deducciones');
     $selecttmp_deducciones = "SELECT * from tmp_deducciones where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
     $result = pg_query($conexion,$selecttmp_deducciones);
     $campostmpdeducciones = pg_fetch_array($result);
@@ -255,7 +261,7 @@ if ($cantpersonas == $cantpersonas2 ){
 //  
 //    
 //    //se obtiene la cantidad de datos en la tabla temporal de base de nomina
-    $selecttmpbasenom = "SELECT count(*) as cuentatmpbasenom from tmp_base_nom where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
+    /*$selecttmpbasenom = "SELECT count(*) as cuentatmpbasenom from tmp_base_nom where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
     $selecttmpbasenom;
     $result = pg_query($conexion,$selecttmpbasenom);
     $valorarreglotmpbasenom = pg_fetch_array($result);
@@ -272,7 +278,7 @@ if ($cantpersonas == $cantpersonas2 ){
         $result = pg_query($conexion,$borradotmpbasenom) or die ("Verifica la sentencia SQL". pg_last_error());
     }else{
         echo 'No son iguales - TEMPORAL BASE NOMINA ';
-    } 
+    }*/ 
 //
 
     //se obtiene la cantidad de sueldos en la tabla tmp para el periodo
@@ -361,16 +367,11 @@ if ($cantpersonas == $cantpersonas2 ){
     
     
     $letreritosuccesfully.='<div>
-                                Nomina generada con exito, ID: '.$nominaid.'
-                            </div>
-                            ';
+                                Nomina actualizada con exito, ID: '.$nominaid.'
+                            </div>';
     echo $letreritosuccesfully;
-
-include_once('correonomina.php');
     
 
-    
-   
 }
 
 ?>

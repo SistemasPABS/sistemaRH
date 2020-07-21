@@ -3,29 +3,71 @@ include ('../../../config/conectasql.php');
 $con= new conectasql();
 $con->abre_conexion("0");
 $conexion=$con->conexion;
-$query = "SELECT * from vw_nomina_tiposalario_usuarios";
-$result = pg_query($conexion,$query) or die('Error en la consulta sql');
+$em=base64_decode($_GET['em']);
+$filtroinicio= base64_decode($_GET['fechacreacioninicio']);
+$filtrofin= base64_decode($_GET['fechacreacionfin']);
+session_start();
+$usid=$_SESSION['us_id'];
+//echo $em.'-'.$filtroinicio.'--'.$filtrofin;
+//SE VAN A CONSULTAR SI EL USUARIO TIENE LOS PERMISOS PARA EDITAR Y/O AUTORIZAR LA NOMINA
+$con->permisos('papp',$em,$usid);
+if(in_array(59,$con->p3)){
+    $permisobotoneditar = 1;
+}
+if(in_array(60,$con->p3)){
+    $permisobotonautorizar = 1;
+}
+
+if($filtroinicio != NULL && $filtrofin != NULL){
+    //QUERY CON FILTROS
+    $query = "SELECT * from vw_nomina_tiposalario_usuarios  WHERE fechageneracion BETWEEN '$filtroinicio' AND '$filtrofin' limit 200";
+}else{
+    //QUERY SIN FILTROS
+    $query = "SELECT * from vw_nomina_tiposalario_usuarios limit 200";
+}
+$result = pg_query($conexion,$query) or die('Error en la consulta sql'.pg_last_error());
 $mostrar = pg_fetch_array($result);
+
+
+
 do{
 $renglonesloquesea .='
   <tr>  
-  <td> '.$mostrar['nom_id'].'</td>
-  <td> '.$mostrar['sal_tipo_nombre'].'
+
+  <td> '.$mostrar['nom_id'].'<input hidden value="'.$mostrar['nom_id'].'" name="'.$mostrar['nom_id'].'" id="'.$mostrar['nom_id'].'">
+  <td> '.$mostrar['sal_tipo_nombre'].' 
   <td> '.$mostrar['fecha_inicio'].'</td>
   <td> '.$mostrar['fecha_fin'].'</td>
   <td> '.$mostrar['fechageneracion'].'</td>
   <td> '.$mostrar['us_login'].'</td>
-  <td> '.$mostrar['nom_autorizada'].'</td>
-  <td> '.$mostrar['nom_total'].'</td> 
-</tr> ';
+  <td> '.$mostrar['nombreautorizador'].'</td>
+  <td> '.$mostrar['nom_total'].'</td>';
+  if($permisobotoneditar==1){
+      $botoneditar='<a></a><input onclick="location.href=\'editarnomina.php?idnom='.$mostrar['nom_id'].'\'" type="button" value="Editar"></input>';
+  }else{
+    $botoneditar='';
+  }
+  $renglonesloquesea .='<td>'.$botoneditar.'</td>';
+  
+  
+  if($permisobotonautorizar==1){
+      $botonautorizar='<input type="button" name="autorizar" id="autorizar" value="Autorizar" onclick="autorizarnomina(this)"></input>';
+  }else{
+      $botonautorizar='';
+  }
+  $renglonesloquesea .='<td>'.$botonautorizar.'</td>';
+$renglonesloquesea .='</tr>';
 }while($mostrar=pg_fetch_array($result))
 ?>
+
+
 <html>
     <head>
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-        
+        <script src="../gridprenominas/editarnomina.js"></script>
+        <script src="../gridprenominas/autorizarnomina/autorizarnomina.js"></script>
     </head>
     
     <style>
@@ -85,16 +127,27 @@ $renglonesloquesea .='
             <div class="table-wrap">
                 <table id="sponsorTable" class="table table-condensed table-striped table-hover">
                     <thead>
+                        <div>
+                            <input hidden value="<?php echo $em?>" id="em" name="em"></input>
+                            <label>Filtrar por fecha de creación de Nómina</label>
+                            <input type="date" id="fechacreacioninicio" name="fechacreacioninicio"></input>
+                            <input type="date" id="fechacreacionfin" name="fechacreacionfin"></input>
+                            <button onclick=filtrarporfechas()>filtrar</button>
+                        </div>
                         <tr class="warning">
-                            <th width="35%" class="text-center" scope="col">Folio de Nomina</th>
+                            <button class="btn" onclick=reload()><i class="fa fa-home"></i></button>
+                            <th width="5%" class="text-center" scope="col">Folio de Nomina</th>
                             <th width="20%" class="text-center" scope="col">Tipo de periodo</th>
                             <th width="20%" class="text-center" scope="col">Fecha Inicio</th>
                             <th width="20%" class="text-center" scope="col">Fecha Fin</th>
                             <th width="35%" class="text-center" scope="col">Fecha de creacion de nomina</th>
                             <th width="35%" class="text-center" scope="col">Quien realizo nomina</th>
-                            <th width="35%" class="text-center" scope="col">Autorizada</th>
+                            <th width="35%" class="text-center" scope="col">Autorizada por</th>
                             <th width="35%" class="text-center" scope="col">Total de la nomina</th>
-                            <?php echo $renglonesloquesea; ?>
+                            <th width="35%" class="text-center" >Editar</th>
+                            <th width="35%" class="text-center" >Autorizar</th>
+                            
+                            <?php echo $renglonesloquesea;?>
                         </tr>
                     </thead>
                     <tbody>
@@ -103,69 +156,18 @@ $renglonesloquesea .='
                     <tfoot>
                         <tr>
                             <td colspan="3" class="text-center">
-                                <img src=""></img>
-                                <h4 class="font-bold text-red">Programa de Apoyo de Beneficio Social</h4></b>
+                                <!---<img src="../../../images/logo.png"></img>--->
                             </td>  
                         
                         </tr>
                     </tfoot>
                 </table>
             </div>
-        </div>
+        
+    </div>
     </div>
 </div>
 </body>   
 </html>
-
-<!---
-<!DOCTYPE html>
-<html>
-<head>
-<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<style>
-table {
-  font-family: arial, sans-serif;
-  border-collapse: collapse;
-  width: 100%;
-}
-
-td, th {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-}
-
-tr:nth-child(even) {
-  background-color: #dddddd;
-}
-</style>
-</head>
-        <body>
-            <div>
-                <button class="button disabled">Autorizar Nómina</button>
-                <button class="button">Editar Nómina</button>
-                <button class="button">Exportar a Excel</button>
-            </div> 
-
-            <div id="sailorTableArea">
-                <table>
-                        <tr id="titletable">
-                            <td>Nombre Completo</td>
-                            <td>Percepciones</td>
-                            <td>Deducciones</td>
-                            <td>Sueldo</td>
-                            <td>Sobrerecibo</td>
-                        </tr>
-                <?php echo $renglonesloquesea; ?>
-                </table> 
-              </div>  
-            
-        </body>  
-    </html>
-</table>-->
-
-
 
 

@@ -1,6 +1,6 @@
 <?php
 //echo 'hola';
-include_once ('../../../config/conectasql.php');
+include_once ('../../../../config/conectasql.php');
 session_start();
 $us_id=$_SESSION['us_id'];
 $opc= base64_decode($_POST['opc']);
@@ -32,11 +32,11 @@ $select .='<select name="'.$perid.$equis.'[]">';
     }while($mostrar= pg_fetch_array($result));
     
 $select .='<select>';
-$contenidofila .='<td>'.$select.'</td>
+$contenidofila .='<td><a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-plus-circle fa-minus-circle"></i></a>'.$select.'</td>
                   <td></td>
                   <td></td>
-                  <td><input name="'.$perid.'cantidad'.$equis.'[]" type="number" value="0" onkeyup="this.value=Numeros(this.value)" step="0.01"></input></td>
-                  <td><input name="'.$perid.'motivo'.$equis.'[]" type="text" value="--" onkeyup="this.value=NumText(this.value)"></input></td>';
+                  <td><input name="'.$perid.'cantidad'.$equis.'[]" type="number" onkeyup="this.value=Numeros(this.value)" step="0.01"></input></td>
+                  <td><input name="'.$perid.'motivo'.$equis.'[]" type="text" onkeyup="this.value=NumText(this.value)"></input></td>';
 echo $contenidofila;
         
 ?>
