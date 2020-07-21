@@ -87,7 +87,7 @@ $result = pg_query($conexion,$query) or die("Error en la consulta SQL");
         
                           ?>
                       </select>
-                  </div>
+                  </div> 
 
                     <div>
                       <label>Selecciona un tipo de periodo</label>

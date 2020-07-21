@@ -18,8 +18,6 @@ include('../../../config/conectasql.php');
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="lanzaderareportes.js"></script>';
-        
-        
     }
 
     public function interfaz() {
@@ -40,7 +38,7 @@ include('../../../config/conectasql.php');
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="col-xs-2">1</td><td class="col-xs-8">Reporte principal de nomina</td><td><input type="button" id="idreporte" name="idreporte" onclick=window_open()></input></td>
+                                    <td class="col-xs-2">1</td><td class="col-xs-8">Reporte principal de nomina</td><td><input type="button" id="idreporte" name="idreporte" onclick=window_open() value="Exportar"></input></td>
                                 </tr>
                             </tbody>
                         </table>
