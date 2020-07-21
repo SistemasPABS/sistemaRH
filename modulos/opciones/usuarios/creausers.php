@@ -1,7 +1,7 @@
 <?php
 include ('../../../config/conectasql.php');
 
-class creaplazas extends conectasql{
+class creausers extends conectasql{
     protected $usid;
     protected $em;
     
@@ -13,7 +13,7 @@ class creaplazas extends conectasql{
      public function librerias() {
         echo '<link rel="stylesheet" type="text/css" href="../../../estilos/estilos.css">';
         echo '<style type="text/css">.fondotrabajo{background-color: transparent;background-image: none;}</style>';
-        echo '<script type="text/javascript" src="lanzaderaplazas.js"></script>';
+        echo '<script type="text/javascript" src="lanzaderausers.js"></script>';
         /*librerias necesarias para generar el grid*/
         echo '<link rel="stylesheet" href="../../../librerias/jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
         <script type="text/javascript" src="../../../librerias/jqwidgets/scripts/jquery-1.10.2.min.js"></script>
@@ -38,12 +38,12 @@ class creaplazas extends conectasql{
     
      public function interfaz() {
         echo '<form name="opbusqueda" id="opbusqueda" method="post" action="exportar.php" target="_blank" >';
-            echo '<div class="titulo"> Catalogo de Plazas </div>';
+            echo '<div class="titulo"> Catalogo de Usuarios </div>';
             echo '<div name="busqueda" id="busqueda">';
                 echo 'Buscar por: ';
                 echo '<select class="selectbuscar" name="buscaopcion" id="buscaopcion" onchange="cambiaopciones(\'parametro\');">';
                     echo '<option value="nom" > Nombre </option>';
-                    echo '<option value="cve" > Numero </option>';
+                    echo '<option value="log" > Login  </option>';
                 echo '</select>';
                 echo '</div>';
                 echo '<div name="paramentro" id="parametro"> <input type="text" id="busca" name="busca" class="campobuscar"></div>';
@@ -52,10 +52,10 @@ class creaplazas extends conectasql{
                 echo '<div name="toolbar" id="toolbar" style="">';
                 $this->permisos('papp', $this->em,$this->usid);
                 //print_r($this->p3);
-                if(in_array(18, $this->p3)){echo '<input class="cierre2" type="button" name="nuevo"    id="nuevo"    value="Nuevo"     onclick="popup(\'administrar/nuevo_editar_plaza.php\',\''. base64_encode($this->em).'\',\''. base64_encode('nuevo').'\');"  style="width:45px;" > ';}
-                if(in_array(19, $this->p3)){echo '<input class="cierre2" type="button" name="editar"   id="editar"   value="Editar"    onclick="edita(\'administrar/nuevo_editar_plaza.php\',\''. base64_encode($this->em).'\',\''. base64_encode('editar').'\');" style="width:40px;" > ';}
-                if(in_array(20, $this->p3)){echo '<input class="cierre2" type="button" name="eliminar" id="eliminar" value="Eliminar"  onclick="eliminar_r(\'administrar/eliminarplaza.php\');"   style="width:50px;" > ';}
-                if(in_array(21, $this->p3)){echo '<input class="cierre2" type="button" name="export"   id="expxls"   value="XLS"       onclick="exportar(\'exportar.php\',\'xls\');"               style="width:40px;" > ';}
+                if(in_array(64, $this->p3)){echo '<input class="cierre2" type="button" name="nuevo"    id="nuevo"    value="Nuevo"     onclick="popup(\'administrar/nuevo_editar_user.php\',\''. base64_encode($this->em).'\',\''. base64_encode('nuevo').'\');"  style="width:45px;" > ';}
+                if(in_array(65, $this->p3)){echo '<input class="cierre2" type="button" name="editar"   id="editar"   value="Editar"    onclick="edita(\'administrar/nuevo_editar_user.php\',\''. base64_encode($this->em).'\',\''. base64_encode('editar').'\');" style="width:40px;" > ';}
+                if(in_array(66, $this->p3)){echo '<input class="cierre2" type="button" name="eliminar" id="eliminar" value="Eliminar"  onclick="eliminar_r(\'administrar/eliminarplaza.php\');"   style="width:50px;" > ';}
+                if(in_array(67, $this->p3)){echo '<input class="cierre2" type="button" name="export"   id="expxls"   value="XLS"       onclick="exportar(\'exportar.php\',\'xls\');"               style="width:40px;" > ';}
             echo '</div>';  
         $this->listado();
         echo '</form>';

@@ -140,3 +140,65 @@ div.rtabla{
     color:black;
     text-align: center;
 }
+
+div.contpestanas{
+    width:600px;
+    height: auto;
+    margin-top: 30px;
+    border-radius: 0;
+    padding: 10px 10px 15px 5px;
+    box-shadow: 0 5px 5px 0px rgba(1, 1, 1, 0.9);
+    background-color: #035f9f;
+    font-size: 8pt;
+    color: white;
+    position: absolute;
+}
+
+.carpeta{
+    border: 1px solid gray;
+    position: relative;
+    top: 8px;
+    padding-bottom: 10px;
+    z-index: 0;
+    color: black;
+    height: auto;
+    background-color: white;
+    text-align: left;
+}
+
+.pestaña{
+    left: 1px;
+    display: inline;
+    margin: 3px 1px;
+    padding: 4px;
+    border: 0 outset gray;
+    position: relative;
+    top: 6px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.pestaña a{color: black;border: 0;text-decoration: none;}
+.pestaña a:focus{width:0px;height:0px;outline:0px;}
+a:focus{outline: 0px;}
+#general,#permisos {background-color: white;}
+.on {background-color: white;border-style: inset;border-bottom: 0;z-index: 100;animation:mymove 3s;animation-delay:-1s;/*Safari and Chrome*/-webkit-animation:mymove 3s;-webkit-animation-delay:-1s;}
+@keyframes mymove{from {background-color:#035f9f;} to {background-color:white;}}
+@-webkit-keyframes mymove{from {background-color: green;} to {background-color: white;}}
+.off {background-color: #cccccc;z-index: 0;}
+.off:hover {background-color: white;border-top-left-radius: 3px;border-top-right-radius: 3px;}
+input.index2 {border-radius: 0;font-size:8pt;width: 60px;height: 30px;border: 1px;}
+input.index2::-moz-focus-inner{border:0;}
+.index2:hover{background-color: #cccccc;}
+.index2:before{background-color: white;}
+.btnadd2{
+    margin-left: 5px;
+    margin-top: -10px;
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 14px;
+    color: #ffffff;
+    background-color: #1883ba;
+    border-radius: 0px;
+    border: 1px solid #0016b0;
+}

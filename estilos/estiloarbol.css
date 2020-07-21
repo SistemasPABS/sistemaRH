@@ -1,0 +1,55 @@
+#menu1 {
+        padding-top: 10px;
+        padding-bottom: 10px;
+	padding-left: 40px;
+	list-style: inside;
+        font-family: sans-serif;
+}
+html > body #menu1{
+	list-style: inside;
+}
+
+#menu1 ul {padding-left: 40px;}
+
+.cAbierta{
+	list-style-type: none;
+        list-style-image: url(images/downicon.png);
+}
+.cAbiertaSeleccionada{
+	list-style-type: none;
+        
+}
+.cCerradaSeleccionada{
+	list-style-type: none;
+}
+.cCerrada{
+	list-style-type: none;
+        list-style-image: url('images/nexticon.png');
+       
+}
+.menuDoc{
+	list-style-type: none;
+	list-style-image: url(images/documentico.png);
+}
+.tagApartado, a.tagApartado{
+	cursor: pointer;
+	font-weight: bold;
+	text-decoration: none;
+        border-radius: 1px;
+        text-decoration: none;
+        outline: 0px;
+            
+}
+.documentoActual{
+}
+
+#menu1 a {
+	color: black;
+        text-decoration: none;
+        outline: 0px;
+        
+}
+.documentoActual a{
+	color:#993300;
+}
+
