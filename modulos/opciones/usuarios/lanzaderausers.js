@@ -11,16 +11,16 @@ function input(id){
 
 function popup(url,estid,op) {
         popupWindow = window.open(
-	url+'?em='+estid+'&op='+op,'aplz'+op,'height=350px,width=500px,left=200,top=200, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
+	url+'?em='+estid+'&op='+op,'ausr'+op,'height=350px,width=500px,left=200,top=200, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
 }
 
 function edita(url,estid,op){
-    var plz = document.getElementsByClassName("jqx-fill-state-pressed")[0].textContent;
+    var usr = document.getElementsByClassName("jqx-fill-state-pressed")[0].textContent;
     //alert(plz);
-    if(plz != 0){
-        if(confirm('¿Desea editar los datos del registro '+plz+'?')){
+    if(usr != 0){
+        if(confirm('¿Desea editar los datos del usuario '+usr+'?')){
             popupWindow = window.open(
-            url+'?em='+estid+'&op='+op+'&plz='+btoa(plz),'aplz'+btoa(plz),'height=350px,width=500px,left=0,top=0, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
+            url+'?em='+estid+'&op='+op+'&usr='+btoa(usr),'ausr'+btoa(usr),'height=350px,width=500px,left=0,top=0, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
         }
     }else{
         alert('Seleccione plaza para editar');
@@ -29,14 +29,14 @@ function edita(url,estid,op){
 
 function eliminar_r(url) {
     //alert('hola');
-    var plz = document.getElementsByClassName("jqx-fill-state-pressed")[0].textContent;
-    if(plz != 0){
-        if(confirm('¿Desea eliminar la plaza '+plz+'?')){
+    var usr = document.getElementsByClassName("jqx-fill-state-pressed")[0].textContent;
+    if(usr != 0){
+        if(confirm('¿Desea eliminar la plaza '+usr+'?')){
             //alert('hola');
             $.ajax({
                 type:"POST",
                 url:url,
-                data:{plz:btoa(plz)},
+                data:{usr:btoa(usr)},
                 success: function(data){
                 alert(data);    //success: function(datos){ $(\'#tabla\').html(datos); }
                 genera();
@@ -70,9 +70,10 @@ function genera() {
                 {
                     datatype: "json",
                     datafields: [
-                        { name: 'plaza_id'},
-                        { name: 'plaza_nombre'},
-                        { name: 'plaza_activo'}
+                        { name: 'us_login'},
+                        { name: 'nombrecompleto'},
+                        { name: 'correo'},
+                        { name: 'us_activo'},
                         ],
                         
                     url: 'datagrid.php'
@@ -90,9 +91,10 @@ function genera() {
                     autoheight: true,
                     columnsresize: true,
                     columns: [
-                      { text: 'ID', datafield: 'plaza_id',width: 150,cellsalign: 'center'},
-                      { text: 'Nombre', datafield: 'plaza_nombre',width: 500,cellsalign: 'center'},
-                      { text: 'Status', datafield: 'plaza_activo', width: 340,cellsformat: 'center' },
+                      { text: 'Login', datafield: 'us_login',width: 150,cellsalign: 'center'},
+                      { text: 'Nombre', datafield: 'nombrecompleto',width: 500,cellsalign: 'center'},
+                      { text: 'Correo', datafield: 'correo', width: 240,cellsformat: 'center' },
+                      { text: 'Activo', datafield: 'us_activo', width: 100,cellsformat: 'center' },
                      ]
                 });
 
@@ -135,9 +137,10 @@ function enviar() {
                 {
                     datatype: "json",
                     datafields: [
-                        { name: 'plaza_id'},
-                        { name: 'plaza_nombre'},
-                        { name: 'plaza_activo'}
+                        { name: 'us_login'},
+                        { name: 'nombrecompleto'},
+                        { name: 'correo'},
+                        { name: 'us_activo'}
                     ],
                         
                     url: 'datagrid.php?oc1='+btoa(dato)+'&oc2='+btoa(dato2)+''
@@ -155,9 +158,10 @@ function enviar() {
                     autoheight: true,
                     columnsresize: true,
                     columns: [
-                      { text: 'ID', datafield: 'plaza_id',width: 150,cellsalign: 'center'},
-                      { text: 'Nombre', datafield: 'plaza_nombre',width: 500,cellsalign: 'center'},
-                      { text: 'Status', datafield: 'plaza_activo', width: 340,cellsformat: 'center' },
+                      { text: 'Login', datafield: 'us_login',width: 150,cellsalign: 'center'},
+                      { text: 'Nombre', datafield: 'nombrecompleto',width: 500,cellsalign: 'center'},
+                      { text: 'Correo', datafield: 'correo', width: 240,cellsformat: 'center' },
+                      { text: 'Activo', datafield: 'us_activo', width: 100,cellsformat: 'center' },
                     ]
 
                 });

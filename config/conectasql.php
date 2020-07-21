@@ -21,10 +21,10 @@ class conectasql{
     public $bancarios;
     public $documentos;
     public $plazas;
-    public $consulta;
     public $autoriza;
     public $flag1;
     public $flag2;
+    public $consulta;
     public $consulta2;
     public $consulta3;
     public $consulta4;
@@ -409,9 +409,20 @@ class conectasql{
         $this->update='1'; 
     }
     
+    public function consulta_plaza_contratos($plaza) {
+        $sql="select * from vw_contratos where plaza_id = $plaza and con_status = 1 order by con_id desc";
+        $result= pg_query($this->conexion,$sql) or die("Error cpc:". pg_last_error());//error consultando los contratos activos de la plaza
+        if($row= pg_fetch_array($result)){
+            $this->consulta=0;
+        }else{
+            $this->consulta=1;
+        }
+    }
+    
     //funcion para eliminar plaza
-    public function elima_plaza($idplaza) {
-        
+    public function elimina_plaza($plaza) {
+       $sql="delete from plazas where plaza_id = $plaza"; 
+       $result= pg_query($this->conexion,$sql) or die("Error bplz:". pg_last_error());//error borrando plaza
     }
     
     //Consulta de sucursales
@@ -767,6 +778,27 @@ class conectasql{
         $sql="update doc_expedientes set exp_desc='$desc', exp_ruta='$doc', exp_fecha='$fecha', exp_hora='$hora', txp_id=$tipo_exp where exp_id=$registro";
         $result = pg_query($this->conexion,$sql) or die("Error udexp: ". pg_last_error());
         $this->update.="1"; 
+    }
+    
+    public function consulta_permisos_actuales($nivel) {
+        if($nivel == 0){
+            $sql="select * from permisos where per_idpadre = 0";
+            $result= pg_query($this->conexion,$sql);
+            $row= pg_fetch_array($result);
+            $this->consulta=$row;
+        }
+        if($nivel == 1){
+            $sql="select * from permisos where per_idpadre = 0";
+            $result= pg_query($this->conexion,$sql);
+            $row= pg_fetch_array($result);
+            $this->consulta1=$row;
+        }
+        if($nivel == 2){
+            $sql="select * from permisos where per_idpadre = 0";
+            $result= pg_query($this->conexion,$sql);
+            $row= pg_fetch_array($result);
+            $this->consulta2=$row;
+        }
     }
      
 }
