@@ -1,3 +1,8 @@
+$('#empresa').multiselect({
+  columns: 1,
+  placeholder: 'Select Languages'
+});
+
 function comenzarnomina(){
     
     var plazas = document.getElementById("plazas").value;
@@ -10,7 +15,7 @@ function comenzarnomina(){
     var saldo = document.getElementById("saldo").value;
     var cobrosanteriores = document.getElementById("cobrosanteriores").value;
     var observaciones = document.getElementById("observaciones").value;
-    var em=document.getElementById("em").value;
+    var em = document.getElementById("em").value;
 
 
     if (document.modalnomina.plazas.value.length==0){

@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-
-=======
 <?php
 include ('../../../config/cookie.php');
 session_start();
@@ -18,4 +15,3 @@ echo '</html>';
 
 
 ?>
->>>>>>> 109a0f762afa6e25cd8ed9ae2f25b03f8cc77158

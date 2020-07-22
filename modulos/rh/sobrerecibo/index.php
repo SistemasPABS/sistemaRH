@@ -19,6 +19,7 @@ $observaciones=base64_decode($_GET['oc10']);//observaciones
 $em=base64_decode($_GET['oc11']);//estructura menu
 $pc=gethostbyaddr($_SERVER['REMOTE_ADDR']);//computadora de donde se hace
 /*echo $oc1,$oc2,$oc3,$oc4,$oc5,$oc6,$oc7,$oc8,$oc9,$oc10;*/
+//echo $empid;
 $con= new conectasql();
 $con->abre_conexion("0");
 $conexion=$con->conexion;
@@ -27,6 +28,10 @@ $sqlautorizadores="SELECT * FROM vw_autorizadores WHERE plaza_id = $plaza";
 $resultautorizadores=pg_query($conexion,$sqlautorizadores);
 $rowautorizadores=pg_fetch_array($resultautorizadores);
 $correoautorizador=$rowautorizadores['correo'];
+
+/*$cadenaempresas = substr($empid,1);
+echo $cadenaempresas;*/
+
 
 do{
     $autorizadores .='
@@ -39,10 +44,10 @@ $sql1="SELECT * FROM periodos WHERE idperiodo=$fechaperiodo";
 $result1 = pg_query($conexion,$sql1) or die("Error al obtener los periodos");
 $row1 = pg_fetch_array($result1);
 
-$sql2="INSERT into tmp_base_nom (us_id,fecha,hora,plaza_id,num_ventas,venta_directa,cobros,saldo,cobros_per_ant,observaciones,emp_id,sal_tipo_id,fecha_inicio,fecha_fin,pc) values ($us_id,'$fecha','$hora',$plaza,$numservicios,$ventasdirectas,$cobrosporventa,$saldo,$cobrosanteriores,'$observaciones',$empid,$tipoperiodo,'".$row1['fecha_inicio']."','".$row1['fecha_final']."','$pc')";
-$result2 = pg_query($conexion,$sql2) or die("Error en la insercion de datos temporales de base nom");
+$sql2="INSERT into tmp_base_nom (us_id,fecha,hora,plaza_id,num_ventas,venta_directa,cobros,saldo,cobros_per_ant,observaciones,emp_id,sal_tipo_id,fecha_inicio,fecha_fin,pc) values ($us_id,'$fecha','$hora',$plaza,$numservicios,$ventasdirectas,$cobrosporventa,$saldo,$cobrosanteriores,'$observaciones','$empid',$tipoperiodo,'".$row1['fecha_inicio']."','".$row1['fecha_final']."','$pc')";
+$result2 = pg_query($conexion,$sql2) or die("Error en la insercion de datos temporales de base nom".pg_last_error());
 
-$sql3="select * from vw_contratos where con_status = 1 and sal_tipo_id = $tipoperiodo and emp_id  = $empid and plaza_id = $plaza";
+$sql3="select * from vw_contratos where con_status = 1 and sal_tipo_id = $tipoperiodo and emp_id = '$empid' and plaza_id = $plaza";
 $result3= pg_query($conexion,$sql3);
 if($row3= pg_fetch_array($result3)){
     do{
@@ -62,6 +67,7 @@ if($row3= pg_fetch_array($result3)){
                         <td>SUELDO DE LA PERSONA</td>
                         <td></td>
                         <td></td>
+                        <td></td>
                         <td><input type=number  name="'.$row3['persona_id'].'cantidadsueldo[]" value="'.$row3['sal_monto_con'].'" readonly></input></td>
                         <td><input type="text" name="'.$row3['persona_id'].'observacionessueldo[]" value="---" onkeyup="this.value=NumText(this.value)"></input></td>
                   </tr>
@@ -77,9 +83,10 @@ if($row3= pg_fetch_array($result3)){
                       <tr class="toggler toggler1">
                         <td rowspan="9999"></td>
                             <td><input value="'.$row4['co_id'].'" name="'.$row3['persona_id'].'comision[]" hidden>'.$row4['co_nombre'].'</td>
-                            <td>'.$row4['co_monto'].'</td>
-                            <td>'.$row4['co_porcentaje'].'</td>
+                            <td><input value="'.$row4['co_monto'].'" readonly></input></td>
+                            <td><input value="'.$row4['co_porcentaje'].'" readonly></input></td>
                             <td><input type="number" onkeyup="this.value=Numeros(this.value)" step="0.01" name="'.$row3['persona_id'].'cantidadcom[]" value="0" ></input></td>
+                            <td><input type="number" onkeyup="this.value=Numeros(this.value)" step="0.01" name="'.$row3['persona_id'].'cantidadcompesos[]" value="0" ></input></td>
                             <td><input type="text" name="'.$row3['persona_id'].'observacionescom[]" value="---" onkeyup="this.value=NumText(this.value)"></input></td>
                       </tr>
                     </tbody>';
@@ -155,7 +162,8 @@ if($row3= pg_fetch_array($result3)){
         <input hidden id="cantautorizadores" name="cantautorizadores" value=""></input>
         <table class="custom-table">
             <thead>
-                <tr> <input hidden value="<?php echo $pc?>" name="pc"></input>
+                <tr>
+                    <input hidden value="<?php echo $pc?>" name="pc"></input>
                     <input hidden value="<?php echo $fechaperiodo?>" name="idperiodo"></input>
                     <input hidden value="<?php echo $plaza?>" name="plaza"></input>
                     <input hidden value="<?php echo $tipoperiodo?>" name="tipoperiodo"></input>
@@ -164,7 +172,8 @@ if($row3= pg_fetch_array($result3)){
                     <th>Nombre</th>
                     <th>Monto</th>
                     <th>Porcentaje</th>
-                    <th>Cantidad</th> 
+                    <th>Cantidad</th>
+                    <th>Cantidad en pesos ($$)</th>  
                     <th>Observaciones</th>
                 </tr>
             </thead>
