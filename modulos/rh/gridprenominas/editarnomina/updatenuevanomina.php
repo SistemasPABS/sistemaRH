@@ -105,7 +105,7 @@ if ($cantpersonas == $cantpersonas2 ){
 
             for($i=0; $i < $largo; $i++){
                  $sql="INSERT into tmp_percepciones (us_id,persona_id,tp_id,tp_monto,tmp_observaciones,pc,fecha_inicio,fecha_fin,plaza_id,tp_cuantos) values ($us_id, $p,$perid[$i],$monto[$i],'$observaciones[$i]','$pc','$fechainicio','$fechafinal',$plaza,$cuantos[$i])";
-                 echo $sql;
+                 //echo $sql;
                  $result= pg_query($conexion,$sql) or die("Error insertando tmp_percepciones". pg_last_error());
             }
 
