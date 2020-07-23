@@ -23,7 +23,7 @@ $idnominaenproceso = $obtenerresult['idnom'];
   //Obtener informacion de la empresa 
   $idempresa = $mostrar['emp_id'];
   $queryidempresa="SELECT * FROM empresas where emp_id = $idempresa";
-  $resultqueryidempresa = pg_query($conexion,$query) or die("Error en la consulta SQL".pg_last_error());
+  $resultqueryidempresa = pg_query($conexion,$queryidempresa) or die("Error en la consulta SQL".pg_last_error());
   $mostrarempresa = pg_fetch_array($resultqueryidempresa);
   
   //Obtener informacion de las plazas
