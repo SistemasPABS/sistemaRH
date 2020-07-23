@@ -1,7 +1,3 @@
-$('#empresa').multiselect({
-  columns: 1,
-  placeholder: 'Select Languages'
-});
 
 function comenzarnomina(){
     

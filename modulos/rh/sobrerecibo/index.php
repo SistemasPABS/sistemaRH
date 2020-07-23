@@ -81,13 +81,13 @@ if($row3= pg_fetch_array($result3)){
             do{
             $monos .='
                       <tr class="toggler toggler1">
-                        <td rowspan="9999"></td>
-                            <td><input value="'.$row4['co_id'].'" name="'.$row3['persona_id'].'comision[]" hidden>'.$row4['co_nombre'].'</td>
-                            <td><input value="'.$row4['co_monto'].'" readonly></input></td>
-                            <td><input value="'.$row4['co_porcentaje'].'" readonly></input></td>
-                            <td><input type="number" onkeyup="this.value=Numeros(this.value)" step="0.01" name="'.$row3['persona_id'].'cantidadcom[]" value="0" ></input></td>
-                            <td><input type="number" onkeyup="this.value=Numeros(this.value)" step="0.01" name="'.$row3['persona_id'].'cantidadcompesos[]" value="0" ></input></td>
-                            <td><input type="text" name="'.$row3['persona_id'].'observacionescom[]" value="---" onkeyup="this.value=NumText(this.value)"></input></td>
+                            <td rowspan="9999"></td>
+                            <td><input value="'.$row4['co_id'].'" name="'.$row3['persona_id'].'comision[]" hidden >'.$row4['co_nombre'].'</td>
+                            <td><input value="'.$row4['co_monto'].'" readonly></td>
+                            <td><input value="'.$row4['co_porcentaje'].'" readonly></td>
+                            <td><input type="number" onkeyup="this.value=Numeros(this.value)" step="0.01" name="'.$row3['persona_id'].'cuantos[]" value="0"></td>
+                            <td><input type="number" onkeyup="this.value=Numeros(this.value)" step="0.01" name="'.$row3['persona_id'].'cantidadcom[]" value="0" ></td>
+                            <td><input type="text" name="'.$row3['persona_id'].'observacionescom[]" value="---" onkeyup="this.value=NumText(this.value)"></td>
                       </tr>
                     </tbody>';
                 //$monos.='*'.$row4['co_id'].'--'.$row4['co_nombre'].'<br>';
@@ -114,6 +114,7 @@ if($row3= pg_fetch_array($result3)){
         <script src="../prenominas/styles/navbar2.js"></script>
         <script src="../prenominas/styles/jquery.js"></script> 
         <script src="validador.js"></script>
+        <script src="../gridprenominas/calculadoracomisiones.js"></script>
     </head>
     
     
