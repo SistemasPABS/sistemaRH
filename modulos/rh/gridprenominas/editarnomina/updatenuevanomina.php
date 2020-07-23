@@ -161,7 +161,7 @@ if ($cantpersonas == $cantpersonas2 ){
         $mostrarsuma = pg_fetch_array($resultsuma);
         $montosumacomisionespersona= 0;
         do{
-            $montosumacomisionespersona=$montosumacomisionespersona+$mostrarsuma['co_cuantos'];    
+            $montosumacomisionespersona=$montosumacomisionespersona+$mostrarsuma['co_cantidad'];    
         }while ($mostrarsuma = pg_fetch_array($resultsuma));
 
         //inicia proceso para obtener el monto total de la suma de percepciones por persona
@@ -256,7 +256,7 @@ if ($cantpersonas == $cantpersonas2 ){
         do{    
            $insertpercepciones = "INSERT into percepciones (nom_id,us_id,fecha,hora,persona_id,tp_id,tp_monto,tmp_observaciones,fecha_inicio,fecha_fin,pc,tp_cuantos) values ($nominaid,$us_id,'$fecha','$hora',".$campostmppercepciones['persona_id'].",".$campostmppercepciones['tp_id'].",".$campostmppercepciones['tp_monto'].",'".$campostmppercepciones['tmp_observaciones']."','".$campostmppercepciones['fecha_inicio']."','".$campostmppercepciones['fecha_fin']."','$pc',".$campostmppercepciones['tp_cuantos'].");";
            $resultinsertpercepciones=pg_query($conexion,$insertpercepciones) or die ('ERROR AL INSERTAR EN LA TABLA CHIDA DE LAS PERCEPCIONES'.pg_last_error());
-           echo $insertpercepciones;  
+           //echo $insertpercepciones;  
         }while($campostmppercepciones = pg_fetch_array($result));
     }
    
@@ -391,8 +391,8 @@ if ($cantpersonas == $cantpersonas2 ){
                             </div>';
     echo $letreritosuccesfully;
 
-    $deleteedicion = "DELETE from controlador_nomina where nom_id=$nominaid";
-    $resultdelete=pg_query($conexion,$deleteedicion);
+    $deleteedicion = "DELETE from controlador_nomina where idnom = $nominaid";
+    $resultdelete=pg_query($conexion,$deleteedicion) or die ('Error al eliminar el block de edicion de nomina'.pg_last_error());
     
 
 }
