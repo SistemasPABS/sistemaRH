@@ -30,7 +30,7 @@
 
             //Recipients
             $mail->setFrom('julieta.victoria.vargas@gmail.com', 'Julieta Parra');
-            $mail->addAddress('jnv18026@gmail.com');     // Add a recipient
+            $mail->addAddress('jnv1802@gmail.com');     // Add a recipient
             //$mail->addAddress('ellen@example.com');               // Name is optional
             //$mail->addReplyTo('info@example.com', 'Information');
             //$mail->addCC('cc@example.com');

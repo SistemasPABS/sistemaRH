@@ -1,5 +1,5 @@
 <?php 
-include ('../../../../config/cookie.php');
+include ('../../../config/cookie.php');
 include ('../../../config/conectasql.php');
 $con= new conectasql();
 $con->abre_conexion("0");
@@ -26,6 +26,9 @@ $result = pg_query($conexion,$query) or die("Error en la consulta SQL");
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">   
         <script src="../gridprenominas/funcionesprenomina.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <link href="jquery.multiselect.css" rel="stylesheet" type="text/css">
+        <script src="jquery.min.js"></script>
+        <script src="jquery.multiselect.js"></script>
 
     </head>
 
@@ -76,18 +79,17 @@ $result = pg_query($conexion,$query) or die("Error en la consulta SQL");
                   </div>
                   
                   <div>
-                    <label>Selecciona una empresa</label>
-                      <select id="empresa">
-                        <?php 
-                            $query="SELECT emp_nombre, emp_id FROM empresas";
-                            $result = pg_query($conexion,$query);
-                            do{
-                              echo'<option name="empresa" value="'.$mostrar["emp_id"].'">'.$mostrar["emp_nombre"].'</option>';  
-                            }while($mostrar= pg_fetch_array($result));
-        
-                          ?>
-                      </select>
-                  </div> 
+                      <label>Selecciona las diferentes empresas</label>
+                              <select id="empresa">
+                                <?php 
+                                  $query="SELECT emp_nombre, emp_id FROM empresas";
+                                  $result = pg_query($conexion,$query);
+                                  do{
+                                    echo'<option name="empresa" value="'.$mostrar["emp_id"].'">'.$mostrar["emp_nombre"].'</option>';  
+                                  }while($mostrar= pg_fetch_array($result));
+                                ?>
+                              </select>
+                    </div>       
 
                     <div>
                       <label>Selecciona un tipo de periodo</label>

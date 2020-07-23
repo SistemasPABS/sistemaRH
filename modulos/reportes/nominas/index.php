@@ -12,4 +12,5 @@ echo '<html class="fondotrabajo">';
     $busqueda->interfaz();
 
 echo '</html>';
+
 ?>

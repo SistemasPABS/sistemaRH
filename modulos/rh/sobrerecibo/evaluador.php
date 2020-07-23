@@ -1,5 +1,6 @@
 <?php
 //echo 'hola';
+include_once ('../../../config/cookie.php');
 include_once ('../../../config/conectasql.php');
 session_start();
 $us_id=$_SESSION['us_id'];
@@ -35,6 +36,7 @@ $select .='<select>';
 $contenidofila .='<td>'.$select.'</td>
                   <td></td>
                   <td></td>
+                  <td><input name="'.$perid.'cuantos'.$equis.'[]" type="number" value="0" onkeyup="this.value=Numeros(this.value)" step="0.01"></input></td>
                   <td><input name="'.$perid.'cantidad'.$equis.'[]" type="number" value="0" onkeyup="this.value=Numeros(this.value)" step="0.01"></input></td>
                   <td><input name="'.$perid.'motivo'.$equis.'[]" type="text" value="--" onkeyup="this.value=NumText(this.value)"></input></td>';
 echo $contenidofila;

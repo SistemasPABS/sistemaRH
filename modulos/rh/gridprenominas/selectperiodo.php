@@ -1,4 +1,5 @@
 <?php
+include_once('../../../config/cookie.php');
 include_once ('../../../config/conectasql.php');
 session_start();
 $us_id=$_SESSION['us_id'];

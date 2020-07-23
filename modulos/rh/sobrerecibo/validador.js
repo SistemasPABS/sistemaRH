@@ -1,4 +1,5 @@
 function traerpercepcionesdeducciones(opc,btn){
+  
     //Obtener ID de Persona para evaluador.php 
     var papaboton = btn.parentNode;
     

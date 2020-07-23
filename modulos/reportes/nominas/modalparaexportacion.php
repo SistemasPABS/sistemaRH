@@ -21,6 +21,9 @@ $conexion=$con->conexion;
 
     <body>
     <form> 
+        <div>
+            <img src="../../../images/logo.png"></img>
+        </div>
             <div>
                 <label>Selecciona un tipo de periodo</label>
                 <select id="tipoperiodo" onchange="cargarperiodos()">

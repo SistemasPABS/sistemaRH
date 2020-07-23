@@ -1,4 +1,5 @@
 <?php
+include_once ('../../../../config/cookie.php');
 include_once ('../../../../config/conectasql.php');
 session_start();
 date_default_timezone_set('America/Mexico_City');
@@ -66,12 +67,17 @@ if ($cantpersonas == $cantpersonas2 ){
                 }else{
                     $cantidadcom=$_POST[$p.'cantidadcom'];
                 }
+                if(isset($_POST[$p.'cuantos']) && empty($_POST[$p.'cuantos'])){
+                    $cantidadcompesos = 0;
+                }else{
+                    $cantidadcompesos=$_POST[$p.'cuantos'];
+                }
             $observacionescom=$_POST[$p.'observacionescom'];
-
+            $cuantos = $_POST[$p.'cuantos'];
             $largo= count($coid);
 
             for($i=0; $i < $largo; $i++){
-                $sql="INSERT into tmp_comnom (co_id,persona_id,co_cantidad,co_observaciones,pc,fecha_inicio,fecha_fin,us_id,plaza_id) values ($coid[$i], $p, $cantidadcom[$i], '$observacionescom[$i]','$pc','$fechainicio','$fechafinal',$us_id,$plaza)";
+                $sql="INSERT into tmp_comnom (co_id,persona_id,co_cantidad,co_observaciones,pc,fecha_inicio,fecha_fin,us_id,plaza_id,co_cuantos) values ($coid[$i], $p, $cantidadcom[$i], '$observacionescom[$i]','$pc','$fechainicio','$fechafinal',$us_id,$plaza,$cuantos[$i])";
                 //echo $sql;
                 $result= pg_query($conexion,$sql) or die("Error insertando tmp_comisiones - ". pg_last_error());
             } 
@@ -83,18 +89,23 @@ if ($cantpersonas == $cantpersonas2 ){
     foreach ($cp as $p){
         $perid = $_POST[$p.'per'];//select id tipo percepcion
         if($perid != NULL){
-            if(isset($_POST[$p.'cantidadcom']) && empty($_POST[$p.'cantidadcom'])){
+            if(isset($_POST[$p.'cantidadper']) && empty($_POST[$p.'cantidadper'])){
                 $cantidadcom = 0;
             }else{
-                $cantidadcom=$_POST[$p.'cantidadcom'];
+                $cantidadcom=$_POST[$p.'cantidadper'];
+            }
+            if(isset($_POST[$p.'cuantosper']) && empty($_POST[$p.'cuantosper'])){
+                $cuantos = 0;
+            }else{
+                $cuantos=$_POST[$p.'cuantosper'];
             }
            $monto = $_POST[$p.'cantidadper'];//cantidad con el tipo se juntan y lo unico que varia es el id de la persona
            $observaciones = $_POST[$p.'motivoper']; //la observacion es identificada por el id de la persona 
-
-            $largo= count($perid);
+           $cuantos = $_POST[$p.'cuantosper']; //cuantos de la percepcion
+           $largo= count($perid);
 
             for($i=0; $i < $largo; $i++){
-                 $sql="INSERT into tmp_percepciones (us_id,persona_id,tp_id,tp_monto,tmp_observaciones,pc,fecha_inicio,fecha_fin,plaza_id) values ($us_id, $p,$perid[$i],$monto[$i],'$observaciones[$i]','$pc','$fechainicio','$fechafinal',$plaza)";
+                 $sql="INSERT into tmp_percepciones (us_id,persona_id,tp_id,tp_monto,tmp_observaciones,pc,fecha_inicio,fecha_fin,plaza_id,tp_cuantos) values ($us_id, $p,$perid[$i],$monto[$i],'$observaciones[$i]','$pc','$fechainicio','$fechafinal',$plaza,$cuantos[$i])";
                  //echo $sql;
                  $result= pg_query($conexion,$sql) or die("Error insertando tmp_percepciones". pg_last_error());
             }
@@ -107,13 +118,23 @@ if ($cantpersonas == $cantpersonas2 ){
     foreach ($cp as $p){
         $dedid = $_POST[$p.'ded'];//select id tipo percepcion
         if($dedid != NULL){
+            if(isset($_POST[$p.'cantidadded']) && empty($_POST[$p.'cantidadded'])){
+                $cantidadcom = 0;
+            }else{
+                $cantidadcom=$_POST[$p.'cantidadded'];
+            }
+            if(isset($_POST[$p.'cuantosded']) && empty($_POST[$p.'cuantosded'])){
+                $cuantos = 0;
+            }else{
+                $cuantos=$_POST[$p.'cuantosded'];
+            }
         $monto = $_POST[$p.'cantidadded'];//cantidad con el tipo se juntan y lo unico que varia es el id de la persona
         $observaciones = $_POST[$p.'motivoded']; //la observacion es identificada por el id de la persona 
-
+        $cuantos = $_POST[$p.'cuantosded']; //cuantos de la percepcion
             $largo= count($dedid);
 
             for($i=0; $i < $largo; $i++){
-                $sql="INSERT into tmp_deducciones (us_id,persona_id,td_id,td_monto,td_observaciones,pc,fecha_inicio,fecha_fin,plaza_id) values ($us_id, $p,$dedid[$i],$monto[$i],'$observaciones[$i]','$pc','$fechainicio','$fechafinal',$plaza)";
+                $sql="INSERT into tmp_deducciones (us_id,persona_id,td_id,td_monto,td_observaciones,pc,fecha_inicio,fecha_fin,plaza_id,td_cuantos) values ($us_id, $p,$dedid[$i],$monto[$i],'$observaciones[$i]','$pc','$fechainicio','$fechafinal',$plaza,$cuantos[$i])";
                 //echo $sql;
                 $result= pg_query($conexion,$sql) or die("Error insertando tmp_deducciones". pg_last_error());
             } 
@@ -220,7 +241,7 @@ if ($cantpersonas == $cantpersonas2 ){
     $campostmpcomnom = pg_fetch_array($result);
     if($campostmpcomnom != NULL){
         do{    
-            $insertcomnom = "INSERT into comnom (co_id,persona_id,co_cantidad,co_observaciones,fecha_inicio,fecha_fin,us_id,nom_id,fecha,hora,pc) values (".$campostmpcomnom['co_id'].",".$campostmpcomnom['persona_id'].",".$campostmpcomnom['co_cantidad'].",'".$campostmpcomnom['co_observaciones']."','".$campostmpcomnom['fecha_inicio']."','".$campostmpcomnom['fecha_fin']."',".$campostmpcomnom['us_id'].",$nominaid,'$fecha','$hora','$pc');";
+            $insertcomnom = "INSERT into comnom (co_id,persona_id,co_cantidad,co_observaciones,fecha_inicio,fecha_fin,us_id,nom_id,fecha,hora,pc,co_cuantos) values (".$campostmpcomnom['co_id'].",".$campostmpcomnom['persona_id'].",".$campostmpcomnom['co_cantidad'].",'".$campostmpcomnom['co_observaciones']."','".$campostmpcomnom['fecha_inicio']."','".$campostmpcomnom['fecha_fin']."',".$campostmpcomnom['us_id'].",$nominaid,'$fecha','$hora','$pc',".$campostmpcomnom['co_cuantos'].");";
             $resultinsertcomnom=pg_query($conexion,$insertcomnom) or die ('ERROR AL INSERTAR EN LA TABLA CHIDA DE LAS COMISIONES');
             //echo $insertcomnom;
         }while($campostmpcomnom = pg_fetch_array($result));
@@ -234,8 +255,8 @@ if ($cantpersonas == $cantpersonas2 ){
     $campostmppercepciones = pg_fetch_array($result);
     if($campostmppercepciones != NULL){
         do{    
-           $insertpercepciones = "INSERT into percepciones (nom_id,us_id,fecha,hora,persona_id,tp_id,tp_monto,tmp_observaciones,fecha_inicio,fecha_fin,pc) values ($nominaid,$us_id,'$fecha','$hora',".$campostmppercepciones['persona_id'].",".$campostmppercepciones['tp_id'].",".$campostmppercepciones['tp_monto'].",'".$campostmppercepciones['tmp_observaciones']."','".$campostmppercepciones['fecha_inicio']."','".$campostmppercepciones['fecha_fin']."','$pc');";
-           $resultinsertpercepciones=pg_query($conexion,$insertpercepciones) or die ('ERROR AL INSERTAR EN LA TABLA CHIDA DE LAS PERCEPCIONES');
+           $insertpercepciones = "INSERT into percepciones (nom_id,us_id,fecha,hora,persona_id,tp_id,tp_monto,tmp_observaciones,fecha_inicio,fecha_fin,pc,tp_cuantos) values ($nominaid,$us_id,'$fecha','$hora',".$campostmppercepciones['persona_id'].",".$campostmppercepciones['tp_id'].",".$campostmppercepciones['tp_monto'].",'".$campostmppercepciones['tmp_observaciones']."','".$campostmppercepciones['fecha_inicio']."','".$campostmppercepciones['fecha_fin']."','$pc',".$campostmppercepciones['tp_cuantos'].");";
+           $resultinsertpercepciones=pg_query($conexion,$insertpercepciones) or die ('ERROR AL INSERTAR EN LA TABLA CHIDA DE LAS PERCEPCIONES'.pg_last_error());
            //echo $insertpercepciones;  
         }while($campostmppercepciones = pg_fetch_array($result));
     }
@@ -248,7 +269,7 @@ if ($cantpersonas == $cantpersonas2 ){
     $campostmpdeducciones = pg_fetch_array($result);
     if($campostmpdeducciones != NULL){
         do{    
-            $insertdeducciones = "INSERT into deducciones (nom_id,us_id,fecha,hora,persona_id,td_id,td_monto,td_observaciones,fecha_inicio,fecha_fin,pc) values ($nominaid,$us_id,'$fecha','$hora',".$campostmpdeducciones['persona_id'].",".$campostmpdeducciones['td_id'].",".$campostmpdeducciones['td_monto'].",'".$campostmpdeducciones['td_observaciones']."','".$campostmpdeducciones['fecha_inicio']."','".$campostmpdeducciones['fecha_fin']."','$pc');";
+            $insertdeducciones = "INSERT into deducciones (nom_id,us_id,fecha,hora,persona_id,td_id,td_monto,td_observaciones,fecha_inicio,fecha_fin,pc,td_cuantos) values ($nominaid,$us_id,'$fecha','$hora',".$campostmpdeducciones['persona_id'].",".$campostmpdeducciones['td_id'].",".$campostmpdeducciones['td_monto'].",'".$campostmpdeducciones['td_observaciones']."','".$campostmpdeducciones['fecha_inicio']."','".$campostmpdeducciones['fecha_fin']."','$pc',".$campostmpdeducciones['td_cuantos'].");";
             $resultinsertdeducciones=pg_query($conexion,$insertdeducciones) or die ('ERROR AL INSERTAR EN LA TABLA CHIDA DE LAS DEDUCCIONES');
             //echo $insertdeducciones;
         }while($campostmpdeducciones = pg_fetch_array($result));
@@ -370,6 +391,9 @@ if ($cantpersonas == $cantpersonas2 ){
                                 Nomina actualizada con exito, ID: '.$nominaid.'
                             </div>';
     echo $letreritosuccesfully;
+
+    $deleteedicion = "DELETE from controlador_nomina where idnom = $nominaid";
+    $resultdelete=pg_query($conexion,$deleteedicion) or die ('Error al eliminar el block de edicion de nomina'.pg_last_error());
     
 
 }
