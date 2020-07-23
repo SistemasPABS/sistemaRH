@@ -66,17 +66,17 @@ if ($cantpersonas == $cantpersonas2 ){
                 }else{
                     $cantidadcom=$_POST[$p.'cantidadcom'];
                 }
-                if(isset($_POST[$p.'cantidadcompesos']) && empty($_POST[$p.'cantidadcompesos'])){
+                if(isset($_POST[$p.'cuantos']) && empty($_POST[$p.'cuantos'])){
                     $cantidadcompesos = 0;
                 }else{
-                    $cantidadcompesos=$_POST[$p.'cantidadcompesos'];
+                    $cantidadcompesos=$_POST[$p.'cuantos'];
                 }
             $observacionescom=$_POST[$p.'observacionescom'];
-            $cantidadcompesos = $_POST[$p.'cantidadcompesos'];
+            $cuantos = $_POST[$p.'cuantos'];
             $largo= count($coid);
 
             for($i=0; $i < $largo; $i++){
-                $sql="INSERT into tmp_comnom (co_id,persona_id,co_cantidad,co_observaciones,pc,fecha_inicio,fecha_fin,us_id,plaza_id,co_cuantos) values ($coid[$i], $p, $cantidadcom[$i], '$observacionescom[$i]','$pc','$fechainicio','$fechafinal',$us_id,$plaza,$cantidadcompesos[$i])";
+                $sql="INSERT into tmp_comnom (co_id,persona_id,co_cantidad,co_observaciones,pc,fecha_inicio,fecha_fin,us_id,plaza_id,co_cuantos) values ($coid[$i], $p, $cantidadcom[$i], '$observacionescom[$i]','$pc','$fechainicio','$fechafinal',$us_id,$plaza,$cuantos[$i])";
                 //echo $sql;
                 $result= pg_query($conexion,$sql) or die("Error insertando tmp_comisiones - ". pg_last_error());
             } 
@@ -93,14 +93,19 @@ if ($cantpersonas == $cantpersonas2 ){
             }else{
                 $cantidadcom=$_POST[$p.'cantidadper'];
             }
+            if(isset($_POST[$p.'cuantosper']) && empty($_POST[$p.'cuantosper'])){
+                $cuantos = 0;
+            }else{
+                $cuantos=$_POST[$p.'cuantosper'];
+            }
            $monto = $_POST[$p.'cantidadper'];//cantidad con el tipo se juntan y lo unico que varia es el id de la persona
            $observaciones = $_POST[$p.'motivoper']; //la observacion es identificada por el id de la persona 
-           $cantidadpesos = $_POST[$p.'cantidadpesosper']; //cuantos de la percepcion
-            $largo= count($perid);
+           $cuantos = $_POST[$p.'cuantosper']; //cuantos de la percepcion
+           $largo= count($perid);
 
             for($i=0; $i < $largo; $i++){
-                 $sql="INSERT into tmp_percepciones (us_id,persona_id,tp_id,tp_monto,tmp_observaciones,pc,fecha_inicio,fecha_fin,plaza_id,tp_cuantos) values ($us_id, $p,$perid[$i],$monto[$i],'$observaciones[$i]','$pc','$fechainicio','$fechafinal',$plaza,$cantidadpesos[$i])";
-                 //echo $sql;
+                 $sql="INSERT into tmp_percepciones (us_id,persona_id,tp_id,tp_monto,tmp_observaciones,pc,fecha_inicio,fecha_fin,plaza_id,tp_cuantos) values ($us_id, $p,$perid[$i],$monto[$i],'$observaciones[$i]','$pc','$fechainicio','$fechafinal',$plaza,$cuantos[$i])";
+                 echo $sql;
                  $result= pg_query($conexion,$sql) or die("Error insertando tmp_percepciones". pg_last_error());
             }
 
@@ -112,13 +117,23 @@ if ($cantpersonas == $cantpersonas2 ){
     foreach ($cp as $p){
         $dedid = $_POST[$p.'ded'];//select id tipo percepcion
         if($dedid != NULL){
+            if(isset($_POST[$p.'cantidadded']) && empty($_POST[$p.'cantidadded'])){
+                $cantidadcom = 0;
+            }else{
+                $cantidadcom=$_POST[$p.'cantidadded'];
+            }
+            if(isset($_POST[$p.'cuantosded']) && empty($_POST[$p.'cuantosded'])){
+                $cuantos = 0;
+            }else{
+                $cuantos=$_POST[$p.'cuantosded'];
+            }
         $monto = $_POST[$p.'cantidadded'];//cantidad con el tipo se juntan y lo unico que varia es el id de la persona
         $observaciones = $_POST[$p.'motivoded']; //la observacion es identificada por el id de la persona 
-        $cantidadpesos = $_POST[$p.'cantidadpesosded'];
+        $cuantos = $_POST[$p.'cuantosded']; //cuantos de la percepcion
             $largo= count($dedid);
 
             for($i=0; $i < $largo; $i++){
-                $sql="INSERT into tmp_deducciones (us_id,persona_id,td_id,td_monto,td_observaciones,pc,fecha_inicio,fecha_fin,plaza_id,td_cuantos) values ($us_id, $p,$dedid[$i],$monto[$i],'$observaciones[$i]','$pc','$fechainicio','$fechafinal',$plaza,$cantidadpesos[$i])";
+                $sql="INSERT into tmp_deducciones (us_id,persona_id,td_id,td_monto,td_observaciones,pc,fecha_inicio,fecha_fin,plaza_id,td_cuantos) values ($us_id, $p,$dedid[$i],$monto[$i],'$observaciones[$i]','$pc','$fechainicio','$fechafinal',$plaza,$cuantos[$i])";
                 //echo $sql;
                 $result= pg_query($conexion,$sql) or die("Error insertando tmp_deducciones". pg_last_error());
             } 
@@ -375,6 +390,9 @@ if ($cantpersonas == $cantpersonas2 ){
                                 Nomina actualizada con exito, ID: '.$nominaid.'
                             </div>';
     echo $letreritosuccesfully;
+
+    $deleteedicion = "DELETE from controlador_nomina where nom_id=$nominaid";
+    $resultdelete=pg_query($conexion,$deleteedicion);
     
 
 }

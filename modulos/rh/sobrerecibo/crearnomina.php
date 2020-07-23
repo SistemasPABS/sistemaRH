@@ -117,10 +117,20 @@ if ($cantpersonas == $cantpersonas2 ){
     foreach ($cp as $p){
         $dedid = $_POST[$p.'ded'];//select id tipo percepcion
         if($dedid != NULL){
+            if(isset($_POST[$p.'cantidadded']) && empty($_POST[$p.'cantidadded'])){
+                $cantidadcom = 0;
+            }else{
+                $cantidadcom=$_POST[$p.'cantidadded'];
+            }
+            if(isset($_POST[$p.'cuantosded']) && empty($_POST[$p.'cuantosded'])){
+                $cuantos = 0;
+            }else{
+                $cuantos=$_POST[$p.'cuantosded'];
+            }
         $monto = $_POST[$p.'cantidadded'];//cantidad con el tipo se juntan y lo unico que varia es el id de la persona
         $observaciones = $_POST[$p.'motivoded']; //la observacion es identificada por el id de la persona 
         $cuantos = $_POST[$p.'cuantosded']; //cuantos de la percepcion
-            $largo= count($dedid);
+        $largo= count($dedid);
 
             for($i=0; $i < $largo; $i++){
                 $sql="INSERT into tmp_deducciones (us_id,persona_id,td_id,td_monto,td_observaciones,pc,fecha_inicio,fecha_fin,plaza_id,td_cuantos) values ($us_id, $p,$dedid[$i],$monto[$i],'$observaciones[$i]','$pc','$fechainicio','$fechafinal',$plaza,$cuantos[$i])";

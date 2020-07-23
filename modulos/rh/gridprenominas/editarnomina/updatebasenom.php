@@ -112,8 +112,8 @@ if($row3= pg_fetch_array($result3)){
                             <td><a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-plus-circle fa-minus-circle"></i></a>'.$select.'</td>
                             <td></td>
                             <td></td>
+                            <td><input name="'.$row3['persona_id'].'cuantosper[]" type="number" value="'.$row5['tp_cuantos'].'" onkeyup="this.value=Numeros(this.value)" step="0.01"></input></td>
                             <td><input type="number"  onkeyup="this.value=Numeros(this.value)" step="0.01" name="'.$row3['persona_id'].'cantidadper[]" value="'.$row5['tp_monto'].'"></input></td>
-                            <td><input name="'.$row3['persona_id'].'cantidadpesosper[]" type="number" value="'.$row5['tp_cuantos'].'" onkeyup="this.value=Numeros(this.value)" step="0.01"></input></td>
                             <td><input type="text" onkeyup="this.value=NumText(this.value)" name="'.$row3['persona_id'].'motivoper[]" value="'.$row5['tmp_observaciones'].'"></input></td>
                       </tr>
                     </tbody>';
@@ -149,8 +149,8 @@ if($row3= pg_fetch_array($result3)){
                             <td><a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-plus-circle fa-minus-circle"></i></a>'.$select.'</td>
                             <td></td>
                             <td></td>
+                            <td><input name="'.$row3['persona_id'].'cuantosded[]" type="number" value="'.$row6['td_cuantos'].'" onkeyup="this.value=Numeros(this.value)" step="0.01"></input></td>
                             <td><input type="number" onkeyup="this.value=Numeros(this.value)" step="0.01" name="'.$row3['persona_id'].'cantidadded[]" value="'.$row6['td_monto'].'"></input></td>
-                            <td><input name="'.$row3['persona_id'].'cantidadpesosded[]" type="number" value="0" onkeyup="this.value=Numeros(this.value)" step="0.01"></input></td>
                             <td><input type="text" onkeyup="this.value=NumText(this.value)" name="'.$row3['persona_id'].'motivoded[]" value="'.$row6['td_observaciones'].'"></input></td>
                       </tr>
                     </tbody>';
