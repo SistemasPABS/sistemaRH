@@ -1,5 +1,5 @@
 <?php 
-include ('../../../../config/cookie.php');
+include ('../../../config/cookie.php');
 include ('../../../config/conectasql.php');
 $con= new conectasql();
 $con->abre_conexion("0");

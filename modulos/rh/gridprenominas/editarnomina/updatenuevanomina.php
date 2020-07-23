@@ -1,4 +1,5 @@
 <?php
+include_once ('../../../../config/cookie.php');
 include_once ('../../../../config/conectasql.php');
 session_start();
 date_default_timezone_set('America/Mexico_City');
