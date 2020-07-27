@@ -13,5 +13,4 @@ echo '<html class="fondotrabajo">';
 
 echo '</html>';
 
-
 ?>

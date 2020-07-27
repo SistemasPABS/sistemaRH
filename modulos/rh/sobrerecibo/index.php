@@ -157,10 +157,11 @@ if($row3= pg_fetch_array($result3)){
             });
     </script>
     
-    <form name="todalanomina" method="POST" action="crearnomina.php">
+    
 
     <body>
-        <div class="container" id="contenedor"></div>
+        <div class="container" id="contenedor" style="overflow-x:auto;">
+        <form name="todalanomina" method="POST" action="crearnomina.php">
         <input hidden id="cantpersonas" name="cantpersonas" value=""></input>
         <input hidden id="cantautorizadores" name="cantautorizadores" value=""></input>
         <table class="custom-table">
@@ -171,6 +172,7 @@ if($row3= pg_fetch_array($result3)){
                     <input hidden value="<?php echo $plaza?>" name="plaza"></input>
                     <input hidden value="<?php echo $tipoperiodo?>" name="tipoperiodo"></input>
                     <input hidden value="<?php echo $empid?>" name="empid"></input>
+                    <input hidden value="<?php echo $hora?>" name="hbn"></input>
                     <th>Persona</th>
                     <th>Nombre</th>
                     <th>Monto</th>

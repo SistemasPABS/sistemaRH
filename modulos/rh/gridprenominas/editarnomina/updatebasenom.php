@@ -30,7 +30,7 @@ $fechas=pg_fetch_array($resultsqlfechas);
 $fechainicio=$fechas['fecha_inicio'];
 $fechafinal=$fechas['fecha_final'];
 
-$sql2="UPDATE base_nom SET nom_id=$idnom, us_id=$us_id,fecha='$fecha',hora='$hora',plaza_id=$plaza,num_ventas=$numservicios,venta_directa=$ventasdirectas,cobros=$cobrosporventa,saldo=$saldo,cobros_per_ant=$cobrosanteriores,observaciones='$observaciones',emp_id=$empid,sal_tipo_id=$tipoperiodo,fecha_inicio='$fechainicio',fecha_fin='$fechafinal',pc='$pc' WHERE nom_id = $idnom";
+$sql2="UPDATE base_nom SET us_id=$us_id,fecha='$fecha',hora='$hora',plaza_id=$plaza,num_ventas=$numservicios,venta_directa=$ventasdirectas,cobros=$cobrosporventa,saldo=$saldo,cobros_per_ant=$cobrosanteriores,observaciones='$observaciones',emp_id=$empid,sal_tipo_id=$tipoperiodo,fecha_inicio='$fechainicio',fecha_fin='$fechafinal',pc='$pc' WHERE nom_id = $idnom";
 $result2 = pg_query($conexion,$sql2) or die("Error en la insercion de datos temporales de base nom");
 
 $sql3="select * from vw_sueldos_nomina where nom_id = $idnom";
