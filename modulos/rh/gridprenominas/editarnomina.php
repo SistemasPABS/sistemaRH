@@ -9,7 +9,7 @@ $fecha=date("Ymd");
 $hora=date("H:i:s");
 $usid=$_SESSION['us_id'];
 $oc1=$_GET["idnom"];
-//Insertar en tabla temporal de edicion de nomina para evitar la edicion de la misma nomina 
+//Insertar en tabla temporal de edicion de nomina para evitar la edicion de la misma nomina por mas de un usuario al mismo tiempo
 $queryedicion="SELECT * FROM controlador_nomina WHERE idnom = $oc1";
 $resultqueryedicion = pg_query($conexion,$queryedicion) or die("Error en la consulta SQL".pg_last_error());
 $obtenerresult = pg_fetch_array($resultqueryedicion);

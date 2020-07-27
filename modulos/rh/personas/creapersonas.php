@@ -42,8 +42,10 @@ class creapersonas extends conectasql{
             echo '<div name="busqueda" id="busqueda">';
                 echo 'Buscar por: ';
                 echo '<select class="selectbuscar" name="buscaopcion" id="buscaopcion" onchange="cambiaopciones(\'parametro\');">';
-                    echo '<option value="nom" > Nombre </option>';
-                    echo '<option value="cve" > Clave </option>';
+                    echo '<option value="nom" > Nombre  </option>';
+                    echo '<option value="cve" > Clave   </option>';
+                    echo '<option value="may" > Mayor a </option>';
+                    echo '<option value="men" > Menor a </option>';
                 echo '</select>';
                 echo '</div>';
                 echo '<div name="paramentro" id="parametro"> <input type="text" id="busca" name="busca" class="campobuscar"></div>';

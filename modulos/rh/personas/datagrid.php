@@ -10,13 +10,19 @@ $nuevafecha = date( 'Ymd' , $nuevafecha );
 if($dato != NULL){
     switch ($param) {
         case 'nom':
-            $condicion='nombrecompleto';
+            $condicion="nombrecompleto like '%$dato%'";
             break;
         case 'cve':
-            $condicion='persona_cve';
+            $condicion="persona_cve like '%$dato%'";
+            break;
+        case 'may':
+            $condicion="persona_id > $dato";
+            break;
+        case 'men':
+            $condicion="persona_id < $dato";
             break;
     }
-    $where="where $condicion like '%$dato%'";
+    $where="where $condicion";
 }else{
     $where="";
 }
