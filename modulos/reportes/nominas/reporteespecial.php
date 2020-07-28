@@ -16,7 +16,7 @@ include ('../../../config/conectasql.php');
 $exporta = new conectasql();
 $exporta->abre_conexion("0");
 $sqlxls="SELECT * FROM vw_reporte_estado_financiero WHERE nom_id = $idnom";
-
+$sqlsueldo="SELECT sum(sal_monto_con) FROM vw_reporte_estado_financiero where nom_id = $idnom";
  /** Include PHPExcel */
 require_once ('../../../librerias/phpexcel/Classes/PHPExcel.php');
 
@@ -36,6 +36,7 @@ $objPHPExcel = new PHPExcel();
     $a=2;
 //se ejecuta la consulta
     $resultxls=pg_query($exporta->conexion,$sqlxls);
+    $resultsumsueldo=pg_query($exporta->conexion,$sqlsueldo);
     if($rowxls=pg_fetch_array($resultxls)){
         $objPHPExcel->setActiveSheetIndex(0)
                 ->setCellValue('A1', 'Sucursal')
@@ -52,13 +53,13 @@ $objPHPExcel = new PHPExcel();
                     ->setCellValue('C'.$a, $rowxls['nom_total'])
                     ->setCellValue('D'.$a, $rowxls['nom_total'])
                     ->setCellValue('E'.$a, $rowxls['nom_total'])
-                    ->setCellValue('F'.$a, $rowxls['nom_total'])
+                    ->setCellValue('F'.$a, $resultsumsueldo)
                     ->setCellValue('G'.$a, $rowxls['nom_total']);
                     $a++;
         }
         while ($rowxls=pg_fetch_array($resultxls));
     }         
-   
+
     // Rename worksheet*/
     $objPHPExcel->getActiveSheet()->setTitle('Reporte_Financiero');
 
