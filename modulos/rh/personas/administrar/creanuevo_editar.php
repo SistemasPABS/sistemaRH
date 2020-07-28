@@ -22,7 +22,8 @@ class creanuevo_editar extends conectasql{
             $titulo='Edita Persona';
             $operacion= base64_encode($op);
             $operacion='?op='.$operacion;
-            $fvcp='onchange="valida_nueva_clave(this.value);"';
+            $fvcp='onchange="valida_nueva_clave(this.value,\'clave\');"';
+            $fvnc='onchange="valida_nueva_clave(this.value,\'nc\');"';
             $this->consulta_persona($prs);
             if($this->generales['persona_status'] == '1'){$checked='checked="yes"';}else{$checked='';}
             $vg1='1000';
@@ -55,7 +56,8 @@ class creanuevo_editar extends conectasql{
             $operacion= base64_encode($op);
             $operacion='?op='.$operacion;
             $checked='checked="yes"';
-            $fvcp='onblur="valida_nueva_clave(this.value);"';
+            $fvcp='onblur="valida_nueva_clave(this.value,\'clave\');"';
+            $fvnc='onblur="valida_nueva_clave(this.value,\'nc\');"';
             $paisdefault='1000';
             $selectestado='<select class="input0" name="estados" value="0">
                             <option value="1000">Seleccione un pais</option>
@@ -91,9 +93,9 @@ class creanuevo_editar extends conectasql{
             
             echo '<div class="row">';
                 echo '<div class="col-1"><label>Clave</label><br><input onkeypress="return caracteres_esp(event)" class="input0" type="text" id="clave" name="clave" placeholder="Clave" value="'.$this->generales['persona_cve'].'" '.$fvcp.' required ><input name="registro" id="registro" value="'.$prs.'" hidden></div> ';
-                echo '<div class="col-3"><label>Nombre (s)</label><br><input  onkeypress="return solo_letras(event)" class="input0" type="text"  pattern="[A-Za-z]" name="nombre" value="'.$this->generales['persona_nombre'].'" placeholder="Nombre" required></div>';
-                echo '<div class="col-4"><label>Apellido P</label><br><input onkeypress="return solo_letras(event)" class="input0" type="text" name="paterno" value="'.$this->generales['persona_paterno'].'" placeholder="Apellido Paterno" required></div>';
-                echo '<div class="col-4"><label>Materno</label><br><input onkeypress="return solo_letras(event)" class="input0" type="text" name="materno" value="'.$this->generales['persona_materno'].'" placeholder="Apellido Materno" required></div>';
+                echo '<div class="col-3"><label>Nombre (s)</label><br><input  onkeypress="return solo_letras(event)" class="input0" type="text"  pattern="[A-Za-z]" name="nombre" id="nombre" value="'.$this->generales['persona_nombre'].'" placeholder="Nombre" required></div>';
+                echo '<div class="col-4"><label>Apellido P</label><br><input onkeypress="return solo_letras(event)" class="input0" type="text" name="paterno" id="paterno" value="'.$this->generales['persona_paterno'].'" placeholder="Apellido Paterno" required></div>';
+                echo '<div class="col-4"><label>Materno</label><br><input onkeypress="return solo_letras(event)" class="input0" type="text" name="materno" id="materno" value="'.$this->generales['persona_materno'].'" placeholder="Apellido Materno" '.$fvnc.'required></div>';
             echo '</div>';
             echo '<div class="row">';
                 echo ' <div class="col-3"><label>RFC</label><br><input class="input0" type="text" name="rfc" onkeypress="return solo_letras_numeros(event)" onKeyUp="this.value=this.value.toUpperCase();" value="'.$this->generales['persona_rfc'].'" placeholder="RFC"></div>';

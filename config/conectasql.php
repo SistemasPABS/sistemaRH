@@ -288,6 +288,21 @@ class conectasql{
         }
     }
     
+    //consulta si el nombre completo dado existe en la base de datos
+    public function valida_nueva_persona_nombre($nombre) {
+        $sqlvnp="select * from vw_personas where nombrecompleto like '%$nombre%';";
+        $resultvnp = pg_query($this->conexion,$sqlvnp) or die("Error vnc: ". pg_last_error());//valida nueva persona
+        if($rowvnp=pg_fetch_array($resultvnp)){
+            if($rowvnp['nombrecompleto'] == $nombre){
+                $this->msj = 1;
+            }else{
+                $this->msj = 0;
+            }
+        }else{
+            $this->msj = 0;
+        }
+    }
+    
     public function exito($css) {
         echo '<script type="text/javascript">window.opener.genera();</script>';
         echo '<script type="text/javascript">

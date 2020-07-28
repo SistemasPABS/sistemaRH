@@ -3,9 +3,10 @@ window.onload=lanzadera;
     document.oncontextmenu = function() { return false; };
 }
 
-function valida_nueva_clave(clave){
+function valida_nueva_clave(clave,op){
     //alert(clave);
-    var url="valida_nueva_clave.php";
+    if(op == 'clave'){
+        var url="valida_nueva_clave.php";
         $.ajax({
             type: "POST",
             url:url,
@@ -17,6 +18,28 @@ function valida_nueva_clave(clave){
                 }
             }
         });
+    }
+    if(op == 'nc'){
+        var n = document.getElementById("nombre").value;
+        var p = document.getElementById("paterno").value;
+        var m = document.getElementById("materno").value;
+        var nc = n+' '+p+' '+m; 
+        //alert(nc);
+        var url="valida_nueva_nc.php";
+        $.ajax({
+            type: "POST",
+            url:url,
+            data:{nc:btoa(nc)},
+            success: function(data){
+                if(data.length != 0 ){
+                    alert(data); 
+                    document.getElementById("nombre").value ='';
+                    document.getElementById("paterno").value ='';
+                    document.getElementById("materno").value ='';
+                }
+            }
+        });
+    }
 }
 
 function ver_estados(){
