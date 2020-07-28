@@ -114,42 +114,54 @@ $result = pg_query($conexion,$query) or die("Error en la consulta SQL");
               </div>
 
               <div class="form-group">
-               
-              </div>
+                <div class="w3-row-padding">
+                
+                  <div class="w3-half">
+                    <label>Saldo Plan</label>
+                    <input id="saldoplan" class="w3-input w3-border" name="saldoplan" type="number" placeholder="Saldo del plan" width="20%" required onkeyup="this.value=Numeros(this.value)"> 
+                  </div>
 
-              <div class="w3-row-padding">
-               
-                <div class="w3-half">
-                  <label>Numero de servicios</label>
-                  <input id="numservicios" class="w3-input w3-border" name="numservicios" type="number" placeholder="Numero de servicios" width="20%" required onkeyup="this.value=Numeros(this.value)"> 
-                </div>
-                <div class="w3-half">
-                  <label>Ventas directas</label>
-                  <input id="ventasdirectas" class="w3-input w3-border" name="numventas" type="number"  placeholder="Ventas directas" required onkeyup="this.value=Numeros(this.value)" step="0.01">
-                </div>
-                <div class="w3-half">
-                  <label>Cobros por ventas</label>
-                  <input id="cobrosporventa" class="w3-input w3-border" type="number" name="cobros"  placeholder="Cobros por ventas" required onkeyup="this.value=Numeros(this.value)" step="0.01">
-                </div>
-                <div class="w3-half">
-                  <label>Saldo</label>
-                  <input id="saldo" class="w3-input w3-border" type="number" placeholder="Saldo"  name="saldo" required onkeyup="this.value=Numeros(this.value)" step="0.01">
-                </div>
-                <div class="w3-half">
-                  <label>Cobranza periodos anteriores</label>
-                  <input id="cobrosanteriores" class="w3-input w3-border" type="number"  placeholder="Cobranza del periodo anterior" name="cobranzaperanterior" required onkeyup="this.value=Numeros(this.value)" step="0.01">
-                </div>
-                 
-                <div class="w3-half">
-                    <label>Observaciones</label>
-                    <input type="text" placeholder="Observaciones" id="observaciones" maxlength="150" onkeyup="this.value=NumText(this.value)"></input> 
-                </div>
+                  <div class="w3-half">
+                    <label>Adicionales</label>
+                    <input id="adicionales" class="w3-input w3-border" name="adicionales" type="number" placeholder="Adicionales" width="20%" required onkeyup="this.value=Numeros(this.value)"> 
+                  </div>
+
+                  <div class="w3-half">
+                    <label>Servicios Directos</label>
+                    <input id="serviciosdirectos" class="w3-input w3-border" name="serviciosdirectos" type="number" placeholder="Servicios Directos" required onkeyup="this.value=Numeros(this.value)" step="0.01">
+                  </div>
+
+                  <div class="w3-half">
+                    <label>Abono</label>
+                    <input id="abono" class="w3-input w3-border" type="number" placeholder="Abono"  name="abono" required onkeyup="this.value=Numeros(this.value)" step="0.01">
+                  </div>
                   
+                  
+                  <div class="form-group">
+                      <div class="w3-half">
+                        <label>Ingresos</label>
+                        <input id="ingresos" class="w3-input w3-border" name="ingresos" type="number">
+                      </div>
+
+                      <div class="w3-half">
+                        <label>Cobranza periodos anteriores</label>
+                        <input id="cobrosanteriores" class="w3-input w3-border" type="number" name="cobranzaperanterior" required>
+                      </div>
+
+                      <div class="w3-half">
+                        <label>Recibo total</label>
+                        <input id="recibototal" class="w3-input w3-border" type="number" name="recibototal" required>
+                      </div>
+                  </div>
+                  <div class="w3-half">
+                    <label>Observaciones</label>
+                    <input type="text" class="form-control" placeholder="Observaciones" id="observaciones" maxlength="150" onkeyup="this.value=NumText(this.value)"></input> 
+                  </div>
+                </div>
+                </div>
               </div>
       </form>
-    </div>
-
-		<div class="modal-footer">
+      <div class="modal-footer">
 			<div class="btn-group btn-group-justified" role="group" aria-label="group button">
 				<div class="btn-group" role="group">
           <button type="button" class="btn btn-default" data-dismiss="modal" role="button">Cancelar Nómina</button>
@@ -160,6 +172,7 @@ $result = pg_query($conexion,$query) or die("Error en la consulta SQL");
 				
 			</div>
 		</div>
+    </div>
 	</div>
   </div>
 </div>

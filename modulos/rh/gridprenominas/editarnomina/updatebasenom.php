@@ -15,8 +15,10 @@ $fechaperiodo=base64_decode($_GET['oc4']); //el id del periodo y a forma de cons
 $numservicios=base64_decode($_GET['oc5']);//numservicios
 $ventasdirectas=base64_decode($_GET['oc6']);//ventasdirectas
 $cobrosporventa=base64_decode($_GET['oc7']);//cobrosporventa
-$saldo=base64_decode($_GET['oc8']);//saldo
-$cobrosanteriores=base64_decode($_GET['oc9']);//cobrosanteriores
+$saldo=base64_decode($_GET['oc8']);
+$ingresos=base64_decode($_GET['oc9']);//saldo
+$cobrosanteriores=base64_decode($_GET['oc12']);//cobrosanteriores
+$recibototal=base64_decode($_GET['oc13']);//recibototal
 $observaciones=base64_decode($_GET['oc10']);//observaciones
 $pc=gethostbyaddr($_SERVER['REMOTE_ADDR']);//computadora de donde se hace
 /*echo $oc1,$oc2,$oc3,$oc4,$oc5,$oc6,$oc7,$oc8,$oc9,$oc10;*/
@@ -30,8 +32,8 @@ $fechas=pg_fetch_array($resultsqlfechas);
 $fechainicio=$fechas['fecha_inicio'];
 $fechafinal=$fechas['fecha_final'];
 
-$sql2="UPDATE base_nom SET us_id=$us_id,fecha='$fecha',hora='$hora',plaza_id=$plaza,num_ventas=$numservicios,venta_directa=$ventasdirectas,cobros=$cobrosporventa,saldo=$saldo,cobros_per_ant=$cobrosanteriores,observaciones='$observaciones',emp_id=$empid,sal_tipo_id=$tipoperiodo,fecha_inicio='$fechainicio',fecha_fin='$fechafinal',pc='$pc' WHERE nom_id = $idnom";
-$result2 = pg_query($conexion,$sql2) or die("Error en la insercion de datos temporales de base nom");
+$sql2="UPDATE base_nom SET us_id=$us_id,fecha='$fecha',hora='$hora',plaza_id=$plaza,num_ventas=$numservicios,venta_directa=$ventasdirectas,cobros=$cobrosporventa,saldo=$saldo,cobros_per_ant=$cobrosanteriores,observaciones='$observaciones',emp_id=$empid,sal_tipo_id=$tipoperiodo,fecha_inicio='$fechainicio',fecha_fin='$fechafinal',pc='$pc',ingresos=$ingresos,recibototal=$recibototal WHERE nom_id = $idnom";
+$result2 = pg_query($conexion,$sql2) or die("Error en la insercion de datos temporales de base nom".pg_last_error());
 
 $sql3="select * from vw_sueldos_nomina where nom_id = $idnom";
 //echo $sql3;

@@ -214,8 +214,8 @@ if ($cantpersonas == $cantpersonas2 ){
     $rowbn = pg_fetch_array($resultbn);
     if($rowbn != NULL){
         do{    
-            $sqlibn = "INSERT into base_nom(nom_id,us_id,fecha,hora,plaza_id,num_ventas,venta_directa,cobros,saldo,cobros_per_ant,observaciones,emp_id,sal_tipo_id,fecha_inicio,fecha_fin,pc)
-                       values ($nominaid,".$rowbn['us_id'].",'".$rowbn['fecha']."','".$rowbn['hora']."',".$rowbn['plaza_id'].",".$rowbn['num_ventas'].",".$rowbn['venta_directa'].",".$rowbn['cobros'].",".$rowbn['saldo'].",".$rowbn['cobros_per_ant'].",'".$rowbn['observaciones']."','".$rowbn['emp_id']."',".$rowbn['sal_tipo_id'].",'".$rowbn['fecha_inicio']."','".$rowbn['fecha_fin']."','".$rowbn['pc']."');";
+            $sqlibn = "INSERT into base_nom(nom_id,us_id,fecha,hora,plaza_id,num_ventas,venta_directa,cobros,saldo,cobros_per_ant,observaciones,emp_id,sal_tipo_id,fecha_inicio,fecha_fin,pc,ingresos,recibototal)
+                       values ($nominaid,".$rowbn['us_id'].",'".$rowbn['fecha']."','".$rowbn['hora']."',".$rowbn['plaza_id'].",".$rowbn['num_ventas'].",".$rowbn['venta_directa'].",".$rowbn['cobros'].",".$rowbn['saldo'].",".$rowbn['cobros_per_ant'].",'".$rowbn['observaciones']."','".$rowbn['emp_id']."',".$rowbn['sal_tipo_id'].",'".$rowbn['fecha_inicio']."','".$rowbn['fecha_fin']."','".$rowbn['pc']."',".$rowbn['ingresos'].",".$rowbn['recibototal'].");";
             $resultibn=pg_query($conexion,$sqlibn) or die ('ERROR ibn:'. pg_last_error());
             //echo $insertcomnom;
         }while($rowbn = pg_fetch_array($resultbn));

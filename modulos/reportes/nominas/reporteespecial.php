@@ -1,5 +1,5 @@
 <?php
-include ('../../../../config/cookie.php');
+include ('../../../config/cookie.php');
 ?>
 <?php
 /** Error reporting */
@@ -10,15 +10,15 @@ date_default_timezone_set('America/Mexico_City');
 if (PHP_SAPI == 'cli')
 die('This example should only be run from a Web Browser');
 
-$idnom=base64_decode($_POST['idnom']);
+$idnom=base64_decode($_GET['idnom']);
 
-include ('../../../../config/conectasql.php');
+include ('../../../config/conectasql.php');
 $exporta = new conectasql();
 $exporta->abre_conexion("0");
 $sqlxls="SELECT * FROM vw_reporte_estado_financiero WHERE nom_id = $idnom";
 
  /** Include PHPExcel */
-require_once '../../../../librerias/phpexcel/Classes/PHPExcel.php';
+require_once ('../../../librerias/phpexcel/Classes/PHPExcel.php');
 
 // Create new PHPExcel object*/
 $objPHPExcel = new PHPExcel();

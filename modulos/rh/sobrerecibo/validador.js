@@ -30,21 +30,23 @@ function traerpercepcionesdeducciones(opc,btn){
  }
  
  function enviarnomina(){
-      if(confirm('En este momento se generará el registro de tu nomina')){
-        if(confirm('Continuar')){
+      if(confirm('En este momento se generará el registro de tu nomina') == true){
+        //if(confirm('Continuar')){
         var cantidadpersonas = document.getElementsByName("persona[]");
           var cantidadpersonas = cantidadpersonas.length;
           document.getElementById("cantpersonas").value=cantidadpersonas;
           document.todalanomina.submit();
           
-            /*var cantidadautorizadores = document.getElementsByName("autorizadores[]");
+            var cantidadautorizadores = document.getElementsByName("autorizadores[]");
             var cantidadautorizadores = cantidadautorizadores.length;
             document.getElementById("cantautorizadores").value=cantidadautorizadores;
             var correo = document.getElementById("correo").value;
-            location.href='correonomina.php?correo='+btoa(correo);*/
+            location.href='correonomina.php?correo='+btoa(correo);
+          }else{
+            return 0;
           }
       }
-}
+//}
 
 
 

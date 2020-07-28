@@ -87,28 +87,38 @@ $idnominaenproceso = $obtenerresult['idnom'];
                 <div><label>--------------------------------------------------------------------------------------------------------------------------------------</label></div>
                   <div class="w3-row-padding">
                       <div class="w3-third"> 
-                        <label>Numero de servicios</label>
-                        <input class="w3-input w3-animate-input" id="numservicios" onkeyup="this.value=Numeros(this.value)" step="0.01" value="'.$mostrar['num_ventas'].'" name="numservicios" type="number" placeholder="Numero de servicios" width="20%" required> 
+                        <label>Saldo Plan</label>
+                        <input class="w3-input w3-animate-input" id="saldoplan" onkeyup="this.value=Numeros(this.value)" step="0.01" value="'.$mostrar['num_ventas'].'" name="saldoplan" type="number" placeholder="Numero de servicios" width="20%" required> 
                       </div>
   
                       <div class="w3-third">
-                        <label>Ventas directas</label>
-                        <input class="w3-input w3-animate-input" id="ventasdirectas" value="'.$mostrar['venta_directa'].'" name="numventas" type="number" step="0.01" placeholder="Ventas directas" required onkeyup="this.value=Numeros(this.value)">
+                        <label>Adicionales</label>
+                        <input class="w3-input w3-animate-input" id="adicionales" value="'.$mostrar['venta_directa'].'" name="adicionales" type="number" step="0.01" placeholder="Adicionales" required onkeyup="this.value=Numeros(this.value)">
                       </div>
                       
                       <div class="w3-third">
-                        <label>Cobros por ventas</label>
-                        <input class="w3-input w3-animate-input" id="cobrosporventa" value="'.$mostrar['cobros'].'" type="number" step="0.01" name="cobros" placeholder="Cobros por ventas" required onkeyup="this.value=Numeros(this.value)">
+                        <label>Servicios Directos</label>
+                        <input class="w3-input w3-animate-input" id="serviciosdirectos" value="'.$mostrar['cobros'].'" type="number" step="0.01" name="serviciosdirectos" placeholder="Servicios Directos" required onkeyup="this.value=Numeros(this.value)">
                       </div>
   
                       <div class="w3-third">
-                        <label>Saldo</label>
-                        <input class="w3-input w3-animate-input" id="saldo" value="'.$mostrar['saldo'].'" type="number" step="0.01" placeholder="Saldo" name="saldo" required onkeyup="this.value=Numeros(this.value)">
+                        <label>Abono</label>
+                        <input class="w3-input w3-animate-input" id="abono" value="'.$mostrar['saldo'].'" type="number" step="0.01" placeholder="Abono" name="abono" required onkeyup="this.value=Numeros(this.value)">
                       </div>
-  
-                      <div class="w3-third">
+
+                      <div class="w3-half">
+                        <label>Ingresos</label>
+                        <input id="ingresos" class="w3-input w3-border" name="ingresos" type="number" value="'.$mostrar['ingresos'].'">
+                      </div>
+
+                      <div class="w3-half">
                         <label>Cobranza periodos anteriores</label>
-                        <input class="w3-input w3-animate-input" id="cobrosanteriores" value="'.$mostrar['cobros_per_ant'].'" type="number"  step="0.01" placeholder="Cobranza del periodo anterior" name="cobranzaperanterior" required onkeyup="this.value=Numeros(this.value)">
+                        <input id="cobrosanteriores" class="w3-input w3-border" type="number" name="cobranzaperanterior" value="'.$mostrar['cobros_per_ant'].'" required>
+                      </div>
+
+                      <div class="w3-half">
+                        <label>Recibo total</label>
+                        <input id="recibototal" class="w3-input w3-border" type="number" value="'.$mostrar['recibototal'].'" name="recibototal" required>
                       </div>
   
                       <div class="w3-third">

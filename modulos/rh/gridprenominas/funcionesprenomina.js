@@ -5,11 +5,13 @@ function comenzarnomina(){
     var empresa = document.getElementById("empresa").value;
     var tipoperiodo = document.getElementById("tipoperiodo").value;
     var fechaperiodo = document.getElementById("fechaperiodo").value;
-    var numservicios = document.getElementById("numservicios").value;
-    var ventasdirectas = document.getElementById("ventasdirectas").value;
-    var cobrosporventa = document.getElementById("cobrosporventa").value;
-    var saldo = document.getElementById("saldo").value;
+    var saldoplan = document.getElementById("saldoplan").value;
+    var adicionales = document.getElementById("adicionales").value;
+    var serviciosdirectos = document.getElementById("serviciosdirectos").value;
+    var abono = document.getElementById("abono").value;
+    var ingresos = document.getElementById("ingresos").value;
     var cobrosanteriores = document.getElementById("cobrosanteriores").value;
+    var recibototal = document.getElementById("recibototal").value;
     var observaciones = document.getElementById("observaciones").value;
     var em = document.getElementById("em").value;
 
@@ -34,24 +36,24 @@ function comenzarnomina(){
       document.modalnomina.fechaperiodo.focus();
       return 0;
     }else
-    if (document.modalnomina.numservicios.value.length==0){
-      alert("Captura numeros de servicios, si no existieron servicios deberás capturar 0");
-      document.modalnomina.numservicios.focus();
+    if (document.modalnomina.saldoplan.value.length==0){
+      alert("Captura el saldo del plan, si no existieron servicios deberás capturar 0");
+      document.modalnomina.saldoplan.focus();
       return 0;
     }else
-    if (document.modalnomina.ventasdirectas.value.length==0){
-      alert("Captura las ventas directas, si no existieron ventas deberás capturar 0");
-      document.modalnomina.ventasdirectas.focus();
+    if (document.modalnomina.adicionales.value.length==0){
+      alert("Captura los adicionales, si no existieron ventas deberás capturar 0");
+      document.modalnomina.adicionales.focus();
       return 0;
     }else
-    if (document.modalnomina.cobrosporventa.value.length==0){
-      alert("Captura los cobros por venta, si no existieron cobros deberás capturar 0");
-      document.modalnomina.cobrosporventa.focus();
+    if (document.modalnomina.serviciosdirectos.value.length==0){
+      alert("Captura los serviciosdirectos, si no existieron cobros deberás capturar 0");
+      document.modalnomina.serviciosdirectos.focus();
       return 0;
     }else
-    if (document.modalnomina.saldo.value.length==0){
-      alert("Hace falta capturar el saldo, si no existió saldo deberás capturar 0");
-      document.modalnomina.saldo.focus();
+    if (document.modalnomina.abono.value.length==0){
+      alert("Hace falta capturar el abono, si no existió saldo deberás capturar 0");
+      document.modalnomina.abono.focus();
       return 0;
     }else
     if (document.modalnomina.observaciones.value.length==0){
@@ -60,7 +62,7 @@ function comenzarnomina(){
       return 0;
     }else
     {
-      location.href='../sobrerecibo/index.php?oc1='+btoa(plazas)+'&oc2='+btoa(empresa)+'&oc3='+btoa(tipoperiodo)+'&oc4='+btoa(fechaperiodo)+'&oc5='+btoa(numservicios)+'&oc6='+btoa(ventasdirectas)+'&oc7='+btoa(cobrosporventa)+'&oc8='+btoa(saldo)+'&oc9='+btoa(cobrosanteriores)+'&oc10='+btoa(observaciones)+'&oc11='+btoa(em);
+      location.href='../sobrerecibo/index.php?oc1='+btoa(plazas)+'&oc2='+btoa(empresa)+'&oc3='+btoa(tipoperiodo)+'&oc4='+btoa(fechaperiodo)+'&oc5='+btoa(saldoplan)+'&oc6='+btoa(adicionales)+'&oc7='+btoa(serviciosdirectos)+'&oc8='+btoa(abono)+'&oc9='+btoa(ingresos)+'&oc10='+btoa(observaciones)+'&oc11='+btoa(em)+'&oc12='+btoa(cobrosanteriores)+'&oc13='+btoa(recibototal);
     }
     
     //alert(plazas+' '+empresa+' '+tipoperiodo+' '+fechaperiodo+' '+numservicios+' '+ventasdirectas+' '+cobrosporventa+' '+saldo+' '+cobrosanteriores+' '+observaciones);
@@ -107,4 +109,4 @@ function Numeros(string){//Solo numeros
 
   //Retornar valor filtrado
   return out;
-} 
+}
