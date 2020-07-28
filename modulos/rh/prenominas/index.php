@@ -128,29 +128,29 @@ $result = pg_query($conexion,$query) or die("Error en la consulta SQL");
 
                   <div class="w3-half">
                     <label>Servicios Directos</label>
-                    <input id="ventasdirectas" class="w3-input w3-border" name="numventas" type="number"  placeholder="Servicios Directos" required onkeyup="this.value=Numeros(this.value)" step="0.01">
+                    <input id="serviciosdirectos" class="w3-input w3-border" name="serviciosdirectos" type="number" placeholder="Servicios Directos" required onkeyup="this.value=Numeros(this.value)" step="0.01">
                   </div>
 
                   <div class="w3-half">
                     <label>Abono</label>
-                    <input id="saldo" class="w3-input w3-border" type="number" placeholder="Abono"  name="saldo" required onkeyup="this.value=Numeros(this.value)" step="0.01">
+                    <input id="abono" class="w3-input w3-border" type="number" placeholder="Abono"  name="abono" required onkeyup="this.value=Numeros(this.value)" step="0.01">
                   </div>
                   
                   
                   <div class="form-group">
                       <div class="w3-half">
                         <label>Ingresos</label>
-                        <input id="ingresos" class="w3-input w3-border" name="ingresos" type="number" onblur="calcular()" readonly disabled>
+                        <input id="ingresos" class="w3-input w3-border" name="ingresos" type="number">
                       </div>
 
                       <div class="w3-half">
                         <label>Cobranza periodos anteriores</label>
-                        <input id="cobrosanteriores" class="w3-input w3-border" type="number" name="cobranzaperanterior" required readonly disabled>
+                        <input id="cobrosanteriores" class="w3-input w3-border" type="number" name="cobranzaperanterior" required>
                       </div>
 
                       <div class="w3-half">
                         <label>Recibo total</label>
-                        <input id="recibototal" class="w3-input w3-border" type="number" name="recibototal" required readonly disabled>
+                        <input id="recibototal" class="w3-input w3-border" type="number" name="recibototal" required>
                       </div>
                   </div>
                   <div class="w3-half">

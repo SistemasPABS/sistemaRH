@@ -110,7 +110,3 @@ function Numeros(string){//Solo numeros
   //Retornar valor filtrado
   return out;
 }
-
-calcularingresos(){
-
-}
