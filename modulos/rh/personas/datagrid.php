@@ -21,6 +21,9 @@ if($dato != NULL){
         case 'men':
             $condicion="persona_id < $dato";
             break;
+        case 'est':
+            $condicion="persona_status = $dato";
+            break;
     }
     $where="where $condicion";
 }else{

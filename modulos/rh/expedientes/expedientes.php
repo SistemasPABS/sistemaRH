@@ -43,7 +43,8 @@ class expedientes extends conectasql{
                 echo 'Buscar por: ';
                 echo '<select class="selectbuscar" name="buscaopcion" id="buscaopcion" onchange="cambiaopciones(\'parametro\');">';
                     echo '<option value="nom" > Nombre </option>';
-                    echo '<option value="cve" > Clave </option>';
+                    echo '<option value="cve" > Clave  </option>';
+                    echo '<option value="are" > Area   </option>';
                 echo '</select>';
                 echo '</div>';
                 echo '<div name="paramentro" id="parametro"> <input type="text" id="busca" name="busca" class="campobuscar"></div>';

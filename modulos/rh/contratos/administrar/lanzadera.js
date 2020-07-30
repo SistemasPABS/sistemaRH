@@ -59,7 +59,6 @@ function autocompletable(){
     var contrato = btoa('cont');
     var puesto = btoa('pues');
     var razon = btoa('raz');
-    var salario = btoa('sal');
     //Ajax de autocompletar 
     $( "#nombre" ).autocomplete({
         source: function( request, response ) {
@@ -131,6 +130,7 @@ function autocompletable(){
             $('#puesto').val(ui.item.label); // display the selected text
             $('#id_puesto').val(ui.item.value); // save selected id to input
             $('#plaza').val(ui.item.plaza);
+            $('#suc').val(ui.item.suc);
             return false;
         }
     });//Input Razon social
@@ -153,29 +153,6 @@ function autocompletable(){
         select: function (event, ui) {
             $('#razon').val(ui.item.label); // display the selected text
             $('#id_razon').val(ui.item.value); // save selected id to input
-            return false;
-        }
-    });//Input salario
-    $( "#salario" ).autocomplete({
-        source: function( request, response ) {
-                
-            $.ajax({
-                url: "fetchDatos.php",
-                type: 'post',
-                dataType: "json",
-                data: {
-                    op:salario,
-                    search: request.term
-                },
-                success: function( data ) {
-                    response( data );
-                }
-            });
-        },
-        select: function (event, ui) {
-            $('#salario').val(ui.item.label); // display the selected text
-            $('#id_salario').val(ui.item.value); // save selected id to input
-            $('#pago').val(ui.item.pago); // save selected id to input
             return false;
         }
     });
@@ -292,7 +269,7 @@ function solo_letras_numeros(e){
     key = e.keyCode || e.which;
     tecla = String.fromCharCode(key).toString();
     letras="AaBbCcDdEeFGgHhIiFfJjKkLlMmNnÑñOoPpQqRrSsTtUuVvWwXxYyZz0123456789";
-    especiales=[8,13, 32];
+    especiales=[8,13,32,46];
     
     tecla_especial=false;
     for(var i in especiales){
@@ -306,14 +283,14 @@ function solo_letras_numeros(e){
         return false;
     }
 }
-//Valoida que el campo solo tenga numeros
+//Valida que el campo solo tenga numeros
 function solo_numeros(evt){
     if(window.event){
         keynum = evt.keyCode;
     }else{
         keynum = evt.which;
     }
-    if((keynum > 47 && keynum < 58) || keynum == 8 || keynum == 13){
+    if((keynum > 47 && keynum < 58) || keynum == 8 || keynum == 13 || keynum == 46){
         return true;
     }
     else{

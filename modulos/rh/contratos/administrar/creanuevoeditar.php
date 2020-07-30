@@ -42,6 +42,7 @@ class creanuevoeditar extends conectasql{
             $razon_id=$this->consulta['raz_id'];
             $razon_nom=$this->consulta['raz_nombre'];
             $plaza_nom=$this->consulta['plaza_nombre'];
+            $suc_nom= $this->consulta['suc_nombre'];
             $sal_id=$this->consulta['sal_id'];
             $sal_monto=$this->consulta['sal_monto_con'];
             $sal_pago=$this->consulta['sal_tipo'];
@@ -74,6 +75,7 @@ class creanuevoeditar extends conectasql{
             $razon_id='';
             $razon_nom='';
             $plaza_nom='';
+            $suc_nom='';
             $sal_id='';
             $sal_monto='';
             $sal_pago='';
@@ -119,14 +121,16 @@ class creanuevoeditar extends conectasql{
                 echo '<input type="text" name="id_contrato" id="id_contrato"  value="'.$contrato_id.'"hidden>';
                 echo '<div class="col-3"><label>Tipo de Contrato</label><br><input class="input0" name="contrato" id="contrato"  value="'.$Contrato_nom.'"placeholder="Tipo de contrato" onblur="valida_persona(\'tcon\');"></div>';
                 echo '<input type="text" name="id_puesto" id="id_puesto"  value="'.$puesto_id.'"hidden>';
-                echo '<div class="col-3"><label>Puesto</label><br><input class="input0" name="puesto" id="puesto"  value="'.$puesto_nom.'"placeholder="puesto" onblur="valida_persona(\'pst\');"></div>';
+                echo '<div class="col-3"><label>Puesto</label><br><input class="input0" name="puesto" id="puesto"  value="'.$puesto_nom.'"placeholder="Puesto" onblur="valida_persona(\'pst\');"></div>';
                 echo '<input type="text" name="id_razon" id="id_razon"  value="'.$razon_id.'"hidden>';
                 echo '<div class="col-3"><label>Razon Social</label><br><input class="input0" name="razon" id="razon" value="'.$razon_nom.'" onblur="valida_persona(\'rzn\');"></div>';
-                echo '<div class="col-3"><label>Plaza</label><br><input class="input0" name="plaza" id="plaza" value="'.$plaza_nom.'"placeholder="Direccion" readonly></div>';
+                echo '<div class="col-3"><label>Plaza</label><br><input class="input0" name="plaza" id="plaza" value="'.$plaza_nom.'" placeholder="Plaza" readonly></div>';
+                
             echo '<div>';
             echo '<div class="row">';
                 //echo '<input type="text" name="id_salario" id="id_salario" value="'.$sal_id.'" hidden>';
-                echo '<div class="col-3"><label>Salario</label><br><input class="input0" name="salario" id="salario" value="'.$sal_monto.'" onblur="valida_salario();"></div>';
+                echo '<div class="col-3"><label>Area</label><br><input class="input0" name="suc" id="suc" value="'.$suc_nom.'"placeholder="Area" readonly></div>';
+                echo '<div class="col-3"><label>Salario</label><br><input class="input0" name="salario" id="salario" value="'.$sal_monto.'" placeholder="$ $ $" onblur="valida_salario();" onkeypress="return solo_numeros(event);"></div>';
                 echo '<div class="col-3"><label>Horario</label><br><input class="input0" name="horario" value="'.$con_horario.'"></div>';
                 echo '<div class="col-3"><label>Periodo de Prueba</label><input class="input0" name="prueba"  value="'.$con_prueba.'"placeholder="en días"></div>';
             echo '<div>';

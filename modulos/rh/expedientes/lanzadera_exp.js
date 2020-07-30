@@ -41,9 +41,11 @@ function genera() {
                     datafields: [
                         { name: 'persona_id'},
                         { name: 'persona_cve'},
+                        { name: 'con_fecha_inicio'},
                         { name: 'nombrecompleto'},
+                        { name: 'plaza_nombre'},
+                        { name: 'suc_nombre'},
                         { name: 'persona_correo'},
-                        { name: 'numtel'},
                         { name: 'persona_status'}
                         ],
                         
@@ -64,9 +66,11 @@ function genera() {
                     columns: [
                       { text: 'Registro', datafield: 'persona_id',width: 100,cellsalign: 'center'},
                       { text: 'Clave', datafield: 'persona_cve',width: 100,cellsalign: 'center'},
+                      { text: 'Fecha ingreso', datafield: 'con_fecha_inicio',width: 100,cellsalign: 'center'},
                       { text: 'Nombre Completo', datafield: 'nombrecompleto', width: 280,cellsformat: 'D' },
+                      { text: 'Plaza', datafield: 'plaza_nombre', width: 200,cellsformat: 'D' },
+                      { text: 'Area', datafield: 'suc_nombre', width: 100,cellsformat: 'D' },
                       { text: 'Correo', datafield: 'persona_correo', width: 190,cellsformat: 'D' },
-                      { text: 'Numero telefonico', datafield: 'numtel',width:260,cellsformat: 'D'},
                       { text: 'Estatus', datafield: 'persona_status', width:60,cellsalign: 'center' }
                     ]
 
@@ -113,9 +117,11 @@ function enviar() {
                     datafields: [
                         { name: 'persona_id'},
                         { name: 'persona_cve'},
+                        { name: 'con_fecha_inicio'},
                         { name: 'nombrecompleto'},
+                        { name: 'plaza_nombre'},
+                        { name: 'suc_nombre'},
                         { name: 'persona_correo'},
-                        { name: 'numtel'},
                         { name: 'persona_status'}
                         ],
                         
@@ -136,9 +142,11 @@ function enviar() {
                     columns: [
                       { text: 'Registro', datafield: 'persona_id',width: 100,cellsalign: 'center'},
                       { text: 'Clave', datafield: 'persona_cve',width: 100,cellsalign: 'center'},
+                      { text: 'Fecha ingreso', datafield: 'con_fecha_inicio',width: 100,cellsalign: 'center'},
                       { text: 'Nombre Completo', datafield: 'nombrecompleto', width: 280,cellsformat: 'D' },
+                      { text: 'Plaza', datafield: 'plaza_nombre', width: 200,cellsformat: 'D' },
+                      { text: 'Area', datafield: 'suc_nombre', width: 100,cellsformat: 'D' },
                       { text: 'Correo', datafield: 'persona_correo', width: 190,cellsformat: 'D' },
-                      { text: 'Numero telefonico', datafield: 'numtel',width:260,cellsformat: 'D'},
                       { text: 'Estatus', datafield: 'persona_status', width:60,cellsalign: 'center' }
                     ]
 

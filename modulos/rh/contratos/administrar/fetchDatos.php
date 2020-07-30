@@ -53,7 +53,8 @@ $search=$_POST['search'];
                 //Asignacion de valores dentro del Array
                 $response[] = array("value"=>$row['puesto_id'],
                                     "label"=>$row['puesto_nombre'],
-                                    "plaza"=>$row['plaza_nombre']                                 
+                                    "plaza"=>$row['plaza_nombre'],
+                                    "suc"=>$row['suc_nombre']
                                 );
             }
         //Regresa el array en formato Json para la manupulacion de la funcion ajax    

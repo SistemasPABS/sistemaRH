@@ -15,6 +15,9 @@ if($dato != NULL){
         case 'cve':
             $condicion='persona_cve';
             break;
+        case 'are':
+            $condicion='suc_nombre';
+            break;
     }
     $where="where $condicion like '%$dato%'";
 }else{
@@ -24,7 +27,7 @@ if($dato != NULL){
     $con= new conectasql();
     $con->abre_conexion("0");
     $conexion=$con->conexion;
-    $query = "select * from vw_personas $where order by persona_cve desc;";
+    $query = "select persona_id,persona_cve,nombrecompleto,persona_correo,persona_status,plaza_nombre,suc_nombre,con_fecha_inicio from vw_contratos $where order by persona_id desc;";
     $result = pg_query($conexion,$query);
 //    if ($row = odbc_fetch_row($result)){
 //        do{
@@ -41,9 +44,11 @@ if($dato != NULL){
          $users[$i] = array();
          $users[$i]['persona_id'] = $row['persona_id'];
          $users[$i]['persona_cve'] = $row['persona_cve'];
+         $users[$i]['con_fecha_inicio'] = $row['con_fecha_inicio'];
          $users[$i]['nombrecompleto'] = $row['nombrecompleto'];
+         $users[$i]['plaza_nombre'] = $row['plaza_nombre'];
+         $users[$i]['suc_nombre'] = $row['suc_nombre'];
          $users[$i]['persona_correo'] = $row['persona_correo'];
-         $users[$i]['numtel'] = $row['numtel'];
          if($row['persona_status'] == 1 )
          {
              $status='<img src="../../../images/palomaicon.png" width="14" height="14">';

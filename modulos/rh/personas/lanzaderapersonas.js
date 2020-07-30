@@ -60,8 +60,14 @@ function pulsar(e) {
 } 
 
 function cambiaopciones(posicion,id){
-    document.getElementById(posicion).innerHTML = ('<input type="text" id="busca" name="busca" class="campobuscar" >');
-    return false;
+    var est = document.getElementById("buscaopcion").value;
+    if(est == 'est'){
+        document.getElementById(posicion).innerHTML = ('<select id="busca" name="busca" class="selectbuscar" > <option value="1"> Activo </option> <option value="0"> Inactivo </option> </select>');
+        return false;
+    }else{
+        document.getElementById(posicion).innerHTML = ('<input type="text" id="busca" name="busca" class="campobuscar" >');
+        return false;
+    }
 }
 
 function genera() { 
