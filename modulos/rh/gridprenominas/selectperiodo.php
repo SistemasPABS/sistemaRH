@@ -104,7 +104,7 @@ if ($oc1==1){
         
         
         <div class="form-group">
-            <div class="w3-half">
+            <div>
               <label>Ingresos</label>
               <input id="ingresos" class="w3-input w3-border" name="ingresos" type="number">
             </div>
@@ -199,6 +199,17 @@ else
             }while($mostrar= pg_fetch_array($result));
         echo'</select>';
         echo'</div>';
+        echo'
+        <input hidden value="0" id="saldoplan" class="w3-input w3-border" name="saldoplan" type="number" placeholder="Saldo del plan" width="20%" required onkeyup="this.value=Numeros(this.value)"> 
+        <input hidden value="0" id="adicionales" class="w3-input w3-border" name="adicionales" type="number" placeholder="Adicionales" width="20%" required onkeyup="this.value=Numeros(this.value)"> 
+        <input hidden value="0" id="serviciosdirectos" class="w3-input w3-border" name="serviciosdirectos" type="number" placeholder="Servicios Directos" required onkeyup="this.value=Numeros(this.value)" step="0.01">
+        <input hidden value="0" id="abono" class="w3-input w3-border" type="number" placeholder="Abono"  name="abono" required onkeyup="this.value=Numeros(this.value)" step="0.01">
+        <input hidden value="0" id="ingresos" class="w3-input w3-border" name="ingresos" type="number">
+        <input hidden value="0" id="cobrosanteriores" class="w3-input w3-border" type="number" name="cobranzaperanterior" required>
+        <input hidden value="0" id="recibototal" class="w3-input w3-border" type="number" name="recibototal" required>
+        <input hidden value="----" type="text" class="form-control" placeholder="Observaciones" id="observaciones" maxlength="150" onkeyup="this.value=NumText(this.value)"></input> 
+        ';
+
     }
 else{
         echo 'Opcion no valida, escoge una!!!';
