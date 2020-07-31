@@ -61,11 +61,11 @@ do{
 
     <body>
         <div>SELECCIONA LAS PERSONAS A LAS QUE LES QUIERES AJUSTAR LA NOMINA</div>
-            <form action="ajustador.php" method="post">
+            <form name="personas" action="ajustador.php" method="post">
                 <?php echo $personas?>
             </form>
         <div>
-            <input type="submit" value="Ajustar nomina">
+            <button id="submit" type="submit" onclick="ajustarnomina()">HACER AJUSTES</button>
         </div>
     </body>
 </html>
