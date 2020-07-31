@@ -189,13 +189,13 @@ else
     }
 else
     if($oc1==4){
-        $query="SELECT idperiodo, num_periodo, fecha_inicio, fecha_final from vw_periodonomina WHERE autorizada = true order by num_periodo";
+        $query="SELECT idperiodo, num_periodo, fecha_inicio, fecha_fin from vw_nominasautorizadas order by num_periodo";
         $result= pg_query($conexion,$query);
     $mostrar= pg_fetch_array($result);
         echo'<div id=opcion>'
         . '<select id="fechaperiodo">';
             do{
-                echo '<option value="'.$mostrar['idperiodo'].'">AJUS-'.$mostrar['num_periodo'].' DEL '.$mostrar['fecha_inicio'].' - AL - '.$mostrar['fecha_final'].'</option>';
+                echo '<option value="'.$mostrar['idperiodo'].'">AJUS-'.$mostrar['num_periodo'].' DEL '.$mostrar['fecha_inicio'].' - AL - '.$mostrar['fecha_fin'].'</option>';
             }while($mostrar= pg_fetch_array($result));
         echo'</select>';
         echo'</div>';
