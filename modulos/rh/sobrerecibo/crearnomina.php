@@ -186,6 +186,8 @@ if ($cantpersonas == $cantpersonas2 ){
         //se obtiene el neto de la persona
         $neto=$montosueldo + $montosumacomisionespersona + $montosumapercepcionespersona - $montosumadeduccionespersona;//tododesmadredesumasyrestasdelostemporales
         $totalnomina=$totalnomina+$neto;
+
+        
     }
 
 
@@ -196,6 +198,8 @@ if ($cantpersonas == $cantpersonas2 ){
     //Se genera ID de la nomina
     $insertarnomina = "insert into nomina (fecha_inicio,fecha_fin,nom_total,nom_autorizada,plaza_id,sal_tipo_id,fechageneracion,horageneracion,us_id,pc,idperiodo,nom_autorizo) values ('$fechainicio','$fechafinal',$totalnomina,'false',$plaza,$tipoperiodo,'$fecha','$hora',$us_id,'$pc',$idperiodo,0)";
     $result = pg_query($conexion,$insertarnomina) or die ('Error al insertar nomina');
+
+
 
     //se consulta la nomina generada
     $querynomina="SELECT * from nomina where us_id = $us_id and pc = '$pc' and fecha_inicio='$fechainicio'and fecha_fin = '$fechafinal' and plaza_id = $plaza and fechageneracion = '$fecha' and horageneracion = '$hora' ORDER BY nom_id DESC;";
