@@ -113,8 +113,13 @@ $result = pg_query($conexion,$query) or die("Error en la consulta SQL");
                 </div>
               </div>
 
-              <div class="form-group">
-                <div class="w3-row-padding">
+              <!---<div class="form-group">
+                <div id="informacionadicional" class="w3-half">
+                
+                </div>--->
+
+
+                <!---<div class="w3-row-padding">
                 
                   <div class="w3-half">
                     <label>Saldo Plan</label>
@@ -157,26 +162,30 @@ $result = pg_query($conexion,$query) or die("Error en la consulta SQL");
                     <label>Observaciones</label>
                     <input type="text" class="form-control" placeholder="Observaciones" id="observaciones" maxlength="150" onkeyup="this.value=NumText(this.value)"></input> 
                   </div>
-                </div>
-                </div>
+                  </div>
+                </div> --->
+
+
               </div>
-      </form>
-      <div class="modal-footer">
-			<div class="btn-group btn-group-justified" role="group" aria-label="group button">
-				<div class="btn-group" role="group">
-          <button type="button" class="btn btn-default" data-dismiss="modal" role="button">Cancelar Nómina</button>
-				</div>
-				<div class="btn-group" role="group">
-          <input type="button" name="saveImage" class="btn btn-default btn-hover-green" onclick="comenzarnomina()" value="comenzar">
-				</div>
-				
-			</div>
-		</div>
+          </form>
+
+            <div class="modal-footer">
+			      <div class="btn-group btn-group-justified" role="group" aria-label="group button">
+				    <div class="btn-group" role="group">
+              <button type="button" class="btn btn-default" data-dismiss="modal" role="button">Cancelar Nómina</button>
+				    </div>
+
+				    <div class="btn-group" role="group">
+              <input type="button" name="saveImage" class="btn btn-default btn-hover-green" onclick="comenzarnomina()" value="comenzar">
+				    </div>
+
+			        </div>
+		        </div>
+          </div>
+	      </div>
+      </div>
     </div>
-	</div>
-  </div>
-</div>
-</body>
+  </body>
 </html>
 
 <style>

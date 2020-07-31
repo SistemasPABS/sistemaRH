@@ -74,17 +74,35 @@ function comenzarnomina(){
 function cargarperiodos(){
     //alert ('HOLA');
     var idtipoperiodo = document.getElementById("tipoperiodo").value;
+    var idempresa = document.getElementById("empresa").value;
     var url = "../gridprenominas/selectperiodo.php";
+    
     $.ajax({
             type: "POST",
             url:url,
-            data:{idtp:btoa(idtipoperiodo)},
+            data:{idtp:btoa(idtipoperiodo),idempresa:btoa(idempresa)},
             success: function(data){
             //alert(data);    
             document.getElementById("fechas").innerHTML=data;
+            //document.getElementById("informacionadicional").innerHTML=data;
             }
           });
 }
+
+/*function cargaradicionales(){
+  var idempresa = document.getElementById("empresa").value;
+  var idtipoperiodo = document.getElementById("tipoperiodo").value;
+  var url="../prenominas/seleccionador.php";
+  
+  $.ajax({
+    type: "POST",
+    url:url,
+    data:{idempresa:btoa(idempresa),idtp:btoa(idtipoperiodo)},
+    success:function(data){
+      document.getElementById("informacionadicional").innerHTML=data;
+    }
+  })
+}*/
 
 function NumText(string){//solo letras y numeros
   var out = '';
