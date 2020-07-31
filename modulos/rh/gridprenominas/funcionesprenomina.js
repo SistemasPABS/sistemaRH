@@ -62,7 +62,11 @@ function comenzarnomina(){
       return 0;
     }else
     {
-      location.href='../sobrerecibo/index.php?oc1='+btoa(plazas)+'&oc2='+btoa(empresa)+'&oc3='+btoa(tipoperiodo)+'&oc4='+btoa(fechaperiodo)+'&oc5='+btoa(saldoplan)+'&oc6='+btoa(adicionales)+'&oc7='+btoa(serviciosdirectos)+'&oc8='+btoa(abono)+'&oc9='+btoa(ingresos)+'&oc10='+btoa(observaciones)+'&oc11='+btoa(em)+'&oc12='+btoa(cobrosanteriores)+'&oc13='+btoa(recibototal);
+      if (tipoperiodo==4){
+        location.href='../nominaajuste/selectpersonas.php?oc1='+btoa(plazas)+'&oc2='+btoa(empresa)+'&oc3='+btoa(tipoperiodo)+'&oc4='+btoa(fechaperiodo)+'&oc5='+btoa(saldoplan)+'&oc6='+btoa(adicionales)+'&oc7='+btoa(serviciosdirectos)+'&oc8='+btoa(abono)+'&oc9='+btoa(ingresos)+'&oc10='+btoa(observaciones)+'&oc11='+btoa(em)+'&oc12='+btoa(cobrosanteriores)+'&oc13='+btoa(recibototal);
+      }else{
+        location.href='../sobrerecibo/index.php?oc1='+btoa(plazas)+'&oc2='+btoa(empresa)+'&oc3='+btoa(tipoperiodo)+'&oc4='+btoa(fechaperiodo)+'&oc5='+btoa(saldoplan)+'&oc6='+btoa(adicionales)+'&oc7='+btoa(serviciosdirectos)+'&oc8='+btoa(abono)+'&oc9='+btoa(ingresos)+'&oc10='+btoa(observaciones)+'&oc11='+btoa(em)+'&oc12='+btoa(cobrosanteriores)+'&oc13='+btoa(recibototal);
+      }      
     }
     
     //alert(plazas+' '+empresa+' '+tipoperiodo+' '+fechaperiodo+' '+numservicios+' '+ventasdirectas+' '+cobrosporventa+' '+saldo+' '+cobrosanteriores+' '+observaciones);
