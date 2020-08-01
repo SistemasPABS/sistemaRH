@@ -25,14 +25,47 @@ $cobrosanteriores=base64_decode($_GET['oc12']);//cobrosanteriores
 $recibototal=base64_decode($_GET['oc13']);//recibototal
 $pc=gethostbyaddr($_SERVER['REMOTE_ADDR']);//computadora de donde se hace
 
+$sqlfechas="SELECT * FROM periodos WHERE idperiodo=$fechaperiodo";
+$resultsqlfechas = pg_query($conexion,$sqlfechas) or die("Error al obtener los periodos");
+$rowsqlfechas = pg_fetch_array($resultsqlfechas);
+
 $sql1="SELECT * FROM vw_nominasautorizadas WHERE idperiodo=$fechaperiodo";
 $result1 = pg_query($conexion,$sql1) or die("Error al obtener la informacion de la nomina autorizada");
 $row1 = pg_fetch_array($result1);
 $idnomina = $row1['nom_id'];
 
-$sql2="INSERT into tmp_base_nom_ajuste (us_id,fecha,hora,plaza_id,num_ventas,venta_directa,cobros,saldo,cobros_per_ant,observaciones,emp_id,sal_tipo_id,fecha_inicio,fecha_fin,pc,ingresos,recibototal,idnomina) values ($us_id,'$fecha','$hora',$plaza,$numservicios,$ventasdirectas,$cobrosporventa,$saldo,$cobrosanteriores,'$observaciones','$empid',$tipoperiodo,'".$row1['fecha_inicio']."','".$row1['fecha_final']."','$pc',$ingresos,$recibototal,$idnomina)";
+$sql2="INSERT into tmp_base_nom_ajuste (us_id,fecha,hora,plaza_id,num_ventas,venta_directa,cobros,saldo,cobros_per_ant,observaciones,emp_id,sal_tipo_id,fecha_inicio,fecha_fin,pc,ingresos,recibototal,idnomina) values ($usid,'$fecha','$hora',$plaza,$numservicios,$ventasdirectas,$cobrosporventa,$saldo,$cobrosanteriores,'$observaciones','$empid',$tipoperiodo,'".$rowsqlfechas['fecha_inicio']."','".$rowsqlfechas['fecha_final']."','$pc',$ingresos,$recibototal,$idnomina)";
 $result2 = pg_query($conexion,$sql2) or die("Error en la insercion de datos temporales de base nom".pg_last_error());
 
-
-
+$sql3="SELECT * FROM vw_contratos WHERE con_status = 1 AND emp_id = '$empid' AND plaza_id = $plaza";
+$result3= pg_query($conexion,$sql3);
+$row3=pg_fetch_array($result3);
+do{
+    $personas.='
+        
+                <div class="container">
+                    <input type="checkbox" value="'.$row3['persona_id'].'" name="personaid[]">'.$row3['nombrecompleto'].'</input>
+                </div>
+       
+    ';
+}while($row3=pg_fetch_array($result3));
 ?>
+
+<html>
+    <head>
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="validador.js"></script>
+    </head>
+
+    <body>
+        <div>SELECCIONA LAS PERSONAS A LAS QUE LES QUIERES AJUSTAR LA NOMINA</div>
+            <form name="personas" action="ajustador.php" method="post">
+                <?php echo $personas?>
+            </form>
+        <div>
+            <button id="submit" type="submit" onclick="ajustarnomina()">HACER AJUSTES</button>
+        </div>
+    </body>
+</html>
