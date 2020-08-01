@@ -220,7 +220,7 @@ if ($cantpersonas == $cantpersonas2 ){
         }while($campostmpcomnom = pg_fetch_array($result));
     }
 
-    /*//VOLCADO A LA TABLA HISTORICA DE LAS PERCEPCIONES
+    //VOLCADO A LA TABLA HISTORICA DE LAS PERCEPCIONES
     $selecttmp_percepciones = "SELECT * from tmp_percepciones_ajuste where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza and fecha='$fecha' and hora='$hora' and nom_id=$idnom";
     $result = pg_query($conexion,$selecttmp_percepciones);
     $campostmppercepciones = pg_fetch_array($result);
@@ -232,7 +232,7 @@ if ($cantpersonas == $cantpersonas2 ){
         }while($campostmppercepciones = pg_fetch_array($result));
     }
    
-    //VOLCADO A LA TABLA HISTORICA DE LAS DEDUCCIONES
+    /*//VOLCADO A LA TABLA HISTORICA DE LAS DEDUCCIONES
     $selecttmp_deducciones = "SELECT * from tmp_deducciones_ajuste where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza and fecha='$fecha' and hora='$hora'";
     $result = pg_query($conexion,$selecttmp_deducciones);
     $campostmpdeducciones = pg_fetch_array($result);
