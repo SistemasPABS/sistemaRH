@@ -208,7 +208,7 @@ if ($cantpersonas == $cantpersonas2 ){
         }while($rowbn = pg_fetch_array($resultbn));
     }
     
-    /*//VOLCADO A LA TABLA HISTORICA DE LAS COMISIONES
+    //VOLCADO A LA TABLA HISTORICA DE LAS COMISIONES
     $selecttmpcomnom = "SELECT * from tmp_comnom_ajuste where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza and fecha='$fecha' and hora='$hora' and nom_id = $idnom";
     $result = pg_query($conexion,$selecttmpcomnom);
     $campostmpcomnom = pg_fetch_array($result);
@@ -220,7 +220,7 @@ if ($cantpersonas == $cantpersonas2 ){
         }while($campostmpcomnom = pg_fetch_array($result));
     }
 
-    //VOLCADO A LA TABLA HISTORICA DE LAS PERCEPCIONES
+    /*//VOLCADO A LA TABLA HISTORICA DE LAS PERCEPCIONES
     $selecttmp_percepciones = "SELECT * from tmp_percepciones_ajuste where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza and fecha='$fecha' and hora='$hora' and nom_id=$idnom";
     $result = pg_query($conexion,$selecttmp_percepciones);
     $campostmppercepciones = pg_fetch_array($result);
