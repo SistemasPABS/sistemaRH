@@ -2,14 +2,19 @@
 include_once ('../../../config/cookie.php');
 include_once ('../../../config/conectasql.php');
 session_start();
+$fecha=date("Ymd");
+$hora=date("H:i:s");
+$us_id=$_SESSION['us_id'];
 $con= new conectasql();
 $con->abre_conexion("0");
 $conexion=$con->conexion;
 $personaid=$_POST['personaid'];
+$nomid = $_POST['nomid'];
+$pc=gethostbyaddr($_SERVER['REMOTE_ADDR']);//computadora de donde se hace
 foreach($personaid AS $p){
-    //condicion para el foreach
-    $p=$p++;
-    $sql3="SELECT * from vw_contratos where con_status = 1 and persona_id = $p";
+//condicion para el foreach
+$p=$p++;
+$sql3="SELECT * from vw_contratos where con_status = 1 and persona_id = $p";
 $result3= pg_query($conexion,$sql3);
     if($row3= pg_fetch_array($result3)){
         do{
@@ -76,7 +81,7 @@ $result3= pg_query($conexion,$sql3);
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
         <script src="../prenominas/styles/navbar2.js"></script>
         <script src="../prenominas/styles/jquery.js"></script> 
-        <script src="validador.js"></script>
+        <script src="nominadeajuste.js"></script>
         <script src="../gridprenominas/calculadoracomisiones.js"></script>
     </head>
     
@@ -122,19 +127,14 @@ $result3= pg_query($conexion,$sql3);
 
     <body>
         <div class="container" id="contenedor" style="overflow-x:auto;">
-        <form name="todalanomina" method="POST" action="crearnomina.php">
+        <form name="todalanominadeajuste" method="POST" action="crearnominadeajuste.php">
         <input hidden id="cantpersonas" name="cantpersonas" value=""></input>
-        <input hidden id="cantautorizadores" name="cantautorizadores" value=""></input>
         <table class="custom-table">
             <thead>
                 <tr>
-                
                     <input hidden value="<?php echo $pc?>" name="pc"></input>
-                    <input hidden value="<?php echo $fechaperiodo?>" name="idperiodo"></input>
-                    <input hidden value="<?php echo $plaza?>" name="plaza"></input>
-                    <input hidden value="<?php echo $tipoperiodo?>" name="tipoperiodo"></input>
-                    <input hidden value="<?php echo $empid?>" name="empid"></input>
                     <input hidden value="<?php echo $hora?>" name="hbn"></input>
+                    <input hidden value="<?php echo $nomid ?>" name="nomid"></input>
                     <th>Persona</th>
                     <th>Nombre</th>
                     <th>Monto</th>
@@ -144,12 +144,13 @@ $result3= pg_query($conexion,$sql3);
                     <th>Observaciones</th>
                 </tr>
             </thead>
+            
             <?php echo $monos?>
             <?php echo $autorizadores?>
             
         </table>
         
-        <button id="submit" type="submit" onclick="enviarnomina()">GUARDAR NOMINA</button>
+        <button id="submit" type="submit" onclick="enviarnominadeajuste()">GUARDAR NOMINA DE AJUSTE</button>
         
     </form>    
 </div>

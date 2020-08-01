@@ -60,8 +60,10 @@ do{
     </head>
 
     <body>
+    
         <div>SELECCIONA LAS PERSONAS A LAS QUE LES QUIERES AJUSTAR LA NOMINA</div>
             <form name="personas" action="ajustador.php" method="post">
+            <input hidden value="<?php echo $idnomina?>" name="nomid"></input>
                 <?php echo $personas?>
             </form>
         <div>
