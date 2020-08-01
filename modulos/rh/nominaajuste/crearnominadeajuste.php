@@ -250,20 +250,20 @@ if ($cantpersonas == $cantpersonas2 ){
     //////////////////////////////////////////////////////////////////////////////////
   
     
-    /*//se obtiene la cantidad de datos en la tabla temporal de base de nomina
-    $selecttmpbasenom = "SELECT count(*) as cuentatmpbasenom from tmp_base_nom_ajuste where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza and fecha='$fecha' and hora='$hbn'";
-    $selecttmpbasenom;
+    //se obtiene la cantidad de datos en la tabla temporal de base de nomina
+    $selecttmpbasenom = "SELECT count(*) as cuentatmpbasenom from tmp_base_nom_ajuste where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza and fecha='$fecha' and hora='$hbn' and idnomina = $idnom";
+    //echo $selecttmpbasenom;
     $result = pg_query($conexion,$selecttmpbasenom);
     $valorarreglotmpbasenom = pg_fetch_array($result);
 
     //se obtiene la cantidad de datos en la tabla historico de base de nomina
-    $selectbasenom = "SELECT count (*) as cuentabasenom from base_nom_ajuste where us_id = $us_id and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and nom_id=$nominaid and pc = '$pc'";
+    $selectbasenom = "SELECT count (*) as cuentabasenom from base_nom_ajuste where us_id = $us_id and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and nom_id_original=$idnom and pc = '$pc' and hora='$hbn'";
     //echo $selectbasenom;
     $result = pg_query($conexion,$selectbasenom);
     $valorarreglobasenom = pg_fetch_array($result);
     //SE ESTAN COMPARANDO QUE LO QUE SE MANDO SEA IGUAL PARA QUE SE PUEDA BORRAR  
     if($valorarreglotmpbasenom['cuentatmpbasenom']==$valorarreglobasenom['cuentabasenom']){
-       $borradotmpbasenom="DELETE from tmp_base_nom_ajuste WHERE us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza and fecha='$fecha' and hora='$hbn' and nom_id = $idnom";
+       $borradotmpbasenom="DELETE from tmp_base_nom_ajuste WHERE us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza and fecha='$fecha' and hora='$hbn' and idnomina = $idnom";
         //echo $borradotmpcomnom;
         $result = pg_query($conexion,$borradotmpbasenom) or die ("Verifica la sentencia SQL". pg_last_error());
     }else{
@@ -272,14 +272,14 @@ if ($cantpersonas == $cantpersonas2 ){
 
     
     //se obtiene la cantidad de comisiones en la tabla tmp para el periodo
-    $selecttmp_comnom = "SELECT count(*) as cuentatmpcomnom from tmp_comnom_ajuste where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza and fecha='$fecha' and hora='$hora'";
-    //echo $selecttmp_percepciones;
+    $selecttmp_comnom = "SELECT count(*) as cuentatmpcomnom from tmp_comnom_ajuste where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza and fecha='$fecha' and hora='$hbn and idnomina = $idnom'";
+    echo $selecttmp_comnom;
     $result = pg_query($conexion,$selecttmp_comnom);
     $campostmp_comnom = pg_fetch_array($result);
     
     //se obtiene la cantidad de comisiones en la tabla historico para el periodo
-    $selectcomnom = "SELECT count(*) as cuentacomnom from comnom_ajuste where nom_id = $nominaid and us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' ";
-    //echo $selectpercepciones;
+    $selectcomnom = "SELECT count(*) as cuentacomnom from comnom_ajuste where nom_id = $nominaid and us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and hora = '$hbn' and nom_id_original = $idnom";
+    echo $selectcomnom;
     $result = pg_query($conexion,$selectcomnom);
     $camposcomnom = pg_fetch_array($result);
     
@@ -293,7 +293,7 @@ if ($cantpersonas == $cantpersonas2 ){
     } 
 
 
-    //se obtiene la cantidad de percepciones en la tabla tmp para el peiodo
+    /*//se obtiene la cantidad de percepciones en la tabla tmp para el peiodo
     $selecttmp_percepciones = "SELECT count(*) as cuentatmppercepciones from tmp_percepciones_ajuste where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza and fecha='$fecha' and hora='$hora'";
     //echo $selecttmp_percepciones;
     $result = pg_query($conexion,$selecttmp_percepciones);
