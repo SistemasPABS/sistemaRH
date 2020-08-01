@@ -4,12 +4,18 @@ include_once ('../../../config/conectasql.php');
 session_start();
 $fecha=date("Ymd");
 $hora=date("H:i:s");
+$hbn=$_POST['hbn'];
 $us_id=$_SESSION['us_id'];
 $con= new conectasql();
 $con->abre_conexion("0");
 $conexion=$con->conexion;
 $personaid=$_POST['personaid'];
+$plaza = $_POST['plaza'];
+$empid = $_POST['empid'];
+$tipoperiodo = $_POST['tipoperiodo'];
+$fechaperiodo = $_POST['fechaperiodo'];
 $nomid = $_POST['nomid'];
+
 $pc=gethostbyaddr($_SERVER['REMOTE_ADDR']);//computadora de donde se hace
 foreach($personaid AS $p){
 //condicion para el foreach
@@ -133,8 +139,12 @@ $result3= pg_query($conexion,$sql3);
             <thead>
                 <tr>
                     <input hidden value="<?php echo $pc?>" name="pc"></input>
-                    <input hidden value="<?php echo $hora?>" name="hbn"></input>
+                    <input hidden value="<?php echo $hbn?>" name="hbn"></input>
                     <input hidden value="<?php echo $nomid ?>" name="nomid"></input>
+                    <input hidden value="<?php echo $plaza ?>" name="plaza"></input>
+                    <input hidden value="<?php echo $empid ?>" name="empid"></input>
+                    <input hidden value="<?php echo $fechaperiodo ?>" name="fechaperiodo"></input>
+                    <input hidden value="<?php echo $tipoperiodo ?>" name="tipoperiodo"></input>
                     <th>Persona</th>
                     <th>Nombre</th>
                     <th>Monto</th>
