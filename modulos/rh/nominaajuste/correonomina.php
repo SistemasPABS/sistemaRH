@@ -43,11 +43,13 @@
             // Content
             $mail->isHTML(true);                                  // Set email format to HTML
             $mail->Subject = 'Nomina de ajuste creada';
-            $mail->Body    = 'Buen día, este correo es para notificarle que se realizó una nomina de ajuste';
+            // Cargamos la plantilla usuario para el cuerpo del Email
+            $body = file_get_contents("htmlcorreo/nominaajuste.html");
+            $mail->MsgHTML($body);
             /*$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';*/
 
             $mail->send();
-            echo 'Correo enviado';
+            echo 'Correo enviado!';
         }
         catch (Exception $e) {
             echo "Correo no pudo ser enviado. Mailer Error: {$mail->ErrorInfo}";
