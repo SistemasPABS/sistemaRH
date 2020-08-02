@@ -21,52 +21,68 @@ if ($oc1==1){
         echo'</select>';
         echo'</div>';
         echo'
-        <div class="w3-row-padding">
-                
-        <div class="w3-half">
-          <label>Saldo Plan</label>
-          <input id="saldoplan" class="w3-input w3-border" name="saldoplan" type="number" placeholder="Saldo del plan" width="20%" required onkeyup="this.value=Numeros(this.value)"> 
-        </div>
+          <head>
+            <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+            <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+            <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">   
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+            <link href="jquery.multiselect.css" rel="stylesheet" type="text/css">
+            <script src="jquery.min.js"></script>
+            <script src="jquery.multiselect.js"></script>
+          </head>
 
-        <div class="w3-half">
-          <label>Adicionales</label>
-          <input id="adicionales" class="w3-input w3-border" name="adicionales" type="number" placeholder="Adicionales" width="20%" required onkeyup="this.value=Numeros(this.value)"> 
-        </div>
+          <body>
+            <table>
+              <tr>
+                <td>
+                  <label>Saldo Plan</label>
+                  <input id="saldoplan" name="saldoplan" type="number" placeholder="Saldo del plan" width="20%" required onkeyup="this.value=Numeros(this.value)">
+                </td>
 
-        <div class="w3-half">
-          <label>Servicios Directos</label>
-          <input id="serviciosdirectos" class="w3-input w3-border" name="serviciosdirectos" type="number" placeholder="Servicios Directos" required onkeyup="this.value=Numeros(this.value)" step="0.01">
-        </div>
+                <td>
+                  <label>Adicionales</label>
+                  <input id="adicionales" name="adicionales" type="number" placeholder="Adicionales" width="20%" required onkeyup="this.value=Numeros(this.value)"> 
+                </td>
+              </tr>
 
-        <div class="w3-half">
-          <label>Abono</label>
-          <input id="abono" class="w3-input w3-border" type="number" placeholder="Abono"  name="abono" required onkeyup="this.value=Numeros(this.value)" step="0.01">
-        </div>
-        
-        
-        <div class="form-group">
-            <div class="w3-half">
-              <label>Ingresos</label>
-              <input id="ingresos" class="w3-input w3-border" name="ingresos" type="number">
-            </div>
+              <tr>
+                <td>
+                  <label>Servicios Directos</label>
+                  <input id="serviciosdirectos" name="serviciosdirectos" type="number" placeholder="Servicios Directos" required onkeyup="this.value=Numeros(this.value)" step="0.01">
+                </td>
+                <td>
+                  <label>Abono</label>
+                  <input id="abono" type="number" placeholder="Abono"  name="abono" required onkeyup="this.value=Numeros(this.value)" step="0.01">
+                </td>
+              </tr>
 
-            <div class="w3-half">
-              <label>Cobranza periodos anteriores</label>
-              <input id="cobrosanteriores" class="w3-input w3-border" type="number" name="cobranzaperanterior" required>
-            </div>
+              <tr>
+                <td>
+                  <label>Ingresos</label>
+                  <input id="ingresos" name="ingresos" type="number">
+                </td>
 
-            <div class="w3-half">
-              <label>Recibo total</label>
-              <input id="recibototal" class="w3-input w3-border" type="number" name="recibototal" required>
-            </div>
-        </div>
-        <div class="w3-half">
-          <label>Observaciones</label>
-          <input type="text" class="form-control" placeholder="Observaciones" id="observaciones" maxlength="150" onkeyup="this.value=NumText(this.value)"></input> 
-        </div>
-        </div>
-      </div>
-        ';
+                <td>
+                  <label>Cobranza periodos anteriores</label>
+                  <input id="cobrosanteriores" type="number" name="cobranzaperanterior" required>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <label>Recibo total</label>
+                  <input id="recibototal"  type="number" name="recibototal" required>
+                </td>
+
+                <td>
+                  <label>Observaciones</label>
+                  <input type="text" placeholder="Observaciones" id="observaciones" maxlength="150" onkeyup="this.value=NumText(this.value)"></input> 
+                </td>
+              </tr>
+            </table>
+          </body>';
 }else 
     if($oc1==2){
         $query="SELECT idperiodo, num_periodo, fecha_inicio, fecha_final from periodos WHERE id_sal_tipo = 2 order by num_periodo";
@@ -80,52 +96,68 @@ if ($oc1==1){
         echo'</select>';
         echo'</div>';
         echo'
-        <div class="w3-row-padding">
-                
-        <div class="w3-half">
-          <label>Saldo Plan</label>
-          <input id="saldoplan" class="w3-input w3-border" name="saldoplan" type="number" placeholder="Saldo del plan" width="20%" required onkeyup="this.value=Numeros(this.value)"> 
-        </div>
+        <head>
+            <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+            <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+            <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">   
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+            <link href="jquery.multiselect.css" rel="stylesheet" type="text/css">
+            <script src="jquery.min.js"></script>
+            <script src="jquery.multiselect.js"></script>
+          </head>
 
-        <div class="w3-half">
-          <label>Adicionales</label>
-          <input id="adicionales" class="w3-input w3-border" name="adicionales" type="number" placeholder="Adicionales" width="20%" required onkeyup="this.value=Numeros(this.value)"> 
-        </div>
+          <body>
+            <table>
+              <tr>
+                <td>
+                  <label>Saldo Plan</label>
+                  <input id="saldoplan" name="saldoplan" type="number" placeholder="Saldo del plan" width="20%" required onkeyup="this.value=Numeros(this.value)">
+                </td>
 
-        <div class="w3-half">
-          <label>Servicios Directos</label>
-          <input id="serviciosdirectos" class="w3-input w3-border" name="serviciosdirectos" type="number" placeholder="Servicios Directos" required onkeyup="this.value=Numeros(this.value)" step="0.01">
-        </div>
+                <td>
+                  <label>Adicionales</label>
+                  <input id="adicionales" name="adicionales" type="number" placeholder="Adicionales" width="20%" required onkeyup="this.value=Numeros(this.value)"> 
+                </td>
+              </tr>
 
-        <div class="w3-half">
-          <label>Abono</label>
-          <input id="abono" class="w3-input w3-border" type="number" placeholder="Abono"  name="abono" required onkeyup="this.value=Numeros(this.value)" step="0.01">
-        </div>
-        
-        
-        <div class="form-group">
-            <div>
-              <label>Ingresos</label>
-              <input id="ingresos" class="w3-input w3-border" name="ingresos" type="number">
-            </div>
+              <tr>
+                <td>
+                  <label>Servicios Directos</label>
+                  <input id="serviciosdirectos" name="serviciosdirectos" type="number" placeholder="Servicios Directos" required onkeyup="this.value=Numeros(this.value)" step="0.01">
+                </td>
+                <td>
+                  <label>Abono</label>
+                  <input id="abono" type="number" placeholder="Abono"  name="abono" required onkeyup="this.value=Numeros(this.value)" step="0.01">
+                </td>
+              </tr>
 
-            <div class="w3-half">
-              <label>Cobranza periodos anteriores</label>
-              <input id="cobrosanteriores" class="w3-input w3-border" type="number" name="cobranzaperanterior" required>
-            </div>
+              <tr>
+                <td>
+                  <label>Ingresos</label>
+                  <input id="ingresos" name="ingresos" type="number">
+                </td>
 
-            <div class="w3-half">
-              <label>Recibo total</label>
-              <input id="recibototal" class="w3-input w3-border" type="number" name="recibototal" required>
-            </div>
-        </div>
-        <div class="w3-half">
-          <label>Observaciones</label>
-          <input type="text" class="form-control" placeholder="Observaciones" id="observaciones" maxlength="150" onkeyup="this.value=NumText(this.value)"></input> 
-        </div>
-        </div>
-      </div>';
-        
+                <td>
+                  <label>Cobranza periodos anteriores</label>
+                  <input id="cobrosanteriores" type="number" name="cobranzaperanterior" required>
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <label>Recibo total</label>
+                  <input id="recibototal"  type="number" name="recibototal" required>
+                </td>
+
+                <td>
+                  <label>Observaciones</label>
+                  <input type="text" placeholder="Observaciones" id="observaciones" maxlength="150" onkeyup="this.value=NumText(this.value)"></input> 
+                </td>
+              </tr>
+            </table>
+          </body>';
     }
 else
     if($oc1==3){
@@ -140,52 +172,68 @@ else
         echo'</select>';
         echo'</div>';
         echo'
-        <div class="w3-row-padding">
-                
-        <div class="w3-half">
-          <label>Saldo Plan</label>
-          <input id="saldoplan" class="w3-input w3-border" name="saldoplan" type="number" placeholder="Saldo del plan" width="20%" required onkeyup="this.value=Numeros(this.value)"> 
-        </div>
+        <head>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">   
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <link href="jquery.multiselect.css" rel="stylesheet" type="text/css">
+        <script src="jquery.min.js"></script>
+        <script src="jquery.multiselect.js"></script>
+      </head>
 
-        <div class="w3-half">
-          <label>Adicionales</label>
-          <input id="adicionales" class="w3-input w3-border" name="adicionales" type="number" placeholder="Adicionales" width="20%" required onkeyup="this.value=Numeros(this.value)"> 
-        </div>
+      <body>
+        <table>
+          <tr>
+            <td>
+              <label>Saldo Plan</label>
+              <input id="saldoplan" name="saldoplan" type="number" placeholder="Saldo del plan" width="20%" required onkeyup="this.value=Numeros(this.value)">
+            </td>
 
-        <div class="w3-half">
-          <label>Servicios Directos</label>
-          <input id="serviciosdirectos" class="w3-input w3-border" name="serviciosdirectos" type="number" placeholder="Servicios Directos" required onkeyup="this.value=Numeros(this.value)" step="0.01">
-        </div>
+            <td>
+              <label>Adicionales</label>
+              <input id="adicionales" name="adicionales" type="number" placeholder="Adicionales" width="20%" required onkeyup="this.value=Numeros(this.value)"> 
+            </td>
+          </tr>
 
-        <div class="w3-half">
-          <label>Abono</label>
-          <input id="abono" class="w3-input w3-border" type="number" placeholder="Abono"  name="abono" required onkeyup="this.value=Numeros(this.value)" step="0.01">
-        </div>
-        
-        
-        <div class="form-group">
-            <div class="w3-half">
+          <tr>
+            <td>
+              <label>Servicios Directos</label>
+              <input id="serviciosdirectos" name="serviciosdirectos" type="number" placeholder="Servicios Directos" required onkeyup="this.value=Numeros(this.value)" step="0.01">
+            </td>
+            <td>
+              <label>Abono</label>
+              <input id="abono" type="number" placeholder="Abono"  name="abono" required onkeyup="this.value=Numeros(this.value)" step="0.01">
+            </td>
+          </tr>
+
+          <tr>
+            <td>
               <label>Ingresos</label>
-              <input id="ingresos" class="w3-input w3-border" name="ingresos" type="number">
-            </div>
+              <input id="ingresos" name="ingresos" type="number">
+            </td>
 
-            <div class="w3-half">
+            <td>
               <label>Cobranza periodos anteriores</label>
-              <input id="cobrosanteriores" class="w3-input w3-border" type="number" name="cobranzaperanterior" required>
-            </div>
+              <input id="cobrosanteriores" type="number" name="cobranzaperanterior" required>
+            </td>
+          </tr>
 
-            <div class="w3-half">
+          <tr>
+            <td>
               <label>Recibo total</label>
-              <input id="recibototal" class="w3-input w3-border" type="number" name="recibototal" required>
-            </div>
-        </div>
-        <div class="w3-half">
-          <label>Observaciones</label>
-          <input type="text" class="form-control" placeholder="Observaciones" id="observaciones" maxlength="150" onkeyup="this.value=NumText(this.value)"></input> 
-        </div>
-        </div>
-      </div>';
-        
+              <input id="recibototal"  type="number" name="recibototal" required>
+            </td>
+
+            <td>
+              <label>Observaciones</label>
+              <input type="text" placeholder="Observaciones" id="observaciones" maxlength="150" onkeyup="this.value=NumText(this.value)"></input> 
+            </td>
+          </tr>
+        </table>
+      </body>';
     }
 else
     if($oc1==4){
@@ -200,14 +248,14 @@ else
         echo'</select>';
         echo'</div>';
         echo'
-        <input hidden value="0" id="saldoplan" class="w3-input w3-border" name="saldoplan" type="number" placeholder="Saldo del plan" width="20%" required onkeyup="this.value=Numeros(this.value)"> 
-        <input hidden value="0" id="adicionales" class="w3-input w3-border" name="adicionales" type="number" placeholder="Adicionales" width="20%" required onkeyup="this.value=Numeros(this.value)"> 
-        <input hidden value="0" id="serviciosdirectos" class="w3-input w3-border" name="serviciosdirectos" type="number" placeholder="Servicios Directos" required onkeyup="this.value=Numeros(this.value)" step="0.01">
-        <input hidden value="0" id="abono" class="w3-input w3-border" type="number" placeholder="Abono"  name="abono" required onkeyup="this.value=Numeros(this.value)" step="0.01">
-        <input hidden value="0" id="ingresos" class="w3-input w3-border" name="ingresos" type="number">
-        <input hidden value="0" id="cobrosanteriores" class="w3-input w3-border" type="number" name="cobranzaperanterior" required>
-        <input hidden value="0" id="recibototal" class="w3-input w3-border" type="number" name="recibototal" required>
-        <input hidden value="----" type="text" class="form-control" placeholder="Observaciones" id="observaciones" maxlength="150" onkeyup="this.value=NumText(this.value)"></input> 
+        <input hidden value="0" id="saldoplan" name="saldoplan" type="number" placeholder="Saldo del plan" width="20%" required onkeyup="this.value=Numeros(this.value)"> 
+        <input hidden value="0" id="adicionales"  name="adicionales" type="number" placeholder="Adicionales" width="20%" required onkeyup="this.value=Numeros(this.value)"> 
+        <input hidden value="0" id="serviciosdirectos"  name="serviciosdirectos" type="number" placeholder="Servicios Directos" required onkeyup="this.value=Numeros(this.value)" step="0.01">
+        <input hidden value="0" id="abono"  type="number" placeholder="Abono"  name="abono" required onkeyup="this.value=Numeros(this.value)" step="0.01">
+        <input hidden value="0" id="ingresos"  name="ingresos" type="number">
+        <input hidden value="0" id="cobrosanteriores"  type="number" name="cobranzaperanterior" required>
+        <input hidden value="0" id="recibototal"  type="number" name="recibototal" required>
+        <input hidden value="----" type="text" placeholder="Observaciones" id="observaciones" maxlength="150" onkeyup="this.value=NumText(this.value)"></input> 
         ';
 
     }
