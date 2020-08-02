@@ -64,6 +64,11 @@ do{
         <div>SELECCIONA LAS PERSONAS A LAS QUE LES QUIERES AJUSTAR LA NOMINA</div>
             <form name="personas" action="ajustador.php" method="post">
             <input hidden value="<?php echo $idnomina?>" name="nomid"></input>
+            <input hidden value="<?php echo $plaza?>" name="plaza"></input>
+            <input hidden value="<?php echo $empid?>" name="empid"></input>
+            <input hidden value="<?php echo $tipoperiodo?>" name="tipoperiodo"></input>
+            <input hidden value="<?php echo $fechaperiodo?>" name="fechaperiodo"></input>
+            <input hidden value="<?php echo $hora?>" name="hbn"></input>
                 <?php echo $personas?>
             </form>
         <div>

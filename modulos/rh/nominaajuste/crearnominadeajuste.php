@@ -16,14 +16,15 @@ $con->abre_conexion("0");
 $conexion=$con->conexion;
 $idnom=$_POST['nomid'];
 $querynominaoriginal = "SELECT * from nomina WHERE nom_id = $idnom";
+//echo $querynominaoriginal;
 $resultquerynominaoriginal = pg_query($conexion,$querynominaoriginal);
 $mostrar = pg_fetch_array($resultquerynominaoriginal);
 $fechainicio = $mostrar['fecha_inicio'];
 $fechafinal = $mostrar['fecha_fin'];
-$plaza = $mostrar['plaza_id'];
-$tipoperiodo = 4;
+$plaza = $_POST['plaza'];
+$empid = $_POST['empid'];
+$tipoperiodo = $_POST['tipoperiodo'];
     
-
 //se cuenta la cantidad de personas recibidas        
 foreach($cp AS $p) {
     //condicion para el foreach
@@ -193,13 +194,15 @@ if ($cantpersonas == $cantpersonas2 ){
     /////////////////////HISTORICAS DEL PROCESO DE LA NOMINA//////////////////////////
 
     //VOLCADO A LA TABLA HISTORICA DE BASE NOMINA
-    $selectbn = "select * from tmp_base_nom_ajuste where us_id = $us_id and fecha = '$fecha' and plaza_id  = $plaza and emp_id = $empid and sal_tipo_id = $tipoperiodo and pc = '$pc' and hora='$hbn' and idnomina = $idnom;";
+    $selectbn = "SELECT * FROM tmp_base_nom_ajuste where us_id = $us_id and fecha = '$fecha' and plaza_id  = $plaza and emp_id = $empid and sal_tipo_id = $tipoperiodo and pc = '$pc' and hora='$hbn' and idnomina = $idnom;";
+    //echo $selectbn;
     $resultbn = pg_query($conexion,$selectbn);
+
     $rowbn = pg_fetch_array($resultbn);
     if($rowbn != NULL){
         do{    
-            $sqlibn = "INSERT into base_nom_ajuste(nom_id,us_id,fecha,hora,plaza_id,num_ventas,venta_directa,cobros,saldo,cobros_per_ant,observaciones,emp_id,sal_tipo_id,fecha_inicio,fecha_fin,pc,ingresos,recibototal,nom_id_original)
-                       values ($nominadeajusteid,".$rowbn['us_id'].",'".$rowbn['fecha']."','".$rowbn['hora']."',".$rowbn['plaza_id'].",".$rowbn['num_ventas'].",".$rowbn['venta_directa'].",".$rowbn['cobros'].",".$rowbn['saldo'].",".$rowbn['cobros_per_ant'].",'".$rowbn['observaciones']."','".$rowbn['emp_id']."',".$rowbn['sal_tipo_id'].",'".$rowbn['fecha_inicio']."','".$rowbn['fecha_fin']."','".$rowbn['pc']."',".$rowbn['ingresos'].",".$rowbn['recibototal'].",".$idnom.");";
+            $sqlibn = "INSERT into base_nom_ajuste (nom_id,us_id,fecha,hora,plaza_id,num_ventas,venta_directa,cobros,saldo,cobros_per_ant,observaciones,emp_id,sal_tipo_id,fecha_inicio,fecha_fin,pc,ingresos,recibototal,nom_id_original)
+                       values ($nominadeajusteid,".$rowbn['us_id'].",'".$rowbn['fecha']."','".$rowbn['hora']."',".$rowbn['plaza_id'].",".$rowbn['num_ventas'].",".$rowbn['venta_directa'].",".$rowbn['cobros'].",".$rowbn['saldo'].",".$rowbn['cobros_per_ant'].",'".$rowbn['observaciones']."','".$rowbn['emp_id']."',".$rowbn['sal_tipo_id'].",'".$rowbn['fecha_inicio']."','".$rowbn['fecha_fin']."','".$rowbn['pc']."',".$rowbn['ingresos'].",".$rowbn['recibototal'].",$idnom);";
             $resultibn=pg_query($conexion,$sqlibn) or die ('ERROR insertando base_nom_ajuste:'. pg_last_error());
             //echo $insertcomnom;
         }while($rowbn = pg_fetch_array($resultbn));
@@ -248,19 +251,19 @@ if ($cantpersonas == $cantpersonas2 ){
   
     
     //se obtiene la cantidad de datos en la tabla temporal de base de nomina
-    $selecttmpbasenom = "SELECT count(*) as cuentatmpbasenom from tmp_base_nom where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza and fecha='$fecha' and hora='$hbn'";
-    $selecttmpbasenom;
+    $selecttmpbasenom = "SELECT count(*) as cuentatmpbasenom from tmp_base_nom_ajuste where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza and fecha='$fecha' and hora='$hbn' and idnomina = $idnom";
+    //echo $selecttmpbasenom;
     $result = pg_query($conexion,$selecttmpbasenom);
     $valorarreglotmpbasenom = pg_fetch_array($result);
 
     //se obtiene la cantidad de datos en la tabla historico de base de nomina
-    $selectbasenom = "SELECT count (*) as cuentabasenom from base_nom where us_id = $us_id and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and nom_id=$nominaid and pc = '$pc'";
+    $selectbasenom = "SELECT count (*) as cuentabasenom from base_nom_ajuste where us_id = $us_id and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and nom_id_original=$idnom and pc = '$pc' and hora='$hbn'";
     //echo $selectbasenom;
     $result = pg_query($conexion,$selectbasenom);
     $valorarreglobasenom = pg_fetch_array($result);
     //SE ESTAN COMPARANDO QUE LO QUE SE MANDO SEA IGUAL PARA QUE SE PUEDA BORRAR  
     if($valorarreglotmpbasenom['cuentatmpbasenom']==$valorarreglobasenom['cuentabasenom']){
-       $borradotmpbasenom="DELETE from tmp_base_nom_ajuste WHERE us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza and fecha='$fecha' and hora='$hbn' and nom_id = $idnom";
+       $borradotmpbasenom="DELETE from tmp_base_nom_ajuste WHERE us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza and fecha='$fecha' and hora='$hbn' and idnomina = $idnom";
         //echo $borradotmpcomnom;
         $result = pg_query($conexion,$borradotmpbasenom) or die ("Verifica la sentencia SQL". pg_last_error());
     }else{
@@ -269,14 +272,14 @@ if ($cantpersonas == $cantpersonas2 ){
 
     
     //se obtiene la cantidad de comisiones en la tabla tmp para el periodo
-    $selecttmp_comnom = "SELECT count(*) as cuentatmpcomnom from tmp_comnom where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza and fecha='$fecha' and hora='$hora'";
-    //echo $selecttmp_percepciones;
+    $selecttmp_comnom = "SELECT count(*) as cuentatmpcomnom from tmp_comnom_ajuste where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza and fecha='$fecha' and hora='$hbn and idnomina = $idnom'";
+    //echo $selecttmp_comnom;
     $result = pg_query($conexion,$selecttmp_comnom);
     $campostmp_comnom = pg_fetch_array($result);
     
     //se obtiene la cantidad de comisiones en la tabla historico para el periodo
-    $selectcomnom = "SELECT count(*) as cuentacomnom from comnom where nom_id = $nominaid and us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' ";
-    //echo $selectpercepciones;
+    $selectcomnom = "SELECT count(*) as cuentacomnom from comnom_ajuste where nom_id = $nominaid and us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and hora = '$hbn' and nom_id_original = $idnom";
+    //echo $selectcomnom;
     $result = pg_query($conexion,$selectcomnom);
     $camposcomnom = pg_fetch_array($result);
     
@@ -291,15 +294,15 @@ if ($cantpersonas == $cantpersonas2 ){
 
 
     //se obtiene la cantidad de percepciones en la tabla tmp para el peiodo
-    $selecttmp_percepciones = "SELECT count(*) as cuentatmppercepciones from tmp_percepciones where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza and fecha='$fecha' and hora='$hora'";
+    $selecttmp_percepciones = "SELECT count(*) as cuentatmppercepciones from tmp_percepciones_ajuste where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza and fecha='$fecha' and hora='$hbn' and nom_id = $idnom";
     //echo $selecttmp_percepciones;
     $result = pg_query($conexion,$selecttmp_percepciones);
     $campostmppercepciones = pg_fetch_array($result);
     
     //se obtiene la cantidad de percepciones en la tabla historico para el peiodo
-    $selectpercepciones = "SELECT count(*) as cuentapercepciones from percepciones where nom_id = $nominaid and us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal'";
+    $selectpercepciones = "SELECT count(*) as cuentapercepciones from percepciones_ajuste where nom_id = $nominadeajusteid and us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and hora='$hbn' and nom_id_original = $idnom";
     //echo $selectpercepciones;
-    $result = pg_query($conexion,$selectpercepciones);
+    $result = pg_query($conexion,$selectpercepciones) or die ('Error al ejecutar la consulta'.pg_last_error());
     $campospercepciones = pg_fetch_array($result);
     
     //SE ESTAN COMPARANDO QUE LO QUE SE MANDO SEA IGUAL PARA QUE SE PUEDA BORRAR  
@@ -313,12 +316,14 @@ if ($cantpersonas == $cantpersonas2 ){
 
     
     //se obtiene la cantidad de deducciones en la tabla tmp para el peiodo
-    $selecttmp_deducciones = "SELECT count(*) as cuentatmpdeducciones from tmp_deducciones where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza and fecha='$fecha' and hora='$hora'";
+    $selecttmp_deducciones = "SELECT count(*) as cuentatmpdeducciones from tmp_deducciones_ajuste where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza and fecha='$fecha' and hora='$hbn' and nom_id = $idnom";
+    //echo $selecttmp_deducciones;
     $result = pg_query($conexion,$selecttmp_deducciones);
     $campostmpdeducciones = pg_fetch_array($result);
     
     //se obtiene la cantidad de deducciones en la tabla historico para el peiodo
-    $selectdeducciones = "SELECT count(*) as cuentadeducciones from deducciones where nom_id = $nominaid and us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal'";
+    $selectdeducciones = "SELECT count(*) as cuentadeducciones from deducciones_ajuste where nom_id = $nominadeajusteid and us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and hora='$hbn' and nom_id_original = $idnom";
+    //echo $selectdeducciones;
     $result = pg_query($conexion,$selectdeducciones);
     $camposdeducciones = pg_fetch_array($result);
     
@@ -329,7 +334,7 @@ if ($cantpersonas == $cantpersonas2 ){
         $result = pg_query($conexion,$borradotmp_deducciones) or die ("Verifica la sentencia SQL". pg_last_error());
     }else{
         echo 'No son iguales - TEMPORAL DEDUCCIONES';
-    } 
+    }
 
     
     //////////////////////////////////////////////////////////////////////////////////
@@ -337,7 +342,7 @@ if ($cantpersonas == $cantpersonas2 ){
     //////////////////////////////////////////////////////////////////////////////////
     
     $letreritosuccesfully.='<div>
-                                Nomina generada con exito, ID: '.$nominaid.'
+                                Nomina generada con exito, ID: '.$nominadeajusteid.'
                             </div>
                             ';
     echo $letreritosuccesfully;
