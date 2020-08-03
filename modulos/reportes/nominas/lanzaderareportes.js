@@ -4,5 +4,14 @@ function window_open(){
 
 function ejecutarreporte(){
   var idnomina = document.getElementById("idnomina").value;
-  location.href='reporteespecial.php?idnom='+btoa(idnomina);
+
+  var url = "tiposreportesnomina/reporteespecial.php";
+  $.ajax({
+    type:"POST",
+    url:url,
+    data:{idnom:btoa(idnomina)},
+    success: function(data){
+      alert(data);
+    }
+});
 }

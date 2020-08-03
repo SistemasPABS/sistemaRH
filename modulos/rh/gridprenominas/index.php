@@ -1,14 +1,14 @@
 <?php 
-include_once ('../../../config/cookie.php');
+include ('../../../config/cookie.php');
 include ('../../../config/conectasql.php');
+session_start();
+$usid=$_SESSION['us_id'];
 $con= new conectasql();
 $con->abre_conexion("0");
 $conexion=$con->conexion;
 $em=base64_decode($_GET['em']);
 $filtroinicio= base64_decode($_GET['fechacreacioninicio']);
 $filtrofin= base64_decode($_GET['fechacreacionfin']);
-session_start();
-$usid=$_SESSION['us_id'];
 //echo $em.'-'.$filtroinicio.'--'.$filtrofin;
 //SE VAN A CONSULTAR SI EL USUARIO TIENE LOS PERMISOS PARA EDITAR Y/O AUTORIZAR LA NOMINA
 $con->permisos('papp',$em,$usid);
@@ -24,7 +24,7 @@ if($filtroinicio != NULL && $filtrofin != NULL){
     $query = "SELECT * from vw_nomina_tiposalario_usuarios  WHERE fechageneracion BETWEEN '$filtroinicio' AND '$filtrofin' limit 200";
 }else{
     //QUERY SIN FILTROS
-    $query = "SELECT * from vw_nomina_tiposalario_usuarios limit 200";
+    $query = "SELECT * from vw_nomina_tiposalario_usuarios limit 200 ORDER BY nom_id";
 }
 $result = pg_query($conexion,$query) or die('Error en la consulta sql'.pg_last_error());
 $mostrar = pg_fetch_array($result);

@@ -15,7 +15,8 @@ $idnom=base64_decode($_POST['idnom']);
 include ('../../../../config/conectasql.php');
 $exporta = new conectasql();
 $exporta->abre_conexion("0");
-$sqlxls="SELECT * FROM vw_reporte_estado_financiero WHERE nom_id = $idnom";
+
+$sqlxls="SELECT * FROM vw_general_personas_por_nomina_scpd WHERE nom_id_suel = $idnom";
 
  /** Include PHPExcel */
 require_once '../../../../librerias/phpexcel/Classes/PHPExcel.php';
@@ -38,22 +39,20 @@ $objPHPExcel = new PHPExcel();
     $resultxls=pg_query($exporta->conexion,$sqlxls);
     if($rowxls=pg_fetch_array($resultxls)){
         $objPHPExcel->setActiveSheetIndex(0)
-                ->setCellValue('A1', 'Sucursal')
-                ->setCellValue('B1', 'Plaza')
+                ->setCellValue('A1', 'Nombre Completo')
+                ->setCellValue('B1', 'Sueldo')
                 ->setCellValue('C1', 'Percepciones')
                 ->setCellValue('D1', 'Deducciones')
-                ->setCellValue('E1', 'Bonos')
-                ->setCellValue('F1', 'Comisiones')
-                ->setCellValue('G1', 'Total');
+                ->setCellValue('E1', 'Comisiones');
+
         do{
             $objPHPExcel->setActiveSheetIndex(0)
-                    ->setCellValue('A'.$a, $rowxls['emp_id'])
-                    ->setCellValue('B'.$a, $rowxls['plaza_id'])
-                    ->setCellValue('C'.$a, $rowxls['nom_total'])
-                    ->setCellValue('D'.$a, $rowxls['nom_total'])
-                    ->setCellValue('E'.$a, $rowxls['nom_total'])
-                    ->setCellValue('F'.$a, $rowxls['nom_total'])
-                    ->setCellValue('G'.$a, $rowxls['nom_total']);
+                    ->setCellValue('A'.$a, $rowxls['nombrecompleto'])
+                    ->setCellValue('B'.$a, $rowxls['sal_monto_con'])
+                    ->setCellValue('C'.$a, $rowxls['tp_monto'])
+                    ->setCellValue('D'.$a, $rowxls['td_monto'])
+                    ->setCellValue('E'.$a, $rowxls['co_cantidad']);
+
                     $a++;
         }
         while ($rowxls=pg_fetch_array($resultxls));

@@ -37,8 +37,8 @@ $contenidofila .='<td><a class="delete" title="Delete" data-toggle="tooltip"><i 
                   <td></td>
                   <td></td>
                   <td><input name="'.$perid.'cuantos'.$equis.'[]" type="number" value="0" onkeyup="this.value=Numeros(this.value)" step="0.01"></input></td>
-                  <td><input name="'.$perid.'cantidad'.$equis.'[]" type="number" onkeyup="this.value=Numeros(this.value)" step="0.01"></input></td>
-                  <td><input name="'.$perid.'motivo'.$equis.'[]" type="text" onkeyup="this.value=NumText(this.value)"></input></td>';
+                  <td><input name="'.$perid.'cantidad'.$equis.'[]" type="number" value="0" onkeyup="this.value=Numeros(this.value)" step="0.01"></input></td>
+                  <td><input name="'.$perid.'motivo'.$equis.'[]" type="text" value="--" onkeyup="this.value=NumText(this.value)"></input></td>';
 echo $contenidofila;
         
 ?>
