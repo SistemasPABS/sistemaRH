@@ -1,4 +1,14 @@
+<html>
+    <script>
+    // Delete row on delete button click
+    $(document).on("click", ".delete", function(){
+        $(this).parents("td").remove();
+        $(".add-new").removeAttr("disabled");
+    });
+    </script>
+</html>
 <?php
+
 //echo 'hola';
 include_once ('../../../config/cookie.php');
 include_once ('../../../config/conectasql.php');
@@ -33,7 +43,8 @@ $select .='<select name="'.$perid.$equis.'[]">';
     }while($mostrar= pg_fetch_array($result));
     
 $select .='<select>';
-$contenidofila .='<td>'.$select.'</td>
+$contenidofila .='
+                  <td><a class="delete" title="Delete" data-toggle="tooltip"><i class="fa fa-plus-circle fa-minus-circle"></i></a>'.$select.'</td>
                   <td></td>
                   <td></td>
                   <td><input name="'.$perid.'cuantos'.$equis.'[]" type="number" value="0" onkeyup="this.value=Numeros(this.value)" step="0.01"></input></td>

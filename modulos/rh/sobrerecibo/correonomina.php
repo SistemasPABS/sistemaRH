@@ -42,8 +42,9 @@
 
             // Content
             $mail->isHTML(true);                                  // Set email format to HTML
-            $mail->Subject = 'EL SISTEMA VA A EXPLOTAR';
-            $mail->Body    = 'JAIME, EL SISTEMA ESTA EXPLOTANDO';
+            $mail->Subject = 'Nueva nomina creada';
+            $body = file_get_contents("htmlnuevanominamail/nuevanomina.html");
+            $mail->MsgHTML($body);
             /*$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';*/
 
             $mail->send();

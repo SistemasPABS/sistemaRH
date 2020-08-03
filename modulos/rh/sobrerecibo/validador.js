@@ -42,8 +42,8 @@ function traerpercepcionesdeducciones(opc,btn){
             document.getElementById("cantautorizadores").value=cantidadautorizadores;
             var correo = document.getElementById("correo").value;
             location.href='correonomina.php?correo='+btoa(correo);
-          }else{
-            return 0;
+          }else if(confirm == false){
+            return false;
           }
       }
 //}

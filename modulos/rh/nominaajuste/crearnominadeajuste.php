@@ -341,10 +341,25 @@ if ($cantpersonas == $cantpersonas2 ){
     ////SE ENVIA EL MENSAJE DE NOMINA GENERADA Y SE ENTREGA EL FOLIO//////////////////
     //////////////////////////////////////////////////////////////////////////////////
     
-    $letreritosuccesfully.='<div>
-                                Nomina generada con exito, ID: '.$nominadeajusteid.'
-                            </div>
-                            ';
+    $letreritosuccesfully.='<head>
+                                <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+                                <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+                                <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+                            </head>
+                            <body>
+                                <div class="container">
+                                    <div class="row text-center">
+                                        <div class="col-sm-6 col-sm-offset-3">
+                                            <br><br> <h2 style="color:#0fad00">Nueva nomina  de ajuste No:'.$nominadeajusteid.'</h2>
+                                            <img src="../../../images/logo.png">
+                                            <h3>¡EXITO!</h3>
+                                            <p style="font-size:20px;color:#5C5C5C;">Gracias por haber utilizado nuestro sistema de RH para la generación del ajuste a la nómina original '.$idnom.'. Hemos enviado un correo a los autorizadores de nominas para notificarles la creación de la misma y puedan hacer sus observaciones y/o autorizarla.</p>
+                                            <a href="../prenominas/index.php" class="btn btn-success">    OK     </a>
+                                            <br><br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </body>';
     echo $letreritosuccesfully;
 
     include_once('correonomina.php');
