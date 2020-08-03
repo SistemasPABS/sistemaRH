@@ -18,9 +18,9 @@ $autorizada=$mostrar['nom_autorizada'];
 if($autorizada == 'f'){
     $query="UPDATE nomina set nom_autorizada = TRUE, nom_autorizo = $usid WHERE nom_id=$idnomautorizar";
     $result=pg_query($conexion,$query);
-    echo "Listo, nomina $idnomautorizar Autorizada :D";
+    echo "Listo, nomina $idnomautorizar Autorizada";
 }else{
-    echo 'Tu nomina ya está autorizada amigo, ya no la puedes autorizar';
+    echo 'Tu nomina ya está autorizada, ya no la puedes autorizar';
 }
 
 ?>

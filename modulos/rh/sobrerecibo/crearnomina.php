@@ -231,7 +231,7 @@ if ($cantpersonas == $cantpersonas2 ){
     $mostrarresultsueldos = pg_fetch_array($resultselectsueldos);
     if($mostrarresultsueldos != NULL){
         do{
-            $sqlinsertsueldosnomina = "INSERT into sueldos_nomina (nom_id,us_id,persona_id,sal_monto_con,tmp_observaciones,pc,fecha_inicio,fecha_fin,plaza_id,fecha,hora)
+            $sqlinsertsueldosnomina = "INSERT into sueldos_nomina (nom_id_suel,us_id,persona_id,sal_monto_con,tmp_observaciones,pc,fecha_inicio,fecha_fin,plaza_id,fecha,hora)
                                        values ($nominaid,".$mostrarresultsueldos['us_id'].",".$mostrarresultsueldos['persona_id'].",".$mostrarresultsueldos['sal_monto_con'].",'".$mostrarresultsueldos['tmp_observaciones']."','".$mostrarresultsueldos['pc']."','".$mostrarresultsueldos['fecha_inicio']."','".$mostrarresultsueldos['fecha_fin']."',".$mostrarresultsueldos['plaza_id'].",'".$mostrarresultsueldos['fecha']."','".$mostrarresultsueldos['hora']."');";
             $resultinsertsueldosnomina =pg_query($conexion,$sqlinsertsueldosnomina) or die ('Error Insertando Sueldos Nomina: '. pg_last_error());
         }while($mostrarresultsueldos =  pg_fetch_array($resultselectsueldos));
@@ -243,7 +243,7 @@ if ($cantpersonas == $cantpersonas2 ){
     $campostmpcomnom = pg_fetch_array($result);
     if($campostmpcomnom != NULL){
         do{    
-            $insertcomnom = "INSERT into comnom (co_id,persona_id,co_cantidad,co_observaciones,fecha_inicio,fecha_fin,us_id,nom_id,fecha,hora,pc,co_cuantos) values (".$campostmpcomnom['co_id'].",".$campostmpcomnom['persona_id'].",".$campostmpcomnom['co_cantidad'].",'".$campostmpcomnom['co_observaciones']."','".$campostmpcomnom['fecha_inicio']."','".$campostmpcomnom['fecha_fin']."',".$campostmpcomnom['us_id'].",$nominaid,'".$campostmpcomnom['fecha']."','".$campostmpcomnom['hora']."','$pc',".$campostmpcomnom['co_cuantos'].");";
+            $insertcomnom = "INSERT into comnom (co_id,persona_id,co_cantidad,co_observaciones,fecha_inicio,fecha_fin,us_id,nom_id_com,fecha,hora,pc,co_cuantos) values (".$campostmpcomnom['co_id'].",".$campostmpcomnom['persona_id'].",".$campostmpcomnom['co_cantidad'].",'".$campostmpcomnom['co_observaciones']."','".$campostmpcomnom['fecha_inicio']."','".$campostmpcomnom['fecha_fin']."',".$campostmpcomnom['us_id'].",$nominaid,'".$campostmpcomnom['fecha']."','".$campostmpcomnom['hora']."','$pc',".$campostmpcomnom['co_cuantos'].");";
             $resultinsertcomnom=pg_query($conexion,$insertcomnom) or die ('ERROR AL INSERTAR EN LA TABLA CHIDA DE LAS COMISIONES');
             //echo $insertcomnom;
         }while($campostmpcomnom = pg_fetch_array($result));
@@ -255,7 +255,7 @@ if ($cantpersonas == $cantpersonas2 ){
     $campostmppercepciones = pg_fetch_array($result);
     if($campostmppercepciones != NULL){
         do{    
-           $insertpercepciones = "INSERT into percepciones (nom_id,us_id,fecha,hora,persona_id,tp_id,tp_monto,tmp_observaciones,fecha_inicio,fecha_fin,pc,tp_cuantos) values ($nominaid,$us_id,'".$campostmppercepciones['fecha']."','".$campostmppercepciones['hora']."',".$campostmppercepciones['persona_id'].",".$campostmppercepciones['tp_id'].",".$campostmppercepciones['tp_monto'].",'".$campostmppercepciones['tmp_observaciones']."','".$campostmppercepciones['fecha_inicio']."','".$campostmppercepciones['fecha_fin']."','$pc',".$campostmppercepciones['tp_cuantos'].");";
+           $insertpercepciones = "INSERT into percepciones (nom_id_per,us_id,fecha,hora,persona_id,tp_id,tp_monto,tmp_observaciones,fecha_inicio,fecha_fin,pc,tp_cuantos) values ($nominaid,$us_id,'".$campostmppercepciones['fecha']."','".$campostmppercepciones['hora']."',".$campostmppercepciones['persona_id'].",".$campostmppercepciones['tp_id'].",".$campostmppercepciones['tp_monto'].",'".$campostmppercepciones['tmp_observaciones']."','".$campostmppercepciones['fecha_inicio']."','".$campostmppercepciones['fecha_fin']."','$pc',".$campostmppercepciones['tp_cuantos'].");";
            $resultinsertpercepciones=pg_query($conexion,$insertpercepciones) or die ('ERROR AL INSERTAR EN LA TABLA CHIDA DE LAS PERCEPCIONES'.pg_last_error());
            //echo $insertpercepciones;  
         }while($campostmppercepciones = pg_fetch_array($result));
@@ -267,7 +267,7 @@ if ($cantpersonas == $cantpersonas2 ){
     $campostmpdeducciones = pg_fetch_array($result);
     if($campostmpdeducciones != NULL){
         do{    
-            $insertdeducciones = "INSERT into deducciones (nom_id,us_id,fecha,hora,persona_id,td_id,td_monto,td_observaciones,fecha_inicio,fecha_fin,pc,td_cuantos) values ($nominaid,$us_id,'".$campostmpdeducciones['fecha']."','".$campostmpdeducciones['hora']."',".$campostmpdeducciones['persona_id'].",".$campostmpdeducciones['td_id'].",".$campostmpdeducciones['td_monto'].",'".$campostmpdeducciones['td_observaciones']."','".$campostmpdeducciones['fecha_inicio']."','".$campostmpdeducciones['fecha_fin']."','$pc',".$campostmpdeducciones['td_cuantos'].");";
+            $insertdeducciones = "INSERT into deducciones (nom_id_ded,us_id,fecha,hora,persona_id,td_id,td_monto,td_observaciones,fecha_inicio,fecha_fin,pc,td_cuantos) values ($nominaid,$us_id,'".$campostmpdeducciones['fecha']."','".$campostmpdeducciones['hora']."',".$campostmpdeducciones['persona_id'].",".$campostmpdeducciones['td_id'].",".$campostmpdeducciones['td_monto'].",'".$campostmpdeducciones['td_observaciones']."','".$campostmpdeducciones['fecha_inicio']."','".$campostmpdeducciones['fecha_fin']."','$pc',".$campostmpdeducciones['td_cuantos'].");";
             $resultinsertdeducciones=pg_query($conexion,$insertdeducciones) or die ('ERROR AL INSERTAR EN LA TABLA CHIDA DE LAS DEDUCCIONES');
             //echo $insertdeducciones;
         }while($campostmpdeducciones = pg_fetch_array($result));
@@ -307,7 +307,7 @@ if ($cantpersonas == $cantpersonas2 ){
     $campostmpsueldosnomina = pg_fetch_array($resulttmpsueldosnomina);
 
     //se obtiene la cantidad de sueldos en la tabla historico para el periodo
-    $selectsueldosnominahistorico = "SELECT count (*) as cuentasueldosnomina from sueldos_nomina where nom_id=$nominaid and us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
+    $selectsueldosnominahistorico = "SELECT count (*) as cuentasueldosnomina from sueldos_nomina where nom_id_suel=$nominaid and us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza";
     //echo $selectsueldosnominahistorico;
     $resultsueldosnominahistorico = pg_query($conexion,$selectsueldosnominahistorico);
     $campossueldosnominahistorico = pg_fetch_array($resultsueldosnominahistorico);
@@ -329,7 +329,7 @@ if ($cantpersonas == $cantpersonas2 ){
     $campostmp_comnom = pg_fetch_array($result);
     
     //se obtiene la cantidad de comisiones en la tabla historico para el periodo
-    $selectcomnom = "SELECT count(*) as cuentacomnom from comnom where nom_id = $nominaid and us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' ";
+    $selectcomnom = "SELECT count(*) as cuentacomnom from comnom where nom_id_com = $nominaid and us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' ";
     //echo $selectpercepciones;
     $result = pg_query($conexion,$selectcomnom);
     $camposcomnom = pg_fetch_array($result);
@@ -351,7 +351,7 @@ if ($cantpersonas == $cantpersonas2 ){
     $campostmppercepciones = pg_fetch_array($result);
     
     //se obtiene la cantidad de percepciones en la tabla historico para el peiodo
-    $selectpercepciones = "SELECT count(*) as cuentapercepciones from percepciones where nom_id = $nominaid and us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal'";
+    $selectpercepciones = "SELECT count(*) as cuentapercepciones from percepciones where nom_id_per = $nominaid and us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal'";
     //echo $selectpercepciones;
     $result = pg_query($conexion,$selectpercepciones);
     $campospercepciones = pg_fetch_array($result);
@@ -372,7 +372,7 @@ if ($cantpersonas == $cantpersonas2 ){
     $campostmpdeducciones = pg_fetch_array($result);
     
     //se obtiene la cantidad de deducciones en la tabla historico para el peiodo
-    $selectdeducciones = "SELECT count(*) as cuentadeducciones from deducciones where nom_id = $nominaid and us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal'";
+    $selectdeducciones = "SELECT count(*) as cuentadeducciones from deducciones where nom_id_ded = $nominaid and us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal'";
     $result = pg_query($conexion,$selectdeducciones);
     $camposdeducciones = pg_fetch_array($result);
     
