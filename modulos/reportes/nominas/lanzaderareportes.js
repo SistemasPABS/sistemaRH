@@ -5,13 +5,13 @@ function window_open(){
 function ejecutarreporte(){
   var idnomina = document.getElementById("idnomina").value;
 
-  var url = "tiposreportesnomina/reporteespecial.php";
-  $.ajax({
-    type:"POST",
-    url:url,
-    data:{idnom:btoa(idnomina)},
-    success: function(data){
-      alert(data);
-    }
-});
+    var url = "tiposreportesnomina/reporteespecial.php";
+    $.ajax({
+      type:"POST",
+      url:url,
+      data:{idnom:btoa(idnomina)},
+      success: function(data){
+        //alert(data);
+      }
+    });
 }
