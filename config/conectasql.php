@@ -688,13 +688,13 @@ class conectasql{
         }
     }
     
-    //Edita un contrato existente
+    /*Edita un contrato existente
     public function edita_contrato($registro,$id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status, $adic, $aimss, $bimss, $cfir){
         $sql = "update contratos set persona_id=$id_persona, tipoc_id=$id_contrato, raz_id=$id_razon, puesto_id=$id_puesto, sal_monto_con=$salario, con_horario='$horario', con_periodo='$prueba', con_fecha_inicio='$fecha_ini', con_fecha_fin=$fecha_fin, con_adic=$adic, con_status=$status, con_alta_imss=$aimss, con_baja_imss=$bimss, con_firmado=$cfir where con_id = $registro;";
         //echo $sql;
         $result= pg_query($this->conexion, $sql) or die("Error edtcon: ". pg_last_error());
         $this->update='1';
-    }
+    }*/
     
     //Consulta un contrato
     public function consulta_cto($reg){
