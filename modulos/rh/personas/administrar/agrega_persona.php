@@ -2,6 +2,8 @@
 include ('../../../../config/cookie.php');
 ?>
 <?php
+    session_start();
+    $usid=$_SESSION['us_id'];
     date_default_timezone_set('America/Mexico_City');
     $fecha=date("Ymd");
     $hora=date("H:i:s");
@@ -114,6 +116,10 @@ include ('../../../../config/cookie.php');
         }else if(isset($_POST['edad']) || !empty($_POST['edad'])){
             $edad=$_POST['edad'];
         }
+        //variable de Afore
+        $afore=$_POST['afore'];
+        //variable de no de credito infonavit
+        $creinfo=$_POST['creinfo'];
         //variable telefono
         if(!isset($_POST['telefono']) || empty($_POST['telefono'])){
             $error[]='telefono';
@@ -339,8 +345,10 @@ include ('../../../../config/cookie.php');
             $clavebanco=$insert->limpia_cadena($clavebanco);
             $cuenta=$insert->limpia_cadena($cuenta);
             $edad=$insert->limpia_cadena($edad);
+            if($afore != null){$afore=$insert->limpia_cadena($afore);}
+            if($creinfo != null){$creinfo=$insert->limpia_cadena($creinfo);}
             $civil=$insert->limpia_cadena($civil);
-            $insert->generales_personas($clave,$nombre,$paterno,$materno,$calle,$numero,$colonia,$cp,$pais,$estado,$municipio,$nacionalidad,$rfc,$nss,$curp,$genero,$correo,$telefono,$celular,$fecha_nac,$fecha,$hora,$status, $edad, $civil);
+            $insert->generales_personas($clave,$nombre,$paterno,$materno,$calle,$numero,$colonia,$cp,$pais,$estado,$municipio,$nacionalidad,$rfc,$nss,$curp,$genero,$correo,$telefono,$celular,$fecha_nac,$fecha,$hora,$status, $edad, $civil,$usid,'','',0,$afore,$creinfo);
             //echo 'el id es:'.$insert->npid.'<br>';
             $insert->banco_personas($banco,$insert->npid,$clavebanco,$cuenta);
             $insert->docs_personas($insert->npid,$chk_comp,$chk_ine,$chk_licencia,$chk_acta,$chk_rfc,$chk_nss,$chk_curp,$chk_certificado,$chk_recomendacion,$chk_antecedentes,$chk_fonacot,$chk_infonavit); 
@@ -461,6 +469,10 @@ include ('../../../../config/cookie.php');
         }else if(isset($_POST['edad']) || !empty($_POST['edad'])){
             $edad=$_POST['edad'];
         }
+        //variable de Afore
+        $afore=$_POST['afore'];
+        //variable de no de credito infonavit
+        $creinfo=$_POST['creinfo'];
         //variable telefono
         if(!isset($_POST['telefono']) || empty($_POST['telefono'])){
             $error[]='telefono';
@@ -688,10 +700,12 @@ include ('../../../../config/cookie.php');
             $clavebanco=$updatep->limpia_cadena($clavebanco);
             $cuenta=$updatep->limpia_cadena($cuenta);
             $edad=$updatep->limpia_cadena($edad);
+            if($afore != null){$afore=$updatep->limpia_cadena($afore);}
+            if($creinfo != null){$creinfo=$updatep->limpia_cadena($creinfo);}
             $civil=$updatep->limpia_cadena($civil);
             
             
-            $updatep->update_personas_generales($registro,$clave,$nombre,$paterno,$materno,$calle,$numero,$colonia,$cp,$pais,$estado,$municipio,$nacionalidad,$rfc,$nss,$curp,$genero,$correo,$telefono,$celular,$fecha_nac,$fecha,$hora,$status, $edad, $civil);
+            $updatep->update_personas_generales($registro,$clave,$nombre,$paterno,$materno,$calle,$numero,$colonia,$cp,$pais,$estado,$municipio,$nacionalidad,$rfc,$nss,$curp,$genero,$correo,$telefono,$celular,$fecha_nac,$fecha,$hora,$status, $edad, $civil,$usid,$afore,$creinfo);
             $updatep->update_personas_bancos($registro,$banco,$clavebanco,$cuenta);
             $updatep->update_personas_docs($registro,$chk_comp,$chk_ine,$chk_licencia,$chk_acta,$chk_rfc,$chk_nss,$chk_curp,$chk_certificado,$chk_recomendacion,$chk_antecedentes,$chk_fonacot,$chk_infonavit); 
         }

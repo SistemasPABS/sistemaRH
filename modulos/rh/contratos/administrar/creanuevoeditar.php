@@ -50,8 +50,11 @@ class creanuevoeditar extends conectasql{
             $con_prueba=$this->consulta['con_periodo'];
             $con_ini=$this->consulta['con_fecha_inicio'];
             $con_fin=$this->consulta['con_fecha_fin'];
+            $con_aimss=$this->consulta['con_alta_imss'];
+            $con_bimss=$this->consulta['con_baja_imss'];
             //convierte el valor entero en on u off del checkbox
             if($this->consulta['con_adic'] == '1'){$checkedadic='checked="yes"';}else{$checkedadic='';}
+            if($this->consulta['con_firmado'] == '1'){$checkconfir='checked="yes"';}else{$checkconfir='';}
             if($this->consulta['con_status'] == '1'){$checkedstatus='checked="yes"';}else{$checkedstatus='';}
             $ffin='';
 
@@ -83,7 +86,10 @@ class creanuevoeditar extends conectasql{
             $con_prueba='';
             $con_ini='';
             $con_fin='';
+            $con_aimss='';
+            $con_bimss='';
             $checkedadic='';
+            $checkconfir='';
             $checkedstatus='';
             $ffin='hidden';
 
@@ -132,13 +138,16 @@ class creanuevoeditar extends conectasql{
                 echo '<div class="col-3"><label>Area</label><br><input class="input0" name="suc" id="suc" value="'.$suc_nom.'"placeholder="Area" readonly></div>';
                 echo '<div class="col-3"><label>Salario</label><br><input class="input0" name="salario" id="salario" value="'.$sal_monto.'" placeholder="$ $ $" onblur="valida_salario();" onkeypress="return solo_numeros(event);"></div>';
                 echo '<div class="col-3"><label>Horario</label><br><input class="input0" name="horario" value="'.$con_horario.'"></div>';
-                echo '<div class="col-3"><label>Periodo de Prueba</label><input class="input0" name="prueba"  value="'.$con_prueba.'"placeholder="en días"></div>';
+                echo '<div class="col-3"><label>Periodo de Prueba</label><input class="input0" name="prueba"  value="'.$con_prueba.'" placeholder="en días"></div>';
+                echo '<div class="col-3"><label>Alta IMSS</label><input class="inputdate" type="date" name="aimss"  value="'.$con_aimss.'"></div>';
+                echo '<div class="col-3"><label>Baja IMSS</label><input class="inputdate" type="date" name="bimss"  value="'.$con_bimss.'"></div>';
+                echo '<div class="col-3"><br><label >Contrato firmado</label><input type="checkbox" name="cfir" id="cfir" '.$checkconfir.'></div>';
             echo '<div>';
             echo '<div class="row">';
                 echo '<div class="col-3"><label>Fecha inicio</label><input class="inputdate" type="date" name="fecha_ini" value="'.$con_ini.'"></div>';
                 echo '<div class="col-3"><label '.$ffin.'>Fecha Fin</label><input class="inputdate" type="date" name="fecha_fin" value="'.$con_fin.'" '.$ffin.'></div>';
                 echo '<div class="col-3"><br><label>Estatus</label><input type="checkbox" name="status" id="status" '.$checkedstatus.'></div>';
-                echo '<div class="col-3"><br><label >Adicionales</label><input type="checkbox" name="adic" id="adic" '.$checkedadic.'></div>';
+                echo '<div class="col-3"><br><label>Adicionales</label><input type="checkbox" name="adic" id="adic" '.$checkedadic.'></div>';
             echo '<div>';                
             echo '</div>';
             echo '<div class="division"></div>';

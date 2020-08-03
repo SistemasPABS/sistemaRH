@@ -55,6 +55,18 @@
         }else if (isset($_POST['prueba']) || !empty($_POST['prueba'])) {
             $prueba = $_POST['prueba'];
         }
+        //variable de alta en el imss
+        if(isset($_POST['aimss']) && empty($_POST['aimss'])){
+            $aimss='NULL';
+        }else{
+            $aimss="'".$_POST['aimss']."'";
+        }
+        //variable de baja en el imss
+        if(isset($_POST['bimss']) && empty($_POST['bimss'])){
+            $bimss='NULL';
+        }else{
+            $bimss="'".$_POST['bimss']."'";
+        }
         //variable de fecha inicio de contrato
         if(!isset($_POST['fecha_ini']) || empty($_POST['fecha_ini'])){
             $error[] = "fecha_ini";
@@ -62,14 +74,20 @@
             $fecha_ini = $_POST['fecha_ini'];
         }
         //variable de fecha de fin de contrato
-        if(!isset($_POST['fecha_fin']) || empty($_POST['fecha_fin'])){
-            $fecha_fin = "";
-        }else if (isset($_POST['fecha_fin']) || !empty($_POST['fecha_fin'])) {
-            $fecha_fin = $_POST['fecha_fin'];
+        if(isset($_POST['fecha_fin']) && empty($_POST['fecha_fin'])){
+            $fecha_fin = 'NULL';
+        }else{
+            $fecha_fin = "'".$_POST['fecha_fin']."'";
+        }
+        //variable contrato firmado
+        if(!isset($_POST['cfir'])){
+            $cfir='0';
+        }else if(isset($_POST['cfir']) && $_POST['cfir'] == 'on'){
+            $cfir='1';
         }
         //variable status
         if(!isset($_POST['status'])){
-        $status='0';
+            $status='0';
         }else if(isset($_POST['status']) && $_POST['status'] == 'on'){
             $status='1';
         }
@@ -110,13 +128,11 @@
             $salario=$insert->limpia_cadena($salario);
             $horario=$insert->limpia_cadena($horario);
             $prueba=$insert->limpia_cadena($prueba);
-            $fecha_fin=$insert->limpia_cadena($fecha_fin);
             $fecha_ini=$insert->limpia_cadena($fecha_ini);
             $status=$insert->limpia_cadena($status);
             $adic=$insert->limpia_cadena($adic);
             //inserta datos
-            $insert->agrega_contrato($id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status);
-           
+            $insert->agrega_contrato($id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status, $aimss, $bimss, $cfir);
         }
         $insert->cierra_conexion("0");
         //Valida si la incercion se realizo correctamente
@@ -179,6 +195,18 @@
         }else if (isset($_POST['prueba']) || !empty($_POST['prueba'])) {
             $prueba = $_POST['prueba'];
         }
+        //variable de alta en el imss
+        if(isset($_POST['aimss']) && empty($_POST['aimss'])){
+            $aimss='NULL';
+        }else{
+            $aimss="'".$_POST['aimss']."'";
+        }
+        //variable de baja en el imss
+        if(isset($_POST['bimss']) && empty($_POST['bimss'])){
+            $bimss='NULL';
+        }else{
+            $bimss="'".$_POST['bimss']."'";
+        }
         //variable de fecha inicio de contrato
         if(!isset($_POST['fecha_ini']) || empty($_POST['fecha_ini'])){
             $error[] = "fecha_ini";
@@ -186,10 +214,16 @@
             $fecha_ini = $_POST['fecha_ini'];
         }
         //variable de fecha de fin de contrato
-        if(!isset($_POST['fecha_fin']) || empty($_POST['fecha_fin'])){
-            $fecha_fin = "";
-        }else if (isset($_POST['fecha_fin']) || !empty($_POST['fecha_fin'])) {
-            $fecha_fin = $_POST['fecha_fin'];
+        if(isset($_POST['fecha_fin']) && empty($_POST['fecha_fin'])){
+            $fecha_fin = 'NULL';
+        }else{
+            $fecha_fin = "'".$_POST['fecha_fin']."'";
+        }
+        //variable contrato firmado
+        if(!isset($_POST['cfir'])){
+            $cfir='0';
+        }else if(isset($_POST['cfir']) && $_POST['cfir'] == 'on'){
+            $cfir='1';
         }
         //variable status
         if(!isset($_POST['status'])){
@@ -236,12 +270,12 @@
             $salario=$insert->limpia_cadena($salario);
             $horario=$insert->limpia_cadena($horario);
             $prueba=$insert->limpia_cadena($prueba);
-            $fecha_fin=$insert->limpia_cadena($fecha_fin);
             $fecha_ini=$insert->limpia_cadena($fecha_ini);
+            $cfir=$insert->limpia_cadena($cfir);
             $status=$insert->limpia_cadena($status);
             $adic=$insert->limpia_cadena($adic);       
             //inserta datos
-            $insert->edita_contrato($registro,$id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status);
+            $insert->edita_contrato($registro,$id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin,$status,$adic,$aimss,$bimss,$cfir);
         }
 
         $insert->cierra_conexion("0");

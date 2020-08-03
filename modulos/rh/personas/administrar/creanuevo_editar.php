@@ -123,8 +123,10 @@ class creanuevo_editar extends conectasql{
             echo '</div>';
             echo '<div class="row">';
                 echo ' <div class="col-2"><label>Fec.Nacimineto</label><br><input class="inputdate" type="date" name="fecha_nac" onkeypress="solo_letras" value="'.$this->generales['persona_fecnac'].'"></div>';
-                echo ' <div class="col-3"><label>Edo. Civil</label><br><input class="input0" type="text" name="civil" value="'.$this->generales['persona_edo_civil'].'"></div>';
+                echo ' <div class="col-2"><label>Edo. Civil</label><br><input class="input0" type="text" name="civil" value="'.$this->generales['persona_edo_civil'].'"></div>';
                 echo ' <div class="col-2"><label>Edad</label><br><input class="input0" type="text" name="edad" onkeypress="return solo_numeros(event);" value="'.$this->generales['persona_edad'].'"></div>';
+                echo ' <div class="col-2"><label>Afore</label><br><input class="input0" type="text" name="afore" onkeypress="return solo_letras_numeros(event);" onKeyUp="this.value=this.value.toUpperCase();"  value="'.$this->generales['persona_afore'].'" placeholder="" required></div>';
+                echo ' <div class="col-2"><label>Credito infonavit</label><br><input class="input0" type="text" name="creinfo" onkeypress="return solo_letras_numeros(event);" onKeyUp="this.value=this.value.toUpperCase();"  value="'.$this->generales['persona_credito_infonavit'].'" placeholder="" required></div>';
             echo '</div>';
 
             echo '<div class="row">';
