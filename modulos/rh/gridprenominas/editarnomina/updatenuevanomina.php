@@ -218,7 +218,7 @@ if ($cantpersonas == $cantpersonas2 ){
 //    }
 
     //VOLCADO A LA TABLA HISTORIA DE LOS SUELDOS
-    $sqldeletesueldosnomina= "DELETE FROM sueldos_nomina WHERE nom_id = $nominaid";
+    $sqldeletesueldosnomina= "DELETE FROM sueldos_nomina WHERE nom_id_suel = $nominaid";
     $resultdeletesueldosnomina = pg_query($conexion,$sqldeletesueldosnomina) or die ('Error al eliminar el registro anterior de los sueldos de la nomina'.pg_last_error());
     
     $selectsueldos = "SELECT * FROM tmp_sueldos_nomina WHERE us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza and fecha='$fecha' and hora='$hora'";
@@ -395,9 +395,25 @@ if ($cantpersonas == $cantpersonas2 ){
     //////////////////////////////////////////////////////////////////////////////////
     
     
-    $letreritosuccesfully.='<div>
-                                Nomina actualizada con exito, ID: '.$nominaid.'
-                            </div>';
+    $letreritosuccesfully.='<head>
+                                <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+                                <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+                                <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+                            </head>
+                            <body>
+                                <div class="container">
+                                    <div class="row text-center">
+                                        <div class="col-sm-6 col-sm-offset-3">
+                                            <br><br> <h2 style="color:#0fad00">Nomina editada No:'.$nominaid.'</h2>
+                                            <img src="../../../../images/logo.png">
+                                            <h3>¡EXITO!</h3>
+                                            <p style="font-size:20px;color:#5C5C5C;">Gracias por haber utilizado nuestro sistema de RH para la edición de nomina. Hemos enviado un correo notificando la edicion de la misma y puedan hacer sus observaciones y/o autorizarla.</p>
+                                            <a href="../../prenominas/index.php" class="btn btn-success">    OK     </a>
+                                            <br><br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </body>';
     echo $letreritosuccesfully;
 
     $deleteedicion = "DELETE from controlador_nomina where idnom = $nominaid";

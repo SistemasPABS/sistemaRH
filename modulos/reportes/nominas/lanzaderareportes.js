@@ -10,8 +10,7 @@ function ejecutarreporte(){
     url:url,
     data:{idnom:btoa(idnomina)},
     success: function(data){
-    alert('Reporte ejecutado');    
-    //success: function(datos){ $(\'#tabla\').html(datos); }
+      alert(data);
     }
 });
 }
