@@ -37,7 +37,7 @@ include('../../../config/conectasql.php');
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="col-xs-2">1</td><td class="col-xs-8">Reporte estado financiero Nomina</td><td><input type="button" id="idreporte" name="idreporte" onclick=window_open() value="Exportar"></input></td>
+                                    <td class="col-xs-2">1</td><td class="col-xs-8">Reporte detallado por empleado</td><td><input type="button" id="idreporte" name="idreporte" onclick=window_open() value="Exportar"></input></td>
                                 </tr>
                             </tbody>
                         </table>
