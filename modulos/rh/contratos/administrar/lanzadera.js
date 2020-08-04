@@ -298,3 +298,39 @@ function solo_numeros(evt){
         return false;
     }
 }
+
+function ver_sucursales(){
+    //alert('hola');
+    var a = document.form_contrato.plazas.value;
+    var a = btoa(a);
+    var est = btoa('suc');
+    //alert("valores "+a+" "+est);
+    var url="agrega_selects.php";
+         $.ajax({
+            type: "POST",
+            url:url,
+            data:{ns:a,op:est},
+            success: function(data){
+            //alert(data);
+            document.getElementById("cont_se").innerHTML=data;
+            }
+          });
+}
+
+function ver_jefes(){
+    //alert('hola');
+    var a = document.form_contrato.sucursales.value;
+    var a = btoa(a);
+    var jefe = btoa('jefe');
+    //alert("Navegador autorizado "+a+" "+b);
+    var url="agrega_selects.php";
+         $.ajax({
+            type: "POST",
+            url:url,
+            data:{ns:a,op:jefe},
+            success: function(data){
+            //alert(data);    
+            document.getElementById("cont_jf").innerHTML=data;
+            }
+          });
+}

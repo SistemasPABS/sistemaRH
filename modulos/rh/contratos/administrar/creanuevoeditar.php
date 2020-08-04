@@ -27,6 +27,7 @@ class creanuevoeditar extends conectasql{
             $operacion= base64_encode($op);
             $operacion='?op='.$operacion;   
             $this->consulta_cto($cto);//Asigna a la variable consulta la informacion a editar de vw_contratos
+            $jefe= $this->consulta['con_jefe_inmediato'];
             $persona_id=$this->consulta['persona_id'];
             $persona_nom=$this->consulta['nombrecompleto'];
             $persona_gen=$this->consulta['persona_genero'];
@@ -57,9 +58,28 @@ class creanuevoeditar extends conectasql{
             if($this->consulta['con_firmado'] == '1'){$checkconfir='checked="yes"';}else{$checkconfir='';}
             if($this->consulta['con_status'] == '1'){$checkedstatus='checked="yes"';}else{$checkedstatus='';}
             $ffin='';
+            
+            $sqljf="select * from vw_contratos where persona_id=$jefe";
+            $resultjf= pg_query($this->conexion,$sqljf) or die('Eror :'. pg_last_error());
+            $rowjf= pg_fetch_array($resultjf);
+            $plazajf=$rowjf['plaza_id'];
+            $sucjf=$rowjf['suc_id'];
+            
+            $this->selects_creator('select * from sucursales where plaza_id='.$plazajf.' order by suc_id', 'sucursales', 'suc_id', 'suc_nombre', 'sucursales', 'onChange="ver_jefes();"',$sucjf);
+            $selectsuc2=$this->select;
+            
+            $this->selects_creator('select * from vw_contratos where suc_id='.$sucjf.' order by nombrecompleto', 'jefes', 'persona_id', 'nombrecompleto', 'jefes', 'onChange=""', $jefe);
+            $selectjefe= $this->select;
 
         }else if($op == 'nuevo'){
             //inicializa variables para evitar alertas de errores
+            $selectsuc2='<select class="input0" name="suc" value="0">
+                            <option value="1000">--- Seleccione una plaza --- </option>
+                           </select>';
+            $selectjefe='<select class="input0" name="jefes" value="0">
+                            <option value="1000"> --- Jefe inmediato --- </option>
+                           </select>';
+            $selectdefault='';
             $operacion= base64_encode($op);
             $operacion='?op='.$operacion;
             $cto='';
@@ -139,6 +159,11 @@ class creanuevoeditar extends conectasql{
                 echo '<div class="col-3"><label>Salario</label><br><input class="input0" name="salario" id="salario" value="'.$sal_monto.'" placeholder="$ $ $" onblur="valida_salario();" onkeypress="return solo_numeros(event);"></div>';
                 echo '<div class="col-3"><label>Horario</label><br><input class="input0" name="horario" value="'.$con_horario.'"></div>';
                 echo '<div class="col-3"><label>Periodo de Prueba</label><input class="input0" name="prueba"  value="'.$con_prueba.'" placeholder="en días"></div>';
+                $this->selects_creator('select * from plazas order by plaza_id','plazas','plaza_id','plaza_nombre','plazas','onChange= "ver_sucursales();"',$plazajf);
+                echo '<div class="col-3"><label>Plaza jefe inmediato</label> '.$this->select.' </div>';
+                echo '<div class="col-3"><label>Sucursal jefe inmediato</label><div id="cont_se">'.$selectsuc2.'</div></div>';
+                echo '<div class="col-3"><label>Jefe inmediato</label><div id="cont_jf">'.$selectjefe.'</div></div>';
+                echo '<div class="col-3"><label></label></div>';
                 echo '<div class="col-3"><label>Alta IMSS</label><input class="inputdate" type="date" name="aimss"  value="'.$con_aimss.'"></div>';
                 echo '<div class="col-3"><label>Baja IMSS</label><input class="inputdate" type="date" name="bimss"  value="'.$con_bimss.'"></div>';
                 echo '<div class="col-3"><br><label >Contrato firmado</label><input type="checkbox" name="cfir" id="cfir" '.$checkconfir.'></div>';
