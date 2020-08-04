@@ -138,7 +138,7 @@
             $status=$insert->limpia_cadena($status);
             $adic=$insert->limpia_cadena($adic);
             //inserta datos
-            $insert->agrega_contrato($id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status, $aimss, $bimss, $cfir);
+            $insert->agrega_contrato($id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status, $aimss, $bimss, $cfir, $jefe);
         }
         $insert->cierra_conexion("0");
         //Valida si la incercion se realizo correctamente
@@ -287,7 +287,7 @@
             $status=$insert->limpia_cadena($status);
             $adic=$insert->limpia_cadena($adic);       
             //inserta datos
-            $insert->edita_contrato($registro,$id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin,$status,$adic,$aimss,$bimss,$cfir,$jefes);
+            $insert->edita_contrato($registro,$id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin,$status,$adic,$aimss,$bimss,$cfir,$jefe);
         }
 
         $insert->cierra_conexion("0");
