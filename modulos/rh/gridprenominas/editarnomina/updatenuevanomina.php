@@ -14,6 +14,12 @@ $pc=$_POST['pc'];//computadora de donde se hace
 $fechaperiodo=$_POST['fechaperiodo'];//id de lo seleccionado de fecha inicio y fecha fin 
 $tipoperiodo=$_POST['tipoperiodo'];
 $empid=$_POST['empid'];
+$oficina = $_POST['oficina'];
+$cargorrecurrente = $_POST['cargorecurrente'];
+$depositoenbanco = $_POST['depositoenbanco'];
+$retencionvianomina = $_POST['retencionennomina'];
+$robogestor = $_POST['robogestor'];
+$extrasolicitudes = $_POST['extrasolicitudes'];
 $con= new conectasql();
 $con->abre_conexion("0");
 $conexion=$con->conexion;
@@ -216,6 +222,11 @@ if ($cantpersonas == $cantpersonas2 ){
 //            //echo $insertcomnom;
 //        }while($rowbn = pg_fetch_array($resultbn));
 //    }
+
+    //EDICION DE COBRANZA_ADICIONAL
+    //INSERCION A LA TABLA DE COBRANZA ADICIONAL 
+    $insertcobranzaadicional = "UPDATE cobranza_adicional SET nom_id = $nominaid, oficina = $oficina, cargo_recurrente = $cargorrecurrente, deposito_en_banco = $depositoenbanco, retencion_via_nomina = $retencionvianomina, robo_gestor = $robogestor,extra_solicitudes = $extrasolicitudes WHERE nom_id = $nominaid";
+    $resultinsert = pg_query($conexion,$insertcobranzaadicional)or die('Error al actualizar en la tabla de cobranza adicional'. pg_last_error());
 
     //VOLCADO A LA TABLA HISTORIA DE LOS SUELDOS
     $sqldeletesueldosnomina= "DELETE FROM sueldos_nomina WHERE nom_id_suel = $nominaid";

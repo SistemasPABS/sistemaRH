@@ -15,6 +15,12 @@ $pc=$_POST['pc'];//computadora de donde se hace
 $idperiodo=$_POST['idperiodo'];//id de lo seleccionado de fecha inicio y fecha fin 
 $tipoperiodo=$_POST['tipoperiodo'];
 $empid=$_POST['empid'];
+$oficina = $_POST['oficina'];
+$cargorrecurrente = $_POST['cargorecurrente'];
+$depositoenbanco = $_POST['depositoenbanco'];
+$retencionvianomina = $_POST['retencionennomina'];
+$robogestor = $_POST['robogestor'];
+$extrasolicitudes = $_POST['extrasolicitudes'];
 $con= new conectasql();
 $con->abre_conexion("0");
 $conexion=$con->conexion;
@@ -225,6 +231,11 @@ if ($cantpersonas == $cantpersonas2 ){
         }while($rowbn = pg_fetch_array($resultbn));
     }
 
+    //INSERCION A LA TABLA DE COBRANZA ADICIONAL 
+    $insertcobranzaadicional = "INSERT INTO cobranza_adicional(nom_id,oficina,cargo_recurrente,deposito_en_banco,retencion_via_nomina,robo_gestor,extra_solicitudes) VALUES ($nominaid,$oficina,$cargorrecurrente,$depositoenbanco,$retencionvianomina,$robogestor,$extrasolicitudes)";
+    $resultinsert = pg_query($conexion,$insertcobranzaadicional)or die('Error al insert en la tabla de cobranza adicional'. pg_last_error());
+
+
     //VOLCADO A LA TABLA HISTORICA DE LOS SUELDOS
     $selectsueldos = "SELECT * FROM tmp_sueldos_nomina WHERE us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza and fecha='$fecha' and hora='$hora'";
     $resultselectsueldos = pg_query($conexion,$selectsueldos);
@@ -384,6 +395,8 @@ if ($cantpersonas == $cantpersonas2 ){
     }else{
         echo 'No son iguales - TEMPORAL DEDUCCIONES';
     } 
+
+
 
     
     //////////////////////////////////////////////////////////////////////////////////

@@ -52,6 +52,30 @@ $result2 = pg_query($conexion,$sql2) or die("Error en la insercion de datos temp
 $sql3="select * from vw_contratos where con_status = 1 and sal_tipo_id = $tipoperiodo and emp_id = '$empid' and plaza_id = $plaza";
 $result3= pg_query($conexion,$sql3);
 if($row3= pg_fetch_array($result3)){
+    $cobranzadefault .='
+    <div>
+        <div>
+            <label>Oficina</label>
+            <input type="number" onkeyup="this.value=Numeros(this.value)" step="0.01" name="oficina" value="0"></input>
+            <label>Cargo recurrente</label>
+            <input type="number" onkeyup="this.value=Numeros(this.value)" step="0.01" name="cargorecurrente" value="0"></input>
+        </div>
+
+        <div>
+            <label>Deposito en banco</label>
+            <input type="number" onkeyup="this.value=Numeros(this.value)" step="0.01" name="depositoenbanco" value="0"></input>
+            <label>Retencion vía nómina</label>
+            <input type="number" onkeyup="this.value=Numeros(this.value)" step="0.01" name="retencionennomina" value="0"></input>
+        </div>
+
+        <div>
+            <label>Robo gestor</label>
+            <input type="number" onkeyup="this.value=Numeros(this.value)" step="0.01" name="robogestor" value="0"></input>
+            <label>Extra solicitudes</label>
+            <input type="number" onkeyup="this.value=Numeros(this.value)" step="0.01" name="extrasolicitudes" value="0"></input>
+        </div> 
+    </div>
+    ';
     do{
         $monos.= '
         <tbody>
@@ -186,6 +210,7 @@ if($row3= pg_fetch_array($result3)){
                     <th>Observaciones</th>
                 </tr>
             </thead>
+            <?php echo $cobranzadefault ?>
             <?php echo $monos?>
             <?php echo $autorizadores?>
             
