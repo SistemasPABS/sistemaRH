@@ -9,7 +9,7 @@ ini_set('display_startup_errors', TRUE);
 date_default_timezone_set('America/Mexico_City');
 if (PHP_SAPI == 'cli')
 die('This example should only be run from a Web Browser');
-$idnom=base64_decode($_POST['idnom']);
+$idnom=base64_decode($_GET['idnom']);
 include ('../../../../config/conectasql.php');
 $exporta = new conectasql();
 $exporta->abre_conexion("0");
@@ -33,7 +33,7 @@ $objPHPExcel = new PHPExcel();
     $resultxls=pg_query($exporta->conexion,$sqlxls);
     if($rowxls=pg_fetch_array($resultxls)){
         $objPHPExcel->setActiveSheetIndex(0)
-                ->setCellValue('A1', 'Sucursal')
+                ->setCellValue('B1', 'Sucursal')
                 ->setCellValue('B1', 'Plaza');
                 
         do{
@@ -47,7 +47,7 @@ $objPHPExcel = new PHPExcel();
     }         
    
     // Rename worksheet*/
-    $objPHPExcel->getActiveSheet()->setTitle('Reporte Financiero');
+    $objPHPExcel->getActiveSheet()->setTitle('Detallado de nomina');
 
 
     // Set active sheet index to the first sheet, so Excel opens this as the first sheet*/
@@ -56,7 +56,7 @@ $objPHPExcel = new PHPExcel();
 
     // Redirect output to a client’s web browser (Excel5)*/
     header('Content-Type: application/vnd.ms-excel');
-    header('Content-Disposition: attachment;filename="ReporteFinanciero.xls"');
+    header('Content-Disposition: attachment;filename="Detallado_de_nomina.xls"');
     header('Cache-Control: max-age=0');
     // If you're serving to IE 9, then the following may be needed*/
     header('Cache-Control: max-age=1');
