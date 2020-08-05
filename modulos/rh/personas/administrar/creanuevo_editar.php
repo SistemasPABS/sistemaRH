@@ -26,6 +26,7 @@ class creanuevo_editar extends conectasql{
             $fvnc='onchange="valida_nueva_clave(this.value,\'nc\');"';
             $this->consulta_persona($prs);
             if($this->generales['persona_status'] == '1'){$checked='checked="yes"';}else{$checked='';}
+            if($this->generales['persona_pensionado'] == '1'){$checkedpen='checked="yes"';}else{$checkedpen='';}
             $vg1='1000';
             if($vg1 == $this->generales['persona_genero']){$vgd1='selected';}else{$vgd1='';}
             $vg2='femenino';
@@ -56,6 +57,7 @@ class creanuevo_editar extends conectasql{
             $operacion= base64_encode($op);
             $operacion='?op='.$operacion;
             $checked='checked="yes"';
+            $checkedpen='';
             $fvcp='onblur="valida_nueva_clave(this.value,\'clave\');"';
             $fvnc='onblur="valida_nueva_clave(this.value,\'nc\');"';
             $paisdefault='1000';
@@ -83,17 +85,18 @@ class creanuevo_editar extends conectasql{
         echo '<head><title> '.$titulo.' </title></head>';
         echo '<form method="post" name="form_personas" action="agrega_persona.php'.$operacion.'">';
             echo '<div class="row">';
-                echo '<div class="col-6"';
+                echo '<div class="col-3"';
                     echo '<h2>Datos personales</h2>';
                 echo '</div>';
-                echo '<div class="col-6"';
+                echo '<div class="col-3"';
                     echo '<label>Activo:</label><input type="checkbox" id="status" name="status" '.$checked.'>';
+                    echo '<label>Pensionado:</label><input type="checkbox" id="pensionado" name="pensionado" '.$checkedpen.'>';
                 echo '</div>';
             echo '</div>';
             
             echo '<div class="row">';
                 echo '<div class="col-1"><label>Clave</label><br><input onkeypress="return caracteres_esp(event)" class="input0" type="text" id="clave" name="clave" placeholder="Clave" value="'.$this->generales['persona_cve'].'" '.$fvcp.' required ><input name="registro" id="registro" value="'.$prs.'" hidden></div> ';
-                echo '<div class="col-3"><label>Nombre (s)</label><br><input  onkeypress="return solo_letras(event)" class="input0" type="text"  pattern="[A-Za-z]" name="nombre" id="nombre" value="'.$this->generales['persona_nombre'].'" placeholder="Nombre" required></div>';
+                echo '<div class="col-3"><label>Nombre(s)</label><br><input  onkeypress="return solo_letras(event)" class="input0" type="text"  pattern="[A-Za-z]" name="nombre" id="nombre" value="'.$this->generales['persona_nombre'].'" placeholder="Nombre" required></div>';
                 echo '<div class="col-4"><label>Apellido P</label><br><input onkeypress="return solo_letras(event)" class="input0" type="text" name="paterno" id="paterno" value="'.$this->generales['persona_paterno'].'" placeholder="Apellido Paterno" required></div>';
                 echo '<div class="col-4"><label>Materno</label><br><input onkeypress="return solo_letras(event)" class="input0" type="text" name="materno" id="materno" value="'.$this->generales['persona_materno'].'" placeholder="Apellido Materno" '.$fvnc.'required></div>';
             echo '</div>';
