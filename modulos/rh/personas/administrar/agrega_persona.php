@@ -19,6 +19,12 @@ include ('../../../../config/cookie.php');
         }else if(isset($_POST['status']) && $_POST['status'] == 'on'){
             $status='1';
         }
+        //variable de pensionado
+        if(!isset($_POST['pensionado'])){
+            $pensionado='0';
+        }else if(isset($_POST['pensionado']) && $_POST['pensionado'] == 'on'){
+            $pensionado='1';
+        }
         //variable id(registro)
         if(!isset($_POST['registro']) || empty($_POST['registro'])){
             $registro='';
@@ -348,7 +354,7 @@ include ('../../../../config/cookie.php');
             if($afore != null){$afore=$insert->limpia_cadena($afore);}
             if($creinfo != null){$creinfo=$insert->limpia_cadena($creinfo);}
             $civil=$insert->limpia_cadena($civil);
-            $insert->generales_personas($clave,$nombre,$paterno,$materno,$calle,$numero,$colonia,$cp,$pais,$estado,$municipio,$nacionalidad,$rfc,$nss,$curp,$genero,$correo,$telefono,$celular,$fecha_nac,$fecha,$hora,$status, $edad, $civil,$usid,'','',0,$afore,$creinfo);
+            $insert->generales_personas($clave,$nombre,$paterno,$materno,$calle,$numero,$colonia,$cp,$pais,$estado,$municipio,$nacionalidad,$rfc,$nss,$curp,$genero,$correo,$telefono,$celular,$fecha_nac,$fecha,$hora,$status, $edad, $civil,$usid,'','',0,$afore,$creinfo,$pensionado);
             //echo 'el id es:'.$insert->npid.'<br>';
             $insert->banco_personas($banco,$insert->npid,$clavebanco,$cuenta);
             $insert->docs_personas($insert->npid,$chk_comp,$chk_ine,$chk_licencia,$chk_acta,$chk_rfc,$chk_nss,$chk_curp,$chk_certificado,$chk_recomendacion,$chk_antecedentes,$chk_fonacot,$chk_infonavit); 
@@ -371,6 +377,12 @@ include ('../../../../config/cookie.php');
             $status='0';
         }else if(isset($_POST['status']) && $_POST['status'] == 'on'){
             $status='1';
+        }
+        //variable de pensionado
+        if(!isset($_POST['pensionado'])){
+            $pensionado='0';
+        }else if(isset($_POST['pensionado']) && $_POST['pensionado'] == 'on'){
+            $pensionado='1';
         }
         //variable id(registro)
         if(!isset($_POST['registro']) || empty($_POST['registro'])){
@@ -705,7 +717,7 @@ include ('../../../../config/cookie.php');
             $civil=$updatep->limpia_cadena($civil);
             
             
-            $updatep->update_personas_generales($registro,$clave,$nombre,$paterno,$materno,$calle,$numero,$colonia,$cp,$pais,$estado,$municipio,$nacionalidad,$rfc,$nss,$curp,$genero,$correo,$telefono,$celular,$fecha_nac,$fecha,$hora,$status, $edad, $civil,$usid,$afore,$creinfo);
+            $updatep->update_personas_generales($registro,$clave,$nombre,$paterno,$materno,$calle,$numero,$colonia,$cp,$pais,$estado,$municipio,$nacionalidad,$rfc,$nss,$curp,$genero,$correo,$telefono,$celular,$fecha_nac,$fecha,$hora,$status, $edad, $civil,$usid,$afore,$creinfo,$pensionado);
             $updatep->update_personas_bancos($registro,$banco,$clavebanco,$cuenta);
             $updatep->update_personas_docs($registro,$chk_comp,$chk_ine,$chk_licencia,$chk_acta,$chk_rfc,$chk_nss,$chk_curp,$chk_certificado,$chk_recomendacion,$chk_antecedentes,$chk_fonacot,$chk_infonavit); 
         }

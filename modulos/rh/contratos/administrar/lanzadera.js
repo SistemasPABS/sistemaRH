@@ -216,7 +216,14 @@ function valida_campos(op){
         alert("Debes seleccionar un salario");
         document.form_contrato.salario.focus();
         return 0;
-    }//Horario
+    }
+    //SDI
+    if (document.form_contrato.sdi.value.length === 0){
+        alert("Debes capturar el SDI");
+        document.form_contrato.sdi.focus();
+        return 0;
+    }
+    //Horario
     if (document.form_contrato.horario.value.length === 0){
         alert("El contrato debe de tener un horario");
         document.form_contrato.horario.focus();
@@ -297,4 +304,40 @@ function solo_numeros(evt){
       //  alert("El campo solo acepta numeros");
         return false;
     }
+}
+
+function ver_sucursales(){
+    //alert('hola');
+    var a = document.form_contrato.plazas.value;
+    var a = btoa(a);
+    var est = btoa('suc');
+    //alert("valores "+a+" "+est);
+    var url="agrega_selects.php";
+         $.ajax({
+            type: "POST",
+            url:url,
+            data:{ns:a,op:est},
+            success: function(data){
+            //alert(data);
+            document.getElementById("cont_se").innerHTML=data;
+            }
+          });
+}
+
+function ver_jefes(){
+    //alert('hola');
+    var a = document.form_contrato.sucursales.value;
+    var a = btoa(a);
+    var jefe = btoa('jefe');
+    //alert("Navegador autorizado "+a+" "+b);
+    var url="agrega_selects.php";
+         $.ajax({
+            type: "POST",
+            url:url,
+            data:{ns:a,op:jefe},
+            success: function(data){
+            //alert(data);    
+            document.getElementById("cont_jf").innerHTML=data;
+            }
+          });
 }

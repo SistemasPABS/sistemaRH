@@ -43,6 +43,12 @@
         }else if (isset($_POST['salario']) || !empty($_POST['salario'])) {
             $salario = $_POST['salario'];
         }
+        //Variable del sdi
+        if(!isset($_POST['sdi'])){
+            $error[] = "sdi";
+        }else if (isset($_POST['sdi']) || !empty($_POST['sdi'])) {
+            $sdi = $_POST['sdi'];
+        }
         //variable de horario
         if(!isset($_POST['horario']) || empty($_POST['horario'])){
             $error[] = "horario";
@@ -54,6 +60,12 @@
             $error[] = "prueba";
         }else if (isset($_POST['prueba']) || !empty($_POST['prueba'])) {
             $prueba = $_POST['prueba'];
+        }
+        //variable del jefe inmediato
+        if(!isset($_POST['jefes']) || $_POST['jefes'] == '1000'){
+            $error[]='jefes';
+        }else if(isset($_POST['jefes']) || $_POST['jefes'] != '1000'){
+            $jefe=$_POST['jefes'];
         }
         //variable de alta en el imss
         if(isset($_POST['aimss']) && empty($_POST['aimss'])){
@@ -126,13 +138,14 @@
             $id_puesto=$insert->limpia_cadena($id_puesto);
             $id_razon=$insert->limpia_cadena($id_razon);
             $salario=$insert->limpia_cadena($salario);
+            $sdi=$insert->limpia_cadena($sdi);
             $horario=$insert->limpia_cadena($horario);
             $prueba=$insert->limpia_cadena($prueba);
             $fecha_ini=$insert->limpia_cadena($fecha_ini);
             $status=$insert->limpia_cadena($status);
             $adic=$insert->limpia_cadena($adic);
             //inserta datos
-            $insert->agrega_contrato($id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status, $aimss, $bimss, $cfir);
+            $insert->agrega_contrato($id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status, $aimss, $bimss, $cfir, $jefe, $sdi);
         }
         $insert->cierra_conexion("0");
         //Valida si la incercion se realizo correctamente
@@ -183,6 +196,12 @@
         }else if (isset($_POST['salario']) || !empty($_POST['salario'])) {
             $salario = $_POST['salario'];
         }
+        //Variable del sdi
+        if(!isset($_POST['sdi'])){
+            $error[] = "sdi";
+        }else if (isset($_POST['sdi']) || !empty($_POST['sdi'])) {
+            $sdi = $_POST['sdi'];
+        }
         //variable de horario
         if(!isset($_POST['horario']) || empty($_POST['horario'])){
             $error[] = "horario";
@@ -194,6 +213,12 @@
             $error[] = "prueba";
         }else if (isset($_POST['prueba']) || !empty($_POST['prueba'])) {
             $prueba = $_POST['prueba'];
+        }
+        //variable del jefe inmediato
+        if(!isset($_POST['jefes']) || $_POST['jefes'] == '1000'){
+            $error[]='jefes';
+        }else if(isset($_POST['jefes']) || $_POST['jefes'] != '1000'){
+            $jefe=$_POST['jefes'];
         }
         //variable de alta en el imss
         if(isset($_POST['aimss']) && empty($_POST['aimss'])){
@@ -275,7 +300,7 @@
             $status=$insert->limpia_cadena($status);
             $adic=$insert->limpia_cadena($adic);       
             //inserta datos
-            $insert->edita_contrato($registro,$id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin,$status,$adic,$aimss,$bimss,$cfir);
+            $insert->edita_contrato($registro,$id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $fecha_ini,$fecha_fin,$status,$adic,$aimss,$bimss,$cfir,$jefe);
         }
 
         $insert->cierra_conexion("0");
