@@ -92,6 +92,21 @@ if($row3= pg_fetch_array($result3)){
                   </tr>
                 </tbody>
         ';
+        $sqlasistencias = "SELECT * from asistencias where persona_id = ".$row3['persona_id']." and nom_id=$idnom;";
+        $resultasistencias = pg_query($conexion,$sqlasistencias);
+        $asistencias = pg_fetch_array($resultasistencias);
+
+        $monos .='
+        <tr class="toggler toggler1">
+            <td rowspan="9999"></td>
+            <td>ASISTENCIAS</td>
+            <td></td>
+            <td></td>
+            <td><input type=number  name="'.$row3['persona_id'].'asistencias[]" value="'.$asistencias['dias'].'"></input></td>
+            <td></td>
+            <td><input type="text" name="'.$row3['persona_id'].'observacionesasistencias[]" value="'.$asistencias['observaciones'].'" onkeyup="this.value=NumText(this.value)"></input></td>
+        </tr>
+        </tbody>';
         //$monos.= $row3['persona_id'].'--'.$row3['nombrecompleto'].'<br>';
         
         $sql4="select * from vw_comnom where persona_id = ".$row3['persona_id']." and nom_id = $idnom;";

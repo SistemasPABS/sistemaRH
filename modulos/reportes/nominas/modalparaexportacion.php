@@ -28,7 +28,7 @@ $conexion=$con->conexion;
                 <label>Selecciona una nomina</label>
                 <select id="idnomina">
                     <?php 
-                        $query="SELECT * from nomina";
+                        $query="SELECT * from nomina order by nom_id";
                         $result = pg_query($conexion,$query);
                         $mostrar= pg_fetch_array($result);
                             do{

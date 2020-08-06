@@ -97,8 +97,21 @@ if($row3= pg_fetch_array($result3)){
                         <td><input type=number  name="'.$row3['persona_id'].'cantidadsueldo[]" value="'.$row3['sal_monto_con'].'" readonly></input></td>
                         <td><input type="text" name="'.$row3['persona_id'].'observacionessueldo[]" value="---" onkeyup="this.value=NumText(this.value)"></input></td>
                   </tr>
+                  
                 </tbody>
         ';
+
+        $monos .='
+        <tr class="toggler toggler1">
+            <td rowspan="9999"></td>
+            <td>ASISTENCIAS</td>
+            <td></td>
+            <td></td>
+            <td><input type=number  name="'.$row3['persona_id'].'asistencias[]" value="0"></input></td>
+            <td></td>
+            <td><input type="text" name="'.$row3['persona_id'].'observacionesasistencias[]" value="---" onkeyup="this.value=NumText(this.value)"></input></td>
+        </tr>
+        </tbody>';
         //$monos.= $row3['persona_id'].'--'.$row3['nombrecompleto'].'<br>';
         
         $sql4="select * from vw_puestos_comisiones where persona_id = ".$row3['persona_id']." and co_activo = 1;";

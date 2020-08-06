@@ -202,6 +202,19 @@ if ($cantpersonas == $cantpersonas2 ){
     $insertarnomina = "UPDATE nomina SET fecha_inicio = '$fechainicio', fecha_fin = '$fechafinal', nom_total = $totalnomina,nom_autorizada = 'false',plaza_id = $plaza,sal_tipo_id = $tipoperiodo,fechageneracion = '$fecha',horageneracion = '$hora', us_id = $us_id, pc='$pc' WHERE nom_id=$nominaid";
     $result = pg_query($conexion,$insertarnomina) or die ('Error al actualizar nomina'.pg_last_error());
 
+    /*SE HACE LA INSERCION A LA TABLA DE ASISTENCIAS POR CADA MONO*/
+    foreach($cp as $p){
+        $cantidadasistencias=$_POST[$p.'asistencias'];
+        if($cantidadasistencias != NULL){
+            $observacionesasistencias =$_POST[$p.'observacionesasistencias'];
+            $largo = count($cantidadasistencias);
+            for($i=0; $i < $largo; $i++){
+                $sql="UPDATE asistencias SET dias = $cantidadasistencias[$i], observaciones = '$observacionesasistencias[$i]' where nom_id = $nominaid and persona_id = $p";
+                $result= pg_query($conexion,$sql) or die("Error itsn:". pg_last_error());
+            }
+        }
+    }
+
     
     //////////////////////////////////////////////////////////////////////////////////
     ////COMIENZA EL VOLCADO DE LA INFORMACION DE LAS TABLAS TEMPORALES A LAS//////////

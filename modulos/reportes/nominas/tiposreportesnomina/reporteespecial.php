@@ -13,7 +13,7 @@ $idnom=base64_decode($_GET['idnom']);
 include ('../../../../config/conectasql.php');
 $exporta = new conectasql();
 $exporta->abre_conexion("0");
-$sqlxls="SELECT * FROM vw_general_personas_por_nomina_scpd WHERE nom_id_suel = $idnom";
+$sqlxls="SELECT * FROM vw_sueldos_nomina WHERE nom_id = $idnom";
  /** Include PHPExcel */
 require_once ('../../../../librerias/phpexcel/Classes/PHPExcel.php');
 // Create new PHPExcel object*/
@@ -28,22 +28,43 @@ $objPHPExcel = new PHPExcel();
             ->setKeywords("office 2007 openxml php")
             ->setCategory("Test result file");
             // Add some data*/
-    $a=2;
+    
 //se ejecuta la consulta
     $resultxls=pg_query($exporta->conexion,$sqlxls);
+    $a=8;
     if($rowxls=pg_fetch_array($resultxls)){
         $objPHPExcel->setActiveSheetIndex(0)
-                ->setCellValue('B1', 'Sucursal')
-                ->setCellValue('B1', 'Plaza');
-                
+        ->setCellValue('D7', 'Persona')
+        ->setCellValue('E7', 'Sueldo Nomina');
         do{
             $objPHPExcel->setActiveSheetIndex(0)
-                    ->setCellValue('A'.$a, $rowxls['persona_id'])
-                    ->setCellValue('B'.$a, $rowxls['nombrecompleto']);
+                    ->setCellValue('D'.$a, $rowxls['nombrecompleto'])
+                    ->setCellValue('E'.$a, $rowxls['sal_monto_con']);
                     
                     $a++;
-        }
-        while ($rowxls=pg_fetch_array($resultxls));
+        }while ($rowxls=pg_fetch_array($resultxls));
+
+
+
+    //Bucle para las comisiones 
+
+    $querycomisiones = "SELECT DISTINCT persona_id, nombrecompleto, co_monto,  from vw_comnom where nom_id = $idnom";
+    $resultquerycomisiones = pg_query($exporta->conexion,$querycomisiones);
+    $rowcomisiones = pg_fetch_array($resultquerycomisiones);
+    
+    for($x='G'; $x != 'IW'; $x++) { 
+        do{
+            $objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue($x . '7', $rowcomisiones['co_nombre'])
+            ->setCellValue($x . '8', $rowmontocomisiones['co_monto']);
+            //->setCellValue($x . '9', $rowcomisiones[''] ;
+            $x++;
+        }while($rowcomisiones = pg_fetch_array($resultquerycomisiones));
+        
+    }
+    
+   
+
     }         
    
     // Rename worksheet*/

@@ -148,7 +148,8 @@ if ($cantpersonas == $cantpersonas2 ){
         }
     }
     
-   
+    
+
     //////////////////////////////////////////////////////////////////////////////////
     ////SE OBTIENEN LOS TOTALES POR PERSONA PARA SUMARLO AL TOTAL DE LA NOMINA ///////
     //////////////////////////////////////////////////////////////////////////////////
@@ -213,7 +214,19 @@ if ($cantpersonas == $cantpersonas2 ){
     $mostrar= pg_fetch_array($result);
     $nominaid=$mostrar['nom_id'];
 
-    
+    /*SE HACE LA INSERCION A LA TABLA DE ASISTENCIAS POR CADA MONO*/
+    foreach($cp as $p){
+        $cantidadasistencias=$_POST[$p.'asistencias'];
+        if($cantidadasistencias != NULL){
+            $observacionesasistencias =$_POST[$p.'observacionesasistencias'];
+            $largo = count($cantidadasistencias);
+            for($i=0; $i < $largo; $i++){
+                $sql="INSERT into asistencias (nom_id, persona_id,dias,observaciones) values ($nominaid, $p, $cantidadasistencias[$i],'$observacionesasistencias[$i]')";
+                $result= pg_query($conexion,$sql) or die("Error itsn:". pg_last_error());
+            }
+        }
+    }
+
     //////////////////////////////////////////////////////////////////////////////////
     ////COMIENZA EL VOLCADO DE LA INFORMACION DE LAS TABLAS TEMPORALES A LAS//////////
     /////////////////////HISTORICAS DEL PROCESO DE LA NOMINA//////////////////////////
@@ -235,6 +248,8 @@ if ($cantpersonas == $cantpersonas2 ){
     $insertcobranzaadicional = "INSERT INTO cobranza_adicional(nom_id,oficina,cargo_recurrente,deposito_en_banco,retencion_via_nomina,robo_gestor,extra_solicitudes) VALUES ($nominaid,$oficina,$cargorrecurrente,$depositoenbanco,$retencionvianomina,$robogestor,$extrasolicitudes)";
     $resultinsert = pg_query($conexion,$insertcobranzaadicional)or die('Error al insert en la tabla de cobranza adicional'. pg_last_error());
 
+    
+
 
     //VOLCADO A LA TABLA HISTORICA DE LOS SUELDOS
     $selectsueldos = "SELECT * FROM tmp_sueldos_nomina WHERE us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza and fecha='$fecha' and hora='$hora'";
@@ -245,6 +260,9 @@ if ($cantpersonas == $cantpersonas2 ){
             $sqlinsertsueldosnomina = "INSERT into sueldos_nomina (nom_id_suel,us_id,persona_id,sal_monto_con,tmp_observaciones,pc,fecha_inicio,fecha_fin,plaza_id,fecha,hora)
                                        values ($nominaid,".$mostrarresultsueldos['us_id'].",".$mostrarresultsueldos['persona_id'].",".$mostrarresultsueldos['sal_monto_con'].",'".$mostrarresultsueldos['tmp_observaciones']."','".$mostrarresultsueldos['pc']."','".$mostrarresultsueldos['fecha_inicio']."','".$mostrarresultsueldos['fecha_fin']."',".$mostrarresultsueldos['plaza_id'].",'".$mostrarresultsueldos['fecha']."','".$mostrarresultsueldos['hora']."');";
             $resultinsertsueldosnomina =pg_query($conexion,$sqlinsertsueldosnomina) or die ('Error Insertando Sueldos Nomina: '. pg_last_error());
+
+            
+
         }while($mostrarresultsueldos =  pg_fetch_array($resultselectsueldos));
     } 
     
