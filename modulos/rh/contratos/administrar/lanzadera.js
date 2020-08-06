@@ -216,7 +216,14 @@ function valida_campos(op){
         alert("Debes seleccionar un salario");
         document.form_contrato.salario.focus();
         return 0;
-    }//Horario
+    }
+    //SDI
+    if (document.form_contrato.sdi.value.length === 0){
+        alert("Debes capturar el SDI");
+        document.form_contrato.sdi.focus();
+        return 0;
+    }
+    //Horario
     if (document.form_contrato.horario.value.length === 0){
         alert("El contrato debe de tener un horario");
         document.form_contrato.horario.focus();

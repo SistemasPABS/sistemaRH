@@ -166,7 +166,6 @@ class creanuevoeditar extends conectasql{
                 echo '<div class="col-3"><label>Plaza jefe inmediato</label> '.$this->select.' </div>';
                 echo '<div class="col-3"><label>Sucursal jefe inmediato</label><div id="cont_se">'.$selectsuc2.'</div></div>';
                 echo '<div class="col-3"><label>Jefe inmediato</label><div id="cont_jf">'.$selectjefe.'</div></div>';
-                echo '<div class="col-3"><label></label></div>';
                 echo '<div class="col-3"><label>Alta IMSS</label><input class="inputdate" type="date" name="aimss"  value="'.$con_aimss.'"></div>';
                 echo '<div class="col-3"><label>Baja IMSS</label><input class="inputdate" type="date" name="bimss"  value="'.$con_bimss.'"></div>';
                 echo '<div class="col-3"><br><label >Contrato firmado</label><input type="checkbox" name="cfir" id="cfir" '.$checkconfir.'></div>';
