@@ -53,6 +53,7 @@ class creanuevoeditar extends conectasql{
             $con_fin=$this->consulta['con_fecha_fin'];
             $con_aimss=$this->consulta['con_alta_imss'];
             $con_bimss=$this->consulta['con_baja_imss'];
+            $con_sdi= $this->consulta['con_sdi'];
             //convierte el valor entero en on u off del checkbox
             if($this->consulta['con_adic'] == '1'){$checkedadic='checked="yes"';}else{$checkedadic='';}
             if($this->consulta['con_firmado'] == '1'){$checkconfir='checked="yes"';}else{$checkconfir='';}
@@ -108,6 +109,7 @@ class creanuevoeditar extends conectasql{
             $con_fin='';
             $con_aimss='';
             $con_bimss='';
+            $con_sdi='';
             $checkedadic='';
             $checkconfir='';
             $checkedstatus='';
@@ -157,6 +159,7 @@ class creanuevoeditar extends conectasql{
                 //echo '<input type="text" name="id_salario" id="id_salario" value="'.$sal_id.'" hidden>';
                 echo '<div class="col-3"><label>Area</label><br><input class="input0" name="suc" id="suc" value="'.$suc_nom.'"placeholder="Area" readonly></div>';
                 echo '<div class="col-3"><label>Salario</label><br><input class="input0" name="salario" id="salario" value="'.$sal_monto.'" placeholder="$ $ $" onblur="valida_salario();" onkeypress="return solo_numeros(event);"></div>';
+                echo '<div class="col-3"><label>SDI</label><br><input class="input0" name="sdi" id="sdi" value="'.$sal_monto.'" placeholder="" onblur="" onkeypress="return solo_numeros(event);"></div>';
                 echo '<div class="col-3"><label>Horario</label><br><input class="input0" name="horario" value="'.$con_horario.'"></div>';
                 echo '<div class="col-3"><label>Periodo de Prueba</label><input class="input0" name="prueba"  value="'.$con_prueba.'" placeholder="en días"></div>';
                 $this->selects_creator('select * from plazas order by plaza_id','plazas','plaza_id','plaza_nombre','plazas','onChange= "ver_sucursales();"',$plazajf);
