@@ -28,11 +28,11 @@ $conexion=$con->conexion;
                 <label>Selecciona una nomina</label>
                 <select id="idnomina">
                     <?php 
-                        $query="SELECT DISTINCT nom_id_suel FROM vw_general_personas_por_nomina_scpd";
+                        $query="SELECT * from nomina order by nom_id";
                         $result = pg_query($conexion,$query);
                         $mostrar= pg_fetch_array($result);
                             do{
-                                echo'<option name="idnomina" value="'.$mostrar['nom_id_suel'].'">'.$mostrar['nom_id_suel'].'</option>';  
+                                echo'<option name="idnomina" value="'.$mostrar['nom_id'].'">'.$mostrar['nom_id'].'</option>';  
                             }while($mostrar= pg_fetch_array($result));
                     ?> 
                 </select>

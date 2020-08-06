@@ -38,7 +38,36 @@ $result2 = pg_query($conexion,$sql2) or die("Error en la insercion de datos temp
 $sql3="select * from vw_sueldos_nomina where nom_id = $idnom";
 //echo $sql3;
 $result3= pg_query($conexion,$sql3);
+
+$sql4 = "SELECT * from cobranza_adicional where nom_id = $idnom";
+$result4=pg_query($conexion,$sql4);
+$mostrarcobranza = pg_fetch_array($result4);
+
 if($row3= pg_fetch_array($result3)){
+    $cobranzadefault .='
+    <div>
+        <div>
+            <label>Oficina</label>
+            <input type="number" onkeyup="this.value=Numeros(this.value)" step="0.01" name="oficina" value="'.$mostrarcobranza['oficina'].'"></input>
+            <label>Cargo recurrente</label>
+            <input type="number" onkeyup="this.value=Numeros(this.value)" step="0.01" name="cargorecurrente" value="'.$mostrarcobranza['cargo_recurrente'].'"></input>
+        </div>
+
+        <div>
+            <label>Deposito en banco</label>
+            <input type="number" onkeyup="this.value=Numeros(this.value)" step="0.01" name="depositoenbanco" value="'.$mostrarcobranza['deposito_en_banco'].'"></input>
+            <label>Retencion vía nómina</label>
+            <input type="number" onkeyup="this.value=Numeros(this.value)" step="0.01" name="retencionennomina" value="'.$mostrarcobranza['retencion_via_nomina'].'"></input>
+        </div>
+
+        <div>
+            <label>Robo gestor</label>
+            <input type="number" onkeyup="this.value=Numeros(this.value)" step="0.01" name="robogestor" value="'.$mostrarcobranza['robo_gestor'].'"></input>
+            <label>Extra solicitudes</label>
+            <input type="number" onkeyup="this.value=Numeros(this.value)" step="0.01" name="extrasolicitudes" value="'.$mostrarcobranza['extra_solicitudes'].'"></input>
+        </div> 
+    </div>
+    ';
     do{
         
         $monos.= '
@@ -63,6 +92,21 @@ if($row3= pg_fetch_array($result3)){
                   </tr>
                 </tbody>
         ';
+        $sqlasistencias = "SELECT * from asistencias where persona_id = ".$row3['persona_id']." and nom_id=$idnom;";
+        $resultasistencias = pg_query($conexion,$sqlasistencias);
+        $asistencias = pg_fetch_array($resultasistencias);
+
+        $monos .='
+        <tr class="toggler toggler1">
+            <td rowspan="9999"></td>
+            <td>ASISTENCIAS</td>
+            <td></td>
+            <td></td>
+            <td><input type=number  name="'.$row3['persona_id'].'asistencias[]" value="'.$asistencias['dias'].'"></input></td>
+            <td></td>
+            <td><input type="text" name="'.$row3['persona_id'].'observacionesasistencias[]" value="'.$asistencias['observaciones'].'" onkeyup="this.value=NumText(this.value)"></input></td>
+        </tr>
+        </tbody>';
         //$monos.= $row3['persona_id'].'--'.$row3['nombrecompleto'].'<br>';
         
         $sql4="select * from vw_comnom where persona_id = ".$row3['persona_id']." and nom_id = $idnom;";
@@ -241,6 +285,7 @@ if($row3= pg_fetch_array($result3)){
                     <th>Observaciones</th>
                 </tr>
             </thead>
+            <?php echo $cobranzadefault ?>
             <?php echo $monos ?>
             
         </table>

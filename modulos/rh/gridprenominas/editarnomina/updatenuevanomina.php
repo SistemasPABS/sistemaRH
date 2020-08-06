@@ -14,6 +14,12 @@ $pc=$_POST['pc'];//computadora de donde se hace
 $fechaperiodo=$_POST['fechaperiodo'];//id de lo seleccionado de fecha inicio y fecha fin 
 $tipoperiodo=$_POST['tipoperiodo'];
 $empid=$_POST['empid'];
+$oficina = $_POST['oficina'];
+$cargorrecurrente = $_POST['cargorecurrente'];
+$depositoenbanco = $_POST['depositoenbanco'];
+$retencionvianomina = $_POST['retencionennomina'];
+$robogestor = $_POST['robogestor'];
+$extrasolicitudes = $_POST['extrasolicitudes'];
 $con= new conectasql();
 $con->abre_conexion("0");
 $conexion=$con->conexion;
@@ -196,6 +202,19 @@ if ($cantpersonas == $cantpersonas2 ){
     $insertarnomina = "UPDATE nomina SET fecha_inicio = '$fechainicio', fecha_fin = '$fechafinal', nom_total = $totalnomina,nom_autorizada = 'false',plaza_id = $plaza,sal_tipo_id = $tipoperiodo,fechageneracion = '$fecha',horageneracion = '$hora', us_id = $us_id, pc='$pc' WHERE nom_id=$nominaid";
     $result = pg_query($conexion,$insertarnomina) or die ('Error al actualizar nomina'.pg_last_error());
 
+    /*SE HACE LA INSERCION A LA TABLA DE ASISTENCIAS POR CADA MONO*/
+    foreach($cp as $p){
+        $cantidadasistencias=$_POST[$p.'asistencias'];
+        if($cantidadasistencias != NULL){
+            $observacionesasistencias =$_POST[$p.'observacionesasistencias'];
+            $largo = count($cantidadasistencias);
+            for($i=0; $i < $largo; $i++){
+                $sql="UPDATE asistencias SET dias = $cantidadasistencias[$i], observaciones = '$observacionesasistencias[$i]' where nom_id = $nominaid and persona_id = $p";
+                $result= pg_query($conexion,$sql) or die("Error itsn:". pg_last_error());
+            }
+        }
+    }
+
     
     //////////////////////////////////////////////////////////////////////////////////
     ////COMIENZA EL VOLCADO DE LA INFORMACION DE LAS TABLAS TEMPORALES A LAS//////////
@@ -216,6 +235,11 @@ if ($cantpersonas == $cantpersonas2 ){
 //            //echo $insertcomnom;
 //        }while($rowbn = pg_fetch_array($resultbn));
 //    }
+
+    //EDICION DE COBRANZA_ADICIONAL
+    //INSERCION A LA TABLA DE COBRANZA ADICIONAL 
+    $insertcobranzaadicional = "UPDATE cobranza_adicional SET nom_id = $nominaid, oficina = $oficina, cargo_recurrente = $cargorrecurrente, deposito_en_banco = $depositoenbanco, retencion_via_nomina = $retencionvianomina, robo_gestor = $robogestor,extra_solicitudes = $extrasolicitudes WHERE nom_id = $nominaid";
+    $resultinsert = pg_query($conexion,$insertcobranzaadicional)or die('Error al actualizar en la tabla de cobranza adicional'. pg_last_error());
 
     //VOLCADO A LA TABLA HISTORIA DE LOS SUELDOS
     $sqldeletesueldosnomina= "DELETE FROM sueldos_nomina WHERE nom_id_suel = $nominaid";
