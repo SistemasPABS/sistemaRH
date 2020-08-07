@@ -32,40 +32,42 @@ $objPHPExcel = new PHPExcel();
 //se ejecuta la consulta
     $resultxls=pg_query($exporta->conexion,$sqlxls);
     $a=8;
+
     if($rowxls=pg_fetch_array($resultxls)){
-        $objPHPExcel->setActiveSheetIndex(0)
-        ->setCellValue('D7', 'Persona')
-        ->setCellValue('E7', 'Sueldo Nomina');
+        $objPHPExcel->setActiveSheetIndex(0);
+
         do{
+           
             $objPHPExcel->setActiveSheetIndex(0)
                     ->setCellValue('D'.$a, $rowxls['nombrecompleto'])
                     ->setCellValue('E'.$a, $rowxls['sal_monto_con']);
                     
+                    
+
                     $a++;
+                    
         }while ($rowxls=pg_fetch_array($resultxls));
-
-
-
-    //Bucle para las comisiones 
-
-    $querycomisiones = "SELECT DISTINCT persona_id, nombrecompleto, co_monto,  from vw_comnom where nom_id = $idnom";
-    $resultquerycomisiones = pg_query($exporta->conexion,$querycomisiones);
-    $rowcomisiones = pg_fetch_array($resultquerycomisiones);
-    
-    for($x='G'; $x != 'IW'; $x++) { 
-        do{
-            $objPHPExcel->setActiveSheetIndex(0)
-            ->setCellValue($x . '7', $rowcomisiones['co_nombre'])
-            ->setCellValue($x . '8', $rowmontocomisiones['co_monto']);
-            //->setCellValue($x . '9', $rowcomisiones[''] ;
-            $x++;
-        }while($rowcomisiones = pg_fetch_array($resultquerycomisiones));
         
     }
-    
-   
 
-    }         
+
+    $highestColumm = $objPHPExcel->setActiveSheetIndex(0)->getHighestColumn();
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('M8',$highestColumm);
+
+    $querycomisiones = "SELECT DISTINCT co_nombre from vw_comnom where nom_id = $idnom";
+    $result = pg_query($querycomisiones);
+    $row = pg_fetch_array($result);
+
+    for($x=$highestColumm; $x != 'IW'; $x++) { 
+        do{
+            $objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue($x . '11', $row['co_nombre']);
+            //->setCellValue($x . '9', $rowcomisiones[''] ;
+            $x++;
+        }while($row = pg_fetch_array($result));
+        
+    }
    
     // Rename worksheet*/
     $objPHPExcel->getActiveSheet()->setTitle('Detallado de nomina');
