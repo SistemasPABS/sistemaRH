@@ -13,12 +13,8 @@ $idnom=base64_decode($_GET['idnom']);
 include ('../../../../config/conectasql.php');
 $exporta = new conectasql();
 $exporta->abre_conexion("0");
-$sqlxls="SELECT DISTINCT nombrecompleto FROM vw_general_personas_por_nomina_scpd WHERE nom_id = $idnom";
- /** Include PHPExcel */
 require_once ('../../../../librerias/phpexcel/Classes/PHPExcel.php');
-// Create new PHPExcel object*/
 $objPHPExcel = new PHPExcel();
-// Set document properties*/
     $objPHPExcel->getProperties()
             ->setCreator("Jaime Nieto")
             ->setLastModifiedBy("Jaime Nieto")
@@ -27,14 +23,20 @@ $objPHPExcel = new PHPExcel();
             ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
             ->setKeywords("office 2007 openxml php")
             ->setCategory("Test result file");
-            // Add some data*/
     
-//se ejecuta la consulta
+// --------------------- se ejecuta la consulta de los sueldos ---------------------------- //
+    $sqlxls="SELECT DISTINCT * FROM vw_sueldos_nomina WHERE nom_id = $idnom";
     $resultxls=pg_query($exporta->conexion,$sqlxls);
     $a=8;
 
     if($rowxls=pg_fetch_array($resultxls)){
-        $objPHPExcel->setActiveSheetIndex(0);
+        $sqlcom="SELECT DISTINCT co_nombre from vw_comnom WHERE nom_id = $idnom";
+        $resultcomisiones = pg_query($exporta->conexion,$sqlcom);
+
+
+        $objPHPExcel->setActiveSheetIndex(0)    
+                ->setCellValue('D7', 'Persona')
+                ->setCellValue('E7', 'Sueldo pagado');
 
         do{
            
@@ -43,38 +45,27 @@ $objPHPExcel = new PHPExcel();
                     ->setCellValue('E'.$a, $rowxls['sal_monto_con']);
                     $a++;
         }while ($rowxls=pg_fetch_array($resultxls));
-        
-    }
 
-    //Obteniendo la columna con el ultimo registro
-    $highestColumm = $objPHPExcel->setActiveSheetIndex(0)->getHighestColumn();
-    $objPHPExcel->setActiveSheetIndex(0)
-    ->setCellValue('M7',$highestColumm);
+        $columnainiciocomisiones=$objPHPExcel->setActiveSheetIndex(0)->getHighestColumn();
+        if($mostrarcomisiones = pg_fetch_array($resultcomisiones)){
+            do{
 
-    $fila = 1;
-    $columnamaxima = $highestColumm;
-
-    $objPHPExcel->setActiveSheetIndex(0);
-    for($column = $columnamaxima; $column != 'IW'; $column++){ 
-    $objPHPExcel->setActiveSheetIndex(0) ->setCellValue('O1',$column);}
-
-
-    //Iniciando bucle para llenar desde la columna "G" y consulta para llenar las comisiones
-
-    $querycomisiones = "SELECT DISTINCT co_nombre from vw_comnom where nom_id = $idnom";
-    $resultcomisiones = pg_query($exporta->conexion,$querycomisiones);
-    if($mostrarcomisiones = pg_fetch_array($resultcomisiones)){
-        do{
-            for($x='F'; $x != 'IW'; $x++) { 
+            }while($mostrarcomisiones = pg_fetch_array($resultcomisiones));
+            for($x=$columnainiciocomisiones; $x != 'IW'; $x++) { 
                 $objPHPExcel->setActiveSheetIndex(0) 
-                ->setCellValue($x . '7', $mostrarcomisiones); 
+                ->setCellValue($x . '7', $mostrarcomisiones['co_nombre']); 
             }
-        }while($mostrarcomisiones = pg_fetch_array($resultcomisiones));
+        }
+       
     }
-    
-    
 
-    
+// ---------- Se obtiene la columna maxima para saber donde empezar el siguiente bucle ------------- //
+    $highestColumm = $objPHPExcel->setActiveSheetIndex(0)->getHighestColumn();  
+    $highestColumnIndex = PHPExcel_Cell::columnIndexFromString($highestColumm);
+    $objPHPExcel->setActiveSheetIndex(0)
+                ->setCellValue('F7',$highestColumnIndex);
+    $comisiones = $highestColumnIndex+1;
+
    
     // Rename worksheet*/
     $objPHPExcel->getActiveSheet()->setTitle('Detallado de nomina');
