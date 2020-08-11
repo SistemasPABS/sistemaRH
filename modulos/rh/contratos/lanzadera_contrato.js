@@ -19,7 +19,7 @@ function popup(url,estid,op) {
 //Ventana emergente para la edicion de un contrato
 function edita(url,estid,op){
     var cto = document.getElementsByClassName("jqx-fill-state-pressed")[0].textContent;
-    //alert(suc);
+    //alert(cto);
     if( cto != 0){
         if(confirm('¿Desea editar los datos del contrato '+cto+'?')){
             popupWindow = window.open(

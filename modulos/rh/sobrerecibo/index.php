@@ -114,7 +114,7 @@ if($row3= pg_fetch_array($result3)){
         </tbody>';
         //$monos.= $row3['persona_id'].'--'.$row3['nombrecompleto'].'<br>';
         
-        $sql4="select * from vw_puestos_comisiones where persona_id = ".$row3['persona_id']." and co_activo = 1;";
+        $sql4="select * from vw_puestos_comisiones where puesto_id = ".$row3['puesto_id'].";";
         $result4= pg_query($conexion,$sql4);
         if($row4= pg_fetch_array($result4)){
             do{

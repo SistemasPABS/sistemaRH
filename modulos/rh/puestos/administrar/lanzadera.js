@@ -238,12 +238,12 @@ function myFunction() {
   document.getElementById(flg).appendChild(node);
   
   boton.onclick = function() {
-    var li = this.parentNode;
-    li.parentNode.removeChild(li);
+    
   }
 }
 
 function eliminar(elemento){
+    //alert('hola');
     var li = elemento.parentNode;
     li.parentNode.removeChild(li);
 }

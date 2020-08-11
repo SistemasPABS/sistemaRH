@@ -1,7 +1,7 @@
 <?php
 include ('../../../../config/conectasql.php');
 
-class ver_exp extends conectasql{
+class ver_ausencias extends conectasql{
     protected $usid;
     protected $em;
     
@@ -13,7 +13,7 @@ class ver_exp extends conectasql{
      public function librerias() {
         echo '<link rel="stylesheet" type="text/css" href="../../../../estilos/estilos.css">';
         echo '<style type="text/css">.fondotrabajo{background-color: transparent;background-image: none;}</style>';
-        echo '<script type="text/javascript" src="lanzadera_exp.js"></script>';
+        echo '<script type="text/javascript" src="lanzadera_aus2.js"></script>';
         /*librerias necesarias para generar el grid*/
         echo '<link rel="stylesheet" href="../../../../librerias/jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
         <script type="text/javascript" src="../../../../librerias/jqwidgets/scripts/jquery-1.10.2.min.js"></script>
@@ -42,7 +42,7 @@ class ver_exp extends conectasql{
         $nombre= $this->consulta['nombrecompleto'];
         echo '<form name="opbusqueda2" id="opbusqueda2" method="post" action="exportar.php" target="_blank" >';
             echo '<input name="registro" id="registro" value="'.$registro.'" hidden>';
-            echo '<div class="titulo"> Expediente de:'.$nombre.'</div>';
+            echo '<div class="titulo"> Ausencias de: '.$nombre.' </div>';
             echo '<div name="busqueda" id="busqueda">';
                 echo 'Buscar por: ';
                 echo '<select class="selectbuscar" name="buscaopcion" id="buscaopcion" onchange="cambiaopciones(\'parametro\');">';
@@ -55,9 +55,10 @@ class ver_exp extends conectasql{
 
                 echo '<div name="toolbar" id="toolbar" style="">';
                 $this->permisos('papp', $this->em,$this->usid);
-                if(in_array(56, $this->p3)){ echo '<input class="cierre2" type="button" name="nuevo"    id="nuevo"    value="Nuevo"     onclick="popup(\'Expediente/nuevo_editar.php\',\''. base64_encode(56).'\',\''. base64_encode('nuevo').'\',\''. base64_encode($registro).'\');" style="width:45px;" > ';}
-                if(in_array(57, $this->p3)){ echo '<input class="cierre2" type="button" name="editar"   id="editar"   value="Editar"    onclick="edita(\'Expediente/nuevo_editar.php\',\''. base64_encode(57).'\',\''. base64_encode('editar').'\');" style="width:40px;" > ';}
-                if(in_array(58, $this->p3)){ echo '<input class="cierre2" type="button" name="export"   id="expxls"   value="XLS"       onclick="exportar(\'exportar.php\',\'xls\');" style="width:40px;" >';}
+                if(in_array(87, $this->p3)){ echo '<input class="cierre2" type="button" name="nuevo"    id="autoriza" value="Autorizar" onclick="autoriza_aus(\'registros/autoriza_aus.php\');"  style="width:60px;" > ';}
+                if(in_array(74, $this->p3)){ echo '<input class="cierre2" type="button" name="nuevo"    id="nuevo"    value="Nuevo"     onclick="popup(\'registros/nuevo_editar.php\',\''. base64_encode(74).'\',\''. base64_encode('nuevo').'\',\''. base64_encode($registro).'\');" style="width:45px;" > ';}
+                if(in_array(75, $this->p3)){ echo '<input class="cierre2" type="button" name="editar"   id="editar"   value="Editar"    onclick="edita(\'registros/nuevo_editar.php\',\''. base64_encode(75).'\',\''. base64_encode('editar').'\');" style="width:40px;" > ';}
+                if(in_array(76, $this->p3)){ echo '<input class="cierre2" type="button" name="export"   id="expxls"   value="XLS"       onclick="exportar(\'exportar.php\',\'xls\');" style="width:40px;" >';}
             echo '</div>';  
         $this->listado();
         echo '</form>';

@@ -44,8 +44,8 @@
             $salario = $_POST['salario'];
         }
         //Variable del sdi
-        if(!isset($_POST['sdi'])){
-            $error[] = "sdi";
+        if(!isset($_POST['sdi']) || empty($_POST['sdi'])){
+            $sdi = 0;
         }else if (isset($_POST['sdi']) || !empty($_POST['sdi'])) {
             $sdi = $_POST['sdi'];
         }
@@ -197,8 +197,8 @@
             $salario = $_POST['salario'];
         }
         //Variable del sdi
-        if(!isset($_POST['sdi'])){
-            $error[] = "sdi";
+        if(!isset($_POST['sdi']) || empty($_POST['sdi'])){
+            $sdi = 0;
         }else if (isset($_POST['sdi']) || !empty($_POST['sdi'])) {
             $sdi = $_POST['sdi'];
         }
@@ -300,7 +300,7 @@
             $status=$insert->limpia_cadena($status);
             $adic=$insert->limpia_cadena($adic);       
             //inserta datos
-            $insert->edita_contrato($registro,$id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $fecha_ini,$fecha_fin,$status,$adic,$aimss,$bimss,$cfir,$jefe);
+            $insert->edita_contrato($registro,$id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $fecha_ini,$fecha_fin,$status,$adic,$aimss,$bimss,$cfir,$jefe,$sdi);
         }
 
         $insert->cierra_conexion("0");

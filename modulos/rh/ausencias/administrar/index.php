@@ -11,13 +11,13 @@
     //Recibe el nombre y registro de la persona para editar 
     $prs=base64_decode($_GET['prs']);
     
-    include_once('ver_exp.php');
-    $admin_exp = new ver_exp($usid, $estid); 
-    $admin_exp->librerias();
-    $admin_exp->abre_conexion("0");
+    include_once('./ver_ausencias.php');
+    $admin_aus = new ver_ausencias($usid, $estid); 
+    $admin_aus->librerias();
+    $admin_aus->abre_conexion("0");
     //Validar si se esta agregando o editando persona
-    $admin_exp->interfaz($prs);
-    $admin_exp->cierra_conexion("0");
+    $admin_aus->interfaz($prs);
+    $admin_aus->cierra_conexion("0");
      
 ?>
        

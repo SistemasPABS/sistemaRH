@@ -23,26 +23,26 @@ if($dato != NULL){
     $con= new conectasql();
     $con->abre_conexion("0");
     $conexion=$con->conexion;
-    $query = "select * from vw_doc_expedientes $where order by exp_id desc;";
+    $query = "select * from vw_ausencias $where order by aus_id desc;";
     $result = pg_query($conexion,$query);
-    $users = array();
+    $aus = array();
     $i = 0;
     while($row = pg_fetch_array($result)){
-         $exps[$i] = array();
-         $exps[$i]['exp_id'] = $row['exp_id'];
-         $exps[$i]['exp_desc'] = $row['exp_desc'];
-         $exps[$i]['exp_fecha'] = $row['exp_fecha'];
-         $exps[$i]['exp_hora'] = $row['exp_hora'];
-         $exps[$i]['txp_nombre'] = $row['txp_nombre'];
-         if($row['exp_ruta'] != '' )
-         {
-             $status='<a href="../../../../formatos/expedientes/'.$row['exp_ruta'].'"><img src="../../../../images/download.png" width="14" height="14"></a>';
-         }else{
-             $status='<img src="../../../../images/eliminaricon.png" width="14" height="14">';
-         }
-         $exps[$i]['exp_ruta'] = $status;
+         $aus[$i]['aus_id'] = $row['aus_id'];
+         $aus[$i]['ta_nombre'] = $row['ta_nombre'];
+         $aus[$i]['aus_vac_years'] = $row['aus_vac_years'];
+         $aus[$i]['aus_correspondientes'] = $row['aus_correspondientes'];
+         $aus[$i]['aus_tomados'] = $row['aus_tomados'];
+         $aus[$i]['aus_disponibles'] = $row['aus_disponibles'];
+         $aus[$i]['aus_dias_vac'] = $row['aus_dias_vac'];
+         $aus[$i]['aus_restantes'] = $row['aus_restantes'];
+         $aus[$i]['aus_dias'] = $row['aus_dias'];
+         $aus[$i]['aus_fecha_inicio'] = $row['aus_fecha_inicio'];
+         $aus[$i]['aus_fecha_fin'] = $row['aus_fecha_fin'];
+         $aus[$i]['aus_observaciones'] = $row['aus_observaciones'];
+         $aus[$i]['aus_autorizado_login'] = $row['aus_autorizado_login'];
          $i++ ;
     }
     $con->cierra_conexion("0");
-    echo json_encode($exps);
+    echo json_encode($aus);
 ?>
