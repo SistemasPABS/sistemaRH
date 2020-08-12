@@ -51,8 +51,7 @@ $objPHPExcel = new PHPExcel();
 $highestColumm = $objPHPExcel->setActiveSheetIndex(0)->getHighestColumn();  
 $highestColumnIndex = PHPExcel_Cell::columnIndexFromString($highestColumm);
 $objPHPExcel->setActiveSheetIndex(0)
-        ->setCellValue('F7',$highestColumnIndex);
-$comisiones = $highestColumnIndex+1;
+        ->setCellValue('F7','SDI');
 $letradelacolumnadondevoyaempezarmisiguienteciclo = $objPHPExcel->setActiveSheetIndex(0)->getHighestColumn();
 $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('F1',$letradelacolumnadondevoyaempezarmisiguienteciclo);
@@ -62,16 +61,13 @@ $objPHPExcel->setActiveSheetIndex(0)
 $sqlcom="SELECT DISTINCT co_nombre from vw_comnom WHERE nom_id = $idnom";
 $resultcomisiones = pg_query($exporta->conexion,$sqlcom);
 $mostrarcomisiones = pg_fetch_array($resultcomisiones);
-for($x='A'; $x != 'IW'; $x++) { 
+for($x='G'; $x != 'IW'; $x++) { 
 
     do{
         $objPHPExcel->setActiveSheetIndex(0)
-        ->setCellValue($x . '11', $mostrarcomisiones['co_nombre']);
+        ->setCellValue($x . '7', $mostrarcomisiones['co_nombre']);
         $x++;
     }while($mostrarcomisiones = pg_fetch_array($resultcomisiones));
-
-
-
 
 }
     
