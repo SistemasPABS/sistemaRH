@@ -30,9 +30,7 @@ $objPHPExcel = new PHPExcel();
     $a=8;
 
     if($rowxls=pg_fetch_array($resultxls)){
-        $sqlcom="SELECT DISTINCT co_nombre from vw_comnom WHERE nom_id = $idnom";
-        $resultcomisiones = pg_query($exporta->conexion,$sqlcom);
-
+        
 
         $objPHPExcel->setActiveSheetIndex(0)    
                 ->setCellValue('D7', 'Persona')
@@ -45,28 +43,41 @@ $objPHPExcel = new PHPExcel();
                     ->setCellValue('E'.$a, $rowxls['sal_monto_con']);
                     $a++;
         }while ($rowxls=pg_fetch_array($resultxls));
-
-        $columnainiciocomisiones=$objPHPExcel->setActiveSheetIndex(0)->getHighestColumn();
-        if($mostrarcomisiones = pg_fetch_array($resultcomisiones)){
-            do{
-
-            }while($mostrarcomisiones = pg_fetch_array($resultcomisiones));
-            for($x=$columnainiciocomisiones; $x != 'IW'; $x++) { 
-                $objPHPExcel->setActiveSheetIndex(0) 
-                ->setCellValue($x . '7', $mostrarcomisiones['co_nombre']); 
-            }
-        }
-       
     }
 
 // ---------- Se obtiene la columna maxima para saber donde empezar el siguiente bucle ------------- //
-    $highestColumm = $objPHPExcel->setActiveSheetIndex(0)->getHighestColumn();  
-    $highestColumnIndex = PHPExcel_Cell::columnIndexFromString($highestColumm);
-    $objPHPExcel->setActiveSheetIndex(0)
-                ->setCellValue('F7',$highestColumnIndex);
-    $comisiones = $highestColumnIndex+1;
+    
+    
+$highestColumm = $objPHPExcel->setActiveSheetIndex(0)->getHighestColumn();  
+$highestColumnIndex = PHPExcel_Cell::columnIndexFromString($highestColumm);
+$objPHPExcel->setActiveSheetIndex(0)
+        ->setCellValue('F7',$highestColumnIndex);
+$comisiones = $highestColumnIndex+1;
+$letradelacolumnadondevoyaempezarmisiguienteciclo = $objPHPExcel->setActiveSheetIndex(0)->getHighestColumn();
+$objPHPExcel->setActiveSheetIndex(0)
+        ->setCellValue('F1',$letradelacolumnadondevoyaempezarmisiguienteciclo);
 
-   
+// ----------------- SE INICIA CONSULTA PARA LAS COMISIONES -------------------- //
+
+$sqlcom="SELECT DISTINCT co_nombre from vw_comnom WHERE nom_id = $idnom";
+$resultcomisiones = pg_query($exporta->conexion,$sqlcom);
+$mostrarcomisiones = pg_fetch_array($resultcomisiones);
+for($x='A'; $x != 'IW'; $x++) { 
+
+    do{
+        $objPHPExcel->setActiveSheetIndex(0)
+        ->setCellValue($x . '11', $mostrarcomisiones['co_nombre']);
+        $x++;
+    }while($mostrarcomisiones = pg_fetch_array($resultcomisiones));
+
+
+
+
+}
+    
+
+// ---------------- FINALIZA CONSULTA PARA LAS COMISIONES ---------------------- //
+
     // Rename worksheet*/
     $objPHPExcel->getActiveSheet()->setTitle('Detallado de nomina');
 
