@@ -24,21 +24,63 @@ $objPHPExcel = new PHPExcel();
             ->setKeywords("office 2007 openxml php")
             ->setCategory("Test result file");
     
+// ----------------- DATOS DE BASE NOMINA --------------------------- //
+$basenom = "SELECT * from base_nom where nom_id = $idnom";
+$resultbasenom = pg_query($exporta->conexion,$basenom);
+$mostrarbasenom = pg_fetch_array($resultbasenom);
+
+$empresa = $mostrarbasenom ['emp_id'];
+$plaza = $mostrarbasenom['plaza_id'];
+$tipoperiodo = $mostrarbasenom['sal_tipo_id'];
+
+
+$consultarempresa = "SELECT * from empresas where emp_id = $empresa";
+$resultconsultaempresa = pg_query($exporta->conexion,$consultarempresa);
+$mostrarempresa = pg_fetch_array($resultconsultaempresa);
+$nombreempresa = $mostrarempresa['emp_nombre'];
+
+$consultaplaza = "SELECT * from plazas where plaza_id = $plaza";
+$resultconsultaplaza = pg_query($exporta->conexion,$consultaplaza);
+$mostrarplaza = pg_fetch_array($resultconsultaplaza);
+$nombreplaza = $mostrarplaza['plaza_nombre'];
+
+$consultatipoperiodo = "SELECT * FROM tipos_salarios where sal_tipo_id = $tipoperiodo";
+$resultconsultatipoperiodo = pg_query($exporta->conexion,$consultatipoperiodo);
+$mostrartipoperiodo = pg_fetch_array($resultconsultatipoperiodo);
+$nombretipoperiodo = $mostrartipoperiodo['sal_tipo_nombre'];
+
+
+$objPHPExcel->setActiveSheetIndex(0)    
+                ->setCellValue('C1', $nombreplaza)
+                ->setCellValue('C2', $nombretipoperiodo)
+                ->setCellValue('D2', $mostrarbasenom['fecha_inicio'])
+                ->setCellValue('D3', $mostrarbasenom['fecha_fin'])
+                ->setCellValue('D6', $nombreempresa);
+
 // --------------------- se ejecuta la consulta de los sueldos ---------------------------- //
     $sqlxls="SELECT DISTINCT * FROM vw_sueldos_nomina WHERE nom_id = $idnom";
     $resultxls=pg_query($exporta->conexion,$sqlxls);
     $a=8;
 
+    
     if($rowxls=pg_fetch_array($resultxls)){
-        
+        $idpersona = $rowxls['persona_id'];
+
+        $sqlingreso="SELECT * from vw_contratos where persona_id = $idpersona";
+        $resultsqlingreso = pg_query($exporta->conexion,$sqlingreso);
+        $mostraringreso = pg_fetch_array($resultsqlingreso);
+        $fechaingreso = $mostraringreso['con_fecha_inicio'];
 
         $objPHPExcel->setActiveSheetIndex(0)    
+                ->setCellValue('C6', 'Ingreso')
                 ->setCellValue('D7', 'Persona')
                 ->setCellValue('E7', 'Sueldo pagado');
 
         do{
            
             $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue('A'.$a, $rowxls['persona_id'])
+                    ->setCellValue('C'.$a, $rowxls['con_fecha_inicio'])
                     ->setCellValue('D'.$a, $rowxls['nombrecompleto'])
                     ->setCellValue('E'.$a, $rowxls['sal_monto_con']);
                     $a++;
@@ -58,21 +100,81 @@ $objPHPExcel->setActiveSheetIndex(0)
 
 // ----------------- SE INICIA CONSULTA PARA LAS COMISIONES -------------------- //
 
+
 $sqlcom="SELECT DISTINCT co_nombre from vw_comnom WHERE nom_id = $idnom";
 $resultcomisiones = pg_query($exporta->conexion,$sqlcom);
 $mostrarcomisiones = pg_fetch_array($resultcomisiones);
 for($x='G'; $x != 'IW'; $x++) { 
+    
+   
 
     do{
         $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue($x . '7', $mostrarcomisiones['co_nombre']);
         $x++;
+        
     }while($mostrarcomisiones = pg_fetch_array($resultcomisiones));
-
+   
 }
-    
+
 
 // ---------------- FINALIZA CONSULTA PARA LAS COMISIONES ---------------------- //
+
+
+
+// ---------------- SE INICIA CONSULTA PARA LAS PERCEPCIONES ------------- //
+
+
+$sqlper="SELECT DISTINCT tp_nombre from vw_percepciones WHERE nom_id = $idnom";
+$resultpercepciones = pg_query($exporta->conexion,$sqlper);
+$mostrarpercepciones = pg_fetch_array($resultpercepciones);
+for($x='P'; $x != 'IW'; $x++) { 
+    
+   
+
+    do{
+        $objPHPExcel->setActiveSheetIndex(0)
+        ->setCellValue($x . '7', $mostrarpercepciones['tp_nombre']);
+        $x++;
+        
+    }while($mostrarpercepciones = pg_fetch_array($resultpercepciones));
+
+}
+
+
+// ----------------- FINALIZA CONSULTA PARA LAS PERCEPCIONES --------------- //
+            
+
+// ---------------- SE INICIA CONSULTA PARA LAS DEDUCCIONES ------------- //
+
+
+$sqlded="SELECT DISTINCT td_nombre from vw_deducciones WHERE nom_id = $idnom";
+$resultdeducciones = pg_query($exporta->conexion,$sqlded);
+$mostrardeducciones = pg_fetch_array($resultdeducciones);
+for($x='R'; $x != 'IW'; $x++) { 
+    
+   
+
+    do{
+        $objPHPExcel->setActiveSheetIndex(0)
+        ->setCellValue($x . '7', $mostrardeducciones['td_nombre']);
+        $x++;
+        
+    }while($mostrardeducciones = pg_fetch_array($resultdeducciones));
+
+}
+
+
+// ----------------- FINALIZA CONSULTA PARA LAS DEDUCCIONES --------------- //
+            
+
+
+
+
+
+
+
+
 
     // Rename worksheet*/
     $objPHPExcel->getActiveSheet()->setTitle('Detallado de nomina');
