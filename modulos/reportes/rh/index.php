@@ -1,8 +1,16 @@
 <?php
+include ('../../../config/cookie.php');
+session_start();
+$usid=$_SESSION['us_id'];
+$em=base64_decode($_GET['em']);//estructura menu
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+echo '<html class="fondotrabajo">';
+    include_once ('creareportesrh.php');
+    $busqueda = new creareportesrh($usid,$em);
+    $busqueda->abre_conexion("0");
+    $busqueda->librerias();
+    $busqueda->interfaz();
 
+echo '</html>';
+
+?>

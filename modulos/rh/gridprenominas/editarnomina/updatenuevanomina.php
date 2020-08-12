@@ -439,6 +439,7 @@ if ($cantpersonas == $cantpersonas2 ){
                                 </div>
                             </body>';
     echo $letreritosuccesfully;
+    include_once('correonomina.php');
 
     $deleteedicion = "DELETE from controlador_nomina where idnom = $nominaid";
     $resultdelete=pg_query($conexion,$deleteedicion) or die ('Error al eliminar el block de edicion de nomina'.pg_last_error());

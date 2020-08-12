@@ -9,12 +9,29 @@ ini_set('display_startup_errors', TRUE);
 date_default_timezone_set('America/Mexico_City');
 if (PHP_SAPI == 'cli')
 die('This example should only be run from a Web Browser');
-$idnom=base64_decode($_GET['idnom']);
+$fechainicio=base64_decode($_GET['fechainicio']);
+$fechafin=base64_decode($_GET['fechafin']);
+
 include ('../../../../config/conectasql.php');
 $exporta = new conectasql();
 $exporta->abre_conexion("0");
+$sqlxls="SELECT * from personas where persona_registro_dia between '$fechainicio' and '$fechafin'";
+ /** Include PHPExcel */
 require_once ('../../../../librerias/phpexcel/Classes/PHPExcel.php');
+/*$objPHPExcel = new PHPExcel_Worksheet_Drawing();
+                    $objPHPExcel->setName('imgNotice');
+                    $objPHPExcel->setDescription('Noticia');
+                    $img = '../../../../images/logo.png'; // Provide path to your logo file
+                    $objPHPExcel->setPath($img);
+                    $objPHPExcel->setOffsetX(28);    // setOffsetX works properly
+                    $objPHPExcel->setOffsetY(300);  //setOffsetY has no effect
+                    $objPHPExcel->setCoordinates('A1');
+                    $objPHPExcel->setHeight(150); // logo height
+                    $objPHPExcel->setWorksheet($objPHPExcel->setActiveSheetIndex($pos+1)); */
+// Create new PHPExcel object*/
 $objPHPExcel = new PHPExcel();
+
+// Set document properties*/
     $objPHPExcel->getProperties()
             ->setCreator("Jaime Nieto")
             ->setLastModifiedBy("Jaime Nieto")
@@ -23,52 +40,33 @@ $objPHPExcel = new PHPExcel();
             ->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
             ->setKeywords("office 2007 openxml php")
             ->setCategory("Test result file");
-    
-// --------------------- se ejecuta la consulta de los sueldos ---------------------------- //
-    $sqlxls="SELECT DISTINCT * FROM vw_sueldos_nomina WHERE nom_id = $idnom";
+            // Add some data*/
+            $objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue('D1','Fecha de Registro')
+            ->setCellValue('E1','Hora de Registro');
+
+//se ejecuta la consulta
     $resultxls=pg_query($exporta->conexion,$sqlxls);
-    $a=8;
+    $a=2;
 
     if($rowxls=pg_fetch_array($resultxls)){
-        $sqlcom="SELECT DISTINCT co_nombre from vw_comnom WHERE nom_id = $idnom";
-        $resultcomisiones = pg_query($exporta->conexion,$sqlcom);
-
-
-        $objPHPExcel->setActiveSheetIndex(0)    
-                ->setCellValue('D7', 'Persona')
-                ->setCellValue('E7', 'Sueldo pagado');
+        $objPHPExcel->setActiveSheetIndex(0);
 
         do{
            
             $objPHPExcel->setActiveSheetIndex(0)
-                    ->setCellValue('D'.$a, $rowxls['nombrecompleto'])
-                    ->setCellValue('E'.$a, $rowxls['sal_monto_con']);
+                    ->setCellValue('D'.$a, $rowxls['persona_registro_dia'])
+                    ->setCellValue('E'.$a, $rowxls['persona_registro_hora']);
                     $a++;
         }while ($rowxls=pg_fetch_array($resultxls));
-
-        $columnainiciocomisiones=$objPHPExcel->setActiveSheetIndex(0)->getHighestColumn();
-        if($mostrarcomisiones = pg_fetch_array($resultcomisiones)){
-            do{
-
-            }while($mostrarcomisiones = pg_fetch_array($resultcomisiones));
-            for($x=$columnainiciocomisiones; $x != 'IW'; $x++) { 
-                $objPHPExcel->setActiveSheetIndex(0) 
-                ->setCellValue($x . '7', $mostrarcomisiones['co_nombre']); 
-            }
-        }
-       
+        
+    }else {
+        $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue('D'.$a, 'No existieron registros en ese rango de fechas');
     }
-
-// ---------- Se obtiene la columna maxima para saber donde empezar el siguiente bucle ------------- //
-    $highestColumm = $objPHPExcel->setActiveSheetIndex(0)->getHighestColumn();  
-    $highestColumnIndex = PHPExcel_Cell::columnIndexFromString($highestColumm);
-    $objPHPExcel->setActiveSheetIndex(0)
-                ->setCellValue('F7',$highestColumnIndex);
-    $comisiones = $highestColumnIndex+1;
-
    
     // Rename worksheet*/
-    $objPHPExcel->getActiveSheet()->setTitle('Detallado de nomina');
+    $objPHPExcel->getActiveSheet()->setTitle('Rendimientos de Personas');
 
 
     // Set active sheet index to the first sheet, so Excel opens this as the first sheet*/
@@ -77,7 +75,7 @@ $objPHPExcel = new PHPExcel();
 
     // Redirect output to a client’s web browser (Excel5)*/
     header('Content-Type: application/vnd.ms-excel');
-    header('Content-Disposition: attachment;filename="Detallado_de_nomina.xls"');
+    header('Content-Disposition: attachment;filename="Rendimientos_de_registros_de_personas.xls"');
     header('Cache-Control: max-age=0');
     // If you're serving to IE 9, then the following may be needed*/
     header('Cache-Control: max-age=1');
