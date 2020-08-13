@@ -58,13 +58,14 @@ $objPHPExcel->setActiveSheetIndex(0)
                 ->setCellValue('D6', $nombreempresa);
 
 // --------------------- se ejecuta la consulta de los sueldos ---------------------------- //
-    $sqlxls="SELECT DISTINCT * FROM vw_sueldos_nomina WHERE nom_id = $idnom";
+    $sqlxls="SELECT * FROM vw_sueldos_nomina WHERE nom_id = $idnom order by persona_id";
     $resultxls=pg_query($exporta->conexion,$sqlxls);
     $a=8;
 
-    
+    $personas=array();
     if($rowxls=pg_fetch_array($resultxls)){
         $idpersona = $rowxls['persona_id'];
+        $personas[]= $rowxls['persona_id'];
 
         $sqlingreso="SELECT * from vw_contratos where persona_id = $idpersona";
         $resultsqlingreso = pg_query($exporta->conexion,$sqlingreso);
@@ -101,21 +102,48 @@ $objPHPExcel->setActiveSheetIndex(0)
 // ----------------- SE INICIA CONSULTA PARA LAS COMISIONES -------------------- //
 
 
-$sqlcom="SELECT DISTINCT co_nombre from vw_comnom WHERE nom_id = $idnom";
+$sqlcom="SELECT DISTINCT co_nombre, co_id from vw_comnom WHERE nom_id = $idnom order by co_id";
 $resultcomisiones = pg_query($exporta->conexion,$sqlcom);
-$mostrarcomisiones = pg_fetch_array($resultcomisiones);
-for($x='G'; $x != 'IW'; $x++) { 
-    
-   
+$mostrarcomisiones=pg_fetch_array($resultcomisiones);
 
+$comisionesdisponibles=array();
+
+for($x='G'; $x != 'IW'; $x++) {
     do{
         $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue($x . '7', $mostrarcomisiones['co_nombre']);
+        $comisionesdisponibles[] = $mostrarcomisiones['co_id'];
         $x++;
-        
     }while($mostrarcomisiones = pg_fetch_array($resultcomisiones));
-   
+ }
+$cantidades=8;
+//$valores=array();
+$largepersonas=count($personas);
+$large=count($comisionesdisponibles);
+
+for($y=0; $y < $largepersonas; $y++){
+    
+    for($i=0; $i < $large; $i++){
+
+        $sqlcomisionporpersona="select co_monto from vw_comnom where nom_id = $idnom and persona_id = ".$personas[$y]." and co_id = ".$comisionesdisponibles[$i]." ";
+        $resultcomisionesporpersona = pg_query($exporta->conexion,$sqlcomisionporpersona);
+        $mostrarcomisionesporpersona=pg_fetch_array($resultcomisionesporpersona);
+        //$valores=$resultcomisionesporpersona['co_monto'];
+        for($x='G'; $x != 'IW'; $x++) {
+            do{
+                $objPHPExcel->setActiveSheetIndex(0)
+                ->setCellValue($x.$cantidades, $mostrarcomisionesporpersona['co_monto']);
+                $x++;
+            }while($mostrarcomisionesporpersona=pg_fetch_array($resultcomisionesporpersona));
+        }
+    }
+    $cantidades++;
 }
+$objPHPExcel->setActiveSheetIndex(0)
+->setCellValue($x . '7', $mostrarcomisiones['co_nombre']);
+
+
+
 
 
 // ---------------- FINALIZA CONSULTA PARA LAS COMISIONES ---------------------- //
