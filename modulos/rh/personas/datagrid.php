@@ -3,37 +3,43 @@
 $param= base64_decode($_GET['oc2']);//buscar por(nombre o numero)
 $dato= base64_decode($_GET['oc1']);//valor a buscar
 $fecha=date("Ymd");
+session_start();
+$usid=$_SESSION['us_id'];
 //echo $fecha;
 $nuevafecha = strtotime ( '-2 day' , strtotime ( $fecha ) ) ;
 $nuevafecha = date( 'Ymd' , $nuevafecha );
+include ('../../../config/conectasql.php');
+$con= new conectasql();
+$con->abre_conexion("0");
+$conexion=$con->conexion;
+//se obtienen las plazas a las cuales tiene derecho el usuario  
+$con->user_plazas_sucursales($usid);  
+$plazas=$con->pplazas;
 //echo $nuevafecha;
 if($dato != NULL){
     switch ($param) {
         case 'nom':
-            $condicion="nombrecompleto like '%$dato%'";
+            $condicion="nombrecompleto like '%$dato%' and plaza_id in ($plazas)";
             break;
         case 'cve':
-            $condicion="persona_cve like '%$dato%'";
+            $condicion="persona_cve like '%$dato%' and plaza_id in ($plazas)";
             break;
         case 'may':
-            $condicion="persona_id > $dato";
+            $condicion="persona_id > $dato and plaza_id in ($plazas)";
             break;
         case 'men':
-            $condicion="persona_id < $dato";
+            $condicion="persona_id < $dato and plaza_id in ($plazas)";
             break;
         case 'est':
-            $condicion="persona_status = $dato";
+            $condicion="persona_status = $dato and plaza_id in ($plazas)";
             break;
     }
     $where="where $condicion";
 }else{
-    $where="";
+    $where="where plaza_id in ($plazas)";
 }
-    include ('../../../config/conectasql.php');
-    $con= new conectasql();
-    $con->abre_conexion("0");
-    $conexion=$con->conexion;
-    $query = "select * from vw_personas $where order by persona_cve desc;";
+    
+    $query = "select * from vw_personas2 $where order by persona_cve desc;";
     $result = pg_query($conexion,$query);
 //    if ($row = odbc_fetch_row($result)){
 //        do{

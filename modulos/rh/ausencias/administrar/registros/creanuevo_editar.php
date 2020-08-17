@@ -19,11 +19,11 @@ class creanuevo_editar extends conectasql{
     
     public function formulario($op,$prs,$aus) {
         if($op=='editar'){
-           $titulo = 'Edita Ausencia';
+            $titulo = 'Edita Ausencia';
             $operacion= base64_encode($op);
             $operacion='?op='.$operacion;
             $this->consulta_aus_per($aus);
-            $this->selects_creator('select * from tipos_ausencias', 'tipo_aus', 'ta_id', 'ta_nombre', 'Tipo de Ausencia', 'onChange="bloquea_opciones()"', $this->consulta['ta_id']);
+            $this->selects_creator('select * from tipos_ausencias', 'tipo_aus', 'ta_id', 'ta_nombre', 'Tipo de Ausencia', 'onChange="bloquea_opciones()" disabled', $this->consulta['ta_id']);
             $select_tipo_aus = $this->select;
             $years= $this->consulta['aus_vac_years'];
             $dias= $this->consulta['aus_correspondientes'];
@@ -68,7 +68,9 @@ class creanuevo_editar extends conectasql{
             $sqlt="select aus_dias_vac from ausencias where aus_fecha_inicio >= '$yy-01-01' and persona_id=$prs and ta_id=2 order by aus_id desc";
             $resultt= pg_query($this->conexion,$sqlt);
             if($rowt= pg_fetch_array($resultt)){
-                $tomados=$rowt['aus_dias_vac'];
+                do{
+                    $tomados=$tomados+$rowt['aus_dias_vac'];
+                }while($rowt= pg_fetch_array($resultt));
             }else{
                 $tomados=0;
             }

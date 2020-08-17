@@ -1,6 +1,5 @@
 window.onload=lanzadera;
     function lanzadera (){
-    document.getElementById("tipo_aus").disabled = true;
     document.oncontextmenu = function() { return false; };
 }
 

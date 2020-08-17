@@ -180,6 +180,11 @@ function valida_campos(op){
     document.form_personas.pais.focus();
     return 0;
     }
+    if (document.form_personas.plaza.value=="1000"){
+    alert("Debes asignar una plaza de registro");
+    document.form_personas.plaza.focus();
+    return 0;
+    }
     if (document.form_personas.estados.value=="1000"){
     alert("Debes de seleccionar un estado");
     document.form_personas.estados.focus();

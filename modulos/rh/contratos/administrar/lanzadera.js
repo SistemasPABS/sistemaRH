@@ -255,7 +255,14 @@ function valida_campos(op){
         alert("Debes seleccionar un periodo de prueba");
         document.form_contrato.prueba.focus();
         return 0;
-    }//Fecha Inicial
+    }
+    //persona jefe inmediato
+    if (document.form_contrato.jefes.value=="1000"){
+    alert("Debe asignar a una persona como jefe inmediato");
+    document.form_contrato.jefes.focus();
+    return 0;
+    }
+    //Fecha Inicial
     if (document.form_contrato.fecha_ini.value.length === 0){
         alert("Debes seleccionar una fecha de inicio");
         document.form_contrato.fecha_ini.focus();
