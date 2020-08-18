@@ -14,7 +14,7 @@ $cp=$_POST['persona'];
 $pc=$_POST['pc'];//computadora de donde se hace
 $idperiodo=$_POST['idperiodo'];//id de lo seleccionado de fecha inicio y fecha fin 
 $tipoperiodo=$_POST['tipoperiodo'];
-$empid=$_POST['empid'];
+$empid = $_POST['empid'];
 $oficina = $_POST['oficina'];
 $cargorrecurrente = $_POST['cargorecurrente'];
 $depositoenbanco = $_POST['depositoenbanco'];
@@ -233,6 +233,7 @@ if ($cantpersonas == $cantpersonas2 ){
 
     //VOLCADO A LA TABLA HISTORICA DE BASE NOMINA
     $selectbn = "select * from tmp_base_nom where us_id = $us_id and fecha = '$fecha' and plaza_id  = $plaza and emp_id = $empid and sal_tipo_id = $tipoperiodo and pc = '$pc' and hora='$hbn';";
+    //echo $selectbn;
     $resultbn = pg_query($conexion,$selectbn);
     $rowbn = pg_fetch_array($resultbn);
     if($rowbn != NULL){
@@ -310,7 +311,7 @@ if ($cantpersonas == $cantpersonas2 ){
     
     //se obtiene la cantidad de datos en la tabla temporal de base de nomina
     $selecttmpbasenom = "SELECT count(*) as cuentatmpbasenom from tmp_base_nom where us_id = $us_id and pc = '$pc' and fecha_inicio = '$fechainicio' and fecha_fin='$fechafinal' and plaza_id =$plaza and fecha='$fecha' and hora='$hbn'";
-    $selecttmpbasenom;
+    //echo $selecttmpbasenom;
     $result = pg_query($conexion,$selecttmpbasenom);
     $valorarreglotmpbasenom = pg_fetch_array($result);
 
@@ -325,7 +326,7 @@ if ($cantpersonas == $cantpersonas2 ){
         //echo $borradotmpcomnom;
         $result = pg_query($conexion,$borradotmpbasenom) or die ("Verifica la sentencia SQL". pg_last_error());
     }else{
-        echo 'No son iguales - TEMPORAL BASE NOMINA ';
+        //echo 'No son iguales - TEMPORAL BASE NOMINA ';
     } 
 
 

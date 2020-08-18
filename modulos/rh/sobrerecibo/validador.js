@@ -63,7 +63,7 @@ function NumText(string){//solo letras y numeros
       
       function Numeros(string){//Solo numeros
         var out = '';
-        var filtro = '12345678900.0';//Caracteres validos
+        var filtro = '.123456789000';//Caracteres validos
       
         //Recorrer el texto y verificar si el caracter se encuentra en la lista de validos 
         for (var i=0; i<string.length; i++)
