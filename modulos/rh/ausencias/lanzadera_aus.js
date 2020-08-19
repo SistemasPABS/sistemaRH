@@ -15,7 +15,7 @@ function popup(url,estid){
    var prs = document.getElementsByClassName("jqx-fill-state-pressed")[0].textContent;
     //alert(prs);
     if(prs != 0){
-        if(confirm('¿Desea ver el expediente de '+prs+'?')){
+        if(confirm('¿Desea ver el detalle de ausencias de esta persona?')){
             popupWindow = window.open(
             url+'?em='+estid+'&prs='+btoa(prs),'aprs'+btoa(prs),'height=780px,width=1024px,left=0,top=0, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
         }

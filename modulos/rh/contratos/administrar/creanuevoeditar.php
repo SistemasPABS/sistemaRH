@@ -60,17 +60,26 @@ class creanuevoeditar extends conectasql{
             if($this->consulta['con_status'] == '1'){$checkedstatus='checked="yes"';}else{$checkedstatus='';}
             $ffin='';
             
-            $sqljf="select * from vw_contratos where persona_id=$jefe";
-            $resultjf= pg_query($this->conexion,$sqljf) or die('Eror :'. pg_last_error());
-            $rowjf= pg_fetch_array($resultjf);
-            $plazajf=$rowjf['plaza_id'];
-            $sucjf=$rowjf['suc_id'];
-            
-            $this->selects_creator('select * from sucursales where plaza_id='.$plazajf.' order by suc_id', 'sucursales', 'suc_id', 'suc_nombre', 'sucursales', 'onChange="ver_jefes();"',$sucjf);
-            $selectsuc2=$this->select;
-            
-            $this->selects_creator('select * from vw_contratos where suc_id='.$sucjf.' order by nombrecompleto', 'jefes', 'persona_id', 'nombrecompleto', 'jefes', 'onChange=""', $jefe);
-            $selectjefe= $this->select;
+            if($jefe != null){
+                $sqljf="select * from vw_contratos where persona_id=$jefe";
+                $resultjf= pg_query($this->conexion,$sqljf) or die('Eror :'. pg_last_error());
+                $rowjf= pg_fetch_array($resultjf);
+                $plazajf=$rowjf['plaza_id'];
+                $sucjf=$rowjf['suc_id'];
+
+                $this->selects_creator('select * from sucursales where plaza_id='.$plazajf.' order by suc_id', 'sucursales', 'suc_id', 'suc_nombre', 'sucursales', 'onChange="ver_jefes();"',$sucjf);
+                $selectsuc2=$this->select;
+
+                $this->selects_creator('select * from vw_contratos where suc_id='.$sucjf.' order by nombrecompleto', 'jefes', 'persona_id', 'nombrecompleto', 'jefes', 'onChange=""', $jefe);
+                $selectjefe= $this->select;
+            }else{
+                $selectsuc2='<select class="input0" name="suc" value="0">
+                                <option value="1000">--- Seleccione una plaza --- </option>
+                               </select>';
+                 $selectjefe='<select class="input0" name="jefes" value="0">
+                                <option value="1000"> --- Jefe inmediato --- </option>
+                               </select>';
+            }
 
         }else if($op == 'nuevo'){
             //inicializa variables para evitar alertas de errores
@@ -173,7 +182,7 @@ class creanuevoeditar extends conectasql{
             echo '<div class="row">';
                 echo '<div class="col-3"><label>Fecha inicio</label><input class="inputdate" type="date" name="fecha_ini" value="'.$con_ini.'"></div>';
                 echo '<div class="col-3"><label '.$ffin.'>Fecha Fin</label><input class="inputdate" type="date" name="fecha_fin" value="'.$con_fin.'" '.$ffin.'></div>';
-                echo '<div class="col-3"><br><label>Estatus</label><input type="checkbox" name="status" id="status" '.$checkedstatus.'></div>';
+                echo '<div class="col-3"><br><label>Estatus</label><input type="checkbox" name="status" id="status" '.$checkedstatus.' onChange="valida_c_activos();"></div>';
                 echo '<div class="col-3"><br><label>Adicionales</label><input type="checkbox" name="adic" id="adic" '.$checkedadic.'></div>';
             echo '<div>';                
             echo '</div>';

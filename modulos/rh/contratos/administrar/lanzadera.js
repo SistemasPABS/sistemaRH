@@ -184,6 +184,28 @@ function valida_salario(){
     }
  }
  
+ function valida_c_activos(){
+     if(document.getElementById("id_persona").value.length != 0){
+        var per = document.getElementById("id_persona").value;
+        var con = document.getElementById("status").checked;
+        //alert('hola '+con+'-'+per);
+        if(con == true){
+            $.ajax({
+                   type: "POST",
+                   url: "valida_c_activos.php",
+                   data:{pid:btoa(per),sal:btoa(con)},
+                   success: function(data){
+                           //alert(data);
+                           if(data > 0){
+                               alert('La persona seleccionada tiene mas de un contrato activo');
+                               document.getElementById("status").checked=false;
+                           }
+                   }
+            });
+        }
+     }
+ }
+ 
  //Valida campos antes de mandar el formulario
 function valida_campos(op){
        //Nombre persona
@@ -233,7 +255,14 @@ function valida_campos(op){
         alert("Debes seleccionar un periodo de prueba");
         document.form_contrato.prueba.focus();
         return 0;
-    }//Fecha Inicial
+    }
+    //persona jefe inmediato
+    if (document.form_contrato.jefes.value=="1000"){
+    alert("Debe asignar a una persona como jefe inmediato");
+    document.form_contrato.jefes.focus();
+    return 0;
+    }
+    //Fecha Inicial
     if (document.form_contrato.fecha_ini.value.length === 0){
         alert("Debes seleccionar una fecha de inicio");
         document.form_contrato.fecha_ini.focus();

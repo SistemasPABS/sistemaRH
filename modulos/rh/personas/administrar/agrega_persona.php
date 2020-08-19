@@ -5,7 +5,7 @@ include ('../../../../config/cookie.php');
     session_start();
     $usid=$_SESSION['us_id'];
     date_default_timezone_set('America/Mexico_City');
-    $fecha=date("Ymd");
+    $fecha=date("Y-m-d");
     $hora=date("H:i:s");
     $op= base64_decode($_GET['op']);
     
@@ -143,6 +143,12 @@ include ('../../../../config/cookie.php');
             $error[]='correo';
         }else if(isset($_POST['correo']) || !empty($_POST['correo'])){
             $correo=$_POST['correo'];
+        }
+        //variable plaza
+        if(!isset($_POST['plaza']) || $_POST['plaza'] == "1000"){
+            $error[]='plaza';
+        }else if(isset($_POST['plaza']) || $_POST['plaza'] != "1000"){
+            $plaza=$_POST['plaza'];
         }
         //variable pais
         if(!isset($_POST['nacionalidad']) || $_POST['nacionalidad'] == "1000"){
@@ -344,6 +350,7 @@ include ('../../../../config/cookie.php');
             $curp=$insert->limpia_cadena($curp);
             $genero=$insert->limpia_cadena($genero);
             $correo=$insert->limpia_cadena($correo);
+            $plaza=$insert->limpia_cadena($plaza);
             $telefono=$insert->limpia_cadena($telefono);
             $celular=$insert->limpia_cadena($celular);
             $fecha_nac=$insert->limpia_cadena($fecha_nac);
@@ -354,7 +361,7 @@ include ('../../../../config/cookie.php');
             if($afore != null){$afore=$insert->limpia_cadena($afore);}
             if($creinfo != null){$creinfo=$insert->limpia_cadena($creinfo);}
             $civil=$insert->limpia_cadena($civil);
-            $insert->generales_personas($clave,$nombre,$paterno,$materno,$calle,$numero,$colonia,$cp,$pais,$estado,$municipio,$nacionalidad,$rfc,$nss,$curp,$genero,$correo,$telefono,$celular,$fecha_nac,$fecha,$hora,$status, $edad, $civil,$usid,'','',0,$afore,$creinfo,$pensionado);
+            $insert->generales_personas($clave,$nombre,$paterno,$materno,$calle,$numero,$colonia,$cp,$pais,$estado,$municipio,$nacionalidad,$rfc,$nss,$curp,$genero,$correo,$telefono,$celular,$fecha_nac,$fecha,$hora,$status, $edad, $civil,$usid,'NULL','NULL',0,$afore,$creinfo,$pensionado,$plaza);
             //echo 'el id es:'.$insert->npid.'<br>';
             $insert->banco_personas($banco,$insert->npid,$clavebanco,$cuenta);
             $insert->docs_personas($insert->npid,$chk_comp,$chk_ine,$chk_licencia,$chk_acta,$chk_rfc,$chk_nss,$chk_curp,$chk_certificado,$chk_recomendacion,$chk_antecedentes,$chk_fonacot,$chk_infonavit); 
@@ -508,6 +515,12 @@ include ('../../../../config/cookie.php');
             $error[]='nacionalidad';
         }else if(isset($_POST['nacionalidad']) || $_POST['nacionalidad'] != "1000"){
             $nacionalidad=$_POST['nacionalidad'];
+        }
+         //variable plaza
+        if(!isset($_POST['plaza']) || $_POST['plaza'] == "1000"){
+            $error[]='plaza';
+        }else if(isset($_POST['plaza']) || $_POST['plaza'] != "1000"){
+            $plaza=$_POST['plaza'];
         }
         //variable pais
         if(!isset($_POST['pais']) || $_POST['pais'] == "1000"){
@@ -705,6 +718,7 @@ include ('../../../../config/cookie.php');
             $curp=$updatep->limpia_cadena($curp);
             $genero=$updatep->limpia_cadena($genero);
             $correo=$updatep->limpia_cadena($correo);
+            $plaza=$updatep->limpia_cadena($plaza);
             $telefono=$updatep->limpia_cadena($telefono);
             $celular=$updatep->limpia_cadena($celular);
             $fecha_nac=$updatep->limpia_cadena($fecha_nac);
@@ -717,7 +731,7 @@ include ('../../../../config/cookie.php');
             $civil=$updatep->limpia_cadena($civil);
             
             
-            $updatep->update_personas_generales($registro,$clave,$nombre,$paterno,$materno,$calle,$numero,$colonia,$cp,$pais,$estado,$municipio,$nacionalidad,$rfc,$nss,$curp,$genero,$correo,$telefono,$celular,$fecha_nac,$fecha,$hora,$status, $edad, $civil,$usid,$afore,$creinfo,$pensionado);
+            $updatep->update_personas_generales($registro,$clave,$nombre,$paterno,$materno,$calle,$numero,$colonia,$cp,$pais,$estado,$municipio,$nacionalidad,$rfc,$nss,$curp,$genero,$correo,$telefono,$celular,$fecha_nac,$status, $edad, $civil,$fecha,$hora,$usid,$afore,$creinfo,$pensionado,$plaza);
             $updatep->update_personas_bancos($registro,$banco,$clavebanco,$cuenta);
             $updatep->update_personas_docs($registro,$chk_comp,$chk_ine,$chk_licencia,$chk_acta,$chk_rfc,$chk_nss,$chk_curp,$chk_certificado,$chk_recomendacion,$chk_antecedentes,$chk_fonacot,$chk_infonavit); 
         }

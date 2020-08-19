@@ -319,9 +319,9 @@ class conectasql{
     }
      
     //Funcion para insertar nuevas personas
-    public function generales_personas($clave,$nombre,$paterno,$materno,$calle,$numero,$colonia,$cp,$pais,$estado,$municipio,$nacionalidad,$rfc,$nss,$curp,$genero,$correo,$telefono,$celular,$fecha_nac,$fecha,$hora,$status, $edad, $civil,$usid,$fechaedicion,$horaedicion,$usidedito,$afore,$creinfo,$pensionado) {
-        $sqli = "insert into personas (persona_cve,persona_nombre,persona_paterno ,persona_materno,persona_calle,persona_calle_numero,persona_colonia,persona_cp,pais_id,est_id,mcp_id,nacionalidad_id,persona_rfc ,persona_nss ,persona_curp, persona_genero,persona_correo, persona_tel_fijo, persona_tel_movil, persona_fecnac, persona_registro_dia, persona_registro_hora, persona_status, persona_edad, persona_edo_civil, us_id,persona_edicion_dia, persona_edicion_hora, us_id_edito, persona_afore, persona_credito_infonavit,persona_pensionado) "
-                ."values ('$clave','$nombre','$paterno','$materno','$calle','$numero','$colonia','$cp','$pais','$estado','$municipio','$nacionalidad','$rfc','$nss','$curp', '$genero','$correo', '$telefono', '$celular','$fecha_nac', '$fecha', '$hora', '$status', '$edad','$civil',$usid,'$fechaedicion','$horaedicion',$usidedito,'$afore','$creinfo',$pensionado);";
+    public function generales_personas($clave,$nombre,$paterno,$materno,$calle,$numero,$colonia,$cp,$pais,$estado,$municipio,$nacionalidad,$rfc,$nss,$curp,$genero,$correo,$telefono,$celular,$fecha_nac,$fecha,$hora,$status, $edad, $civil,$usid,$fechaedicion,$horaedicion,$usidedito,$afore,$creinfo,$pensionado,$plaza) {
+        $sqli = "insert into personas (persona_cve,persona_nombre,persona_paterno ,persona_materno,persona_calle,persona_calle_numero,persona_colonia,persona_cp,pais_id,est_id,mcp_id,nacionalidad_id,persona_rfc ,persona_nss ,persona_curp, persona_genero,persona_correo, persona_tel_fijo, persona_tel_movil, persona_fecnac, persona_registro_dia, persona_registro_hora, persona_status, persona_edad, persona_edo_civil, us_id,persona_edicion_dia, persona_edicion_hora, us_id_edito, persona_afore, persona_credito_infonavit,persona_pensionado,plaza_id) "
+                ."values ('$clave','$nombre','$paterno','$materno','$calle','$numero','$colonia','$cp','$pais','$estado','$municipio','$nacionalidad','$rfc','$nss','$curp', '$genero','$correo', '$telefono', '$celular','$fecha_nac', '$fecha', '$hora', '$status', '$edad','$civil',$usid,$fechaedicion,$horaedicion,$usidedito,'$afore','$creinfo',$pensionado,$plaza);";
         $resulti = pg_query($this->conexion, $sqli) or die("Error pn: ". pg_last_error());//persona nueva
         $this->inserts='1';
         
@@ -367,8 +367,8 @@ class conectasql{
     }
     
     //Actualizar datos generales de personas
-    public function update_personas_generales($id,$clave,$nombre,$paterno,$materno,$calle,$numero,$colonia,$cp,$pais,$estado,$municipio,$nacionalidad,$rfc,$nss,$curp,$genero,$correo,$telefono,$celular,$fecha_nac,$fecha,$hora,$status,$edad,$civil,$usid,$afore,$creinfo,$pensionado) {
-        $sqlud="update personas set persona_cve ='$clave', persona_nombre='$nombre', persona_paterno='$paterno', persona_materno='$materno', persona_calle='$calle', persona_calle_numero='$numero',persona_colonia='$colonia',persona_cp='$cp',pais_id='$pais',est_id='$estado',mcp_id='$municipio',nacionalidad_id='$nacionalidad', persona_rfc ='$rfc', persona_nss='$nss', persona_curp='$curp',persona_genero ='$genero', persona_correo='$correo', persona_tel_fijo ='$telefono', persona_tel_movil ='$celular',persona_fecnac ='$fecha_nac', persona_edicion_dia='$fecha', persona_edicion_hora='$hora', persona_status='$status', persona_edad=$edad, persona_edo_civil='$civil', us_id_edito=$usid, persona_afore='$afore', persona_credito_infonavit='$creinfo',persona_pensionado=$pensionado where persona_id ='$id';";
+    public function update_personas_generales($id,$clave,$nombre,$paterno,$materno,$calle,$numero,$colonia,$cp,$pais,$estado,$municipio,$nacionalidad,$rfc,$nss,$curp,$genero,$correo,$telefono,$celular,$fecha_nac,$status,$edad,$civil,$fechaedicion,$horaedicion,$usidedito,$afore,$creinfo,$pensionado,$plaza) {
+        $sqlud="update personas set persona_cve ='$clave', persona_nombre='$nombre', persona_paterno='$paterno', persona_materno='$materno', persona_calle='$calle', persona_calle_numero='$numero',persona_colonia='$colonia',persona_cp='$cp',pais_id='$pais',est_id='$estado',mcp_id='$municipio',nacionalidad_id='$nacionalidad', persona_rfc ='$rfc', persona_nss='$nss', persona_curp='$curp',persona_genero ='$genero', persona_correo='$correo', persona_tel_fijo ='$telefono', persona_tel_movil ='$celular',persona_fecnac ='$fecha_nac', persona_status='$status', persona_edad=$edad, persona_edo_civil='$civil', persona_edicion_dia='$fechaedicion', persona_edicion_hora='$horaedicion', us_id_edito=$usidedito, persona_afore='$afore', persona_credito_infonavit='$creinfo',persona_pensionado=$pensionado,plaza_id=$plaza where persona_id ='$id';";
         $resultud= pg_query($this->conexion, $sqlud) or die("Error updg: ". pg_last_error());//update personas datos generales
         $this->update='1';    
     }
@@ -558,7 +558,7 @@ class conectasql{
         $result = pg_query($this->conexion, $sql) or die ("Error ccpp: ". pg_last_error());
         if($row = pg_fetch_array($result)){
             do{
-                $this->html.='<li class="licom"><input type="text" value="'.$row['co_id'].'" name="com[]" hidden> '.$row['co_nombre'].' <input type="button" class="delrow" onclick="eliminar(this)" value="eliminar"></li>';
+                $this->html.='<li class="licom"><input type="text" value="'.$row['co_id'].'" name="com[]" hidden> '.$row['co_nombre'].' <input type="button" class="delrow" onClick="eliminar(this);" value="eliminar"></li>';
             }
             while($row = pg_fetch_array($result));
         }
@@ -690,7 +690,7 @@ class conectasql{
     
     //Edita un contrato existente
     public function edita_contrato($registro,$id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $fecha_ini,$fecha_fin, $status, $adic, $aimss, $bimss, $cfir, $jefe, $sdi){
-        $sql = "update contratos set persona_id=$id_persona, tipoc_id=$id_contrato, raz_id=$id_razon, puesto_id=$id_puesto, sal_monto_con=$salario, con_horario='$horario', con_periodo='$prueba', con_fecha_inicio='$fecha_ini', con_fecha_fin=$fecha_fin, con_adic=$adic, con_status=$status, con_alta_imss=$aimss, con_baja_imss=$bimss, con_firmado=$cfir, con_jefe_inmediato=$jefe, son_sdi=$sdi where con_id = $registro;";
+        $sql = "update contratos set persona_id=$id_persona, tipoc_id=$id_contrato, raz_id=$id_razon, puesto_id=$id_puesto, sal_monto_con=$salario, con_horario='$horario', con_periodo='$prueba', con_fecha_inicio='$fecha_ini', con_fecha_fin=$fecha_fin, con_adic=$adic, con_status=$status, con_alta_imss=$aimss, con_baja_imss=$bimss, con_firmado=$cfir, con_jefe_inmediato=$jefe, con_sdi=$sdi where con_id = $registro;";
         //echo $sql;
         $result= pg_query($this->conexion, $sql) or die("Error edtcon: ". pg_last_error());
         $this->update='1';
@@ -768,6 +768,15 @@ class conectasql{
         }
     }
     
+    public function valida_c_activos($pid,$con) {
+        $sql="select count(con_status) as num_contratos_activos from vw_contratos where persona_id = $pid and con_status = 1";
+        $result= pg_query($this->conexion,$sql);
+        $row= pg_fetch_array($result);
+        //$this->msj=$sql;
+        $this->msj=$row['num_contratos_activos'];
+        
+    }
+    
     public function consulta_exp_per($registro){
         $sql="select * from vw_personas where persona_id=$registro;";
         $result = pg_query($this->conexion, $sql) or die ("Error ctexp: ". pg_last_error());
@@ -815,7 +824,43 @@ class conectasql{
             $this->consulta2=$row;
         }
     }
-     
+    
+    public function agrega_ausencia($persona,$tipoaus,$year,$derecho,$tomados,$disp,$vac,$rest,$diasa,$finicio,$ffin,$obs,$autorizado,$fecha,$hora,$usid,$autorizo) {
+        $sql="insert into ausencias(persona_id,ta_id,aus_vac_years,aus_correspondientes,aus_tomados,aus_disponibles,aus_dias_vac,aus_restantes,aus_dias,aus_fecha_inicio,aus_fecha_fin,aus_observaciones,aus_autorizado,aus_fecha_registro,aus_hora_registro,us_id,us_id_autorizo) "
+            ."values($persona,$tipoaus,$year,$derecho,$tomados,$disp,$vac,$rest,$diasa,'$finicio','$ffin','$obs',$autorizado,'$fecha','$hora',$usid,$autorizo);";
+        $result = pg_query($this->conexion,$sql) or die("Error insaus: ". pg_last_error());//inserta ausencias
+        $this->inserts.="1"; 
+    }
+    
+    //consulta ausencias
+    public function consulta_aus($registro) {
+        $sql="select * from vw_ausencias where aus_id = $registro";
+        $resultsal= pg_query($this->conexion,$sql) or die ("Error csl: ".pg_last_error());//consulta salarios
+        $rows= pg_fetch_array($resultsal);
+        $this->consulta=$rows;
+    }
+    
+    //Autoriza ausencia
+    public function autoriza_ausencia($usid,$ausid) {
+        $sqlaus="update ausencias set aus_autorizado=1,us_id_autorizo=$usid where aus_id=$ausid";
+        $resultaus= pg_query($this->conexion,$sqlaus) or die("Error aus: ". pg_last_error());//autoriza ausencia
+        $this->autoriza='1';
+    }
+    
+    //consulta datos de la ausencia registrada
+    public function consulta_aus_per($registro){
+        $sql="select * from vw_ausencias where aus_id = $registro;";
+        $result = pg_query($this->conexion, $sql) or die ("Error ctexp: ". pg_last_error());
+        $row= pg_fetch_array($result);
+        $this->consulta=$row;
+    }
+    
+    //edita los valores de la ausencia
+    public function edita_ausencia($registro,$year,$derecho,$tomados,$disp,$vac,$rest,$diasa,$finicio,$ffin,$obs,$fecha,$hora,$usid) {
+        $sql="update ausencias set aus_vac_years=$year, aus_correspondientes=$derecho, aus_tomados=$tomados,aus_disponibles=$disp, aus_dias_vac=$vac, aus_restantes=$rest, aus_dias=$diasa, aus_fecha_inicio='$finicio', aus_fecha_fin='$ffin', aus_observaciones='$obs', aus_fecha_registro='$fecha', aus_hora_registro='$hora', us_id=$usid  where aus_id=$registro";
+        $result = pg_query($this->conexion,$sql) or die("Error udexp: ". pg_last_error());
+        $this->update.="1"; 
+    }
 }
 
 ?>

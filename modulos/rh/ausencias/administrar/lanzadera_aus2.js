@@ -11,16 +11,31 @@ function popup(url, estid, op, prs) {
 }
 
 function edita(url,estid,op){
-    var exp = document.getElementsByClassName("jqx-fill-state-pressed")[0].textContent;
+    var aus = document.getElementsByClassName("jqx-fill-state-pressed")[0].textContent;
     var prs = document.getElementById("registro").value;
     //alert('persona: '+prs+' exp: '+exp);
-    if(exp != 0){
-        if(confirm('¿Desea editar los datos del registro '+exp+'?')){
-            popupWindow = window.open(
-            url+'?em='+estid+'&op='+op+'&exp='+btoa(exp)+'&prs='+btoa(prs),'aexp'+btoa(exp),'height=780px,width=1024px,left=0,top=0, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
+    if(aus != 0){
+        if(confirm('¿Desea editar los datos del registro '+aus+'?')){
+            var url2 ='registros/valida_edicion.php';
+            $.ajax({
+                type:"POST",
+                url:url2,
+                data:{aus:btoa(aus)},
+                success: function(data){
+                //alert(data);    //success: function(datos){ $(\'#tabla\').html(datos); }
+                    if(data == 0){
+                        //alert('Puede editarla');
+                        popupWindow = window.open(
+                        url+'?em='+estid+'&op='+op+'&exp='+btoa(aus)+'&prs='+btoa(prs),'aexp'+btoa(aus),'height=780px,width=1024px,left=0,top=0, ,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
+                    }else{
+                        alert('La ausencia ya ha sido autorizada y no puede editarla');
+                    }
+                }
+            });
+            
         }
     }else{
-        alert('Seleccione persona para editar');
+        alert('Seleccione ausencia para editar');
     }
 }
 
@@ -41,6 +56,27 @@ function cambiaopciones(posicion,id){
     return false;
 }
 
+function autoriza_aus(url){
+    var aus = document.getElementsByClassName("jqx-fill-state-pressed")[0].textContent;
+    //alert(aus);
+
+    if(aus != 0){
+        if(confirm('¿Desea autoizar el registro '+aus+'?')){
+            $.ajax({
+                type:"POST",
+                url:url,
+                data:{aus:btoa(aus)},
+                success: function(data){
+                alert(data);    //success: function(datos){ $(\'#tabla\').html(datos); }
+                genera();
+                }
+            });
+        }
+    }else{
+        alert('Seleccione la ausencia que desea autorizar');
+    }
+}
+
 function genera() {
         var dato3 = document.opbusqueda2.registro.value;        //valor registro
         
@@ -48,12 +84,19 @@ function genera() {
                 {
                     datatype: "json",
                     datafields: [
-                        { name: 'exp_id'},
-                        { name: 'exp_desc'},
-                        { name: 'exp_fecha'},
-                        { name: 'exp_hora'},
-                        { name: 'txp_nombre'},
-                        { name: 'exp_ruta'}
+                        { name: 'aus_id'},
+                        { name: 'ta_nombre'},
+                        { name: 'aus_vac_years'},
+                        { name: 'aus_correspondientes'},
+                        { name: 'aus_tomados'},
+                        { name: 'aus_disponibles'},
+                        { name: 'aus_dias_vac'},
+                        { name: 'aus_restantes'},
+                        { name: 'aus_dias'},
+                        { name: 'aus_fecha_inicio'},
+                        { name: 'aus_fecha_fin'},
+                        { name: 'aus_observaciones'},
+                        { name: 'aus_autorizado_login'}
                         ],
                         
                     url: 'datagrid.php?oc3='+btoa(dato3)
@@ -71,12 +114,19 @@ function genera() {
                     autoheight: true,
                     columnsresize: true,
                     columns: [
-                      { text: 'Registro', datafield: 'exp_id',width: 100,cellsalign: 'center'},
-                      { text: 'Descripcion', datafield: 'exp_desc',width: 300,cellsalign: 'center'},
-                      { text: 'Fehca', datafield: 'exp_fecha', width: 180,cellsformat: 'D' },
-                      { text: 'Hora', datafield: 'exp_hora', width: 90,cellsformat: 'D' },
-                      { text: 'Tipo de Exp', datafield: 'txp_nombre',width:260,cellsformat: 'D'},
-                      { text: 'Documento', datafield: 'exp_ruta', width:60,cellsalign: 'center' }
+                      { text: 'Registro', datafield: 'aus_id',width: 60,cellsalign: 'center'},
+                      { text: 'Tipo ausencia', datafield: 'ta_nombre',width: 100,cellsalign: 'center'},
+                      { text: 'Años', datafield: 'aus_vac_years', width: 70,cellsformat: 'D' },
+                      { text: 'Correspondientes', datafield: 'aus_correspondientes', width: 100,cellsformat: 'D' },
+                      { text: 'Tomados', datafield: 'aus_tomados',width:80,cellsformat: 'D'},
+                      { text: 'Disponibles', datafield: 'aus_disponibles',width:80,cellsformat: 'D'},
+                      { text: 'Vacaciones', datafield: 'aus_dias_vac',width:80,cellsformat: 'D'},
+                      { text: 'Restantes', datafield: 'aus_restantes',width:80,cellsformat: 'D'},
+                      { text: 'Ausencias(dias)', datafield: 'aus_dias',width:90,cellsformat: 'D'},
+                      { text: 'Fecha inicio', datafield: 'aus_fecha_inicio',width:100,cellsformat: 'D'},
+                      { text: 'Fecha fin', datafield: 'aus_fecha_fin', width:100,cellsalign: 'center' },
+                      { text: 'Observaciones', datafield: 'aus_observaciones', width:200,cellsalign: 'center' },
+                      { text: 'Autorizado', datafield: 'aus_autorizado_login', width:80,cellsalign: 'center' }
                     ]
 
                 });
@@ -121,12 +171,19 @@ function enviar() {
                 {
                     datatype: "json",
                     datafields: [
-                        { name: 'exp_id'},
-                        { name: 'exp_desc'},
-                        { name: 'exp_fecha'},
-                        { name: 'exp_hora'},
-                        { name: 'txp_nombre'},
-                        { name: 'exp_ruta'}
+                       { name: 'aus_id'},
+                        { name: 'ta_nombre'},
+                        { name: 'aus_vac_years'},
+                        { name: 'aus_correspondientes'},
+                        { name: 'aus_tomados'},
+                        { name: 'aus_disponibles'},
+                        { name: 'aus_dias_vac'},
+                        { name: 'aus_restantes'},
+                        { name: 'aus_dias'},
+                        { name: 'aus_fecha_inicio'},
+                        { name: 'aus_fecha_fin'},
+                        { name: 'aus_observaciones'},
+                        { name: 'aus_autorizado_login'}
                         ],
                         
                     url: 'datagrid.php?oc1='+btoa(dato)+'&oc2='+btoa(dato2)+'&oc3='+btoa(dato3)
@@ -144,12 +201,19 @@ function enviar() {
                     autoheight: true,
                     columnsresize: true,
                     columns: [
-                      { text: 'Registro', datafield: 'exp_id',width: 100,cellsalign: 'center'},
-                      { text: 'Descripcion', datafield: 'exp_desc',width: 300,cellsalign: 'center'},
-                      { text: 'Fehca', datafield: 'exp_fecha', width: 180,cellsformat: 'D' },
-                      { text: 'Hora', datafield: 'exp_hora', width: 90,cellsformat: 'D' },
-                      { text: 'Tipo de Exp', datafield: 'txp_nombre',width:260,cellsformat: 'D'},
-                      { text: 'Documento', datafield: 'exp_ruta', width:60,cellsalign: 'center' }
+                      { text: 'Registro', datafield: 'aus_id',width: 60,cellsalign: 'center'},
+                      { text: 'Tipo ausencia', datafield: 'ta_nombre',width: 100,cellsalign: 'center'},
+                      { text: 'Años', datafield: 'aus_vac_years', width: 70,cellsformat: 'D' },
+                      { text: 'Correspondientes', datafield: 'aus_correspondientes', width: 100,cellsformat: 'D' },
+                      { text: 'Tomados', datafield: 'aus_tomados',width:80,cellsformat: 'D'},
+                      { text: 'Disponibles', datafield: 'aus_disponibles',width:80,cellsformat: 'D'},
+                      { text: 'Vacaciones', datafield: 'aus_dias_vac',width:80,cellsformat: 'D'},
+                      { text: 'Restantes', datafield: 'aus_restantes',width:80,cellsformat: 'D'},
+                      { text: 'Ausencias(dias)', datafield: 'aus_dias',width:90,cellsformat: 'D'},
+                      { text: 'Fecha inicio', datafield: 'aus_fecha_inicio',width:100,cellsformat: 'D'},
+                      { text: 'Fecha fin', datafield: 'aus_fecha_fin', width:100,cellsalign: 'center' },
+                      { text: 'Observaciones', datafield: 'aus_observaciones', width:200,cellsalign: 'center'},
+                      { text: 'Autorizado', datafield: 'aus_autorizado_login', width:80,cellsalign: 'center'}
                     ]
 
                 });

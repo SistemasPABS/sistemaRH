@@ -19,7 +19,7 @@ function popup(url,estid,op) {
 //Ventana emergente para la edicion de un contrato
 function edita(url,estid,op){
     var cto = document.getElementsByClassName("jqx-fill-state-pressed")[0].textContent;
-    //alert(suc);
+    //alert(cto);
     if( cto != 0){
         if(confirm('¿Desea editar los datos del contrato '+cto+'?')){
             popupWindow = window.open(
@@ -95,6 +95,7 @@ function genera() {
                         { name: 'puesto_nombre'},
                         { name: 'con_fecha_inicio'},
                         { name: 'con_fecha_fin'},
+                        { name: 'con_firmado'},
                         { name: 'con_status'}
                         ],
                         
@@ -123,6 +124,7 @@ function genera() {
                         { text: 'Puesto', datafield: 'puesto_nombre', width: 90, cellsformat: 'centre'},
                         { text: 'Fecha inicial', datafield: 'con_fecha_inicio', width: 100, cellsformat: 'center'},
                         { text: 'Fecha final', datafield: 'con_fecha_fin',width: 100,cellsalign: 'center'},
+                        { text: 'Firmado', datafield: 'con_firmado',width: 70,cellsalign: 'center'},
                         { text: 'Status', datafield: 'con_status',width: 70,cellsalign: 'center'}
                      ]
                 });
@@ -175,6 +177,7 @@ function enviar() {
                         { name: 'puesto_nombre'},
                         { name: 'con_fecha_inicio'},
                         { name: 'con_fecha_fin'},
+                        { name: 'con_firmado'},
                         { name: 'con_status'}
                         ],
                         
@@ -202,6 +205,7 @@ function enviar() {
                         { text: 'Puesto', datafield: 'puesto_nombre', width: 90, cellsformat: 'centre'},
                         { text: 'Fecha inicial', datafield: 'con_fecha_inicio', width: 100, cellsformat: 'center'},
                         { text: 'Fecha final', datafield: 'con_fecha_fin',width: 100,cellsalign: 'center'},
+                        { text: 'Firmado', datafield: 'con_firmado',width: 70,cellsalign: 'center'},
                         { text: 'Status', datafield: 'con_status',width: 70,cellsalign: 'center'}
                   ]
 

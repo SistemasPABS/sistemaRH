@@ -13,7 +13,7 @@ class ausencias extends conectasql{
      public function librerias() {
         echo '<link rel="stylesheet" type="text/css" href="../../../estilos/estilos.css">';
         echo '<style type="text/css">.fondotrabajo{background-color: transparent;background-image: none;}</style>';
-        echo '<script type="text/javascript" src="lanzadera_exp.js"></script>';
+        echo '<script type="text/javascript" src="lanzadera_aus.js"></script>';
         /*librerias necesarias para generar el grid*/
         echo '<link rel="stylesheet" href="../../../librerias/jqwidgets/jqwidgets/styles/jqx.base.css" type="text/css" />
         <script type="text/javascript" src="../../../librerias/jqwidgets/scripts/jquery-1.10.2.min.js"></script>
@@ -53,7 +53,7 @@ class ausencias extends conectasql{
                 echo '<div name="toolbar" id="toolbar" style="">';
                 $this->permisos('papp', $this->em,$this->usid);
                 //print_r($this->p3);
-                if(in_array(73, $this->p3)){echo '<input class="cierre2" type="button" name="ver_exp"    id="ver_exp"    value="Ver Expediente"      onclick="popup(\'administrar/index.php\',\''. base64_encode(55).'\');"  style="width:85px;" > ';}
+                if(in_array(73, $this->p3)){echo '<input class="cierre2" type="button" name="ver_exp"    id="ver_exp"    value="Ver Ausencias"      onclick="popup(\'administrar/index.php\',\''. base64_encode(73).'\');"  style="width:85px;" > ';}
                 echo '</div>';  
         $this->listado();
         echo '</form>';

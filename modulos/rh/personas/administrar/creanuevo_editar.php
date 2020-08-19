@@ -35,6 +35,7 @@ class creanuevo_editar extends conectasql{
             if($vg3 == $this->generales['persona_genero']){$vgd3='selected';}else{$vgd3='';}
             $nacdefault= $this->generales['nacionalidad_id'];
             $paisdefault= $this->generales['pais_id'];
+            $plazadefault= $this->generales['plaza_id'];
             $this->selects_creator('select * from estados order by est_id','estados','est_id','est_nombre','estados','onChange= "ver_municipios();"',$this->generales['est_id']);
             $selectestado=$this->select; 
             $this->selects_creator('select * from municipios order by mcp_id','municipios','mcp_id','mcp_nombre','municipios','onChange=""',$this->generales['mcp_id']);
@@ -61,6 +62,7 @@ class creanuevo_editar extends conectasql{
             $fvcp='onblur="valida_nueva_clave(this.value,\'clave\');"';
             $fvnc='onblur="valida_nueva_clave(this.value,\'nc\');"';
             $paisdefault='1000';
+            $plazadefault='1000';
             $selectestado='<select class="input0" name="estados" value="0">
                             <option value="1000">Seleccione un pais</option>
                            </select>';
@@ -119,10 +121,13 @@ class creanuevo_editar extends conectasql{
                 echo ' <div class="col-2"><label>CP</label><br><input class="input0" type="text" name="cp" onkeypress="return solo_numeros(event);" value="'.$this->generales['persona_cp'].'" placeholder="CP" required></div>';
             echo '</div>';   
             echo '<div class="row">';
-                echo ' <div class="col-4"><label>Tel Fijo</label><br><input class="input0" type="text" maxlength="10" name="telefono" onkeypress="return solo_numeros(event);" value="'.$this->generales['persona_tel_fijo'].'" placeholder="Telefono Fijo" required></div>';
-                echo ' <div class="col-4"><label>Telefono</label><br><input class="input0" type="text" maxlength="10" name="celular" onkeypress="return solo_numeros(event);" value="'.$this->generales['persona_tel_movil'].'" placeholder="Celular" required></div>';
-                echo ' <div class="col-4"><label>Correo electronico</label><br><input class="input0" type="email" name="correo" value="'.$this->generales['persona_correo'].'" placeholder="Correo electronico"></div>';
-            
+                echo ' <div class="col-3"><label>Tel Fijo</label><br><input class="input0" type="text" maxlength="10" name="telefono" onkeypress="return solo_numeros(event);" value="'.$this->generales['persona_tel_fijo'].'" placeholder="Telefono Fijo" required></div>';
+                echo ' <div class="col-3"><label>Telefono</label><br><input class="input0" type="text" maxlength="10" name="celular" onkeypress="return solo_numeros(event);" value="'.$this->generales['persona_tel_movil'].'" placeholder="Celular" required></div>';
+                echo ' <div class="col-3"><label>Correo electronico</label><br><input class="input0" type="email" name="correo" value="'.$this->generales['persona_correo'].'" placeholder="Correo electronico"></div>';
+                echo ' <div class="col-3"><label>Plaza registro</label><br>';
+                        $this->selects_creator('select * from plazas order by plaza_nombre','plaza','plaza_id','plaza_nombre','plaza','onChange= ""',$plazadefault);
+                        echo $this->select;   
+                echo ' </div>';
             echo '</div>';
             echo '<div class="row">';
                 echo ' <div class="col-2"><label>Fec.Nacimineto</label><br><input class="inputdate" type="date" name="fecha_nac" onkeypress="solo_letras" value="'.$this->generales['persona_fecnac'].'"></div>';

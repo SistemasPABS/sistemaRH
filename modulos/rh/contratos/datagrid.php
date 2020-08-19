@@ -33,19 +33,21 @@ if($txt != NULL){
     $i = 0;
     //Asignacion de resultados al data grid
     while($row = pg_fetch_array($result)){
-         $contratos[$i] = array();
-         $contratos[$i]['con_id'] = $row['con_id'];
-         $contratos[$i]['nombrecompleto'] = $row['nombrecompleto'];
-         $contratos[$i]['tipoc_nombre'] = $row['tipoc_nombre'];
-         $contratos[$i]['tipoc_plantilla'] = $row['tipoc_plantilla'];
-         $contratos[$i]['plaza_nombre'] = $row['plaza_nombre'];
-         $contratos[$i]['raz_nombre'] = $row['raz_nombre'];
-         $contratos[$i]['puesto_nombre'] = $row['puesto_nombre'];
-         $contratos[$i]['con_fecha_inicio'] = $row['con_fecha_inicio'];
-         $contratos[$i]['con_fecha_fin'] = $row['con_fecha_fin'];
-         if($row['con_status'] == 1 ){$status='<img src="../../../images/palomaicon.png" width="14" height="14">';}else{$status='<img src="../../../images/eliminaricon.png" width="14" height="14">';}
-         $contratos[$i]['con_status'] = $status;      
-         $i++ ;
+        $contratos[$i] = array();
+        $contratos[$i]['con_id'] = $row['con_id'];
+        $contratos[$i]['nombrecompleto'] = $row['nombrecompleto'];
+        $contratos[$i]['tipoc_nombre'] = $row['tipoc_nombre'];
+        $contratos[$i]['tipoc_plantilla'] = $row['tipoc_plantilla'];
+        $contratos[$i]['plaza_nombre'] = $row['plaza_nombre'];
+        $contratos[$i]['raz_nombre'] = $row['raz_nombre'];
+        $contratos[$i]['puesto_nombre'] = $row['puesto_nombre'];
+        $contratos[$i]['con_fecha_inicio'] = $row['con_fecha_inicio'];
+        $contratos[$i]['con_fecha_fin'] = $row['con_fecha_fin'];
+        if($row['con_firmado'] == 1 ){$firma='<img src="../../../images/palomaicon.png" width="14" height="14">';}else{$firma='<img src="../../../images/eliminaricon.png" width="14" height="14">';}
+        $contratos[$i]['con_firmado'] = $firma;
+        if($row['con_status'] == 1 ){$status='<img src="../../../images/palomaicon.png" width="14" height="14">';}else{$status='<img src="../../../images/eliminaricon.png" width="14" height="14">';}
+        $contratos[$i]['con_status'] = $status;      
+        $i++ ;
     }
     $con->cierra_conexion("0");
     //Respuesta del array en formato json
