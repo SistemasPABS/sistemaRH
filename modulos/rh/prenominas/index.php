@@ -87,6 +87,7 @@ $result = pg_query($conexion,$query) or die("Error en la consulta SQL");
                                   do{
                                     echo'<option name="empresa" value="'.$mostrar["emp_id"].'">'.$mostrar["emp_nombre"].'</option>';  
                                   }while($mostrar= pg_fetch_array($result));
+                                 
                                 ?>
                               </select>
                     </div>       

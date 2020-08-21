@@ -47,6 +47,57 @@ if($nominaporautorizar != 't'){
     $queryidtiposalarios="SELECT * FROM tipos_salarios where sal_tipo_id = $idtiposalarios";
     $resultqueryidtiposalarios = pg_query($conexion,$queryidtiposalarios) or die("Error en la consulta SQL".pg_last_error());
     $mostrartiposalarios = pg_fetch_array($resultqueryidtiposalarios);
+
+    //Se obtienen empleados de la nomina
+    $sqlsueldosnomina = "SELECT * FROM vw_sueldos_nomina WHERE nom_id = $oc1";
+    //echo $sqlsueldosnomina;
+    $resultsqlsueldosnomina = pg_query($conexion,$sqlsueldosnomina);
+    $mostrarinformacionsueldosnomina = pg_fetch_array($resultsqlsueldosnomina);
+
+    /* -------------------------------------------------------   */
+    //      OBTENER LAS PERSONAS QUE HAY EN LA NOMINA            //
+    /* -------------------------------------------------------   */
+    $personas = array();
+    $ids = "";
+        do{
+            $ids .= "".$mostrarinformacionsueldosnomina['persona_id'].",";
+            $personas[] = $mostrarinformacionsueldosnomina['persona_id'];
+        }while($mostrarinformacionsueldosnomina = pg_fetch_array($resultsqlsueldosnomina));
+    $ids = substr($ids,0,-1);
+    //echo $ids.'  ';
+
+    //SE OBTIENEN LOS EMPLEADOS QUE SON DE LA EMPRESA, DEL PERIODO Y DE LA PLAZA
+    $sql3="select * from vw_contratos where con_status = 1 and sal_tipo_id = $idtiposalarios and emp_id = '$idempresa' and plaza_id = $idplaza";
+    //echo $sql3.'  ';
+    $result3= pg_query($conexion,$sql3);
+    $mostrarinformacioncontratos = pg_fetch_array($result3);
+
+    $personasfaltantes = array();
+    $idspersonasfaltantes = "";
+    do{
+      $idspersonasfaltantes .= "".$mostrarinformacioncontratos['persona_id'].",";
+      $personasfaltantes[] = $mostrarinformacioncontratos['persona_id'];
+    }while($mostrarinformacioncontratos = pg_fetch_array($result3));
+    $idspersonasfaltantes = substr($idspersonasfaltantes,0,-1);
+    //echo $idspersonasfaltantes.' < ---- >';
+
+
+  $largepersonas=count($personas);
+  $largepersonasfaltantes=count($personasfaltantes);
+
+  //echo $largepersonas.' -- ';
+  //echo $largepersonasfaltantes;
+
+
+    if($largepersonas != $largepersonasfaltantes){
+      $agregarpersonas .= '
+        <button id="agregarpersonas" name="agregarpersonas"  onclick="href=seleccionarpersonasextras.php">Agregar Personas</button>
+      ';
+    }else{
+      $agregarpersonas .= '
+        <button id="agregarpersonas" name="agregarpersonas"  disabled>Agregar personas</button>
+      ';
+    }
     
     $resumen.= '
     <div>
@@ -147,7 +198,7 @@ if($nominaporautorizar != 't'){
         </div>  
       </div>
     </div>';
-
+echo $agregarpersonas;
 }else{
   echo 'Esta nomina ya está autorizada, no puedes editarla.. Si deseas ver la información de ella puedes ejecutar un reporte';
 }

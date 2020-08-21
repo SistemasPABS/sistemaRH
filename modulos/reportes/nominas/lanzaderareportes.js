@@ -4,6 +4,6 @@ function window_open(url){
   
   function ejecutarreporte(){
     var idnom = document.getElementById("idnomina").value;
-    location.href='tiposreportesnomina/reporteespecial.php?idnom='+btoa(idnom);
+    location.href='tiposreportesnomina/totalesnomina.php?idnom='+btoa(idnom);
     //?idnom='+btoa(idnom)
 } 
