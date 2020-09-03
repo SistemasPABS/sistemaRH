@@ -195,11 +195,11 @@ function valida_salario(){
                    url: "valida_c_activos.php",
                    data:{pid:btoa(per),sal:btoa(con)},
                    success: function(data){
-                           //alert(data);
-                           if(data > 0){
-                               alert('La persona seleccionada tiene mas de un contrato activo');
-                               document.getElementById("status").checked=false;
-                           }
+                            //alert(data);
+                            if(data > 0){
+                                alert('La persona seleccionada tiene mas de un contrato activo');
+                                document.getElementById("status").checked=false;
+                            }
                    }
             });
         }

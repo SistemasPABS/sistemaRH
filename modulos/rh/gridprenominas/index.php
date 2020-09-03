@@ -24,7 +24,7 @@ if($filtroinicio != NULL && $filtrofin != NULL){
     $query = "SELECT * from vw_nomina_tiposalario_usuarios  WHERE fechageneracion BETWEEN '$filtroinicio' AND '$filtrofin' limit 200";
 }else{
     //QUERY SIN FILTROS
-    $query = "SELECT * from vw_nomina_tiposalario_usuarios ORDER BY nom_id";
+    $query = "SELECT * from vw_nomina_tiposalario_usuarios ORDER BY nom_id desc";
 }
 $result = pg_query($conexion,$query) or die('Error en la consulta sql'.pg_last_error());
 $mostrar = pg_fetch_array($result);

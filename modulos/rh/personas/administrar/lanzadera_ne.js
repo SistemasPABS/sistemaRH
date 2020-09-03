@@ -23,7 +23,7 @@ function valida_nueva_clave(clave,op){
         var n = document.getElementById("nombre").value;
         var p = document.getElementById("paterno").value;
         var m = document.getElementById("materno").value;
-        var nc = n+' '+p+' '+m; 
+        var nc = utf8_encode(n+' '+p+' '+m); 
         //alert(nc);
         var url="valida_nueva_nc.php";
         $.ajax({

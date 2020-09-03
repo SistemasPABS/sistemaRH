@@ -3,9 +3,18 @@
 $param= base64_decode($_GET['oc2']);//buscar por(nombre o numero)
 $dato= base64_decode($_GET['oc1']);//valor a buscar
 $fecha=date("Ymd");
+session_start();
+$usid=$_SESSION['us_id'];
 //echo $fecha;
 $nuevafecha = strtotime ( '-2 day' , strtotime ( $fecha ) ) ;
 $nuevafecha = date( 'Ymd' , $nuevafecha );
+
+include ('../../../config/conectasql.php');
+$con= new conectasql();
+$con->abre_conexion("0");
+$conexion=$con->conexion;
+$con->user_plazas_sucursales($usid);
+
 //echo $nuevafecha;
 if($dato != NULL){
     switch ($param) {
@@ -19,14 +28,11 @@ if($dato != NULL){
             $condicion='suc_nombre';
             break;
     }
-    $where="where $condicion like '%$dato%'";
+    $where="where $condicion like '%$dato%' and plaza_id in($con->pplazas)";
 }else{
-    $where="";
+    $where="where plaza_id in($con->pplazas)";
 }
-    include ('../../../config/conectasql.php');
-    $con= new conectasql();
-    $con->abre_conexion("0");
-    $conexion=$con->conexion;
+    
     $query = "select persona_id,persona_cve,nombrecompleto,persona_correo,persona_status,plaza_nombre,suc_nombre,con_fecha_inicio from vw_contratos $where order by persona_id desc;";
     $result = pg_query($conexion,$query);
 //    if ($row = odbc_fetch_row($result)){

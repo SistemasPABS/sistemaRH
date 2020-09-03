@@ -3,6 +3,7 @@ require '../../../../config/cookie.php';
 ?>
 <?php
 $nombre= base64_decode($_POST['nc']);
+$nombre= utf8_decode($nombre);
 
 include ('../../../../config/conectasql.php');
 $persona = new conectasql();

@@ -667,7 +667,7 @@ class conectasql{
     
     //Agrega un nuevo contrato
     public function agrega_contrato($id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status, $aimss, $bimss, $cfir, $jefe, $sdi){
-        $sql = "insert into contratos (persona_id, tipoc_id, raz_id, puesto_id, sal_monto_con, con_horario, con_periodo, con_adic, con_fecha_inicio, con_fecha_fin, con_status, con_alta_imss, con_baja_imss, con_firmado, con_jefe_inmediato, sdi)
+        $sql = "insert into contratos (persona_id, tipoc_id, raz_id, puesto_id, sal_monto_con, con_horario, con_periodo, con_adic, con_fecha_inicio, con_fecha_fin, con_status, con_alta_imss, con_baja_imss, con_firmado, con_jefe_inmediato, con_sdi)
                 values ($id_persona, $id_contrato, $id_razon, $id_puesto, $salario, '$horario', '$prueba', $adic, '$fecha_ini',$fecha_fin, $status, $aimss, $bimss, $cfir, $jefe, $sdi);";       
         $result = pg_query($this->conexion,$sql) or die("Error inscon: ". pg_last_error());
         $this->inserts.="1"; 
@@ -771,10 +771,10 @@ class conectasql{
     public function valida_c_activos($pid,$con) {
         $sql="select count(con_status) as num_contratos_activos from vw_contratos where persona_id = $pid and con_status = 1";
         $result= pg_query($this->conexion,$sql);
-        $row= pg_fetch_array($result);
-        //$this->msj=$sql;
-        $this->msj=$row['num_contratos_activos'];
-        
+        if($row= pg_fetch_array($result)){
+            //$this->msj=$sql;
+            $this->msj=$row['num_contratos_activos'];
+        }
     }
     
     public function consulta_exp_per($registro){
