@@ -93,13 +93,13 @@ function cargarperiodos(){
           });
 }
 
-/*function comprobar(obj){
+function comprobar(obj){
   if(obj.checked){
     document.getElementById("archivoimportador").style.display="";
   }else{
     document.getElementById("archivoimportador").style.display="none";
   }
-} */
+}
 
 /*function cargaradicionales(){
   var idempresa = document.getElementById("empresa").value;

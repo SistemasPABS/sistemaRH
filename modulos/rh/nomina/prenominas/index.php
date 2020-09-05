@@ -172,7 +172,7 @@ $result = pg_query($conexion,$query) or die("Error en la consulta SQL");
           
               <div>
                 <label>Importar archivo XP - Examinar</label>
-                <input id="importador" type="checkbox" name="importador">
+                <input id="importador" type="checkbox" name="importador" onChange="comprobar(this);">
                 <input type="file" id="archivoimportador" name="archivoimportador" id="archivoimportador" readonly style="display:none"></input>
               </div>
 
