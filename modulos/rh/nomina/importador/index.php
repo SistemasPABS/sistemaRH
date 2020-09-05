@@ -45,7 +45,7 @@ $highestColumn = $sheet->getHighestColumn();?>
 $num=0;
 for ($row = 2; $row <= $highestRow; $row++){ $num++;?>
        <tr>
-          <th scope='row'><?php echo $num;?></th>
+          <th scope='row'><?php echo $num;?>'- Cobranza -'</th>
           <td><?php echo $sheet->getCell("E".$row)->getValue();?></td>
           <td><?php echo $sheet->getCell("F".$row)->getValue();?></td>
           <td><?php echo $sheet->getCell("G".$row)->getValue();?></td>
@@ -53,7 +53,7 @@ for ($row = 2; $row <= $highestRow; $row++){ $num++;?>
         </tr>
 
         <tr>
-          <th scope='row'><?php echo $num;?></th>
+          <th scope='row'><?php echo $num ;?>'- Ventas -'</th>
           <td><?php echo $ventas->getCell("E".$row)->getValue();?></td>
           <td><?php echo $ventas->getCell("F".$row)->getValue();?></td>
           <td><?php echo $ventas->getCell("G".$row)->getValue();?></td>
