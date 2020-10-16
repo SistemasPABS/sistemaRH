@@ -109,6 +109,14 @@
         }else if(isset($_POST['adic']) && $_POST['adic'] == 'on'){
             $adic='1';
         }
+        //variable derecho a comision
+        if(!isset($_POST['com'])){
+            $com='0';
+            $vcom='0';
+        }else if(isset($_POST['com']) && $_POST['com'] == 'on'){
+            $com='1';
+            $vcom=$_POST['vcom'];
+        }
  
         // datos de puestos
 //        echo 'datos del Contrato<br>';
@@ -144,8 +152,10 @@
             $fecha_ini=$insert->limpia_cadena($fecha_ini);
             $status=$insert->limpia_cadena($status);
             $adic=$insert->limpia_cadena($adic);
+            $com=$insert->limpia_cadena($com);
+            $vcom=$insert->limpia_cadena($vcom);
             //inserta datos
-            $insert->agrega_contrato($id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status, $aimss, $bimss, $cfir, $jefe, $sdi);
+            $insert->agrega_contrato($id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $adic, $fecha_ini,$fecha_fin, $status, $aimss, $bimss, $cfir, $jefe, $sdi, $com, $vcom);
         }
         $insert->cierra_conexion("0");
         //Valida si la incercion se realizo correctamente
@@ -256,11 +266,19 @@
         }else if(isset($_POST['status']) && $_POST['status'] == 'on'){
             $status='1';
         }
-        //variable status
+        //variable adicionales
         if(!isset($_POST['adic'])){
             $adic='0';
         }else if(isset($_POST['adic']) && $_POST['adic'] == 'on'){
             $adic='1';
+        }
+        //variable adicionales
+        if(!isset($_POST['com'])){
+            $com='0';
+            $vcom='0';
+        }else if(isset($_POST['com']) && $_POST['com'] == 'on'){
+            $com='1';
+            $vcom=$_POST['vcom'];
         }
  
         // datos de puestos
@@ -298,9 +316,11 @@
             $fecha_ini=$insert->limpia_cadena($fecha_ini);
             $cfir=$insert->limpia_cadena($cfir);
             $status=$insert->limpia_cadena($status);
-            $adic=$insert->limpia_cadena($adic);       
+            $adic=$insert->limpia_cadena($adic);
+            $com=$insert->limpia_cadena($com);
+            $vcom=$insert->limpia_cadena($vcom);
             //inserta datos
-            $insert->edita_contrato($registro,$id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $fecha_ini,$fecha_fin,$status,$adic,$aimss,$bimss,$cfir,$jefe,$sdi);
+            $insert->edita_contrato($registro,$id_persona, $id_contrato, $id_razon, $id_puesto, $salario, $horario, $prueba, $fecha_ini,$fecha_fin,$status,$adic,$aimss,$bimss,$cfir,$jefe,$sdi,$com,$vcom);
         }
 
         $insert->cierra_conexion("0");

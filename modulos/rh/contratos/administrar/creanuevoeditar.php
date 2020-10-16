@@ -43,6 +43,7 @@ class creanuevoeditar extends conectasql{
             $razon_id=$this->consulta['raz_id'];
             $razon_nom=$this->consulta['raz_nombre'];
             $plaza_nom=$this->consulta['plaza_nombre'];
+            $com='';
             $suc_nom= $this->consulta['suc_nombre'];
             $sal_id=$this->consulta['sal_id'];
             $sal_monto=$this->consulta['sal_monto_con'];
@@ -58,6 +59,7 @@ class creanuevoeditar extends conectasql{
             if($this->consulta['con_adic'] == '1'){$checkedadic='checked="yes"';}else{$checkedadic='';}
             if($this->consulta['con_firmado'] == '1'){$checkconfir='checked="yes"';}else{$checkconfir='';}
             if($this->consulta['con_status'] == '1'){$checkedstatus='checked="yes"';}else{$checkedstatus='';}
+            if($this->consulta['com_fija'] == '1'){$checkedcom='checked="yes"';$checkedvcom= $this->consulta['com_fija_por'];}else{$checkedcom='';$checkedvcom= $this->consulta['com_fija_por'];}
             $ffin='';
             
             if($jefe != null){
@@ -108,6 +110,7 @@ class creanuevoeditar extends conectasql{
             $razon_id='';
             $razon_nom='';
             $plaza_nom='';
+            $com='0';
             $suc_nom='';
             $sal_id='';
             $sal_monto='';
@@ -122,6 +125,9 @@ class creanuevoeditar extends conectasql{
             $checkedadic='';
             $checkconfir='';
             $checkedstatus='';
+            $checkedcom='';
+            $checkedvcom='';
+            $newvcom='disabled';
             $ffin='hidden';
 
         }
@@ -177,6 +183,7 @@ class creanuevoeditar extends conectasql{
                 echo '<div class="col-3"><label>Jefe inmediato</label><div id="cont_jf">'.$selectjefe.'</div></div>';
                 echo '<div class="col-3"><label>Alta IMSS</label><input class="inputdate" type="date" name="aimss"  value="'.$con_aimss.'"></div>';
                 echo '<div class="col-3"><label>Baja IMSS</label><input class="inputdate" type="date" name="bimss"  value="'.$con_bimss.'"></div>';
+                echo '<div class="col-3"><br><label >Comision</label><input type="checkbox" name="com" id="com" '.$checkedcom.' onChange="habilita_comision();"><input class="input0" style="width:90px;" name="vcom" id="vcom" value="'.$checkedvcom.'"placeholder="%" '.$newvcom.'></div>';
                 echo '<div class="col-3"><br><label >Contrato firmado</label><input type="checkbox" name="cfir" id="cfir" '.$checkconfir.'></div>';
             echo '<div>';
             echo '<div class="row">';

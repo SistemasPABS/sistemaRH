@@ -1,8 +1,9 @@
 window.onload=lanzadera;
 //Funcion al abrir la ventana
 function lanzadera (){
-  document.oncontextmenu = function() { return false; };
-  autocompletable();
+    habilita_comision();
+    document.oncontextmenu = function() { return false; };
+    autocompletable();
 }
 
 function valida_persona(op){
@@ -182,6 +183,15 @@ function valida_salario(){
             }
         });
     }
+ }
+ 
+ function habilita_comision(){
+     var com = document.getElementById("com").checked;
+     if(com == true){
+         document.getElementById("vcom").disabled=false;
+     }else if(com == false){
+         document.getElementById("vcom").disabled=true;
+     }
  }
  
  function valida_c_activos(){
