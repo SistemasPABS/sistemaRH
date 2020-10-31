@@ -53,6 +53,8 @@ class creanuevo_editar extends conectasql{
             if($this->documentos['doc_policia'] == '1'){$checkedantecedentes='checked="yes"';}else{$checkedantecedentes='';}
             if($this->documentos['doc_fonacot'] == '1'){$checkedfonacot='checked="yes"';}else{$checkedfonacot='';}
             if($this->documentos['doc_infonavit'] == '1'){$checkedinfonavit='checked="yes"';}else{$checkedinfonavit='';}
+            $this->consulta_alias($prs);
+        
         }else if($op == 'nuevo'){
             $titulo='Nueva Persona';
             $operacion= base64_encode($op);
@@ -79,9 +81,13 @@ class creanuevo_editar extends conectasql{
             $checkednss='';
             $checkedlicencia='';
             $checkedrecomendacion='';
-            $checkedantecedents='';
+            $checkedantecedentes='';
             $checkedfonacot='';
             $checkedinfonavit='';
+            $vgd1='';
+            $vgd2='';
+            $vgd3='';
+            $nacdefault='';
         }
         
         echo '<head><title> '.$titulo.' </title></head>';
@@ -98,7 +104,7 @@ class creanuevo_editar extends conectasql{
             
             echo '<div class="row">';
                 echo '<div class="col-1"><label>Clave</label><br><input onkeypress="return caracteres_esp(event)" class="input0" type="text" id="clave" name="clave" placeholder="Clave" value="'.$this->generales['persona_cve'].'" '.$fvcp.' required ><input name="registro" id="registro" value="'.$prs.'" hidden></div> ';
-                echo '<div class="col-3"><label>Nombre(s)</label><br><input  onkeypress="return solo_letras(event)" class="input0" type="text"  pattern="[A-Za-z]" name="nombre" id="nombre" value="'.$this->generales['persona_nombre'].'" placeholder="Nombre" required></div>';
+                echo '<div class="col-3"><label>Nombre(s)</label><br><input onkeypress="return solo_letras(event)" class="input0" type="text"  pattern="[A-Za-z]" name="nombre" id="nombre" value="'.$this->generales['persona_nombre'].'" placeholder="Nombre" required></div>';
                 echo '<div class="col-4"><label>Apellido P</label><br><input onkeypress="return solo_letras(event)" class="input0" type="text" name="paterno" id="paterno" value="'.$this->generales['persona_paterno'].'" placeholder="Apellido Paterno" required></div>';
                 echo '<div class="col-4"><label>Materno</label><br><input onkeypress="return solo_letras(event)" class="input0" type="text" name="materno" id="materno" value="'.$this->generales['persona_materno'].'" placeholder="Apellido Materno" '.$fvnc.'required></div>';
             echo '</div>';
@@ -233,7 +239,23 @@ class creanuevo_editar extends conectasql{
                         echo '<label class="lbd" for="infonavit">Infonavit</label>';
                         echo '<input type="checkbox" name="chk_infonavit"'.$checkedinfonavit.'><br>';
                     echo '</div>'; 
-                echo '</div>';     
+                echo '</div>';   
+                
+                /*******************Campo de Alias**************************/
+                echo '<div class="col-4">';
+                    echo '<div class="row">';
+                        echo '<input type="text" class="input2" name="alias">';
+                        echo '<input type="button"  class="btnadd" onclick="agragarAlias(alias.value);limpiar(alias);" value="Agregar"> ';
+                    echo '</div>';
+                    echo '<div class="row">';
+                        echo '<ul id="myList">';
+                            echo $this->html;
+                        echo '</ul>';
+                    echo '</div>';
+                echo '</div>';
+
+                /********************* FIN ALIAS CAMPOS************************/
+                
             echo '</div>';     
             echo '<div class="division"></div>';
             echo '<div class="row-centrado">';

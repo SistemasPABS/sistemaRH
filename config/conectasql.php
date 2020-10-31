@@ -861,6 +861,27 @@ class conectasql{
         $result = pg_query($this->conexion,$sql) or die("Error udexp: ". pg_last_error());
         $this->update.="1"; 
     }
+
+      public function elimina_alias($persona){
+        $sql="delete from alias_personas where persona_id=$persona";
+        $result= pg_query($this->conexion,$sql) or die("Error dal: ". pg_last_error());//borra puestos comisiones
+        $this->flag1='1';
+    }
+    public function update_personas_alias($persona, $alias){
+        $sql="insert into alias_personas (persona_id, alias) values ($persona,'$alias')";
+        $result = pg_query($this->conexion,$sql) or die("Error ial: ". pg_last_error());//inserta ausencias
+        $this->inserts="1"; 
+    }
+    public function consulta_alias($persona) {
+        $sql="select alias_id,alias from alias_personas where persona_id = $persona";
+        $result = pg_query($this->conexion, $sql) or die ("Error ccpp: ". pg_last_error());
+        if($row = pg_fetch_array($result)){
+            do{
+                $this->html.='<li class="licom"><input type="text" value="'.$row['alias'].'" name="com[]" hidden> '.$row['alias'].' <input type="button" class="delrow" onClick="eliminar(this);" value="eliminar"></li>';
+            }
+            while($row = pg_fetch_array($result));
+        }
+    }
 }
 
 ?>

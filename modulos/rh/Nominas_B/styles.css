@@ -1,0 +1,673 @@
+/* H's */
+.titulo_1
+{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2vw;
+  letter-spacing: 3.8px;
+  word-spacing: -0.2px;
+  font-weight: 700;
+  text-decoration: underline solid rgb(68, 68, 68);
+  font-style: normal;
+  font-variant: small-caps;
+  text-transform: none;
+  background: linear-gradient(to right, #0a0a0a ,#54a3f7);
+  color: transparent;
+  background-clip: text;
+}
+
+.titulo_2
+{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.5vw;
+  letter-spacing: 3.8px;
+  word-spacing: -0.2px;
+  color: #242424;
+  font-weight: 700;
+  font-style: italic;
+  font-variant: small-caps;
+  text-transform: none;
+}
+.parrafo
+{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  letter-spacing: 3.8px;
+  word-spacing: -0.2px;
+  color: #54a3f7;
+  font-weight: 700;
+  font-style: italic;
+  font-variant: small-caps;
+  text-transform: none;
+}
+
+/* MODALES */
+.modal2 {
+    display: block; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background: linear-gradient(to right, rgba(10,10,10,0.9) , rgba(84,163,247,0.9));
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    
+    background: rgba(255,255,255,1);
+    background: -moz-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
+    margin: 15% auto; 
+    padding: 15px ;
+    border-radius: 7px;
+    width: 40%;
+    animation: animatetop 0.3s linear ;
+    box-shadow: -14px 12px 7px 1px rgba(0,0,0,0.78);
+  }
+  /****************************/
+
+  #modal-container {
+    position: fixed;
+    display: table;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    transform: scale(0);
+    z-index: 1000;
+  }
+  #modal-container.one {
+    transform: scaleY(0.01) scaleX(0);
+    animation: unfoldIn 1s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+  }
+  #modal-container.one .modal-background .modal {
+    transform: scale(0);
+    animation: zoomIn 0.5s 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+  }
+  #modal-container.one.out {
+    transform: scale(1);
+    animation: unfoldOut 1s 0.3s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+  }
+  #modal-container.one.out .modal-background .modal {
+    animation: zoomOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
+  }
+  
+  #modal-container .modal-background {
+    display: table-cell;
+    background: rgba(0, 0, 0, 0.8);
+    text-align: center;
+    vertical-align: middle;
+  }
+  #modal-container .modal-background .modal {
+    background: white;
+    padding: 50px;
+    display: inline-block;
+    border-radius: 3px;
+    font-weight: 300;
+    position: relative;
+  }
+  #modal-container .modal-background .modal h2 {
+    font-size: 25px;
+    line-height: 25px;
+    margin-bottom: 15px;
+  }
+  #modal-container .modal-background .modal p {
+    font-size: 18px;
+    line-height: 22px;
+  }
+  #modal-container .modal-background .modal .modal-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 3px;
+  }
+  #modal-container .modal-background .modal .modal-svg rect {
+    stroke: #fff;
+    stroke-width: 2px;
+    stroke-dasharray: 778;
+    stroke-dashoffset: 778;
+  }
+  .content .buttons .button {
+    display: inline-block;
+    text-align: center;
+    padding: 10px 15px;
+    margin: 10px;
+    background: red;
+    font-size: 18px;
+    background-color: #efefef;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+  }
+  .content .buttons .button:hover {
+    color: white;
+    background: #009bd5;
+  }
+  
+  @keyframes unfoldIn {
+    0% {
+      transform: scaleY(0.005) scaleX(0);
+    }
+    50% {
+      transform: scaleY(0.005) scaleX(1);
+    }
+    100% {
+      transform: scaleY(1) scaleX(1);
+    }
+  }
+  @keyframes unfoldOut {
+    0% {
+      transform: scaleY(1) scaleX(1);
+    }
+    50% {
+      transform: scaleY(0.005) scaleX(1);
+    }
+    100% {
+      transform: scaleY(0.005) scaleX(0);
+    }
+  }
+  @keyframes zoomIn {
+    0% {
+      transform: scale(0);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  @keyframes zoomOut {
+    0% {
+      transform: scale(1);
+    }
+    100% {
+      transform: scale(0);
+    }
+  }
+  
+  /*******************************/
+
+
+
+
+/*INPUT*/
+    .input_A {
+        padding: 2px;
+        font-size: 12px;
+        border-width: 1px;
+        border-color: #aaaaaa;
+        background-color: #FFFFFF;
+        color: #000000;
+        border-style: groove;
+        border-radius: 4px;
+        box-shadow: -4px 3px 2px rgba(66,66,66,.62);
+        text-shadow: -16px 0px 0px rgba(66,66,66,.61);
+    }
+    .input_A:focus {
+        outline:none;
+        border-width: 3px;
+        border-color: #3b87aa;
+    }
+
+    /*************************************/
+ 
+    
+    .filupp > input[type="file"]{
+      position: absolute;
+      width: 1px;
+      height: 10px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      border: 0;
+  }
+    .filupp {
+      position: relative;
+      background: #242424;
+      display: block;
+      padding: 1em;
+      font-size: 14px;
+      width: 80%;
+      height: auto;
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 1px 3px darken(#242424,10);
+    }
+    .filupp:before{
+      content: "";
+      position: absolute;
+      top: 1.5em;
+      right: .75em;
+      width: 1.5em;
+      height: 15px;
+      border: 3px solid #0E48B0;
+      border-top: 0;
+      text-align: center;
+      
+    }
+    .filupp:after{
+      content: "\279c";
+
+      position: absolute;
+      top: .65em ;
+      right: .45em;
+      font-size: 2em;
+      color: #007dc1;
+      line-height: 0;
+    }
+    .filupp-file-name{
+      width: 55%;
+  }
+
+/********************************************/    
+
+/*SELECTS*/
+/*sELECT 2*/
+
+.dropdown {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  height: 28px;
+  width: 90%;
+  background: #f2f2f2;
+  border: 1px solid;
+  border-color: white #f7f7f7 whitesmoke;
+  border-radius: 3px;
+  background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
+  background-image: -moz-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
+  background-image: -o-linear-gradient(top, transparent, rgba(0, 0, 0, 0.06));
+  background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.06));
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+}
+
+.dropdown:before, .dropdown:after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  top: 9px;
+  right: 10px;
+  width: 0;
+  height: 0;
+  border: 4px dashed;
+  border-color: #888888 transparent;
+  pointer-events: none;
+}
+
+.dropdown:before {
+  border-bottom-style: solid;
+  border-top: none;
+}
+
+.dropdown:after {
+  margin-top: 7px;
+  border-top-style: solid;
+  border-bottom: none;
+}
+
+.dropdown-select {
+  position: relative;
+  width: 130%;
+  margin: 0;
+  padding: 6px 8px 6px 10px;
+  height: 28px;
+  line-height: 14px;
+  font-size: 12px;
+  color: #62717a;
+  text-shadow: 0 1px white;
+  background: #f2f2f2; /* Fallback for IE 8 */
+  background: rgba(0, 0, 0, 0) !important; /* "transparent" doesn't work with Opera */
+  border: 0;
+  border-radius: 0;
+  -webkit-appearance: none;
+}
+
+.dropdown-select:focus {
+  z-index: 3;
+  width: 100%;
+  color: #394349;
+  outline: 2px solid #49aff2;
+  outline: 2px solid -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+.dropdown-select > option {
+  margin: 3px;
+  padding: 6px 8px;
+  text-shadow: none;
+  background: #f2f2f2;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+/* Fix for IE 8 putting the arrows behind the select element. */
+
+.lt-ie9 .dropdown {
+  z-index: 1;
+}
+
+.lt-ie9 .dropdown-select {
+  z-index: -1;
+}
+
+.lt-ie9 .dropdown-select:focus {
+  z-index: 3;
+}
+
+/* Dirty fix for Firefox adding padding where it shouldn't. */
+
+@-moz-document url-prefix() {
+  .dropdown-select {
+    padding-left: 6px;
+  }
+}
+
+.dropdown-dark {
+  background: #444;
+  border-color: #111111 #0a0a0a black;
+  background-image: -webkit-linear-gradient(top, transparent, rgba(0, 0, 0, 0.4));
+  background-image: -moz-linear-gradient(top, transparent, rgba(0, 0, 0, 0.4));
+  background-image: -o-linear-gradient(top, transparent, rgba(0, 0, 0, 0.4));
+  background-image: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.4));
+  -webkit-box-shadow: inset 0 1px rgba(255, 255, 255, 0.1), 0 1px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.1), 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-dark:before {
+  border-bottom-color: #aaa;
+}
+
+.dropdown-dark:after {
+  border-top-color: #aaa;
+}
+
+.dropdown-dark .dropdown-select {
+  color: #aaa;
+  text-shadow: 0 1px black;
+  background: #444;  /* Fallback for IE 8 */
+}
+
+.dropdown-dark .dropdown-select:focus {
+  color: #ccc;
+}
+
+.dropdown-dark .dropdown-select > option {
+  background: #444;
+  text-shadow: 0 1px rgba(0, 0, 0, 0.4);
+}
+/*FOIN SELECT 2*/
+
+
+/*BOTONES*/
+.btn_aceptar {
+  width: auto ;
+	box-shadow:inset 0px 1px 0px 0px #54a3f7;
+	background:linear-gradient(to bottom, #007dc1 5%, #0061a7 100%);
+	background-color:#007dc1;
+	border-radius:3px;
+	border:1px solid #124d77;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:13px;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #154682;
+}
+.btn_aceptar:hover {
+	background:linear-gradient(to bottom, #0061a7 5%, #007dc1 100%);
+	background-color:#0061a7;
+}
+.btn_aceptar:active {
+	position:relative;
+	top:1px;
+}
+
+.btn_xls {
+	box-shadow:inset 0px 1px 0px 0px #3dc21b;
+	background:linear-gradient(to bottom, #44c767 5%, #5cbf2a 100%);
+	background-color:#44c767;
+	border-radius:3px;
+	border:1px solid #18ab29;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:13px;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+}
+.btn_xls:hover {
+	background:linear-gradient(to bottom, #5cbf2a 5%, #44c767 100%);
+	background-color:#5cbf2a;
+}
+.btn_xls:active {
+	position:relative;
+	top:1px;
+}
+
+.btn_cancelar {
+	box-shadow:inset 0px 1px 0px 0px #8a2a21;
+	background:linear-gradient(to bottom, #c62d1f 5%, #f24437 100%);
+	background-color:#c62d1f;
+	border-radius:3px;
+	border:1px solid #d02718;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:13px;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #810e05;
+}
+.btn_cancelar:hover {
+	background:linear-gradient(to bottom, #f24437 5%, #c62d1f 100%);
+	background-color:#f24437;
+}
+.btn_cancelar:active {
+	position:relative;
+	top:1px;
+}
+
+.btn_inactivo {
+	box-shadow:inset 0px 1px 0px 0px #899599;
+	background:linear-gradient(to bottom, #ededed 5%, #bab1ba 100%);
+	background-color:#ededed;
+	border-radius:3px;
+	border:1px solid #d6bcd6;
+	display:inline-block;
+	cursor:pointer;
+	color:#3a8a9e;
+	font-family:Arial;
+	font-size:13px;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #e1e2ed;
+}
+.btn_inactivo:hover {
+	background:linear-gradient(to bottom, #bab1ba 5%, #ededed 100%);
+	background-color:#bab1ba;
+}
+.btn_inactivo:active {
+	position:relative;
+	top:1px;
+}
+
+.btn_opc {
+	box-shadow: 0px 10px 14px -7px #276873;
+	background:linear-gradient(to bottom, #599bb3 5%, #408c99 100%);
+	background-color:#599bb3;
+	border-radius:8px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:20px;
+	font-weight:bold;
+	padding:13px 32px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #3d768a;
+}
+.btn_opc:hover {
+	background:linear-gradient(to bottom, #408c99 5%, #599bb3 100%);
+	background-color:#408c99;
+}
+.btn_opc:active {
+	position:relative;
+	top:1px;
+}
+
+
+/*LAYOUT*/
+.row{
+    justify-content: center;
+    padding: 2spx 5px 5px 5px;
+    margin: 2px 5px 5px 5px;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+  }  
+  .row-centrado{
+   padding-left: 25%;
+  }
+  .col {
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    max-width: 100%;
+  }  
+  .col-auto {
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    width: auto;
+    max-width: none;
+  }  
+  .col-1 {
+    -ms-flex: 0 0 8.333333%;
+    flex: 0 0 8.333333%;
+    max-width: 8.333333%;   
+  }  
+  .col-2 {
+    -ms-flex: 0 0 16.666667%;
+    flex: 0 0 16.666667%;
+    max-width: 16.666667%;
+  }  
+  .col-3 {
+    -ms-flex: 0 0 25%;
+    flex: 0 0 25%;
+    max-width: 25%;  
+  }  
+  .col-4 {
+    -ms-flex: 0 0 32%;
+    flex: 0 0 32%;
+    max-width: 32%;
+  }  
+  .col-5 {
+    -ms-flex: 0 0 41.666667%;
+    flex: 0 0 41.666667%;
+    max-width: 41.666667%;
+  }  
+  .col-6 {
+    -ms-flex: 0 0 50%;
+    flex: 0 0 50%;
+    max-width: 50%;
+  }  
+  .col-7 {
+    -ms-flex: 0 0 58.333333%;
+    flex: 0 0 58.333333%;
+    max-width: 58.333333%;
+  }  
+  .col-8 {
+    -ms-flex: 0 0 66.666667%;
+    flex: 0 0 66.666667%;
+    max-width: 66.666667%;
+  }  
+  .col-9 {
+    -ms-flex: 0 0 75%;
+    flex: 0 0 75%;
+    max-width: 75%;
+  }  
+  .col-10 {
+    -ms-flex: 0 0 83.333333%;
+    flex: 0 0 83.333333%;
+    max-width: 83.333333%;
+  }  
+  .col-11 {
+    -ms-flex: 0 0 91.666667%;
+    flex: 0 0 91.666667%;
+    max-width: 91.666667%;
+  }  
+  .col-12 {
+    margin: 0 auto;
+    align-content: center;
+    padding-top: 10px;
+    -ms-flex: 0 0 100%;
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
+  /****************Estilos Importarxp de cobranza ************************/
+  .cont2{
+    padding: 0.5em;
+    margin-left: 10px;
+    margin-right: 10px;
+    }
+  
+    .columnaCobranza{
+    width: 5.3%;
+    height: auto;
+    text-align: justify;
+    
+    }
+    .columnaNombre{
+      width: 15%;
+      height: auto;
+      text-align: justify;
+
+    }
+    .ajustable{
+      width: 99%;
+      margin: 1px;
+      padding: 0;
+      font-size: 10px;
+      border-width: 1px;
+      border-color:slategrey;
+      color: #000000;
+      border-style: solid;
+      border-radius: 0px;
+    }
+    .ajustable:focus {
+      outline:none;
+    }
+    .css-input {
+    padding: 1px;
+    font-size: 14px;
+    border-width: 2px;
+    border-color: #8ba7d8;
+    background-color: #FFFFFF;
+    color: #000000;
+    border-style: solid;
+    border-radius: 8px;
+    box-shadow: -3px 3px 2px rgba(12,12,12,.52);
+    text-shadow: 0px 0px 5px rgba(66,66,66,.75);
+  }
+  .css-input:focus {
+    outline:none;
+  }
+
+
+  #barra_T{
+    border: 3px inset #1C6EA4;
+
+  }
+
+
+  /*************** FIN Estilos ImportarXP ********************************/

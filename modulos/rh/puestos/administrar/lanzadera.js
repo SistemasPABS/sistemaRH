@@ -208,20 +208,24 @@ function solo_numeros(evt){
 }
 
 function myFunction() {
-  var flg='myList';
+  
+    var flg='myList';
   var valor=document.form_puesto.comisiones.value;
   var select=document.form_puesto.comisiones;
   var texto = select.options[select.selectedIndex].text;
+
   var node = document.createElement("LI");
   var input = document.createElement("input");
   var textnode = document.createTextNode(texto);
   var boton = document.createElement("button");
+  
   input.name="com[]";
   input.value=valor;
   input.hidden="yes";
   boton.className="delrow";
   boton.innerHTML = "eliminar";
   node.className="licom";
+
   node.appendChild(input);
   node.appendChild(textnode);
   node.appendChild(boton);
@@ -236,11 +240,12 @@ function myFunction() {
       alert('La comision ya se encuentra agregada a la lista');
   }  
   document.getElementById(flg).appendChild(node);
-  
-  boton.onclick = function() {
     
+  boton.onclick = function() {
+    var li = this.parentNode;
+    li.parentNode.removeChild(li);
+    }
   }
-}
 
 function eliminar(elemento){
     //alert('hola');

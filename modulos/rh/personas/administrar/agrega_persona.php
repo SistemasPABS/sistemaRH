@@ -268,6 +268,12 @@ include ('../../../../config/cookie.php');
         }else if(isset($_POST['chk_infonavit']) && $_POST['chk_infonavit'] == 'on'){
             $chk_infonavit='1';
         }
+
+        if(!isset($_POST['com'])){
+            $coms='0';
+        }else if(isset($_POST['com'])){
+            $coms=$_POST['com'];
+        }
         
         //datos generales
     //    echo 'datos generales<br>';
@@ -634,6 +640,13 @@ include ('../../../../config/cookie.php');
         }else if(isset($_POST['chk_infonavit']) && $_POST['chk_infonavit'] == 'on'){
             $chk_infonavit='1';
         }    
+        if(!isset($_POST['com'])){
+            $coms='0';
+        }else if(isset($_POST['com'])){
+            $coms=$_POST['com'];
+        }
+
+
         //datos generales
 //        echo 'datos generales<br>';
 //        echo 'estatus: '.$status.'<br>';
@@ -734,6 +747,14 @@ include ('../../../../config/cookie.php');
             $updatep->update_personas_generales($registro,$clave,$nombre,$paterno,$materno,$calle,$numero,$colonia,$cp,$pais,$estado,$municipio,$nacionalidad,$rfc,$nss,$curp,$genero,$correo,$telefono,$celular,$fecha_nac,$status, $edad, $civil,$fecha,$hora,$usid,$afore,$creinfo,$pensionado,$plaza);
             $updatep->update_personas_bancos($registro,$banco,$clavebanco,$cuenta);
             $updatep->update_personas_docs($registro,$chk_comp,$chk_ine,$chk_licencia,$chk_acta,$chk_rfc,$chk_nss,$chk_curp,$chk_certificado,$chk_recomendacion,$chk_antecedentes,$chk_fonacot,$chk_infonavit); 
+            
+            $updatep->elimina_alias($registro);
+            
+           //print_r($coms);
+          foreach ($coms as $co){
+              $updatep->update_personas_alias($registro, $co);
+          }
+
         }
         if($updatep->update == '111'){
             $updatep->exito('../../../../estilos/personasStyles.css');

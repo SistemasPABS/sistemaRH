@@ -173,7 +173,7 @@
         }else if(isset($_POST['com'])){
             $coms=$_POST['com'];
         }
-        // datos de puestos
+// datos de puestos
 //        echo 'datos del puesto<br>';
 //        echo 'Clave: '.$clave.'<br>';
 //        echo 'Nombre: '.$nombre.'<br>';

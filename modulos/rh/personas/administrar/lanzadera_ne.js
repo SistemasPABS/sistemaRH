@@ -268,3 +268,55 @@ function solo_numeros(evt){
     }
 }
 
+
+
+/************************FUNCION DE ALIAS **************************/
+function agragarAlias(alias){
+    
+    var flg='myList';
+    var node = document.createElement("LI");
+        node.setAttribute("id",alias);
+    var input = document.createElement("input");
+    var textnode = document.createTextNode(alias);
+    var boton = document.createElement("label");
+    
+    input.name="com[]";
+    input.value=alias;
+    input.hidden="yes";
+    
+    boton.className="delrow";
+    boton.innerHTML = "eliminar";
+   
+    node.className="licom";
+    node.appendChild(input);
+    node.appendChild(textnode);
+    node.appendChild(boton);
+   
+    var coms = document.getElementsByName("com[]");
+    for(var i=0; i < coms.length; i++){
+        //alert(coms[i].value);
+        if(alias == coms[i].value){
+            flg='ya esta';
+        }
+      }
+      if(flg == 'ya esta'){
+          alert('El alias ya existe');
+      }  
+
+    node.onclick = function(){
+        this.parentElement.removeChild(this);
+    }
+    document.getElementById(flg).appendChild(node);
+}
+
+function eliminar(elemento){
+    //alert('hola');
+    var li = elemento.parentNode;
+    li.parentNode.removeChild(li);
+}
+
+  function limpiar(elemento)
+  {
+    elemento.value = "";
+  }
+/****************************FIN DE ALIAS ***************************************/
