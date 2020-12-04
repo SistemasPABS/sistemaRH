@@ -371,6 +371,11 @@ include ('../../../../config/cookie.php');
             //echo 'el id es:'.$insert->npid.'<br>';
             $insert->banco_personas($banco,$insert->npid,$clavebanco,$cuenta);
             $insert->docs_personas($insert->npid,$chk_comp,$chk_ine,$chk_licencia,$chk_acta,$chk_rfc,$chk_nss,$chk_curp,$chk_certificado,$chk_recomendacion,$chk_antecedentes,$chk_fonacot,$chk_infonavit); 
+           /**Insertando alias de la persona*/
+            $updatep->elimina_alias($registro);
+            foreach ($coms as $co){
+                $updatep->update_personas_alias($registro, $co);
+            }
         }
         if($insert->inserts == '111'){
             $insert->exito('../../../../estilos/personasStyles.css');

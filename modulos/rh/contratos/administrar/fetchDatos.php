@@ -20,6 +20,7 @@ $search=$_POST['search'];
                 //Asignacion de valores dentro del Array
                 $response[] = array("value"=>$row['persona_id'],
                                     "label"=>$row['nombrecompleto'],
+                                    
                                     "dir"=>$row['direccion'],
                                     "genero"=>$row['persona_genero'],
                                     "rfc"=>$row['persona_rfc'],

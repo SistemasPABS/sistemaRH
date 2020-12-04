@@ -10,7 +10,22 @@
   font-style: normal;
   font-variant: small-caps;
   text-transform: none;
-  background: linear-gradient(to right, #0a0a0a ,#54a3f7);
+  background: linear-gradient(to right, #0a0a0a ,#18ab29);
+  color: transparent;
+  background-clip: text;
+}
+.titulo_12
+{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 4vw;
+  letter-spacing: 3.8px;
+  word-spacing: -0.2px;
+  font-weight: 700;
+  text-decoration: underline solid rgb(68, 68, 68);
+  font-style: normal;
+  font-variant: small-caps;
+  text-transform: none;
+  background: linear-gradient(to right, #327cad ,#FFFFFF);
   color: transparent;
   background-clip: text;
 }
@@ -27,6 +42,19 @@
   font-variant: small-caps;
   text-transform: none;
 }
+.titulo_3
+{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 3.5vw;
+  letter-spacing: 3.8px;
+  word-spacing: -0.2px;
+  color:white;
+  font-weight: 700;
+  font-style: italic;
+  font-variant: small-caps;
+  text-transform: none;
+}
+
 .parrafo
 {
   font-family: Arial, Helvetica, sans-serif;
@@ -39,9 +67,29 @@
   font-variant: small-caps;
   text-transform: none;
 }
+/************* FONDOS ******************/
+.fondo5{
+  width: 100%;
+  height: 100%;
+  background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(19,19,20,1) 0%, rgba(68,107,115,1) 41%, rgba(112,185,200,1) 100%);
+}
+
+/*********** FIN FONDOS ***************/
 
 /* MODALES */
 .modal2 {
+  display: block; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background: linear-gradient(to right, rgba(10,10,10,0.9) , rgba(84,163,247,0.9));
+}
+.modal3 {
     display: block; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 1; /* Sit on top */
@@ -50,12 +98,11 @@
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
-    background: linear-gradient(to right, rgba(10,10,10,0.9) , rgba(84,163,247,0.9));
+    background: linear-gradient(to right, rgba(10,10,10,0.9) , rgba(113,236,98,0.9));
   }
-  
-  /* Modal Content/Box */
+
+    /* Modal Content/Box */
   .modal-content {
-    
     background: rgba(255,255,255,1);
     background: -moz-linear-gradient(left, rgba(255,255,255,1) 0%, rgba(246,246,246,1) 47%, rgba(237,237,237,1) 100%);
     margin: 15% auto; 
@@ -91,8 +138,7 @@
   }
   #modal-container.one.out .modal-background .modal {
     animation: zoomOut 0.5s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
-  }
-  
+  }  
   #modal-container .modal-background {
     display: table-cell;
     background: rgba(0, 0, 0, 0.8);
@@ -145,8 +191,7 @@
   .content .buttons .button:hover {
     color: white;
     background: #009bd5;
-  }
-  
+  }  
   @keyframes unfoldIn {
     0% {
       transform: scaleY(0.005) scaleX(0);
@@ -184,12 +229,8 @@
     100% {
       transform: scale(0);
     }
-  }
-  
+  }  
   /*******************************/
-
-
-
 
 /*INPUT*/
     .input_A {
@@ -209,11 +250,14 @@
         border-width: 3px;
         border-color: #3b87aa;
     }
-
-    /*************************************/
- 
-    
-    .filupp > input[type="file"]{
+    .input10{
+      width: 18%;
+    }
+    .input11{
+      width: 78%;
+    }
+/*************************************/
+     .filupp > input[type="file"]{
       position: absolute;
       width: 1px;
       height: 10px;
@@ -249,7 +293,6 @@
     }
     .filupp:after{
       content: "\279c";
-
       position: absolute;
       top: .65em ;
       right: .45em;
@@ -263,9 +306,7 @@
 
 /********************************************/    
 
-/*SELECTS*/
 /*sELECT 2*/
-
 .dropdown {
   display: inline-block;
   position: relative;
@@ -669,5 +710,74 @@
 
   }
 
+/********************** Estilos Tablas  **********************************/
 
+
+table.blueTable {
+  border: 1px solid #1C6EA4;
+  background-color: #EEEEEE;
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}
+table.blueTable td, table.blueTable th {
+  border: 1px solid #AAAAAA;
+  padding: 3px 2px;
+}
+table.blueTable tbody td {
+  font-size: 0.6em;
+}
+table.blueTable tr:nth-child(even) {
+  background: #D0E4F5;
+}
+table.blueTable thead {
+  font-size:0.7em;
+  font-weight: bold;
+  color: #FFFFFF;
+  background: #1C6EA4;
+  background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+  background: -webkit-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+  background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+  border-bottom: 2px solid #444444;
+}
+table.blueTable thead th {
+  font-size:0.5em;
+  font-weight: bold;
+  color: #FFFFFF;
+  border-left: 2px solid #D0E4F5;
+}
+table.blueTable thead th:first-child {
+  border-left: none;
+}
+
+table.blueTable tfoot {
+  font-size: 0.5em;
+  font-weight: bold;
+  color: #FFFFFF;
+  background: #D0E4F5;
+  background: -moz-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+  background: -webkit-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+  background: linear-gradient(to bottom, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+  border-top: 2px solid #444444;
+}
+table.blueTable tfoot td {
+  font-size: 0.5em;
+}
+table.blueTable tfoot .links {
+  text-align: right;
+}
+table.blueTable tfoot .links a{
+  display: inline-block;
+  background: #1C6EA4;
+  color: #FFFFFF;
+  padding: 2px 8px;
+  border-radius: 5px;
+}
+#no_asig {
+  color: red;
+  
+}
+
+
+/********************** Fin estilos Tablas *******************************/
   /*************** FIN Estilos ImportarXP ********************************/
